@@ -1,0 +1,14 @@
+!!! 5
+%html{ lang: "en"}
+  %head
+    %meta{charset: "utf-8"}
+    %title
+      New tech
+    = favicon_link_tag 'favicon.ico'
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body{class: "application"}
+    .container
+      .content
+        = yield
