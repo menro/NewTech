@@ -13,6 +13,9 @@
 # Ingore variables configuration files
 database.yml
 
+# Ingore IDE confifurations
+.idea
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
