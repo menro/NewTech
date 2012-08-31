@@ -20,6 +20,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+# twitter bootstrap 
+gem 'bootstrap-sass'
+
 # To use HAML instead of ERB
 gem "haml-rails"
 
