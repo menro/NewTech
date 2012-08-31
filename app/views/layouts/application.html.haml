@@ -7,20 +7,22 @@
     %meta{:content => "", :name => "description"}
     %meta{:content => "", :name => "author"}
     = stylesheet_link_tag    "application", :media => "all"
-    = javascript_include_tag "application"
+    = yield(:stylesheets)
     = csrf_meta_tags
     = yield(:head)
     %title
       New tech
     = favicon_link_tag 'favicon.ico'
     = stylesheet_link_tag    "application"
-    = javascript_include_tag "application"
     = csrf_meta_tags
   %body
     %header.navbar.navbar-fixed-top
       %nav.navbar-inner
         .container
-          = link_to "Home", root_path, :class => 'brand'
+          .pull-left
+            = render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap
+          .pull-right
+            = render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap, :context => :user
     #main{:role => "main"}
       .container
         .content
@@ -28,3 +30,5 @@
             .span12
               = yield
           %footer
+    = javascript_include_tag "application"
+    = yield(:javascripts)

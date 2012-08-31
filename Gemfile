@@ -23,6 +23,12 @@ end
 # twitter bootstrap 
 gem 'bootstrap-sass'
 
+# simple navigation with bootstrap builder support
+gem 'simple-navigation-bootstrap'
+
+# make beautifull with awesome icons
+gem 'font-awesome-sass-rails'
+
 # To use HAML instead of ERB
 gem "haml-rails"
 
