@@ -15,7 +15,7 @@ Setup gem dependencies:
     $ bundle install
 
 Run system:bootstrap rake task:
-
+    $ rake db:create
     $ rake system:bootstrap
 
 Run rails server:
