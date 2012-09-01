@@ -23,6 +23,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+# Authentication and Authorization
+gem "devise", ">= 2.1.0"
+
 # twitter bootstrap 
 gem 'bootstrap-sass'
 

@@ -23,10 +23,8 @@
             = render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap, :context => :user
     #main{:role => "main"}
       .container
-        .content
-          .row
-            .span12
-              = yield
-          %footer
+        = render :partial => 'layouts/messages'
+        = yield
+        %footer
     = javascript_include_tag "application"
     = yield(:javascripts)
