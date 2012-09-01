@@ -1,19 +1,23 @@
-# Welcome to Newtech
+## Welcome to Newtech
 
 Newtech is a web-application visible at http://demo.algonauti.com/newtech
 
 
-# Getting Started
+## Getting Started
 
-1. At the command prompt (from Rails.root), create .env and database.yml configuration files:
-       <tt>cp .env .env </tt>
-       <tt>cp .config/database.yml-example .config/database.yml </tt>
+* At the command prompt (from Rails.root), create .env and database.yml configuration files and setup preferences:
+    cp .env-example .env
+    cp .config/database.yml-example .config/database.yml
 
-2. Configure application settings (datasource, etc)
+* Setup gem dependencies
+    bundle install
 
-3. Run system:bootstrap rake task
-    <tt>rake system:bootstrap</tt>
+* Run system:bootstrap rake task:
+    rake system:bootstrap
 
-4. Go to http://localhost:3000/
+* Run rails server
+    rails s
+
+* Go to http://localhost:3000/
 
 
