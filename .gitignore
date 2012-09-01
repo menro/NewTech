@@ -12,6 +12,7 @@
 
 # Ingore variables configuration files
 database.yml
+.env*
 
 # Ingore IDE confifurations
 .idea
