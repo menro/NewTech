@@ -11,9 +11,42 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120901113141) do
+ActiveRecord::Schema.define(:version => 20120901191503) do
+
+  create_table "companies", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "permalink"
+    t.string   "homepage_url"
+    t.string   "blog_url"
+    t.string   "category_code"
+    t.string   "number_of_employees"
+    t.string   "founded_year"
+    t.string   "email_address"
+    t.string   "phone_number"
+    t.string   "description"
+    t.text     "overview"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  create_table "offices", :force => true do |t|
+    t.integer  "company_id"
+    t.string   "description"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "zip_code"
+    t.string   "city"
+    t.string   "state_code"
+    t.string   "country_code"
+    t.string   "latitude"
+    t.string   "longitude"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "users", :force => true do |t|
+    t.string   "username",               :default => "", :null => false
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
