@@ -1,9 +1,9 @@
-== Welcome to Newtech
+# Welcome to Newtech
 
 Newtech is a web-application visible at http://demo.algonauti.com/newtech
 
 
-== Getting Started
+# Getting Started
 
 1. At the command prompt (from Rails.root), create .env and database.yml configuration files:
        <tt>cp .env .env </tt>
