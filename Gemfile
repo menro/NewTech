@@ -51,6 +51,8 @@ group :development do
    gem 'thin', '1.4.1'
 end
 
+gem "httpclient"
+
 # Deploy with Capistrano
 # gem 'capistrano'
 
