@@ -1,8 +1,8 @@
 class Company < ActiveRecord::Base
-  belongs_to :user
+  belongs_to  :user
+  belongs_to  :category
 
   has_many :offices
-  accepts_nested_attributes_for :offices
 
   has_and_belongs_to_many :tags
 

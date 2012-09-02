@@ -13,13 +13,19 @@
 
 ActiveRecord::Schema.define(:version => 20120902070001) do
 
+  create_table "categories", :force => true do |t|
+    t.string   "code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "companies", :force => true do |t|
     t.integer  "user_id"
+    t.integer  "category_id"
     t.string   "name"
     t.string   "permalink"
     t.string   "homepage_url"
     t.string   "blog_url"
-    t.string   "category_code"
     t.string   "number_of_employees"
     t.string   "founded_year"
     t.string   "email_address"

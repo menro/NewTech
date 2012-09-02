@@ -8,16 +8,19 @@ class CrunchbaseService
         company = Company.create do |c|
           c.user = User.find_by_username("admin")
           c.name = details.delete("name")
+
           c.permalink = details.delete("permalink")
           c.homepage_url = details.delete("homepage_url")
           c.blog_url = details.delete("blog_url")
-          c.category_code = details.delete("category_code")
+
           c.number_of_employees = details.delete("number_of_employees")
           c.founded_year = details.delete("founded_year")
           c.email_address = details.delete("email_address")
           c.phone_number = details.delete("phone_number")
           c.description = details.delete("description")
           c.overview =  details.delete("overview").gsub(/<\/?[^>]+>/, '') rescue nil
+
+          c.category = Category.find_or_create_by_code( details.delete("category_code") )
 
           ( details.delete("tag_list").split(",") rescue [] ).each do |tag|
             c.tags << Tag.find_or_create_by_code(tag.strip)
@@ -34,7 +37,7 @@ class CrunchbaseService
               o.state_code    = company_offices.delete("state_code")
               o.country_code  = company_offices.delete("country_code")
               o.latitude      = company_offices.delete("latitude")
-              o.latitude      = company_offices.delete("latitude")
+              o.longitude     = company_offices.delete("longitude")
             end
             c.offices << office
           end
