@@ -53,6 +53,8 @@ end
 
 gem "httpclient"
 
+gem 'rabl'
+
 # Deploy with Capistrano
 # gem 'capistrano'
 

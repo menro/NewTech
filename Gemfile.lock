@@ -78,6 +78,9 @@ GEM
     mysql2 (0.3.11)
     orm_adapter (0.4.0)
     polyglot (0.3.3)
+    rabl (0.7.1)
+      activesupport (>= 2.3.14)
+      multi_json (~> 1.0)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -148,6 +151,7 @@ DEPENDENCIES
   httpclient
   jquery-rails
   mysql2
+  rabl
   rails (= 3.2.8)
   sass-rails (~> 3.2.3)
   simple-navigation-bootstrap
