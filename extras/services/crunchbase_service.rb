@@ -1,6 +1,6 @@
 class CrunchbaseService
-
   def self.import_companies_of_colorado
+
     companies_of_colorado.each do |company_of_colorado|
       puts "Import company: #{company_of_colorado['name']}"
       details = company_details company_of_colorado['permalink']
@@ -17,7 +17,11 @@ class CrunchbaseService
           c.email_address = details.delete("email_address")
           c.phone_number = details.delete("phone_number")
           c.description = details.delete("description")
-          c.overview = details.delete("overview")
+          c.overview =  details.delete("overview").gsub(/<\/?[^>]+>/, '') rescue nil
+
+          ( details.delete("tag_list").split(",") rescue [] ).each do |tag|
+            c.tags << Tag.find_or_create_by_code(tag.strip)
+          end
 
           offices = details.delete("offices")
           offices.each do |company_offices|
