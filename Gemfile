@@ -28,11 +28,9 @@ group :assets do
   gem "uglifier", "1.0.3"
   gem "therubyracer"
 
-  gem 'chosen-rails'
   gem "jquery-rails", "2.0.2"
   gem "jquery-ui-rails", "0.5.0"
   gem "modernizr", "2.5.3"
-  gem "raphael-rails", "1.5.2"
   gem 'bootstrap-sass', "2.0.4"
 end
 
