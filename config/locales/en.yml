@@ -5,5 +5,6 @@ en:
   simple_navigation:
     account:
       profile: "Profile"
+      logout: "Logout"
     home: "Home"
     login: "Login"
