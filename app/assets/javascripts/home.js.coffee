@@ -4,7 +4,6 @@
 
 class GMap
   constructor: (container) ->
-
     defaultOptions =
       zoom:        7
       scrollwheel: false
@@ -12,6 +11,20 @@ class GMap
       center:      new google.maps.LatLng(39.232253,-105.08606)
 
     currentMap = new google.maps.Map(container, defaultOptions)
+
+    markers = []
+
+    $.getJSON $(container).data("offices_url"), (data) ->
+      $.each data, (i, result) ->
+        office = result.office
+
+        marker =
+          map: currentMap
+          position: new google.maps.LatLng(office.latitude, office.longitude)
+          title: office.company_name
+
+        markers += new google.maps.Marker(marker)
+
 
   @init: (container) ->
     console.log "Initialize Gmap"
