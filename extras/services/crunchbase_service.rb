@@ -43,7 +43,7 @@ class CrunchbaseService
           end
 
         end
-        company.destroy unless company.in_colorado?
+        company.destroy if company.out_of_colorado?
       end
     end
   end
@@ -61,13 +61,16 @@ class CrunchbaseService
   end
 
   def self.companies_of_colorado
+    puts "fetch companies of colorado's"
     page=1
     results = []
     companies = []
     begin
+      results = []
       client = HTTPClient.new
       response = client.get "http://api.crunchbase.com/v/1/search.js", {
-          :geo  => "Denver",
+          :geo  => "co",
+          :range => 200,
           :page => page
       }
       status = response.header.status_code
