@@ -10,24 +10,8 @@ gem 'configatron', '2.8.4'
 
 gem 'mysql2'
 
-
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', :platforms => :ruby
-
-  gem 'uglifier', '>= 1.0.3'
-end
-
-# Authentication and Authorization
+# Authentication
 gem "devise", ">= 2.1.0"
-
-# twitter bootstrap 
-gem 'bootstrap-sass'
 
 # simple navigation with bootstrap builder support
 gem 'simple-navigation-bootstrap'
@@ -35,16 +19,22 @@ gem 'simple-navigation-bootstrap'
 # make beautifull with awesome icons
 gem 'font-awesome-sass-rails'
 
-# To use HAML instead of ERB
-gem "haml-rails"
+# HAML
+gem 'haml-rails'
 
-gem 'jquery-rails'
+group :assets do
+  gem "sass-rails", "3.2.5"
+  gem "coffee-rails", "3.2.2"
+  gem "uglifier", "1.0.3"
+  gem "therubyracer"
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
+  gem 'chosen-rails'
+  gem "jquery-rails", "2.0.2"
+  gem "jquery-ui-rails", "0.5.0"
+  gem "modernizr", "2.5.3"
+  gem "raphael-rails", "1.5.2"
+  gem 'bootstrap-sass', "2.0.4"
+end
 
 group :development do
    # Use thin as the app server
