@@ -10,7 +10,23 @@ load_env('.env')
 load_env(".env_#{Rails.env}")
 
 
+# application base
+configatron.host = ENV['HOST']
 configatron.app_name = ENV['APP_NAME']
+configatron.secret_token = ENV['SECRET_TOKEN']
+configatron.session_store = ENV['SESSION_STORE']
+
+# Email
+configatron.email.delivery_method = ENV['EMAIL_DELIVERY_METHOD'].to_sym
+configatron.email.enable_starttls_auto = ENV['EMAIL_START_SSL']
+configatron.email.address = ENV['EMAIL_FROM_ADDRESS']
+configatron.email.noreply = ENV['EMAIL_NO_REPLY']
+configatron.email.port = ENV['EMAIL_PORT']
+configatron.email.domain = ENV['EMAIL_DOMAIN']
+configatron.email.user_name = ENV['EMAIL_USER_NAME']
+configatron.email.password = ENV['EMAIL_PASSWORD']
+configatron.email.authentication = ENV['EMAIL_AUTHENTICATION']
+
 
 
 

@@ -4,7 +4,7 @@ Newtech::Application.routes.draw do
     resources :offices, :only => [:index]
   end
 
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => :registrations }
 
   root :to => 'home#welcome'
 
