@@ -17,7 +17,7 @@ configatron.secret_token = ENV['SECRET_TOKEN']
 configatron.session_store = ENV['SESSION_STORE']
 
 # Email
-configatron.email.delivery_method = ENV['EMAIL_DELIVERY_METHOD'].to_sym
+configatron.email.delivery_method = ( ENV['EMAIL_DELIVERY_METHOD'] || "smtp" ).to_sym
 configatron.email.enable_starttls_auto = ENV['EMAIL_START_SSL']
 configatron.email.address = ENV['EMAIL_FROM_ADDRESS']
 configatron.email.noreply = ENV['EMAIL_NO_REPLY']
