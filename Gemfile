@@ -35,6 +35,9 @@ group :assets do
 end
 
 group :development do
+   # Deploy with Capistrano
+   gem 'capistrano'
+   
    # Use thin as the app server
    gem 'thin', '1.4.1'
 end
@@ -44,8 +47,7 @@ gem "httpclient"
 # API
 gem 'rabl'
 
-# Deploy with Capistrano
-# gem 'capistrano'
+
 
 # To use debugger
 # gem 'debugger'
