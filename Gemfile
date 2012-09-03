@@ -41,6 +41,7 @@ end
 
 gem "httpclient"
 
+# API
 gem 'rabl'
 
 # Deploy with Capistrano
