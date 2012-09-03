@@ -20,3 +20,8 @@ database.yml
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ingore capistrano configuration files
+Capfile
+config/deploy.rb
+
