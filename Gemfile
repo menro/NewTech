@@ -42,6 +42,7 @@ group :development do
    gem 'thin', '1.4.1'
 end
 
+# REST
 gem "httpclient"
 
 # API

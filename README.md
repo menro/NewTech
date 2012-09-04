@@ -1,6 +1,6 @@
 ## Welcome to Newtech
 
-Newtech is a web-application visible at http://demo.algonauti.com/newtech
+Newtech is a web-application visible at http://newtech.algonauti.com/
 
 
 ## Getting Started
