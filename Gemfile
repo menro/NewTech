@@ -26,7 +26,7 @@ group :assets do
   gem "sass-rails", "3.2.5"
   gem "coffee-rails", "3.2.2"
   gem "uglifier", "1.0.3"
-  gem "therubyracer"
+  #gem "therubyracer" our use nodejs
 
   gem "jquery-rails", "2.0.2"
   gem "jquery-ui-rails", "0.5.0"
@@ -37,7 +37,8 @@ end
 group :development do
    # Deploy with Capistrano
    gem 'capistrano'
-   
+   gem 'rvm-capistrano'
+
    # Use thin as the app server
    gem 'thin', '1.4.1'
 end
@@ -48,7 +49,3 @@ gem "httpclient"
 # API
 gem 'rabl'
 
-
-
-# To use debugger
-# gem 'debugger'
