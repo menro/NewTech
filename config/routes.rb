@@ -4,7 +4,7 @@ Newtech::Application.routes.draw do
     resources :offices, :only => [:index]
   end
 
-  resources :companies, :only => [:new]
+  resources :companies, :only => [:new, :create]
 
   devise_for :users, :controllers => { :registrations => :registrations }
 
