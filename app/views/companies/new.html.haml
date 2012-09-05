@@ -1,71 +1,24 @@
-= form_for(@company, :html => { :class => "form-horizontal"} ) do |f|
-  - if @company.errors.any?
-    .alert-message.block-message.error
-      %ul
-        - @company.errors.full_messages.each do |msg|
-          %li= msg
+= simple_form_for(@company, :validate => true, :html => {:class => 'form-horizontal' }) do |f|
   .span12.new_company
     .span5
       .well
-        .control-group
-          = f.label :name, "Company Name", :class => "control-label"
-          .controls
-            = f.text_field :name, class: "xxlarge"
-
-        .control-group
-          = f.label :address, "Address", :class => "control-label"
-          .controls
-            = f.text_field :address, class: "xxlarge"
-
-        .control-group
-          = f.label :city, "City", :class => "control-label"
-          .controls
-            = f.text_field :city, class: "xxlarge"
-
-        .control-group
-          = f.label :zip, "Zip", :class => "control-label"
-          .controls
-            = f.text_field :zip, class: "xxlarge"
-
-        .control-group
-          = f.label :email_address, "Email", :class => "control-label"
-          .controls
-            = f.text_field :email_address, class: "xxlarge"
-
-        .control-group
-          = f.label :founded_year, "Founded", :class => "control-label"
-          .controls
-            = f.text_field :founded_year, class: "xxlarge"
-
-        .control-group
-          = f.label :name, "Tags", :class => "control-label"
-          .controls
-            = f.text_field :name, class: "xxlarge"
-
+        .form-inputs.row
+          = f.input :name, :label => "Company Name", :as => :string
+          = f.input :address, :label => "Email", :as => :string
+          = f.input :city, :as => :string
+          = f.input :zip,  :as => :string
+          = f.input :email_address, :as => :string
+          = f.input :founded_year, :as => :string
+          = f.input :description
       .well
     .span5
       .well
       .well
       .well
       .well
-        .control-group
-          = f.label :homepage_url, "URL", :class => "control-label"
-          .controls
-            = f.text_field :homepage_url, class: "xxlarge"
-        .control-group
-          = f.label :twitter, "Twitter", :class => "control-label"
-          .controls
-            = f.text_field :twitter, class: "xxlarge"
-        .control-group
-          = f.label :facebook, "Facebook", :class => "control-label"
-          .controls
-            = f.text_field :facebook, class: "xxlarge"
-        .control-group
-          = f.label :jobs_url, "Jobs URL", :class => "control-label"
-          .controls
-            = f.text_field :jobs_url, class: "xxlarge"
   %br
   .control-group
     .controls
       .actions
         = f.submit 'Save', class: "btn btn-success"
+

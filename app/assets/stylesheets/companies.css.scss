@@ -12,7 +12,7 @@
     }
     input,
     label {
-      font-size:16px;
+      font-size:14px;
       line-height:20px;
       padding:8px;
     }
@@ -23,15 +23,18 @@
     input {
       width: 95%;
     }
-
     textarea {
       width: 95%;
+      height: 50px;
+    }
+    abbr {
+      color: red;
     }
   }
   .btn {
     margin-top: 10px;
-    width: 250px;
+    width: 300px;
     height: 50px;
-    text-align: center;
+    text-align: center
   }
 }

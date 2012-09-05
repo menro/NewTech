@@ -22,6 +22,12 @@ gem 'font-awesome-sass-rails'
 # HAML
 gem 'haml-rails'
 
+# simple form
+gem 'simple_form'
+
+# Use clien side validation
+gem 'client_side_validations'
+
 group :assets do
   gem "sass-rails", "3.2.5"
   gem "coffee-rails", "3.2.2"

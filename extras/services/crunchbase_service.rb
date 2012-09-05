@@ -11,8 +11,6 @@ class CrunchbaseService
 
           c.permalink = details.delete("permalink")
           c.homepage_url = details.delete("homepage_url")
-          c.blog_url = details.delete("blog_url")
-
           c.number_of_employees = details.delete("number_of_employees")
           c.founded_year = details.delete("founded_year")
           c.email_address = details.delete("email_address")

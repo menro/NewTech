@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20120902070001) do
     t.string   "founded_year"
     t.string   "email_address"
     t.string   "phone_number"
-    t.string   "description"
+    t.text     "description"
     t.text     "overview"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false

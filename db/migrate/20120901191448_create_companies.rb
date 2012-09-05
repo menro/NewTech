@@ -18,7 +18,7 @@ class CreateCompanies < ActiveRecord::Migration
       t.string      :founded_year
       t.string      :email_address
       t.string      :phone_number
-      t.string      :description
+      t.text        :description
       t.text        :overview
       t.timestamps
     end
