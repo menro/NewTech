@@ -1,7 +1,7 @@
 = content_for :javascripts, javascript_include_tag("https://maps.googleapis.com/maps/api/js?sensor=false")
-= content_for :javascripts, javascript_include_tag("http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer_compiled.js")
+//= content_for :javascripts, javascript_include_tag("http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer_compiled.js")
 
 .content
   .row
     .span12
-      .gmap{ :data => { :offices_url => "#{api_v1_offices_url(:json)}" } }
+      .gmap{ :data => { :offices_url => "#{api_v1_offices_url(:json)}", :cluster_styles_url => "http://localhost:3000/cluster_styles.json" } }
