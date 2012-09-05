@@ -4,10 +4,10 @@ SimpleNavigation::Configuration.run do |navigation|
   navigation.selected_class = 'active'
 
   navigation.items do |primary|
-    primary.item :home, t(:'simple_navigation.home'), root_path
-    unless user_signed_in?
-      primary.item :login, t(:'simple_navigation.login'), new_user_session_path
-    end
+    primary.item :jobs, t(:'simple_navigation.jobs'), "#"
+    primary.item :register_to_attend, t(:'simple_navigation.register_to_attend'), "#"
+    primary.item :present, t(:'simple_navigation.present'), "#"
+    primary.item :add_you_company, t(:'simple_navigation.add_you_company'), "#"
     primary.dom_class = 'nav'
   end
 

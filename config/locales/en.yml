@@ -7,4 +7,8 @@ en:
       profile: "Profile"
       logout: "Logout"
     home: "Home"
+    jobs:  "Jobs"
     login: "Login"
+    present:  "Present"
+    add_you_company:  "Add you company"
+    register_to_attend: "Register to attend"
