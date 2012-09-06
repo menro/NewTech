@@ -1,9 +1,7 @@
 Newtech::Application.routes.draw do
 
-  namespace "api" do
-    scope "/v1", :as => "v1" do
-      resources :offices, :only => [:index]
-    end
+  scope "api/v1", :as => "api_v1" do
+    resources :offices, :only => [:index]
   end
 
   resources :companies, :only => [:create, :new]

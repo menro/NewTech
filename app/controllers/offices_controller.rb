@@ -1,4 +1,4 @@
-class Api::OfficesController < ApplicationController
+class OfficesController < ApplicationController
   respond_to :json
 
   def index
