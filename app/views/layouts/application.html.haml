@@ -10,13 +10,13 @@
     = yield(:stylesheets)
     = csrf_meta_tags
     = yield(:head)
-    = favicon_link_tag 'favicon.ico'
     = stylesheet_link_tag    "application"
     = csrf_meta_tags
   %body
     %header.navbar.navbar-fixed-top
       %nav.navbar-inner
         .container
+          = link_to "Home", root_path, :class => "brand"
           .pull-left
             = render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap
           .pull-right

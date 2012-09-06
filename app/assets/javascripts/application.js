@@ -15,5 +15,6 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require modernizr
+//= require rails.validations
 //= require_tree .
 

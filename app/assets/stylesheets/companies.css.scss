@@ -1,0 +1,40 @@
+// Place all the styles related to the companies controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+#new_company {
+  .new_company {
+    .well {
+      margin: 10px 0 0 0;
+      padding: 10px 10px 0 0;
+    }
+    input,
+    label {
+      font-size:14px;
+      line-height:20px;
+      padding:8px;
+    }
+    label {
+      color:#888;
+
+    }
+    input {
+      width: 95%;
+    }
+    textarea {
+      width: 95%;
+      height: 50px;
+    }
+    abbr {
+      color: red;
+    }
+  }
+  .btn {
+    margin-top: 10px;
+    width: 300px;
+    height: 50px;
+    text-align: center
+  }
+}

@@ -1,0 +1,24 @@
+= simple_form_for(@company, :validate => true, :html => {:class => 'form-horizontal' }) do |f|
+  .span12.new_company
+    .span5
+      .well
+        .form-inputs.row
+          = f.input :name, :label => "Company Name", :as => :string
+          = f.input :address, :label => "Email", :as => :string
+          = f.input :city, :as => :string
+          = f.input :zip,  :as => :string
+          = f.input :email_address, :as => :string
+          = f.input :founded_year, :as => :string
+          = f.input :description
+      .well
+    .span5
+      .well
+      .well
+      .well
+      .well
+  %br
+  .control-group
+    .controls
+      .actions
+        = f.submit 'Save', class: "btn btn-success"
+

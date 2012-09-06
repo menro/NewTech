@@ -22,11 +22,17 @@ gem 'font-awesome-sass-rails'
 # HAML
 gem 'haml-rails'
 
+# simple form
+gem 'simple_form'
+
+# Use clien side validation
+gem 'client_side_validations'
+
 group :assets do
   gem "sass-rails", "3.2.5"
   gem "coffee-rails", "3.2.2"
   gem "uglifier", "1.0.3"
-  gem "therubyracer"
+  #gem "therubyracer" our use nodejs
 
   gem "jquery-rails", "2.0.2"
   gem "jquery-ui-rails", "0.5.0"
@@ -35,17 +41,17 @@ group :assets do
 end
 
 group :development do
+   # Deploy with Capistrano
+   gem 'capistrano'
+   gem 'rvm-capistrano'
+
    # Use thin as the app server
    gem 'thin', '1.4.1'
 end
 
+# REST
 gem "httpclient"
 
 # API
 gem 'rabl'
 
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'
