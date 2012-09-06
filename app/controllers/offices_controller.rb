@@ -2,6 +2,6 @@ class OfficesController < ApplicationController
   respond_to :json
 
   def index
-    @offices = Office.all
+    @offices = OfficeService.all
   end
 end

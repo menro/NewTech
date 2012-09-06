@@ -1,9 +1,7 @@
 class CategoryService
 
-  class << self
-    def all
-      Category.all
-    end
+  def self.all
+    Category.all
   end
 
 end
