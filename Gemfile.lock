@@ -31,7 +31,7 @@ GEM
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.0.4.0)
-    builder (3.0.0)
+    builder (3.0.1)
     capistrano (2.13.3)
       highline
       net-scp (>= 1.0.0)
@@ -39,6 +39,7 @@ GEM
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
     client_side_validations (3.1.4)
+    cocaine (0.3.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -96,6 +97,12 @@ GEM
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     orm_adapter (0.4.0)
+    paperclip (3.1.4)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (>= 0.0.2)
+      mime-types
     polyglot (0.3.3)
     rabl (0.7.1)
       activesupport (>= 2.3.14)
@@ -177,6 +184,7 @@ DEPENDENCIES
   jquery-ui-rails (= 0.5.0)
   modernizr (= 2.5.3)
   mysql2
+  paperclip (~> 3.0)
   rabl
   rails (= 3.2.8)
   rvm-capistrano

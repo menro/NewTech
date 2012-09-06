@@ -55,3 +55,6 @@ gem "httpclient"
 # API
 gem 'rabl'
 
+# Attachment
+gem "paperclip", "~> 3.0"
+
