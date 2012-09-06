@@ -1,0 +1,266 @@
+[
+    [{
+        "url": "assets/circle_red_48.png",
+        "height": 48,
+        "width": 48,
+        "anchor": [24, 0],
+        "textColor": "#ff00ff",
+        "textSize": 10
+      }, {
+        "url": "assets/circle_red_64.png",
+        "height": 64,
+        "width": 64,
+        "anchor": [32, 0],
+        "textColor": "#ff00ff",
+        "textSize": 11
+      }, {
+        "url": "assets/circle_red_80.png",
+        "height": 80,
+        "width": 80,
+        "anchor": [40, 0],
+        "textColor": "#ff00ff",
+        "textSize": 12
+      }, {
+        "url": "assets/circle_red_96.png",
+        "height": 96,
+        "width": 96,
+        "anchor": [48, 0],
+        "textColor": "#ff00ff",
+        "textSize": 13
+      }, {
+        "url": "assets/circle_red_112.png",
+        "height": 112,
+        "width": 112,
+        "anchor": [56, 0],
+        "textColor": "#ff00ff",
+        "textSize": 14
+      }, {
+        "url": "assets/circle_red_128.png",
+        "height": 128,
+        "width": 128,
+        "anchor": [64, 0],
+        "textColor": "#ff00ff",
+        "textSize": 15
+      }],
+
+    [{
+        "url": "assets/circle_green_48.png",
+        "height": 48,
+        "width": 48,
+        "anchor": [24, 0],
+        "textColor": "#ff00ff",
+        "textSize": 10
+    }, {
+        "url": "assets/circle_green_64.png",
+        "height": 64,
+        "width": 64,
+        "anchor": [32, 0],
+        "textColor": "#ff00ff",
+        "textSize": 11
+    }, {
+        "url": "assets/circle_green_80.png",
+        "height": 80,
+        "width": 80,
+        "anchor": [40, 0],
+        "textColor": "#ff00ff",
+        "textSize": 12
+    }, {
+        "url": "assets/circle_green_96.png",
+        "height": 96,
+        "width": 96,
+        "anchor": [48, 0],
+        "textColor": "#ff00ff",
+        "textSize": 13
+    }, {
+        "url": "assets/circle_green_112.png",
+        "height": 112,
+        "width": 112,
+        "anchor": [56, 0],
+        "textColor": "#ff00ff",
+        "textSize": 14
+    }, {
+        "url": "assets/circle_green_128.png",
+        "height": 128,
+        "width": 128,
+        "anchor": [64, 0],
+        "textColor": "#ff00ff",
+        "textSize": 15
+    }],
+
+    [{
+        "url": "assets/circle_blue_48.png",
+        "height": 48,
+        "width": 48,
+        "anchor": [24, 0],
+        "textColor": "#ff00ff",
+        "textSize": 10
+    }, {
+        "url": "assets/circle_blue_64.png",
+        "height": 64,
+        "width": 64,
+        "anchor": [32, 0],
+        "textColor": "#ff00ff",
+        "textSize": 11
+    }, {
+        "url": "assets/circle_blue_80.png",
+        "height": 80,
+        "width": 80,
+        "anchor": [40, 0],
+        "textColor": "#ff00ff",
+        "textSize": 12
+    }, {
+        "url": "assets/circle_blue_96.png",
+        "height": 96,
+        "width": 96,
+        "anchor": [48, 0],
+        "textColor": "#ff00ff",
+        "textSize": 13
+    }, {
+        "url": "assets/circle_blue_112.png",
+        "height": 112,
+        "width": 112,
+        "anchor": [56, 0],
+        "textColor": "#ff00ff",
+        "textSize": 14
+    }, {
+        "url": "assets/circle_blue_128.png",
+        "height": 128,
+        "width": 128,
+        "anchor": [64, 0],
+        "textColor": "#ff00ff",
+        "textSize": 15
+    }],
+
+    [{
+        "url": "assets/circle_yellow_48.png",
+        "height": 48,
+        "width": 48,
+        "anchor": [24, 0],
+        "textColor": "#ff00ff",
+        "textSize": 10
+    }, {
+        "url": "assets/circle_yellow_64.png",
+        "height": 64,
+        "width": 64,
+        "anchor": [32, 0],
+        "textColor": "#ff00ff",
+        "textSize": 11
+    }, {
+        "url": "assets/circle_yellow_80.png",
+        "height": 80,
+        "width": 80,
+        "anchor": [40, 0],
+        "textColor": "#ff00ff",
+        "textSize": 12
+    }, {
+        "url": "assets/circle_yellow_96.png",
+        "height": 96,
+        "width": 96,
+        "anchor": [48, 0],
+        "textColor": "#ff00ff",
+        "textSize": 13
+    }, {
+        "url": "assets/circle_yellow_112.png",
+        "height": 112,
+        "width": 112,
+        "anchor": [56, 0],
+        "textColor": "#ff00ff",
+        "textSize": 14
+    }, {
+        "url": "assets/circle_yellow_128.png",
+        "height": 128,
+        "width": 128,
+        "anchor": [64, 0],
+        "textColor": "#ff00ff",
+        "textSize": 15
+    }],
+
+    [{
+        "url": "assets/circle_orange_48.png",
+        "height": 48,
+        "width": 48,
+        "anchor": [24, 0],
+        "textColor": "#ff00ff",
+        "textSize": 10
+    }, {
+        "url": "assets/circle_orange_64.png",
+        "height": 64,
+        "width": 64,
+        "anchor": [32, 0],
+        "textColor": "#ff00ff",
+        "textSize": 11
+    }, {
+        "url": "assets/circle_orange_80.png",
+        "height": 80,
+        "width": 80,
+        "anchor": [40, 0],
+        "textColor": "#ff00ff",
+        "textSize": 12
+    }, {
+        "url": "assets/circle_orange_96.png",
+        "height": 96,
+        "width": 96,
+        "anchor": [48, 0],
+        "textColor": "#ff00ff",
+        "textSize": 13
+    }, {
+        "url": "assets/circle_orange_112.png",
+        "height": 112,
+        "width": 112,
+        "anchor": [56, 0],
+        "textColor": "#ff00ff",
+        "textSize": 14
+    }, {
+        "url": "assets/circle_orange_128.png",
+        "height": 128,
+        "width": 128,
+        "anchor": [64, 0],
+        "textColor": "#ff00ff",
+        "textSize": 15
+    }],
+
+    [{
+        "url": "assets/circle_grey_48.png",
+        "height": 48,
+        "width": 48,
+        "anchor": [24, 0],
+        "textColor": "#ff00ff",
+        "textSize": 10
+      }, {
+        "url": "assets/circle_grey_64.png",
+        "height": 64,
+        "width": 64,
+        "anchor": [32, 0],
+        "textColor": "#ff00ff",
+        "textSize": 11
+      }, {
+        "url": "assets/circle_grey_80.png",
+        "height": 80,
+        "width": 80,
+        "anchor": [40, 0],
+        "textColor": "#ff00ff",
+        "textSize": 12
+      }, {
+        "url": "assets/circle_grey_96.png",
+        "height": 96,
+        "width": 96,
+        "anchor": [48, 0],
+        "textColor": "#ff00ff",
+        "textSize": 13
+      }, {
+        "url": "assets/circle_grey_112.png",
+        "height": 112,
+        "width": 112,
+        "anchor": [56, 0],
+        "textColor": "#ff00ff",
+        "textSize": 14
+      }, {
+        "url": "assets/circle_grey_128.png",
+        "height": 128,
+        "width": 128,
+        "anchor": [64, 0],
+        "textColor": "#ff00ff",
+        "textSize": 15
+      }]
+
+]

@@ -18,6 +18,16 @@
         });
         console.log("Loaded styles for clusters: "+nClusters);
 
+        var markerColors = ['119605','da4747','4681ea']; //PROVVISORIO
+        var markerImages = new Array();
+        for (var i1=0; i1<nClusters; i1++) {
+          var imageUrl = 'http://chart.apis.google.com/chart?cht=mm&chs=24x32&chco=FFFFFF,'
+            + markerColors[i1] + ',000000&ext=.png';
+          var markerImage = new google.maps.MarkerImage(
+            imageUrl, new google.maps.Size(24, 32));
+          markerImages[i1] = markerImage;
+        }
+
         // Initialize Google Map
         var currentMap, defaultOptions;
         defaultOptions = {
@@ -39,17 +49,18 @@
           }
 
           $.each(data, function(i, result) {
+            var iCluster = i%nClusters;
             var marker, office;
             office = result.office;
             marker = new google.maps.Marker({
               //map: currentMap,
               position: new google.maps.LatLng(office.latitude, office.longitude),
               draggable: true,
-              title: office.company_name
+              title: office.company_name,
+              icon: markerImages[iCluster]
             });
             //console.log("marker");
             //console.log(marker);
-            var iCluster = i%nClusters;
             markersMatrix[iCluster][clusterElementsCount[iCluster]++] = marker;
             //return markers += new google.maps.Marker(marker);
           });
