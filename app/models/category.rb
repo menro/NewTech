@@ -25,13 +25,4 @@ class Category < ActiveRecord::Base
                                     :message => "Is not an acceptable cluster_image file"
 
 
-  def cluster_styles
-    results = {}
-    image.styles.each do |k, v|
-      results[k] = "#{image.url(k)}"
-    end
-    results
-  end
-
-
 end

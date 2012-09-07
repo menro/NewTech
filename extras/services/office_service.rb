@@ -1,7 +1,7 @@
 class OfficeService
 
   def self.all
-    Office.all
+    OfficeDecorator.all
   end
 
 end

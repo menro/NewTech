@@ -61,4 +61,6 @@ gem "paperclip", "~> 3.0"
 # Seed data
 gem "seed-fu", '~> 2.2.0'
 
+# Decorators
+gem "draper"
 
