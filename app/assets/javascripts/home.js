@@ -48,10 +48,9 @@
             clusterElementsCount[j] = 0;
           }
 
-          $.each(data, function(i, result) {
+          $.each(data, function(i, office) {
             var iCluster = i%nClusters;
-            var marker, office;
-            office = result.office;
+            var marker;
             marker = new google.maps.Marker({
               //map: currentMap,
               position: new google.maps.LatLng(office.latitude, office.longitude),

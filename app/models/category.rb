@@ -1,14 +1,19 @@
 class Category < ActiveRecord::Base
 
-  before_create :generate_image_token
-
   has_many :companies
+
+  has_many :offices, :through => :companies
 
   has_attached_file :image,
                     :styles => {
-                        :thumb  => "48x48#",
-                        :medium => "64x64#"
+                        :cluster1 => "48x48#",
+                        :cluster2 => "64x64#",
+                        :cluster3 => "80x80#",
+                        :cluster4 => "96x96#",
+                        :cluster5 => "112x112#",
+                        :cluster6 => "256x256#"
                     },
+                    :url  => ':class/:id/image/:style',
                     :path => ':rails_root/uploads/:class/:id_partition/:style.:extension'
 
   validates_attachment_presence :image
@@ -17,19 +22,15 @@ class Category < ActiveRecord::Base
 
   validates_attachment_content_type :image,
                                     :content_type => [ 'image/jpeg', 'image/png', 'image/gif' ],
-                                    :message => "Is not an acceptable image file"
+                                    :message => "Is not an acceptable cluster_image file"
 
 
-
-  private
-  def generate_image_token
-    found = true
-    begin
-      random_string = SecureRandom.hex(64)
-      found = Category.find_by_image_token random_string
-      self.image_token = random_string
-    end while found
-
+  def cluster_styles
+    results = {}
+    image.styles.each do |k, v|
+      results[k] = "#{image.url(k)}"
+    end
+    results
   end
 
 

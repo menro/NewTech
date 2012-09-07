@@ -4,7 +4,7 @@ namespace :system do
   task :bootstrap => :environment do |t|
     puts "Initialize system..."
     Rake::Task["db:migrate"].invoke
-    Rake::Task["db:seed"].invoke
+    Rake::Task["db:seed_fu"].invoke
     puts "Done"
   end
 

@@ -6,10 +6,4 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.create do |admin|
-  admin.username = "admin"
-  admin.email = "admin@domain.local"
-  admin.password = "password"
-  admin.password_confirmation = "password"
-  admin.confirm!
-end
+
