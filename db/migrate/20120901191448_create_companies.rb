@@ -4,9 +4,6 @@ class CreateCompanies < ActiveRecord::Migration
       t.belongs_to  :user
       t.belongs_to  :category
       t.string      :name
-      t.text        :address
-      t.string      :city
-      t.integer     :zip
       t.string      :permalink
       t.string      :investment
       t.boolean     :hiring

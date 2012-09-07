@@ -18,7 +18,7 @@ class CrunchbaseService
           c.description = details.delete("description")
           c.overview =  details.delete("overview").gsub(/<\/?[^>]+>/, '') rescue nil
 
-          c.category = Category.find_or_create_by_code( "undefined" )
+          c.category = Category.find_by_id( rand(1..3) )
 
           ( details.delete("tag_list").split(",") rescue [] ).each do |tag|
             c.tags << Tag.find_or_create_by_code(tag.strip)
@@ -37,7 +37,7 @@ class CrunchbaseService
               o.latitude      = company_offices.delete("latitude")
               o.longitude     = company_offices.delete("longitude")
             end
-            c.offices << office
+            c.offices << office if office.state_code.eql? "CO"
           end
 
         end

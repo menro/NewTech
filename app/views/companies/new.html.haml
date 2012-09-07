@@ -4,11 +4,13 @@
       .well
         .form-inputs.row
           = f.input :name, :label => "Company Name", :as => :string
-          = f.input :address, :label => "Email", :as => :string
-          = f.input :city, :as => :string
-          = f.input :zip,  :as => :string
+          = f.simple_fields_for :offices do |office|
+            = office.input :address1, :label => "Address", :as => :string
+            = office.input :city, :as => :string
+            = office.input :zip_code,  :as => :string
           = f.input :email_address, :as => :string
           = f.input :founded_year, :as => :string
+          = f.input :tags_list, :as => :string
           = f.input :description
       .well
     .span5

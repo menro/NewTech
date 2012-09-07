@@ -10,11 +10,11 @@
                 nClusters = 0;
                 $.each(data, function(i, category) {
                     nClusters++;
-                    styles[category.id] = category.cluster_styles;
+                    styles[i] = category.cluster_styles;
                 });
                 console.log("Loaded styles for clusters: "+nClusters);
 
-                var markerColors = ['119605','da4747','4681ea']; //PROVVISORIO
+                var markerColors = ['4681ea','da4747','119605', 'ffc100']; //PROVVISORIO
                 var markerImages = new Array();
                 for (var i1=0; i1<nClusters; i1++) {
                     var imageUrl = 'http://chart.apis.google.com/chart?cht=mm&chs=24x32&chco=FFFFFF,'
