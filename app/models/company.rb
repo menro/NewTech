@@ -17,8 +17,4 @@ class Company < ActiveRecord::Base
 
   validates_numericality_of :founded_year, :less_than => Time.now.year
 
-  def out_of_colorado?
-    offices.find_by_state_code("CO").nil?
-  end
-
 end

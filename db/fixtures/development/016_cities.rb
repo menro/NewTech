@@ -3,13 +3,13 @@ json = ActiveSupport::JSON.decode( File.read("#{Rails.root}/db/fixtures/files/co
 
 json.each do |row|
   row = row.to_hash.with_indifferent_access
-  next unless row[:county_name].nil?
+  next if row[:county_name].nil?
 
-  name = row[:name].gsub!("County", "").strip
-  County.create do |c|
-    c.name = name
+  City.create do |c|
+    c.county =  County.find_by_name( row[:full_county_name].gsub!("County", "").strip)
+    c.name = row[:county_name]
     c.state = row[:state_name]
     c.latitude = row[:primary_latitude]
     c.longitude = row[:primary_longitude]
-  end unless County.find_by_name name
+  end unless City.find_by_name row[:county_name]
 end
