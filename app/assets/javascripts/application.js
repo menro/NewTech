@@ -16,5 +16,8 @@
 //= require bootstrap
 //= require modernizr
 //= require rails.validations
+//= require chosen-jquery
 //= require_tree .
+
+$('select.select').chosen()
 
