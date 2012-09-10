@@ -4,8 +4,21 @@
     GMap = (function() {
 
         function GMap(container) {
-            var nClusters = 0
+
+          // Initialize Google Map
+          var currentMap, defaultOptions;
+          defaultOptions = {
+            minZoom: 7,
+            zoom: 8,
+            scrollwheel: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            center: new google.maps.LatLng(39.232253, -105.08606)
+          };
+          currentMap = new google.maps.Map(container, defaultOptions);
+
+          var nClusters = 0
             $.getJSON($(container).data("categories_url"), function(data) {
+
                 var styles = new Array();
                 nClusters = 0;
                 $.each(data, function(i, category) {
@@ -23,16 +36,6 @@
                         imageUrl, new google.maps.Size(24, 32));
                     markerImages[i1] = markerImage;
                 }
-
-                // Initialize Google Map
-                var currentMap, defaultOptions;
-                defaultOptions = {
-                    zoom: 7,
-                    scrollwheel: false,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP,
-                    center: new google.maps.LatLng(39.232253, -105.08606)
-                };
-                currentMap = new google.maps.Map(container, defaultOptions);
 
                 $.getJSON($(container).data("offices_url"), function(data) {
 
@@ -60,7 +63,7 @@
                         //return markers += new google.maps.Marker(marker);
                     });
 
-                    // Create Clusters on map
+                    // Create Category Clusters on map
                     var clusters = new Array(nClusters);
                     for (var k=0; k<nClusters; k++) {
                         console.log("markersMatrix["+k+"]0");
@@ -74,10 +77,28 @@
                         });
                     }
 
+                    //County clusters
+                    $.getJSON($(container).data("counties_url"), function(data) {
+                      var circle;
+                      $.each(data, function(i, county) {
+                        var circleOptions = {
+                          strokeColor: '#efeff2',
+                          strokeOpacity: 0.6,
+                          strokeWeight: 2,
+                          fillColor: '#aaaab4',
+                          fillOpacity: 0.45,
+                          map: currentMap,
+                          center: new google.maps.LatLng(county.latitude, county.longitude),
+                          radius: 1500*county.offices_percentage
+                        };
+                        circle = new google.maps.Circle(circleOptions);
+
+                      });
+                  });
+
                 });
 
             });
-
         }
 
         GMap.init = function(container) {
