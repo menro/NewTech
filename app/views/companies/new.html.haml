@@ -17,7 +17,13 @@
       .well
       .well
       .well
+        = f.input :image, :label => "Logo"
       .well
+        .form-inputs.row
+          = f.input :homepage_url, :as => :string
+          = f.input :twitter, :as => :string
+          = f.input :facebook, :as => :string
+          = f.input :jobs_url, :as => :string
   %br
   .control-group
     .controls

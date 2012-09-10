@@ -17,6 +17,7 @@ class CreateCompanies < ActiveRecord::Migration
       t.string      :phone_number
       t.text        :description
       t.text        :overview
+      t.attachment  :image
       t.timestamps
     end
   end

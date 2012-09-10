@@ -4,7 +4,6 @@ class Office < ActiveRecord::Base
   belongs_to :company
 
   belongs_to :city
-  accepts_nested_attributes_for :city
 
   delegate :name, :category_id, :permalink, :homepage_url, :description, :overview,
            :number_of_employees, :founded_year, :email_address, :phone_number,
