@@ -50,6 +50,15 @@ ActiveRecord::Schema.define(:version => 20120902070001) do
     t.integer "tag_id"
   end
 
+  create_table "counties", :force => true do |t|
+    t.string   "name"
+    t.string   "state"
+    t.string   "latitude"
+    t.string   "longitude"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "offices", :force => true do |t|
     t.integer  "company_id"
     t.string   "description"
