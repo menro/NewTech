@@ -2,7 +2,7 @@ class CrunchbaseService
   def self.import_companies_of_colorado
 
     companies_of_colorado.each do |company_of_colorado|
-      #puts "Import company: #{company_of_colorado['name']}"
+      puts "Import company: #{company_of_colorado['name']}"
       details = company_details company_of_colorado['permalink']
       unless details.nil?
         company = Company.create do |c|
@@ -35,7 +35,7 @@ class CrunchbaseService
               o.latitude      = company_offices.delete("latitude")
               o.longitude     = company_offices.delete("longitude")
             end
-            c.offices << office if company_offices.delete("state_code").eql?("CO")
+            c.offices << office if( company_offices.delete("state_code").eql?("CO") && !office.city.nil? )
           end
 
         end
