@@ -93,6 +93,9 @@
                     $.getJSON($(container).data("counties_url"), function(data) {
                       var circle;
                       $.each(data, function(i, county) {
+                        if (county.offices_numbers == 0) return;
+                        var circlePosition = new google.maps.LatLng(county.latitude, county.longitude);
+
                         var circleOptions = {
                           strokeColor: '#efeff2',
                           strokeOpacity: 0.6,
@@ -100,11 +103,22 @@
                           fillColor: '#aaaab4',
                           fillOpacity: 0.45,
                           map: currentMap,
-                          center: new google.maps.LatLng(county.latitude, county.longitude),
+                          center: circlePosition,
                           radius: 1500*county.offices_percentage
                         };
                         circle = new google.maps.Circle(circleOptions);
 
+                        var dummyMarkerImage = new google.maps.MarkerImage(
+                          '/assets/transparent.gif', new google.maps.Size(1, 1));
+                        var percentage = Math.round(county.offices_percentage*100)/100;
+                        var countyLabel = new MarkerWithLabel({
+                          icon: dummyMarkerImage,
+                          position: circlePosition,
+                          map: currentMap,
+                          labelContent: county.name+'<br/>'+county.offices_numbers+' ('+percentage+'%)',
+                          labelAnchor: new google.maps.Point(40, 0),
+                          labelClass: "labels"
+                        });
                       });
                   });
 
