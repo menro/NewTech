@@ -5,18 +5,18 @@
 
         function GMap(container) {
 
-          // Initialize Google Map
-          var currentMap, defaultOptions;
-          defaultOptions = {
-            minZoom: 7,
-            zoom: 8,
-            scrollwheel: false,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            center: new google.maps.LatLng(39.232253, -105.08606)
-          };
-          currentMap = new google.maps.Map(container, defaultOptions);
+            // Initialize Google Map
+            var currentMap, defaultOptions;
+            defaultOptions = {
+                minZoom: 7,
+                zoom: 8,
+                scrollwheel: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                center: new google.maps.LatLng(39.232253, -105.08606)
+            };
+            currentMap = new google.maps.Map(container, defaultOptions);
 
-          var nClusters = 0
+            var nClusters = 0
             $.getJSON($(container).data("categories_url"), function(data) {
 
                 var styles = new Array();
@@ -51,12 +51,12 @@
                         var iCluster = i%nClusters;
 
                         var contentString = '<h1>'+office.company_name+'</h1>'
-                          +'<p><a href=""'+office.company_homepage_url+'"></a></p>'
-                          +'<p><b>Year founded: </b>'+office.company_founded_year+'</p>'
-                          +'<p><b>Number of employees: </b>'+office.company_number_of_employees+'</p>'
-                          +'<p>'+office.company_overview+'</p>';
+                            +'<p><a href=""'+office.company_homepage_url+'"></a></p>'
+                            +'<p><b>Year founded: </b>'+office.company_founded_year+'</p>'
+                            +'<p><b>Number of employees: </b>'+office.company_number_of_employees+'</p>'
+                            +'<p>'+office.company_overview+'</p>';
                         var infowindow = new google.maps.InfoWindow({
-                          content: contentString
+                            content: contentString
                         });
 
                         var marker;
@@ -70,7 +70,7 @@
                         //console.log("marker");
                         //console.log(marker);
                         google.maps.event.addListener(marker, 'click', function() {
-                          infowindow.open(currentMap,marker);
+                            infowindow.open(currentMap,marker);
                         });
                         markersMatrix[iCluster][clusterElementsCount[iCluster]++] = marker;
                     });
@@ -91,36 +91,36 @@
 
                     //County clusters
                     $.getJSON($(container).data("counties_url"), function(data) {
-                      var circle;
-                      $.each(data, function(i, county) {
-                        if (county.offices_numbers == 0) return;
-                        var circlePosition = new google.maps.LatLng(county.offices_avg_latitude, county.offices_avg_longitude);
+                        var circle;
+                        $.each(data, function(i, county) {
+                            if (county.offices_numbers == 0) return;
+                            var circlePosition = new google.maps.LatLng(county.offices_avg_latitude, county.offices_avg_longitude);
 
-                        var circleOptions = {
-                          strokeColor: '#efeff2',
-                          strokeOpacity: 0.6,
-                          strokeWeight: 2,
-                          fillColor: '#aaaab4',
-                          fillOpacity: 0.45,
-                          map: currentMap,
-                          center: circlePosition,
-                          radius: 1500*county.offices_percentage
-                        };
-                        circle = new google.maps.Circle(circleOptions);
+                            var circleOptions = {
+                                strokeColor: '#efeff2',
+                                strokeOpacity: 0.6,
+                                strokeWeight: 2,
+                                fillColor: '#aaaab4',
+                                fillOpacity: 0.45,
+                                map: currentMap,
+                                center: circlePosition,
+                                radius: 1500*county.offices_percentage
+                            };
+                            circle = new google.maps.Circle(circleOptions);
 
-                        var dummyMarkerImage = new google.maps.MarkerImage(
-                          '/assets/transparent.gif', new google.maps.Size(1, 1));
-                        var percentage = Math.round(county.offices_percentage*100)/100;
-                        var countyLabel = new MarkerWithLabel({
-                          icon: dummyMarkerImage,
-                          position: circlePosition,
-                          map: currentMap,
-                          labelContent: county.name+'<br/>'+county.offices_numbers+' ('+percentage+'%)',
-                          labelAnchor: new google.maps.Point(40, 0),
-                          labelClass: "labels"
+                            var dummyMarkerImage = new google.maps.MarkerImage(
+                                '/assets/transparent.gif', new google.maps.Size(1, 1));
+                            var percentage = Math.round(county.offices_percentage*100)/100;
+                            var countyLabel = new MarkerWithLabel({
+                                icon: dummyMarkerImage,
+                                position: circlePosition,
+                                map: currentMap,
+                                labelContent: county.name+'<br/>'+county.offices_numbers+' ('+percentage+'%)',
+                                labelAnchor: new google.maps.Point(40, 0),
+                                labelClass: "labels"
+                            });
                         });
-                      });
-                  });
+                    });
 
                 });
 
@@ -137,6 +137,18 @@
     })();
 
     $(function() {
+        $( "#slider-range" ).slider({
+            range: true,
+            min: 1950,
+            max: 2012,
+            values: [ 1950, 2012 ],
+            slide: function( event, ui ) {
+                $( "#years-range" ).html(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+            }
+        });
+        $( "#years-range" ).html( $( "#slider-range" ).slider( "values", 0 ) +
+            " - " + $( "#slider-range" ).slider( "values", 1 ) );
+
         return $('.gmap').each(function() {
             return GMap.init(this);
         });
