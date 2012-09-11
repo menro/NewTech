@@ -49,18 +49,30 @@
 
                     $.each(data, function(i, office) {
                         var iCluster = i%nClusters;
+
+                        var contentString = '<h1>'+office.company_name+'</h1>'
+                          +'<p><a href=""'+office.company_homepage_url+'"></a></p>'
+                          +'<p><b>Year founded: </b>'+office.company_founded_year+'</p>'
+                          +'<p><b>Number of employees: </b>'+office.company_number_of_employees+'</p>'
+                          +'<p>'+office.company_overview+'</p>';
+                        var infowindow = new google.maps.InfoWindow({
+                          content: contentString
+                        });
+
                         var marker;
                         marker = new google.maps.Marker({
                             //map: currentMap,
                             position: new google.maps.LatLng(office.latitude, office.longitude),
                             draggable: true,
                             title: office.company_name,
-                            icon: markerImages[iCluster]
+                            icon: markerImages[iCluster],
                         });
                         //console.log("marker");
                         //console.log(marker);
+                        google.maps.event.addListener(marker, 'click', function() {
+                          infowindow.open(currentMap,marker);
+                        });
                         markersMatrix[iCluster][clusterElementsCount[iCluster]++] = marker;
-                        //return markers += new google.maps.Marker(marker);
                     });
 
                     // Create Category Clusters on map
