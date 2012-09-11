@@ -65,3 +65,6 @@ gem "seed-fu", '~> 2.2.0'
 # Decorators
 gem "draper"
 
+# Geokit
+gem 'geokit-rails3'
+

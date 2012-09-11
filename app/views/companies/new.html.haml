@@ -1,9 +1,9 @@
 = simple_form_for(@company, :validate => true, :html => {:class => 'form-horizontal' }) do |f|
   .span12.new_company
-    .span5
+    .span6
       .well
         .form-inputs.row
-          = f.association :category, :collection => @categories, :as => :radio_buttons, :item_wrapper_class => 'inline'
+          = f.association :category, :collection => @categories, :item_wrapper_class => 'inline'
           = f.input :name, :label => "Company Name", :as => :string
           = f.simple_fields_for :offices do |office|
             = office.input :address1, :label => "Address", :as => :string

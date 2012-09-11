@@ -10,6 +10,7 @@ class CompaniesController < ApplicationController
     if @company.persisted?
       redirect_to root_path, :notice => "Company added correctly."
     else
+      @categories = CategoryService.enabled
       render :new
     end
   end

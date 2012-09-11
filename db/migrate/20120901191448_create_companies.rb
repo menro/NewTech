@@ -7,6 +7,7 @@ class CreateCompanies < ActiveRecord::Migration
       t.string      :permalink
       t.string      :investment
       t.boolean     :hiring
+      t.boolean     :enabled
       t.string      :homepage_url
       t.string      :facebook
       t.string      :twitter
