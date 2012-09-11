@@ -6,7 +6,7 @@
           = f.input :name, :label => "Company Name", :as => :string
           = f.simple_fields_for :offices do |office|
             = office.input :address1, :label => "Address", :as => :string
-            = office.input :city, :as => :string
+            = office.association :city
             = office.input :zip_code,  :as => :string
           = f.input :email_address, :as => :string
           = f.input :founded_year, :as => :string
@@ -17,10 +17,17 @@
       .well
       .well
       .well
+        = f.input :image, :label => "Logo"
       .well
+        .form-inputs.row
+          = f.input :homepage_url, :as => :string
+          = f.input :twitter, :as => :string
+          = f.input :facebook, :as => :string
+          = f.input :jobs_url, :as => :string
   %br
   .control-group
     .controls
       .actions
         = f.submit 'Save', class: "btn btn-success"
+
 

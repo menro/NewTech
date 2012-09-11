@@ -33,7 +33,7 @@ group :assets do
   gem "coffee-rails", "3.2.2"
   gem "uglifier", "1.0.3"
   #gem "therubyracer" our use nodejs
-
+  gem 'chosen-rails'
   gem "jquery-rails", "2.0.2"
   gem "jquery-ui-rails", "0.5.0"
   gem "modernizr", "2.5.3"

@@ -6,7 +6,9 @@ class CompaniesController < ApplicationController
 
   def create
     @company = CompanyService::create( params[:company] )
-    unless @company.persisted?
+    if @company.persisted?
+      redirect_to root_path, :notice => "Company added correctly."
+    else
       render :new
     end
   end
