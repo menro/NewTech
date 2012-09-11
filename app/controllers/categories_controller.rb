@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
   respond_to :json
 
   def index
-    @categories = CategoryService.all
+    @categories = CategoryService.enabled
   end
 
   def send_category_image

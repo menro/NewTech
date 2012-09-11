@@ -2,6 +2,7 @@ class CompanyService
 
   def self.new_company
     company = Company.new
+    company.category = Category.new
     company.offices.build
     CompanyDecorator.new(company)
   end

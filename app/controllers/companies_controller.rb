@@ -2,6 +2,7 @@ class CompaniesController < ApplicationController
 
   def new
     @company = CompanyService::new_company
+    @categories = CategoryService.enabled
   end
 
   def create
