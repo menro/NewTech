@@ -28,3 +28,6 @@ config/deploy.rb
 # Ingore uploads dir
 uploads/
 
+# Paperclip
+config/initializers/paperclip.rb
+

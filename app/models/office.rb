@@ -1,5 +1,5 @@
 class Office < ActiveRecord::Base
-  attr_accessible :address1, :city_id, :zip_code
+  attr_accessible :address1, :city_id, :zip_code, :latitude, :longitude
 
   belongs_to :company
 

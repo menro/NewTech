@@ -6,25 +6,16 @@
 
 #new_company {
   .new_company {
-    .well {
-      margin: 10px 0 0 0;
-      padding: 10px 10px 0 0;
-    }
-    input,
-    label {
-      font-size:14px;
-      line-height:20px;
-      padding:8px;
-    }
     label {
       color:#888;
-
     }
-    input {
+    label.radio {
+      font-size: 11px;
+    }
+    input.string {
       width: 95%;
     }
     input.file {
-      width: 95%;
     }
     textarea {
       width: 95%;

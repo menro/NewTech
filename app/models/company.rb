@@ -8,7 +8,7 @@ class Company < ActiveRecord::Base
 
   delegate :id, :to => :category, :prefix => true
 
-  has_many :offices, :dependent => :delete_all
+  has_many :offices, :dependent => :destroy
 
   accepts_nested_attributes_for :offices
 
@@ -22,7 +22,7 @@ class Company < ActiveRecord::Base
                     :path => ':rails_root/uploads/:class/:id_partition/:style.:extension'
 
 
-  validates_presence_of :name, :email_address, :founded_year
+  validates_presence_of :category_id, :name, :email_address, :founded_year
 
   validates_numericality_of :founded_year, :less_than => Time.now.year
 
