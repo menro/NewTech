@@ -11,7 +11,7 @@ class CategoryService
   end
 
   def self.find(id)
-    category = CategoryDecorator.find(1)
+    category = CategoryDecorator.find(id)
     CategoryDecorator.decorate(category)
   end
 
