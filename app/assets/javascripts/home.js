@@ -27,7 +27,7 @@
                 });
                 console.log("Loaded styles for clusters: "+nClusters);
 
-                var markerColors = ['4681ea','da4747','119605', 'ffc100']; //PROVVISORIO
+                var markerColors = ['119605','4681ea','da4747', 'ffc100']; //PROVVISORIO
                 var markerImages = new Array();
                 for (var i1=0; i1<nClusters; i1++) {
                     var imageUrl = 'http://chart.apis.google.com/chart?cht=mm&chs=24x32&chco=FFFFFF,'
