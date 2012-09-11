@@ -19,8 +19,6 @@
 //= require chosen-jquery
 //= require_tree .
 
-$(function() {
-    $('select.select').chosen()
-});
+
 
 
