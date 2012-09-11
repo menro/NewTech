@@ -14,7 +14,10 @@ class CompanyService
 
     if geocode.nil?
       company = new_company attributes
-      company.offices.first.errors.add :address1, "Pilo non"
+      company.offices.first.errors.add :address1, "Address not found"
+    elsif !( attributes[:offices_attributes]['0'][:zip_code].eql?(geocode[:postal_code]) )
+      company = new_company attributes
+      company.offices.first.errors.add :zip_code, "Postal code not valid"
     else
       attributes[:offices_attributes]['0'][:address1] = geocode[:formatted_address]
       attributes[:offices_attributes]['0'][:latitude] = geocode[:latitude]
@@ -39,7 +42,7 @@ class CompanyService
     client = HTTPClient.new
     response = client.get "http://maps.googleapis.com/maps/api/geocode/json", {
         :sensor  => "false",
-        :address => "#{address[:address1]}, #{city.name}"
+        :address => "#{address[:address1]}, #{address[:zip_code]}, #{city.name}"
     }
     status = response.header.status_code
     unless status == 404 || status == 500
@@ -49,7 +52,8 @@ class CompanyService
     return {
         :formatted_address => results['formatted_address'],
         :latitude => results['geometry']['location']['lat'],
-        :longitude => results['geometry']['location']['lng']
+        :longitude => results['geometry']['location']['lng'],
+        :postal_code => ( results['address_components'].last['long_name'] rescue nil )
     } rescue nil
   end
 

@@ -10,4 +10,6 @@ class Office < ActiveRecord::Base
            :to => :company, :prefix => true
 
   validates_presence_of :address1, :city_id, :zip_code
+
+  validates_numericality_of :zip_code
 end
