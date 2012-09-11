@@ -94,7 +94,7 @@
                       var circle;
                       $.each(data, function(i, county) {
                         if (county.offices_numbers == 0) return;
-                        var circlePosition = new google.maps.LatLng(county.latitude, county.longitude);
+                        var circlePosition = new google.maps.LatLng(county.offices_avg_latitude, county.offices_avg_longitude);
 
                         var circleOptions = {
                           strokeColor: '#efeff2',
