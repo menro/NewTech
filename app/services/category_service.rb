@@ -1,15 +1,18 @@
 class CategoryService
 
   def self.all
-    CategoryDecorator.all
+    categories = CategoryDecorator.all
+    CategoryDecorator.decorate(categories)
   end
 
   def self.enabled
-    CategoryDecorator.where("code != 'undefined'")
+    categories = CategoryDecorator.where("code != 'undefined'")
+    CategoryDecorator.decorate(categories)
   end
 
   def self.find(id)
-    CategoryDecorator.find id
+    category = CategoryDecorator.find(1)
+    CategoryDecorator.decorate(category)
   end
 
 end
