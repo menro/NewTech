@@ -12,16 +12,16 @@ class CompanyService
 
     geocode = find_geocode attributes[:offices_attributes]['0']
 
-    if geocode.nil?
-      company = new_company attributes
-      company.offices.first.errors.add :address1, "Address not found"
-    elsif !( attributes[:offices_attributes]['0'][:zip_code].eql?(geocode[:postal_code]) )
+    if !geocode.success || geocode.accuracy.to_i < 6
+        company = new_company attributes
+        company.offices.first.errors.add :address1, "Address not founds"
+    elsif !( attributes[:offices_attributes]['0'][:zip_code].eql?(geocode.zip) )
       company = new_company attributes
       company.offices.first.errors.add :zip_code, "Postal code not valid"
     else
-      attributes[:offices_attributes]['0'][:address1] = geocode[:formatted_address]
-      attributes[:offices_attributes]['0'][:latitude] = geocode[:latitude]
-      attributes[:offices_attributes]['0'][:longitude] = geocode[:longitude]
+      attributes[:offices_attributes]['0'][:address1] = geocode.street_address
+      attributes[:offices_attributes]['0'][:latitude] = geocode.lat
+      attributes[:offices_attributes]['0'][:longitude] = geocode.lng
 
       company = Company.new attributes do |c|
         ( tags_list.split(",") rescue [] ).each do |tag|
@@ -38,23 +38,8 @@ class CompanyService
 
   def self.find_geocode(address)
     city = City.find_by_id(address[:city_id])
-    results = []
-    client = HTTPClient.new
-    response = client.get "http://maps.googleapis.com/maps/api/geocode/json", {
-        :sensor  => "false",
-        :address => "#{address[:address1]}, #{address[:zip_code]}, #{city.name}"
-    }
-    status = response.header.status_code
-    unless status == 404 || status == 500
-      json = JSON.parse( response.body )
-      results = json['results'][0]
-    end
-    return {
-        :formatted_address => results['formatted_address'],
-        :latitude => results['geometry']['location']['lat'],
-        :longitude => results['geometry']['location']['lng'],
-        :postal_code => ( results['address_components'].last['long_name'] rescue nil )
-    } rescue nil
+    geocode = Geokit::Geocoders::GoogleGeocoder3.geocode("#{address[:address1]}, #{address[:zip_code]}, #{city.name}")
+    geocode
   end
 
 end

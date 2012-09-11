@@ -68,6 +68,11 @@ GEM
     font-awesome-sass-rails (2.0.0.0)
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
+    geokit (1.6.5)
+      multi_json
+    geokit-rails3 (0.1.5)
+      geokit (~> 1.5)
+      rails (~> 3.0)
     haml (3.1.7)
     haml-rails (0.3.5)
       actionpack (>= 3.1, < 4.1)
@@ -190,6 +195,7 @@ DEPENDENCIES
   devise (>= 2.1.0)
   draper
   font-awesome-sass-rails
+  geokit-rails3
   haml-rails
   httpclient
   jquery-rails (= 2.0.2)
