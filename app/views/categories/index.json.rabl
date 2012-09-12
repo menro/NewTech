@@ -1,3 +1,3 @@
 collection @categories, :object_root => false
 
-attributes :id, :name, :code, :market_color, :cluster_styles
+attributes :id, :name, :code, :marker_color, :cluster_styles
