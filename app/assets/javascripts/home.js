@@ -67,7 +67,7 @@
 
   function drawCategoryClusters(container) {
     // Category clusters
-    $.getJSON($(container).data("categories_url"), function(data) {
+    $.getJSON($(container).data("categories_url"), searchParams(), function(data) {
 
       var styles = new Array();
       var markerImages = new Array();
@@ -82,7 +82,7 @@
       });
       console.log("Loaded styles for clusters: "+nCategories);
 
-      $.getJSON($(container).data("offices_url"), function(data) {
+      $.getJSON($(container).data("offices_url"), searchParams(), function(data) {
 
         // Load company offices data
         var markersMatrix = new Array();
@@ -109,7 +109,7 @@
             position: new google.maps.LatLng(office.latitude, office.longitude),
             draggable: true,
             title: office.company_name,
-            icon: markerImages[iCluster],
+            icon: markerImages[iCluster]
           });
           //console.log("marker");
           //console.log(marker);
@@ -139,7 +139,7 @@
 
   function drawCountyCircles(container) {
     // County circles
-    $.getJSON($(container).data("counties_url"), function(data) {
+    $.getJSON($(container).data("counties_url"), searchParams(), function(data) {
       countyCircles = new Array();
       nCountyCircles = 0;
       countyLabels = new Array();
@@ -189,18 +189,33 @@
     });
   }
 
+  function searchParams() {
+      search_params = {
+          start_year: $("#search_params").data("start_year"),
+          end_year: $("#search_params").data("end_year")
+      }
+      return search_params;
+  }
+
   $(function() {
-      $( "#slider-range" ).slider({
+      $( "#years_slider" ).slider({
           range: true,
           min: 1950,
           max: 2012,
           values: [ 1950, 2012 ],
           slide: function( event, ui ) {
-              $( "#years-range" ).html(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+              $( "#years_range" ).html(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+          },
+          stop: function( event, ui ) {
+              $("#search_params").data("start_year", ui.values[ 0 ])
+              $("#search_params").data("end_year", ui.values[ 1])
+              return $('.gmap').each(function() {
+                  return refreshMap(this);
+              });
           }
       });
-      $( "#years-range" ).html( $( "#slider-range" ).slider( "values", 0 ) +
-          " - " + $( "#slider-range" ).slider( "values", 1 ) );
+      $( "#years_range" ).html( $( "#years_slider" ).slider( "values", 0 ) +
+          " - " + $( "#years_slider" ).slider( "values", 1 ) );
 
       return $('.gmap').each(function() {
           return GMap.init(this);

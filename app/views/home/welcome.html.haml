@@ -1,11 +1,13 @@
-= content_for :javascripts, javascript_include_tag("https://maps.googleapis.com/maps/api/js?sensor=false")
-= content_for :javascripts, javascript_include_tag("http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.5/src/markerwithlabel.js")
-= content_for :javascripts, javascript_include_tag("http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.9/src/markerclusterer.js")
+= content_for :javascripts do
+  = javascript_include_tag("https://maps.googleapis.com/maps/api/js?sensor=false")
+  = javascript_include_tag("http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.5/src/markerwithlabel.js")
+  = javascript_include_tag("http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.9/src/markerclusterer.js")
 
 .content
   .row
     .span12
       .search.inline
-        %label{ :id => "years-range" }
-        #slider-range
+        #search_params{ :data => { :start_year => "", :end_year => "" } }
+        %label{ :id => "years_range" }
+        #years_slider
       .gmap{ :data => { :offices_url => "#{api_v1_offices_url(:json)}", :categories_url => "#{api_v1_categories_url(:json)}", :counties_url => "#{api_v1_counties_url(:json)}" } }
