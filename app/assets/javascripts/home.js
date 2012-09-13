@@ -192,7 +192,8 @@
   function searchParams() {
       search_params = {
           start_year: $("#search_params").data("start_year"),
-          end_year: $("#search_params").data("end_year")
+          end_year: $("#search_params").data("end_year"),
+          tag_code: $("#search_params").data("tag_code")
       }
       return search_params;
   }
@@ -220,6 +221,15 @@
       return $('.gmap').each(function() {
           return GMap.init(this);
       });
+  });
+
+  function onTagClicked(tag_code) {
+    $("#search_params").data("tag_code", tag_code);
+    refreshMap(this);
+  }
+
+  $(function () {
+    $('#tag-cloud a').tagcloud();
   });
 
 }).call(this);

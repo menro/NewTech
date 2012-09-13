@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 
   def welcome
-    @tags=TagDecorator.all
+    @tags=TagService.all
   end
 
 end

@@ -1,7 +1,7 @@
 class TagDecorator  < Draper::Base
   decorates :tag
 
-  def company_count
+  def companies_count
     self.companies.count
   end
 
