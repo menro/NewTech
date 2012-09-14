@@ -209,8 +209,8 @@
               $( "#years_range" ).html(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
           },
           stop: function( event, ui ) {
-              $("#search_params").data("start_year", ui.values[ 0 ])
-              $("#search_params").data("end_year", ui.values[ 1])
+              $("#search_params").data("from_year", ui.values[ 0 ])
+              $("#search_params").data("to_year", ui.values[ 1])
               return $('.gmap').each(function() {
                   return refreshMap(this);
               });
