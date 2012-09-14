@@ -145,7 +145,8 @@
       countyLabels = new Array();
       $.each(data, function(i, county) {
         if (county.offices_numbers == 0) return;
-        var circlePosition = new google.maps.LatLng(county.offices_avg_latitude, county.offices_avg_longitude);
+        //var circlePosition = new google.maps.LatLng(county.offices_avg_latitude, county.offices_avg_longitude);
+        var circlePosition = new google.maps.LatLng(county.latitude, county.longitude);
         var multiplier = county.offices_percentage;
         if (multiplier<5) {
           multiplier *= 2;
@@ -192,7 +193,8 @@
   function searchParams() {
       search_params = {
           from_year: $("#search_params").data("from_year"),
-          to_year: $("#search_params").data("to_year")
+          to_year: $("#search_params").data("to_year"),
+          tag_code: $("#search_params").data("tag_code")
       }
       return search_params;
   }
@@ -207,8 +209,8 @@
               $( "#years_range" ).html(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
           },
           stop: function( event, ui ) {
-              $("#search_params").data("from_year", ui.values[ 0 ])
-              $("#search_params").data("to_year", ui.values[ 1 ])
+              $("#search_params").data("start_year", ui.values[ 0 ])
+              $("#search_params").data("end_year", ui.values[ 1])
               return $('.gmap').each(function() {
                   return refreshMap(this);
               });
@@ -220,6 +222,25 @@
       return $('.gmap').each(function() {
           return GMap.init(this);
       });
+  });
+
+  function onTagClicked(tag_code) {
+    $("#search_params").data("tag_code", tag_code);
+    refreshMap(this);
+  }
+
+  $(function () {
+    $('#tag-cloud a').tagcloud({
+      size: {
+        start: 14,
+        end: 18,
+        unit: 'pt'
+      },
+      color: {
+        start: '#777',
+        end: '#222'
+      }
+    });
   });
 
 }).call(this);
