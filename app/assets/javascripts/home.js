@@ -145,7 +145,8 @@
       countyLabels = new Array();
       $.each(data, function(i, county) {
         if (county.offices_numbers == 0) return;
-        var circlePosition = new google.maps.LatLng(county.offices_avg_latitude, county.offices_avg_longitude);
+        //var circlePosition = new google.maps.LatLng(county.offices_avg_latitude, county.offices_avg_longitude);
+        var circlePosition = new google.maps.LatLng(county.latitude, county.longitude);
         var multiplier = county.offices_percentage;
         if (multiplier<5) {
           multiplier *= 2;
@@ -229,7 +230,17 @@
   }
 
   $(function () {
-    $('#tag-cloud a').tagcloud();
+    $('#tag-cloud a').tagcloud({
+      size: {
+        start: 14,
+        end: 18,
+        unit: 'pt'
+      },
+      color: {
+        start: '#777',
+        end: '#222'
+      }
+    });
   });
 
 }).call(this);

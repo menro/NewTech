@@ -12,5 +12,5 @@
         #years_slider
       .gmap{ :data => { :offices_url => "#{api_v1_offices_url(:json)}", :categories_url => "#{api_v1_categories_url(:json)}", :counties_url => "#{api_v1_counties_url(:json)}" } }
       #tag-cloud
-        - @tags.each do |tag|
+        - @tags_for_cloud.each do |tag|
           %a{:href => "javascript:onTagClicked('"+tag.code+"')", :rel => tag.companies_count}= tag.code

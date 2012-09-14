@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 
   def welcome
-    @tags=TagService.all
+    @tags_for_cloud=TagService.tags_for_cloud
   end
 
 end
