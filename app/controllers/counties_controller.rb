@@ -2,7 +2,7 @@ class CountiesController < ApplicationController
   respond_to :json
 
   def index
-    @counties = CountyService.all
+    @counties = CountyService::search(params)
   end
 
 end

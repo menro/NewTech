@@ -12,4 +12,14 @@ class Office < ActiveRecord::Base
   validates_presence_of :address1, :city_id, :zip_code
 
   validates_numericality_of :zip_code
+
+  scope :with_companies_founded_from_year,
+        lambda {|year|
+          where("`offices`.company_id IN ( SELECT id FROM companies where founded_year > ? )", year)
+        }
+
+  scope :with_companies_founded_to_year,
+        lambda {|year|
+          where("`offices`.company_id IN ( SELECT id FROM companies where founded_year < ? )", year)
+        }
 end
