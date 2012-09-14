@@ -151,6 +151,9 @@
         if (multiplier<5) {
           multiplier *= 2;
         }
+        if (multiplier>20) {
+          multiplier /= 1.5;
+        }
         var radius = 1500*multiplier;
         var circleOptions = {
           strokeColor: '#efeff2',
