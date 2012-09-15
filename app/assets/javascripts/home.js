@@ -107,6 +107,7 @@
   }
 
   function drawCountyCircles(container) {
+    $('h1').html('Tech Companies by County');
     // County circles
     $.getJSON($(container).data("counties_url"), searchParams(), function(data) {
       countyCircles = new Array();
@@ -146,6 +147,7 @@
   }
 
   function onCountySelected(county, circlePosition) {
+    $('h1').html('Tech Companies in '+county.name);
     $("#search_params").data("current_county_name", county.name);
     //currentMap.setZoom(currentMap.getZoom()+1);
     currentMap.setCenter(circlePosition);
