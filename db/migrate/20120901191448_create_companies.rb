@@ -2,7 +2,6 @@ class CreateCompanies < ActiveRecord::Migration
   def change
     create_table :companies do |t|
       t.belongs_to  :user
-      t.belongs_to  :category
       t.string      :name
       t.string      :permalink
       t.string      :investment

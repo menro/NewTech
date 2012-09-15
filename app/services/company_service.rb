@@ -2,7 +2,6 @@ class CompanyService
 
   def self.new_company(attributes = nil, options = {})
     company = Company.new(attributes, options)
-    company.category = Category.new if company.category.nil?
     company.offices.build if company.offices.nil? || company.offices.empty?
     CompanyDecorator.new(company)
   end

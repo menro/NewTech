@@ -18,8 +18,6 @@ class CrunchbaseService
           c.description = details.delete("description")
           c.overview =  details.delete("overview").gsub(/<\/?[^>]+>/, '') rescue nil
 
-          c.category = Category.find_by_id( rand(1..3) )
-
           ( details.delete("tag_list").split(",") rescue [] ).each do |tag|
             c.tags << Tag.find_or_create_by_code(tag.strip)
           end

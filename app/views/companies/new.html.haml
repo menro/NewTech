@@ -3,7 +3,6 @@
     .span6
       .well
         .form-inputs.row
-          = f.association :category, :collection => @categories, :item_wrapper_class => 'inline'
           = f.input :name, :label => "Company Name", :as => :string
           = f.simple_fields_for :offices do |office|
             = office.input :address1, :label => "Address", :as => :string
