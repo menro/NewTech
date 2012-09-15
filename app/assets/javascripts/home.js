@@ -107,7 +107,7 @@
           var marker;
           marker = new google.maps.Marker({
             position: new google.maps.LatLng(office.latitude, office.longitude),
-            draggable: true,
+            draggable: false,
             title: office.company_name,
             icon: markerImages[iCluster]
           });
@@ -243,6 +243,13 @@
         start: '#777',
         end: '#222'
       }
+    });
+    $('#tag-cloud a').click(function() {
+      var tag_code = $(this).data("tag_code");
+      $("#search_params").data("tag_code", tag_code);
+      $('.gmap').each(function() {
+        refreshMap(this);
+      });
     });
   });
 
