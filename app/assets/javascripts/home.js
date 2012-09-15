@@ -101,7 +101,7 @@
 
         companyOfficesMarkers[nOffices++] = marker;
       });
-      console.log(companyOfficesMarkers);
+      //console.log(companyOfficesMarkers);
     });
 
   }
@@ -136,15 +136,20 @@
         };
         countyCircles[nCountyCircles] = new google.maps.Circle(circleOptions);
         google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function() {
-          //currentMap.setZoom(currentMap.getZoom()+1);
-          currentMap.setCenter(circlePosition);
-          currentMap.setZoom(countyZoomLevel);
+          onCountySelected(county, circlePosition);
         });
 
         drawCountyLabel(nCountyCircles, county, circlePosition);
         nCountyCircles++;
       });
     });
+  }
+
+  function onCountySelected(county, circlePosition) {
+    $("#search_params").data("current_county_name", county.name);
+    //currentMap.setZoom(currentMap.getZoom()+1);
+    currentMap.setCenter(circlePosition);
+    currentMap.setZoom(countyZoomLevel);
   }
 
   function drawCountyLabel(i, county, position) {
@@ -160,8 +165,7 @@
       labelClass: "labels"
     });
     google.maps.event.addListener(countyLabels[i], 'click', function() {
-      currentMap.setCenter(position);
-      currentMap.setZoom(countyZoomLevel);
+      onCountySelected(county, position);
     });
   }
 
@@ -169,7 +173,8 @@
       search_params = {
           from_year: $("#search_params").data("from_year"),
           to_year: $("#search_params").data("to_year"),
-          tag_code: $("#search_params").data("tag_code")
+          tag_code: $("#search_params").data("tag_code"),
+          current_county_name: $("#search_params").data("current_county_name")
       }
       return search_params;
   }
