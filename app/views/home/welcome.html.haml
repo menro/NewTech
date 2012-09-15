@@ -14,7 +14,7 @@
         %nav.navbar-inner
           .container
             .pull-right
-              = render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap, :context => :filter
+              filters
       #tag-cloud
         - @tags_for_cloud.each do |tag|
           %a{:href => "#", :rel => tag.companies_count, :data => { :tag_code => tag.code} }= tag.code
