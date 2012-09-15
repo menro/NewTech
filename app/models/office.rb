@@ -13,4 +13,14 @@ class Office < ActiveRecord::Base
 
   validates_numericality_of :zip_code
 
+  scope :with_companies_founded_from,
+        lambda {|year|
+          joins(:company).merge(Company.founded_from(year))
+        }
+
+  scope :with_companies_founded_to,
+        lambda {|year|
+          joins(:company).merge(Company.founded_to(year))
+        }
+
 end

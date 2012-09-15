@@ -7,25 +7,15 @@ class County < ActiveRecord::Base
 
   attr_accessible :name, :zip, :state, :latitude, :longitude
 
-
   scope :with_companies_founded_from,
         lambda {|year|
-          includes(:companies).where("`companies`.founded_year > ?", year)
+          joins(:companies).merge(Company.founded_from(year))
         }
 
   scope :with_companies_founded_to,
         lambda {|year|
-          includes(:companies).where("`companies`.founded_year < ?", year)
+          joins(:companies).merge(Company.founded_to(year))
         }
 
-
-
-  def offices_numbers
-    offices.count
-  end
-
-  def offices_percentage
-    ((offices_numbers * 100).to_f / Office.count.to_f).to_f
-  end
 
 end

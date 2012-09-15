@@ -22,4 +22,14 @@ class Company < ActiveRecord::Base
 
   validates_numericality_of :founded_year, :less_than => Time.now.year
 
+  scope :founded_from,
+        lambda {|year|
+          where("founded_year > ?", year)
+        }
+
+  scope :founded_to,
+        lambda {|year|
+          where("founded_year < ?", year)
+        }
+
 end
