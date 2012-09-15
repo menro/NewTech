@@ -3,12 +3,13 @@
 
   var currentMap;
 
-  var categoryMarkerClusters;
-  var nCategories;
+  var companyOfficesMarkers;
+  var nOffices = 0;
 
   var countyCircles;
-  var nCountyCircles;
+  var nCountyCircles = 0;
   var countyLabels;
+  var countyZoomLevel = 11; //PROVVISORIO - dovrei prendere il nro appropriato da county.map_zoom_level
 
   GMap = (function() {
 
@@ -42,19 +43,19 @@
   function refreshMap(container) {
     var zoomLevel = currentMap.getZoom();
     if (zoomLevel <= 8) {
-      clearCategoryMarkerClusters();
+      clearCompanyOffices();
       clearCountyCirclesAndLabels();
       drawCountyCircles(container);
     } else {
       clearCountyCirclesAndLabels();
-      clearCategoryMarkerClusters();
-      drawCategoryClusters(container);
+      clearCompanyOffices();
+      drawCompanyOffices(container);
     }
   }
 
-  function clearCategoryMarkerClusters() {
-    for (var i=0; i<nCategories; i++) {
-      categoryMarkerClusters[i].clearMarkers();
+  function clearCompanyOffices() {
+    for (var i=0; i<nOffices; i++) {
+      companyOfficesMarkers[i].setMap(null);
     }
   }
 
@@ -65,76 +66,44 @@
     }
   }
 
-  function drawCategoryClusters(container) {
-    // Category clusters
-    $.getJSON($(container).data("categories_url"), searchParams(), function(data) {
+  function drawCompanyOffices(container) {
+    $.getJSON($(container).data("offices_url"), searchParams(), function(data) {
 
-      var styles = new Array();
-      var markerImages = new Array();
-      nCategories = 0;
-      $.each(data, function(i, category) {
-        styles[i] = category.cluster_styles;
-        var imageUrl = 'http://chart.apis.google.com/chart?cht=mm&chs=24x32&chco=FFFFFF,'
-          + category.marker_color + ',000000&ext=.png';
-        var markerImage = new google.maps.MarkerImage(
-          imageUrl, new google.maps.Size(24, 32));
-        markerImages[nCategories++] = markerImage;
-      });
-      console.log("Loaded styles for clusters: "+nCategories);
+      var imageUrl = 'http://chart.apis.google.com/chart?cht=mm&chs=24x32&chco=FFFFFF,000088,000000&ext=.png';
+      var markerImage = new google.maps.MarkerImage(
+        imageUrl, new google.maps.Size(24, 32));
 
-      $.getJSON($(container).data("offices_url"), searchParams(), function(data) {
+      companyOfficesMarkers = new Array();
+      nOffices = 0;
+      $.each(data, function(i, office) {
 
-        // Load company offices data
-        var markersMatrix = new Array();
-        var clusterElementsCount = new Array();
-        for (var j=0; j<nCategories; j++) {
-          markersMatrix[j] = new Array();
-          clusterElementsCount[j] = 0;
-        }
-
-        $.each(data, function(i, office) {
-          var iCluster = i%nCategories;
-
-          var contentString = '<h1>'+office.company_name+'</h1>'
-            +'<p><a href=""'+office.company_homepage_url+'"></a></p>'
-            +'<p><b>Year founded: </b>'+office.company_founded_year+'</p>'
-            +'<p><b>Number of employees: </b>'+office.company_number_of_employees+'</p>'
-            +'<p>'+office.company_overview+'</p>';
-          var infowindow = new google.maps.InfoWindow({
-            content: contentString
-          });
-
-          var marker;
-          marker = new google.maps.Marker({
-            position: new google.maps.LatLng(office.latitude, office.longitude),
-            draggable: false,
-            title: office.company_name,
-            icon: markerImages[iCluster]
-          });
-          //console.log("marker");
-          //console.log(marker);
-          google.maps.event.addListener(marker, 'click', function() {
-            infowindow.open(currentMap,marker);
-          });
-          markersMatrix[iCluster][clusterElementsCount[iCluster]++] = marker;
+        var contentString = '<h1>'+office.company_name+'</h1>'
+          +'<p><a href=""'+office.company_homepage_url+'"></a></p>'
+          +'<p><b>Year founded: </b>'+office.company_founded_year+'</p>'
+          +'<p><b>Number of employees: </b>'+office.company_number_of_employees+'</p>'
+          +'<p>'+office.company_overview+'</p>';
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
         });
 
-        // Create Category Clusters on map
-        categoryMarkerClusters = new Array(nCategories);
-        for (var k=0; k<nCategories; k++) {
-          console.log("markersMatrix["+k+"]0");
-          console.log(markersMatrix[k][0]);
-          console.log("styles[k]");
-          console.log(styles[k]);
-          categoryMarkerClusters[k] = new MarkerClusterer(currentMap, markersMatrix[k], {
-            maxZoom: 20,
-            gridSize: 48,
-            styles: styles[k]
-          });
-        }
-      });
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(office.latitude, office.longitude),
+          //draggable: false,
+          title: office.company_name,
+          //icon: markerImage,
+          map: currentMap
+        });
+        //console.log("marker");
+        //console.log(marker);
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.open(currentMap,marker);
+        });
 
+        companyOfficesMarkers[nOffices++] = marker;
+      });
+      console.log(companyOfficesMarkers);
     });
+
   }
 
   function drawCountyCircles(container) {
@@ -167,7 +136,9 @@
         };
         countyCircles[nCountyCircles] = new google.maps.Circle(circleOptions);
         google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function() {
-          currentMap.setZoom(currentMap.getZoom()+1);
+          //currentMap.setZoom(currentMap.getZoom()+1);
+          currentMap.setCenter(circlePosition);
+          currentMap.setZoom(countyZoomLevel);
         });
 
         drawCountyLabel(nCountyCircles, county, circlePosition);
@@ -189,7 +160,8 @@
       labelClass: "labels"
     });
     google.maps.event.addListener(countyLabels[i], 'click', function() {
-      currentMap.setZoom(currentMap.getZoom()+1);
+      currentMap.setCenter(position);
+      currentMap.setZoom(countyZoomLevel);
     });
   }
 
@@ -226,11 +198,6 @@
           return GMap.init(this);
       });
   });
-
-  function onTagClicked(tag_code) {
-    $("#search_params").data("tag_code", tag_code);
-    refreshMap(this);
-  }
 
   $(function () {
     $('#tag-cloud a').tagcloud({
