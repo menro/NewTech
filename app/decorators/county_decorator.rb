@@ -7,6 +7,7 @@ class CountyDecorator < Draper::Base
   end
 
   def offices_percentage
+    #TODO il totale dovrebbe essere il count totale non di quelli filtrati ;-)
     ((offices_numbers * 100).to_f / total_offices.to_f).to_f
   end
 

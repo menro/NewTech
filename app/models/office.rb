@@ -23,4 +23,9 @@ class Office < ActiveRecord::Base
           joins(:company).merge(Company.founded_to(year))
         }
 
+  scope :located_in_county,
+        lambda {|county_id|
+          joins(:city).merge(City.with_county_id(county_id))
+        }
+
 end

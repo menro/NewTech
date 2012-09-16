@@ -83,7 +83,7 @@
         });
 
         var imageUrl = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chs=24x32&chld='
-          +i+'|c8c626|000000';
+          +(i+1)+'|c8c626|000000';
         var markerImage = new google.maps.MarkerImage(
           imageUrl, new google.maps.Size(24, 32));
 
@@ -149,7 +149,7 @@
 
   function onCountySelected(county, circlePosition) {
     $('h1').html('Tech Companies in '+county.name);
-    $("#search_params").data("current_county_name", county.name);
+    $("#search_params").data("current_county_id", county.id);
     //currentMap.setZoom(currentMap.getZoom()+1);
     currentMap.setCenter(circlePosition);
     currentMap.setZoom(countyZoomLevel);
@@ -177,7 +177,7 @@
           from_year: $("#search_params").data("from_year"),
           to_year: $("#search_params").data("to_year"),
           tag_code: $("#search_params").data("tag_code"),
-          current_county_name: $("#search_params").data("current_county_name")
+          current_county_id: $("#search_params").data("current_county_id")
       }
       return search_params;
   }
