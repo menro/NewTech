@@ -23,6 +23,14 @@ class Office < ActiveRecord::Base
           joins(:company).merge(Company.founded_to(year))
         }
 
+  scope :with_company_tagged_as,
+        lambda {|tag_code|
+          joins(:company)
+            .joins('INNER JOIN companies_tags ON companies.id=companies_tags.company_id')
+            .joins('INNER JOIN tags ON companies_tags.tag_id=tags.id')
+            .where("tags.code", tag_code)
+        }
+
   scope :located_in_county,
         lambda {|county_id|
           joins(:city).merge(City.with_county_id(county_id))
