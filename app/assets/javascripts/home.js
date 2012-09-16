@@ -69,10 +69,6 @@
   function drawCompanyOffices(container) {
     $.getJSON($(container).data("offices_url"), searchParams(), function(data) {
 
-      var imageUrl = 'http://chart.apis.google.com/chart?cht=mm&chs=24x32&chco=FFFFFF,000088,000000&ext=.png';
-      var markerImage = new google.maps.MarkerImage(
-        imageUrl, new google.maps.Size(24, 32));
-
       companyOfficesMarkers = new Array();
       nOffices = 0;
       $.each(data, function(i, office) {
@@ -86,11 +82,16 @@
           content: contentString
         });
 
+        var imageUrl = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chs=24x32&chld='
+          +i+'|c8c626|000000';
+        var markerImage = new google.maps.MarkerImage(
+          imageUrl, new google.maps.Size(24, 32));
+
         var marker = new google.maps.Marker({
           position: new google.maps.LatLng(office.latitude, office.longitude),
           //draggable: false,
           title: office.company_name,
-          //icon: markerImage,
+          icon: markerImage,
           map: currentMap
         });
         //console.log("marker");
