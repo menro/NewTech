@@ -24,12 +24,18 @@ class Company < ActiveRecord::Base
 
   scope :founded_from,
         lambda {|year|
-          where("founded_year > ?", year)
+          where("`companies`.founded_year > ?", year)
         }
 
   scope :founded_to,
         lambda {|year|
-          where("founded_year < ?", year)
+          where("`companies`.founded_year < ?", year)
+        }
+
+
+  scope :tagged_as,
+        lambda {|tag_code|
+          joins(:tags).where("`tags`.code = ?", tag_code)
         }
 
 end

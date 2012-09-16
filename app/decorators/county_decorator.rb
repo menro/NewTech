@@ -22,6 +22,7 @@ class CountyDecorator < Draper::Base
     unless search_params.nil?
       results = results.with_companies_founded_from search_params[:from_year] if search_params[:from_year].present?
       results = results.with_companies_founded_to search_params[:to_year] if search_params[:to_year].present?
+      results = results.with_company_tagged_as search_params[:tag_code] if search_params[:tag_code].present?
     end
     results
   end

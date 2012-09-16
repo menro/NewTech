@@ -5,6 +5,8 @@ class Office < ActiveRecord::Base
 
   belongs_to :city
 
+  has_many :tags, :through => :company
+
   delegate :name, :permalink, :homepage_url, :description, :overview,
            :number_of_employees, :founded_year, :email_address, :phone_number,
            :to => :company, :prefix => true
@@ -25,10 +27,7 @@ class Office < ActiveRecord::Base
 
   scope :with_company_tagged_as,
         lambda {|tag_code|
-          joins(:company)
-            .joins('INNER JOIN companies_tags ON companies.id=companies_tags.company_id')
-            .joins('INNER JOIN tags ON companies_tags.tag_id=tags.id')
-            .where("tags.code", tag_code)
+          joins(:tags).merge(Company.tagged_as(tag_code))
         }
 
   scope :located_in_county,
