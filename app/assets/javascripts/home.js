@@ -140,8 +140,13 @@
         google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function() {
           onCountySelected(county, circlePosition);
         });
-
-        drawCountyLabel(nCountyCircles, county, circlePosition);
+        google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseover', function() {
+          drawCountyLabel(nCountyCircles, county, circlePosition);
+        });
+        //remove countyLabel when moouse goes out of the circle
+        google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseout', function() {
+          countyLabels[nCountyCircles].setMap(null);
+        });
         nCountyCircles++;
       });
     });
