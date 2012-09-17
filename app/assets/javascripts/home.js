@@ -44,10 +44,10 @@
     var zoomLevel = currentMap.getZoom();
     if (zoomLevel <= 8) {
       clearCompanyOffices();
-      clearCountyCirclesAndLabels();
+      clearCountyCircles();
       drawCountyCircles(container);
     } else {
-      clearCountyCirclesAndLabels();
+      clearCountyCircles();
       clearCompanyOffices();
       drawCompanyOffices(container);
     }
@@ -59,10 +59,9 @@
     }
   }
 
-  function clearCountyCirclesAndLabels() {
+  function clearCountyCircles() {
     for (var i=0; i<nCountyCircles; i++) {
       countyCircles[i].setMap(null);
-      countyLabels[i].setMap(null);
     }
   }
 
@@ -138,6 +137,7 @@
         };
         countyCircles[nCountyCircles] = new google.maps.Circle(circleOptions);
         google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function() {
+          removeCountyLabel(nCountyCircles);
           onCountySelected(county, circlePosition);
         });
         google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseover', function() {
@@ -145,11 +145,15 @@
         });
         //remove countyLabel when moouse goes out of the circle
         google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseout', function() {
-          countyLabels[nCountyCircles].setMap(null);
+          removeCountyLabel(nCountyCircles);
         });
         nCountyCircles++;
       });
     });
+  }
+
+  function removeCountyLabel(i) {
+    countyLabels[i].setMap(null);
   }
 
   function onCountySelected(county, circlePosition) {
