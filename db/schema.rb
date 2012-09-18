@@ -25,16 +25,16 @@ ActiveRecord::Schema.define(:version => 20120902070001) do
 
   create_table "companies", :force => true do |t|
     t.integer  "user_id"
+    t.integer  "employees_type_id"
+    t.integer  "investments_type_id"
     t.string   "name"
     t.string   "permalink"
-    t.string   "investment"
     t.boolean  "hiring"
     t.boolean  "enabled"
     t.string   "homepage_url"
     t.string   "facebook"
     t.string   "twitter"
     t.string   "jobs_url"
-    t.string   "number_of_employees"
     t.string   "founded_year"
     t.string   "email_address"
     t.string   "phone_number"
@@ -58,6 +58,18 @@ ActiveRecord::Schema.define(:version => 20120902070001) do
     t.string   "state"
     t.string   "latitude"
     t.string   "longitude"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "employees_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "investments_types", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

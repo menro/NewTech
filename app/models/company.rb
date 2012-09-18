@@ -1,8 +1,13 @@
 class Company < ActiveRecord::Base
   attr_accessible :name, :offices_attributes, :email_address, :founded_year, :description,
-                  :homepage_url, :twitter, :facebook, :jobs_url, :hiring, :image, :number_of_employees, :investment
+                  :homepage_url, :twitter, :facebook, :jobs_url, :hiring, :image,
+                  :investments_type_id, :employees_type_id
 
   belongs_to  :user
+
+  belongs_to  :investments_type
+
+  belongs_to  :employees_type
 
   has_many :offices, :dependent => :destroy
 
@@ -37,5 +42,10 @@ class Company < ActiveRecord::Base
         lambda {|tag_code|
           joins(:tags).where("`tags`.code = ?", tag_code)
         }
+
+
+  def number_of_employees
+    employees_type.name
+  end
 
 end

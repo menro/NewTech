@@ -11,7 +11,12 @@ class CrunchbaseService
 
           c.permalink = details.delete("permalink")
           c.homepage_url = details.delete("homepage_url")
-          c.number_of_employees = details.delete("number_of_employees")
+          c.hiring = false
+          c.enabled = true
+
+          c.employees_type = employees_type_from_integer(details.delete("number_of_employees"))
+          c.investments_type = InvestmentsType.find(1)
+
           c.founded_year = details.delete("founded_year")
           c.email_address = details.delete("email_address")
           c.phone_number = details.delete("phone_number")
@@ -42,6 +47,27 @@ class CrunchbaseService
   end
 
   private
+
+  def self.employees_type_from_integer employees
+    type_name = ""
+    employees ||= 10
+    if employees <= 10
+      type_name = "<10"
+    elsif employees > 10 && employees <= 25
+      type_name = "11-25"
+    elsif employees > 25 && employees <= 75
+      type_name = "26-75"
+    elsif employees > 75 && employees <= 250
+      type_name = "76-250"
+    else
+      type_name = ">250"
+    end
+    EmployeesType.find_by_name(type_name)
+  end
+
+
+
+
   def self.company_details(permalink)
     client = HTTPClient.new
     response = client.get "http://api.crunchbase.com/v/1/company/#{permalink}.js"

@@ -12,15 +12,14 @@
           = f.input :founded_year, :as => :string
           = f.input :description
       .well
-        = f.input :investment, as: :radio_buttons, collection: ['<100,000',	'<500,000',	'<2M',	'<10M',	'>25M'], item_wrapper_class: 'inline'
-
+        = f.association :investments_type, as: :radio_buttons, item_wrapper_class: 'inline'
     .span5
       .well
-        = f.input :hiring, as: :radio_buttons, collection: ['Yes', 'No'], item_wrapper_class: 'inline'
+        = f.input :hiring, as: :radio_buttons, item_wrapper_class: 'inline'
       .well
         = f.input :image, :label => "Logo"
       .well
-        = f.input :number_of_employees, as: :radio_buttons, collection: ['<10', '11-25', '26-75','76-250','>251'], item_wrapper_class: 'inline'
+        = f.association :employees_type, as: :radio_buttons, item_wrapper_class: 'inline'
       .well
         .form-inputs.row
           = f.input :homepage_url, :as => :string
