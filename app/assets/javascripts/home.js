@@ -107,7 +107,7 @@
   }
 
   function drawCountyCircles(container) {
-    $('h1').html('Tech Companies by County');
+    $('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
     // County circles
     $.getJSON($(container).data("counties_url"), searchParams(), function(data) {
       countyCircles = new Array();
@@ -166,7 +166,7 @@
 
   function drawCountyLabel(i, county, position) {
     var dummyMarkerImage = new google.maps.MarkerImage(
-      '/assets/transparent.gif', new google.maps.Size(1, 1));
+      '/assets/1x1-pixel.png', new google.maps.Size(1, 1));
     var percentage = Math.round(county.offices_percentage*100)/100;
     countyLabels[i] = new MarkerWithLabel({
       icon: dummyMarkerImage,
@@ -177,6 +177,7 @@
       labelClass: "labels"
     });
     google.maps.event.addListener(countyLabels[i], 'click', function() {
+      removeCountyLabel(i);
       onCountySelected(county, position);
     });
   }
@@ -229,6 +230,10 @@
       }
     });
     $('#tag-cloud a').click(function() {
+      //highlight
+      $('#tag-cloud a').removeClass('selected-tag');
+      $(this).addClass('selected-tag');
+
       var tag_code = $(this).data("tag_code");
       $("#search_params").data("tag_code", tag_code);
       $('.gmap').each(function() {

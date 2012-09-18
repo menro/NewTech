@@ -2,11 +2,12 @@
   = javascript_include_tag("https://maps.googleapis.com/maps/api/js?sensor=false")
   = javascript_include_tag("http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.5/src/markerwithlabel.js")
 
+%h1
+
 .content
   .row
     .span12
       .search.inline
-        %h1
         #search_params{ :data => { :from_year => "", :to_year => "", :tag_code => "", :current_county_id => "" } }
         %label{ :id => "years_range" }
         #years_slider
@@ -15,7 +16,6 @@
         .pull-right
           = render :partial => 'filters'
 
-
-      #tag-cloud
-        - @tags_for_cloud.each do |tag|
-          %a{:href => "#", :rel => tag.companies_count, :data => { :tag_code => tag.code} }= tag.code
+#tag-cloud
+  - @tags_for_cloud.each do |tag|
+    %a{:href => "#", :rel => tag.companies_count, :data => { :tag_code => tag.code} }= tag.code
