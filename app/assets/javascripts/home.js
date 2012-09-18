@@ -107,7 +107,7 @@
   }
 
   function drawCountyCircles(container) {
-    $('h1').html('Tech Companies by County');
+    $('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
     // County circles
     $.getJSON($(container).data("counties_url"), searchParams(), function(data) {
       countyCircles = new Array();
@@ -229,6 +229,10 @@
       }
     });
     $('#tag-cloud a').click(function() {
+      //highlight
+      $('#tag-cloud a').removeClass('selected-tag');
+      $(this).addClass('selected-tag');
+
       var tag_code = $(this).data("tag_code");
       $("#search_params").data("tag_code", tag_code);
       $('.gmap').each(function() {

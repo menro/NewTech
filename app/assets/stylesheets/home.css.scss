@@ -4,7 +4,7 @@
 
 .content {
   padding: 0px 0px 0px 0px;
-  margin: 0px 0px 0px 0px;
+  margin: 10px 0px 10px 0px;
 }
 
 .gmap {
@@ -37,4 +37,10 @@
   font-weight: bold;
   text-align: center;
   line-height: 100%;
+}
+
+.selected-tag {
+  background-color: #d9d856;
+  text-decoration: underline;
+
 }
