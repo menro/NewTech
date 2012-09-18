@@ -11,11 +11,11 @@
         %label{ :id => "years_range" }
         #years_slider
       .gmap{ :data => { :offices_url => "#{api_v1_offices_url(:json)}", :categories_url => "#{api_v1_categories_url(:json)}", :counties_url => "#{api_v1_counties_url(:json)}" } }
-      .navbar
-        %nav.navbar-inner
-          .container
-            .pull-right
-              filters
+      .container
+        .pull-right
+          = render :partial => 'filters'
+
+
       #tag-cloud
         - @tags_for_cloud.each do |tag|
           %a{:href => "#", :rel => tag.companies_count, :data => { :tag_code => tag.code} }= tag.code

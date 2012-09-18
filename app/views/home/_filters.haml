@@ -1,0 +1,36 @@
+.btn-toolbar
+  %a.btn.btn-primary.btn-jobs{ :role => "button", :href => "#" } Jobs
+  .btn-group.btn-employee
+    %ul.filters
+      %li.dropup
+        %a.btn.btn-primary.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
+          Employee
+          %b.caret
+        %ul.dropdown-menu{:role => "menu" }
+          %li
+            %a{:href => "#"} <10
+          %li
+            %a{:href => "#"} 11-25
+          %li
+            %a{:href => "#"} 26-75
+          %li
+            %a{:href => "#"} 76-250
+          %li
+            %a{:href => "#"} >251
+  .btn-group.btn-investment
+    %ul.filters
+      %li.dropup
+        %a.btn.btn-primary.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
+          Investment
+          %b.caret
+        %ul.dropdown-menu{:role => "menu" }
+          %li
+            %a{:href => "#"}  <100,000
+          %li
+            %a{:href => "#"} <500,000
+          %li
+            %a{:href => "#"} <2M
+          %li
+            %a{:href => "#"} <10M
+          %li
+            %a{:href => "#"} >25M

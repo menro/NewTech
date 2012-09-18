@@ -8,7 +8,7 @@ InvestmentsType.create do |investment|
   investment.name = "<2M"
 end
 InvestmentsType.create do |investment|
-  investment.name = "<2M"
+  investment.name = "<10M"
 end
 InvestmentsType.create do |investment|
   investment.name = ">25M"
