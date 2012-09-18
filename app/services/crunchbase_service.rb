@@ -60,7 +60,7 @@ class CrunchbaseService
     elsif employees > 75 && employees <= 250
       type_name = "76-250"
     else
-      type_name = ">250"
+      type_name = ">251"
     end
     EmployeesType.find_by_name(type_name)
   end
