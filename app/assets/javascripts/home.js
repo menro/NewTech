@@ -166,7 +166,7 @@
 
   function drawCountyLabel(i, county, position) {
     var dummyMarkerImage = new google.maps.MarkerImage(
-      '/assets/transparent.gif', new google.maps.Size(1, 1));
+      '/assets/1x1-pixel.png', new google.maps.Size(1, 1));
     var percentage = Math.round(county.offices_percentage*100)/100;
     countyLabels[i] = new MarkerWithLabel({
       icon: dummyMarkerImage,
@@ -177,6 +177,7 @@
       labelClass: "labels"
     });
     google.maps.event.addListener(countyLabels[i], 'click', function() {
+      removeCountyLabel(i);
       onCountySelected(county, position);
     });
   }
