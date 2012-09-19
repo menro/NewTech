@@ -24,6 +24,7 @@ class CountyDecorator < Draper::Base
       results = results.with_companies_founded_to search_params[:to_year] unless search_params[:to_year].empty?
       results = results.with_company_tagged_as search_params[:tag_code] unless search_params[:tag_code].empty?
       results = results.with_company_are_hiring unless search_params[:hiring].empty?
+      results = results.with_company_employee_type(search_params[:employee_id]) unless search_params[:employee_id].empty?
     end
     results
   end

@@ -1,6 +1,6 @@
 .btn-toolbar.bottom_filters
   %a.btn.btn-primary.btn-jobs{ :role => "button", :href => "#" } Jobs
-  .btn-group.btn-employee
+  .btn-group.btn-employee-group
     %ul.filters
       %li.dropup
         %a.btn.btn-primary.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
@@ -8,16 +8,16 @@
           %b.caret
         %ul.dropdown-menu{:role => "menu" }
           %li
-            %a{:href => "#"} <10
+            %a.btn-employee{:href => "#", :data => { :employee_id => "1" }} <10
           %li
-            %a{:href => "#"} 11-25
+            %a.btn-employee{:href => "#", :data => { :employee_id => "2" }} 11-25
           %li
-            %a{:href => "#"} 26-75
+            %a.btn-employee{:href => "#", :data => { :employee_id => "3" }} 26-75
           %li
-            %a{:href => "#"} 76-250
+            %a.btn-employee{:href => "#", :data => { :employee_id => "4" }} 76-250
           %li
-            %a{:href => "#"} >251
-  .btn-group.btn-investment
+            %a.btn-employee{:href => "#", :data => { :employee_id => "5" }} >251
+  .btn-group.btn-investment-group
     %ul.filters
       %li.dropup
         %a.btn.btn-primary.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }

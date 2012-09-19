@@ -46,6 +46,11 @@ class Company < ActiveRecord::Base
 
   scope :are_hiring, where("`companies`.hiring = true")
 
+  scope :employee_type,
+        lambda {|employee_id|
+          joins(:employees_types).where("`employees_types`.id = ?", employee_id)
+        }
+
   def number_of_employees
     employees_type.name
   end

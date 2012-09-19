@@ -7,6 +7,8 @@ class County < ActiveRecord::Base
 
   has_many :tags, :through => :companies
 
+  has_many :employees_types, :through => :companies
+
   attr_accessible :name, :zip, :state, :latitude, :longitude
 
   scope :with_companies_founded_from,
@@ -26,4 +28,9 @@ class County < ActiveRecord::Base
 
   scope :with_company_are_hiring,
         joins(:companies).merge(Company.are_hiring)
+
+  scope :with_company_employee_type,
+        lambda {|employee_id|
+          joins(:employees_types).merge(Company.employee_type(employee_id))
+        }
 end
