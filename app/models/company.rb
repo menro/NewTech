@@ -53,7 +53,7 @@ class Company < ActiveRecord::Base
 
   scope :investment_type,
         lambda {|investment_id|
-          where("`employees_types`.investments_type_id = ?", investment_id)
+          where("`companies`.investments_type_id = ?", investment_id)
         }
 
   def number_of_employees
