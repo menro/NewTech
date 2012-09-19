@@ -76,7 +76,7 @@
           +'<p><a href=""'+office.company_homepage_url+'"></a></p>'
           +'<p><b>Year founded: </b>'+office.company_founded_year+'</p>'
           +'<p><b>Number of employees: </b>'+office.company_number_of_employees+'</p>'
-          +'<p>'+office.company_overview+'</p>';
+          +'<p>'+office.company_description+'</p>';
         var infowindow = new google.maps.InfoWindow({
           content: contentString
         });
