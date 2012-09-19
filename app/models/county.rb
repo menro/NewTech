@@ -24,5 +24,6 @@ class County < ActiveRecord::Base
           joins(:tags).merge(Company.tagged_as(tag_code))
         }
 
-
+  scope :with_company_are_hiring,
+        joins(:companies).merge(Company.are_hiring)
 end

@@ -35,4 +35,7 @@ class Office < ActiveRecord::Base
           joins(:city).merge(City.with_county_id(county_id))
         }
 
+  scope :with_company_are_hiring,
+        joins(:company).merge(Company.are_hiring)
+
 end

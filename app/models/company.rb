@@ -44,6 +44,8 @@ class Company < ActiveRecord::Base
         }
 
 
+  scope :are_hiring, where("`companies`.hiring = true")
+
   def number_of_employees
     employees_type.name
   end

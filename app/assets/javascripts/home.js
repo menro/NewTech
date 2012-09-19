@@ -187,7 +187,8 @@
           from_year: $("#search_params").data("from_year"),
           to_year: $("#search_params").data("to_year"),
           tag_code: $("#search_params").data("tag_code"),
-          current_county_id: $("#search_params").data("current_county_id")
+          current_county_id: $("#search_params").data("current_county_id"),
+          hiring: $("#search_params").data("hiring")
       }
       return search_params;
   }
@@ -239,6 +240,20 @@
       $('.gmap').each(function() {
         refreshMap(this);
       });
+    });
+    $('.bottom_filters a.btn-jobs').click(function(e){
+        e.preventDefault();
+        if($(this).is('.active')) {
+            $(this).removeClass("active");
+            $("#search_params").data("hiring", "");
+        } else {
+            $(this).addClass("active");
+            $("#search_params").data("hiring", true);
+        }
+        $('.gmap').each(function() {
+          refreshMap(this);
+        });
+
     });
   });
 

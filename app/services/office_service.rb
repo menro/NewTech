@@ -6,10 +6,11 @@ class OfficeService
 
   def self.search(params)
     offices = Office.scoped
-    offices = offices.with_companies_founded_from params[:from_year] if params[:from_year].present?
-    offices = offices.with_companies_founded_to params[:to_year] if params[:to_year].present?
-    offices = offices.with_company_tagged_as params[:tag_code] if params[:tag_code].present?
-    offices = offices.located_in_county params[:current_county_id] if params[:current_county_id].present?
+    offices = offices.with_companies_founded_from params[:from_year] unless params[:from_year].empty?
+    offices = offices.with_companies_founded_to params[:to_year] unless params[:to_year].empty?
+    offices = offices.with_company_tagged_as params[:tag_code] unless params[:tag_code].empty?
+    offices = offices.located_in_county params[:current_county_id] unless params[:current_county_id].empty?
+    offices = offices.with_company_are_hiring unless params[:hiring].empty?
     OfficeDecorator.decorate(offices.uniq)
   end
 
