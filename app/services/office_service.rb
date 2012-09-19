@@ -12,6 +12,7 @@ class OfficeService
     offices = offices.located_in_county params[:current_county_id] unless params[:current_county_id].empty?
     offices = offices.with_company_are_hiring unless params[:hiring].empty?
     offices = offices.with_company_employee_type(params[:employee_id]) unless params[:employee_id].empty?
+    offices = offices.with_company_investment_type(params[:investment_id]) unless params[:investment_id].empty?
     OfficeDecorator.decorate(offices.uniq)
   end
 

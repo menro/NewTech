@@ -9,6 +9,8 @@ class County < ActiveRecord::Base
 
   has_many :employees_types, :through => :companies
 
+  has_many :investments_types, :through => :companies
+
   attr_accessible :name, :zip, :state, :latitude, :longitude
 
   scope :with_companies_founded_from,
@@ -32,5 +34,10 @@ class County < ActiveRecord::Base
   scope :with_company_employee_type,
         lambda {|employee_id|
           joins(:employees_types).merge(Company.employee_type(employee_id))
+        }
+
+  scope :with_company_investment_type,
+        lambda {|investment_id|
+          joins(:investments_types).merge(Company.investment_type(investment_id))
         }
 end

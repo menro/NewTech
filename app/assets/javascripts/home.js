@@ -189,7 +189,8 @@
           tag_code: $("#search_params").data("tag_code"),
           current_county_id: $("#search_params").data("current_county_id"),
           hiring: $("#search_params").data("hiring") ,
-          employee_id: $("#search_params").data("employee_id")
+          employee_id: $("#search_params").data("employee_id"),
+          investment_id: $("#search_params").data("investment_id")
       }
       return search_params;
   }
@@ -271,6 +272,22 @@
           refreshMap(this);
         });
     });
+      $('.bottom_filters a.btn-investment').click(function(e){
+          e.preventDefault();
+          if($(this).parent().is('.active')) {
+              $(this).parent().removeClass("active");
+              $('.bottom_filters .btn-investment-group a.btn-primary').removeClass("active");
+              $("#search_params").data("investment_id", "");
+          } else {
+              $('.bottom_filters .btn-investment-group a.btn-primary').addClass("active");
+              $('.bottom_filters .btn-investment-group ul.dropdown-menu li').removeClass("active");
+              $(this).parent().addClass("active");
+              $("#search_params").data("investment_id", $(this).data("investment_id"));
+          }
+          $('.gmap').each(function() {
+            refreshMap(this);
+          });
+      });
   });
 
 }).call(this);

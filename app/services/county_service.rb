@@ -8,6 +8,7 @@ class CountyService
     counties = counties.with_company_tagged_as params[:tag_code] unless params[:tag_code].empty?
     counties = counties.with_company_are_hiring unless params[:hiring].empty?
     counties = counties.with_company_employee_type(params[:employee_id]) unless params[:employee_id].empty?
+    counties = counties.with_company_investment_type(params[:investment_id]) unless params[:investment_id].empty?
     CountyDecorator.decorate(counties.uniq, :search_params => params)
   end
 end
