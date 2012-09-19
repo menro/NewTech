@@ -10,21 +10,28 @@
             = office.input :zip_code,  :as => :string
           = f.input :email_address, :as => :string
           = f.input :founded_year, :as => :string
+          = f.input :tags_list, :as => :string, :hint => "E.g.,marketing-automation, lead-generation,analytics, email-marketing"
           = f.input :description
       .well
-        %span Investment
+        %span.header Investment
         = f.association :investments_type, as: :radio_buttons, item_wrapper_class: 'inline'
       .well.current-employees-count
-        %span Current Employee Count
+        %span.header Current Employee Count
         = f.association :employees_type, as: :radio_buttons, item_wrapper_class: 'inline', :label => ""
     .span5
       .well.hiring
-        %span Hiring
+        %span.header Hiring
         = f.input :hiring, as: :radio_buttons, item_wrapper_class: 'inline', :label => "Hiring in the next 30 days"
       .well
-        %span Images
-        = f.input :image, :label => "Logo"
-      .well
+        %span.header Images
+        %span.btn.btn-primary.fileinput-button
+          %i.icon-plus.icon-white
+          %span.header Add Company Logo
+          = f.file_field :image, :label => "Logo"
+        %br.clearfix
+        %p.help-block
+          Valid format [png, jpg, gig]
+      .well.clear
         .form-inputs.row
           = f.input :homepage_url, :as => :string
           = f.input :twitter, :as => :string
@@ -34,6 +41,5 @@
     .control-group
       .controls
         .actions
-          = f.submit 'Save', class: "btn btn-success"
-
+          = f.submit 'Save', class: "btn btn-success btn-save"
 

@@ -12,8 +12,14 @@
     label.radio {
       font-size: 11px;
     }
-    span {
+    p.help-block {
+      font-style: oblique;
+      font-size: 11px;
+      margin-top: -2px;
+    }
+    span.header {
       font-family: 'Original Surfer', cursive;
+      font-size: 14px;
     }
     .hiring {
       label.control-label {
@@ -42,7 +48,7 @@
       height: 70px;
     }
   }
-  .btn {
+  .btn-save {
     margin-top: 10px;
     margin-left: 100px;
     width: 300px;
@@ -50,3 +56,27 @@
     text-align: center
   }
 }
+
+
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+  float: right;
+  margin-right: 4px;
+  width: 200px;
+}
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  border: solid transparent;
+  border-width: 0 0 100px 200px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -moz-transform: translate(-300px, 0) scale(4);
+  direction: ltr;
+  cursor: pointer;
+}
+
+

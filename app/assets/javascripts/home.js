@@ -243,7 +243,7 @@
         refreshMap(this);
       });
     });
-    $('.bottom_filters a.btn-jobs').click(function(e){
+    $('.bottom_filters a.btn-hiring').click(function(e){
         e.preventDefault();
         if($(this).is('.active')) {
             $(this).removeClass("active");

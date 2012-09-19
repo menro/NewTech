@@ -1,7 +1,7 @@
 class CompaniesController < ApplicationController
 
   def new
-    @company = CompanyService::new_company
+    @company = CompanyService::build
   end
 
   def create
