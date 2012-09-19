@@ -7,10 +7,6 @@ class Office < ActiveRecord::Base
 
   has_many :tags, :through => :company
 
-  has_many :employees_types, :through => :company
-
-  has_many :investments_types, :through => :company
-
   delegate :name, :permalink, :homepage_url, :description, :overview,
            :number_of_employees, :founded_year, :email_address, :phone_number,
            :to => :company, :prefix => true
@@ -45,12 +41,12 @@ class Office < ActiveRecord::Base
 
   scope :with_company_employee_type,
         lambda {|employee_id|
-          joins(:employees_types).merge(Company.employee_type(employee_id))
+          joins(:company).merge(Company.employee_type(employee_id))
         }
 
   scope :with_company_investment_type,
         lambda {|investment_id|
-          joins(:investments_types).merge(Company.investment_type(investment_id))
+          joins(:company).merge(Company.investment_type(investment_id))
         }
 
 

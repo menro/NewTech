@@ -12,6 +12,19 @@
     label.radio {
       font-size: 11px;
     }
+    span {
+      font-family: 'Original Surfer', cursive;
+    }
+    .hiring {
+      label.control-label {
+        width: 200px;
+        margin-right: 10px;
+      }
+    }
+    .current-employees-count {
+      .controls {
+      }
+    }
     input.string {
       width: 95%;
     }
@@ -25,12 +38,13 @@
       color: red;
     }
     select {
-      width: 100%;
+      width: 97%;
       height: 70px;
     }
   }
   .btn {
     margin-top: 10px;
+    margin-left: 100px;
     width: 300px;
     height: 50px;
     text-align: center

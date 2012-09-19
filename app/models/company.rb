@@ -48,12 +48,12 @@ class Company < ActiveRecord::Base
 
   scope :employee_type,
         lambda {|employee_id|
-          joins(:employees_types).where("`employees_types`.id = ?", employee_id)
+          where("`companies`.employees_type_id = ?", employee_id)
         }
 
   scope :investment_type,
         lambda {|investment_id|
-          joins(:investments_types).where("`investments_types`.id = ?", investment_id)
+          where("`employees_types`.investments_type_id = ?", investment_id)
         }
 
   def number_of_employees

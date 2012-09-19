@@ -12,24 +12,28 @@
           = f.input :founded_year, :as => :string
           = f.input :description
       .well
+        %span Investment
         = f.association :investments_type, as: :radio_buttons, item_wrapper_class: 'inline'
+      .well.current-employees-count
+        %span Current Employee Count
+        = f.association :employees_type, as: :radio_buttons, item_wrapper_class: 'inline', :label => ""
     .span5
+      .well.hiring
+        %span Hiring
+        = f.input :hiring, as: :radio_buttons, item_wrapper_class: 'inline', :label => "Hiring in the next 30 days"
       .well
-        = f.input :hiring, as: :radio_buttons, item_wrapper_class: 'inline'
-      .well
+        %span Images
         = f.input :image, :label => "Logo"
-      .well
-        = f.association :employees_type, as: :radio_buttons, item_wrapper_class: 'inline'
       .well
         .form-inputs.row
           = f.input :homepage_url, :as => :string
           = f.input :twitter, :as => :string
           = f.input :facebook, :as => :string
           = f.input :jobs_url, :as => :string
-  %br
-  .control-group
-    .controls
-      .actions
-        = f.submit 'Save', class: "btn btn-success"
+    %br
+    .control-group
+      .controls
+        .actions
+          = f.submit 'Save', class: "btn btn-success"
 
 
