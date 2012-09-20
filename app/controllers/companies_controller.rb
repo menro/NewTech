@@ -17,7 +17,7 @@ class CompaniesController < ApplicationController
   def send_image
     company = CompanyService::find params[:id]
     if company.nil? || company.image.path(params[:style]).nil?
-      render :text => "image not found"
+      send_file("#{Rails.root}/app/assets/images/company-default.png", :filename => "#{company.image_file_name}")
     else
       send_file(company.image.path(params[:style]), :filename => "#{company.image_file_name}")
     end
