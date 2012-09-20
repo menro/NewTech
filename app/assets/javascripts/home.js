@@ -68,6 +68,22 @@
   function drawCompanyOffices(container) {
     $.getJSON($(container).data("offices_url"), searchParams(), function(data) {
 
+      var thumbTemplate = ''
+        +'<ul class="thumbnails">'
+        +'<li class="span2 custom-thumbnail-li">'
+        +'<div class="company-marker">'
+        +'<img src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chs=24x32&chld=__MARKER_NUMBER__|c8c626|000000">'
+        +'</div>'
+        +'<div class="thumbnail custom-thumbnail">'
+        +'<img src="__COMPANY_LOGO_URL__" alt="">'
+        +'<h3>__COMPANY_NAME__</h3>'
+        //+'<p>Thumbnail caption...</p>'
+        +'</div>'
+        +'</li>'
+        +'</ul>';
+
+      var thumbsHtml = '';
+
       companyOfficesMarkers = new Array();
       nOffices = 0;
       $.each(data, function(i, office) {
@@ -104,8 +120,22 @@
         });
 
         companyOfficesMarkers[nOffices++] = marker;
+
+        //company thumbnail
+        var thumbHtml = thumbTemplate.replace('__MARKER_NUMBER__',i+1);
+        thumbHtml = thumbHtml.replace('__COMPANY_LOGO_URL__',office.company_image_url);
+        thumbHtml = thumbHtml.replace('__COMPANY_NAME__',office.company_name);
+        thumbsHtml = thumbsHtml+thumbHtml;
       });
       //console.log(companyOfficesMarkers);
+
+      //show company list
+      $('.gmap').each(function() {
+        $(this).css('width', '80%');
+      });
+      $('#company-list').show();
+      $('#company-list').html(thumbsHtml);
+
     });
 
   }
@@ -114,6 +144,13 @@
     $('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
     // County circles
     $.getJSON($(container).data("counties_url"), searchParams(), function(data) {
+
+      //hide company list
+      $('#company-list').hide();
+      $('.gmap').each(function() {
+        $(this).css('width', '100%');
+      });
+
       countyCircles = new Array();
       nCountyCircles = 0;
       countyLabels = new Array();

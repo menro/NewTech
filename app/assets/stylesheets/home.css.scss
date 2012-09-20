@@ -8,6 +8,7 @@
 }
 
 .gmap {
+  float: left;
   height: 640px;
   width: 100%;
 }
@@ -68,5 +69,29 @@
 .selected-tag {
   background-color: #d9d856;
   text-decoration: underline;
+}
 
+#company-list {
+  float: left;
+  width: 20%;
+  height: 640px;
+  overflow: auto;
+  display: none;
+}
+
+.custom-thumbnail {
+  margin-left: 35px;
+}
+
+.custom-thumbnail-li {
+  width: 85%;
+}
+
+.company-marker {
+  float: left;
+  width: 28px;
+  margin-left: 5px;
+  margin-right: 5px;
+  position: relative;
+  top: 50px;
 }

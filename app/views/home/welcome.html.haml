@@ -12,6 +12,7 @@
         %label{ :id => "years_range" }
         #years_slider
       .gmap{ :data => { :offices_url => "#{api_v1_offices_url(:json)}", :counties_url => "#{api_v1_counties_url(:json)}" } }
+      #company-list
       .container
         .pull-right
           = render :partial => 'filters'
