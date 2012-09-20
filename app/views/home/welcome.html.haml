@@ -11,7 +11,7 @@
         #search_params{ :data => { :from_year => "", :to_year => "", :tag_code => "", :current_county_id => "", :hiring => "", :employee_id => "", :investment_id => "" } }
         %label{ :id => "years_range" }
         #years_slider
-      .gmap{ :data => { :offices_url => "#{api_v1_offices_url(:json)}", :categories_url => "#{api_v1_categories_url(:json)}", :counties_url => "#{api_v1_counties_url(:json)}" } }
+      .gmap{ :data => { :offices_url => "#{api_v1_offices_url(:json)}", :counties_url => "#{api_v1_counties_url(:json)}" } }
       .container
         .pull-right
           = render :partial => 'filters'
