@@ -71,14 +71,16 @@
       companyOfficesMarkers = new Array();
       nOffices = 0;
       $.each(data, function(i, office) {
-
         var contentString =''
+          +'<div class="content well">'
           +'<img src="'+office.company_image_url+'" alt="" />'
           +'<h1>'+office.company_name+'</h1>'
           +'<p><a href=""'+office.company_homepage_url+'"></a></p>'
           +'<p><b>Year founded: </b>'+office.company_founded_year+'</p>'
           +'<p><b>Number of employees: </b>'+office.company_number_of_employees+'</p>'
-          +'<p>'+office.company_description+'</p>';
+          +'<p>'+office.company_description+'</p>'
+          +'<div class="hiring-'+office.company_hiring+'">&#160</div>'
+          +'</div>';
         var infowindow = new google.maps.InfoWindow({
           content: contentString
         });

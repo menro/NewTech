@@ -17,7 +17,7 @@ class Company < ActiveRecord::Base
 
   has_attached_file :image,
                     :styles => {
-                        :thumbnil => "128x128#",
+                        :thumbnail => "128x128#",
                         :medium => "256x256#"
                     },
                     :url  => ':class/:id/image/:style',
@@ -30,12 +30,12 @@ class Company < ActiveRecord::Base
 
   scope :founded_from,
         lambda {|year|
-          where("`companies`.founded_year > ?", year)
+          where("`companies`.founded_year >= ?", year)
         }
 
   scope :founded_to,
         lambda {|year|
-          where("`companies`.founded_year < ?", year)
+          where("`companies`.founded_year <= ?", year)
         }
 
 

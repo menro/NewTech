@@ -9,6 +9,7 @@ class CompaniesController < ApplicationController
     if @company.persisted?
       redirect_to root_path, :notice => "Company added correctly."
     else
+      flash.now[:warning] = "Some errors are occured. fix it please! Remember to upload the image before submit"
       render :new
     end
   end

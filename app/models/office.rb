@@ -7,7 +7,7 @@ class Office < ActiveRecord::Base
 
   has_many :tags, :through => :company
 
-  delegate :id, :name, :permalink, :homepage_url, :description, :overview,
+  delegate :id, :name, :permalink, :homepage_url, :description, :overview, :hiring,
            :number_of_employees, :founded_year, :email_address, :phone_number, :image,
            :to => :company, :prefix => true
 
