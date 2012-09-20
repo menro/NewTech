@@ -12,4 +12,13 @@ class CompaniesController < ApplicationController
       render :new
     end
   end
+
+  def send_image
+    company = CompanyService::find params[:id]
+    if company.nil? || company.image.path(params[:style]).nil?
+      render :text => "image not found"
+    else
+      send_file(company.image.path(params[:style]), :filename => "#{company.image_file_name}")
+    end
+  end
 end

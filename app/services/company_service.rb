@@ -23,12 +23,15 @@ class CompanyService
       attributes[:offices_attributes]['0'][:address1] = geocode.street_address
       attributes[:offices_attributes]['0'][:latitude] = geocode.lat
       attributes[:offices_attributes]['0'][:longitude] = geocode.lng
-      company = Company.build attributes
+      company = build attributes
       company.save
     end
     CompanyDecorator.decorate(company)
   end
 
+  def self.find(id)
+    CompanyDecorator.find(id)
+  end
 
   def self.find_geocode(address)
     city = City.find_by_id(address[:city_id])

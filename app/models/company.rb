@@ -17,6 +17,7 @@ class Company < ActiveRecord::Base
 
   has_attached_file :image,
                     :styles => {
+                        :thumbnil => "128x128#",
                         :medium => "256x256#"
                     },
                     :url  => ':class/:id/image/:style',
