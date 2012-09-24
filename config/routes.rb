@@ -13,6 +13,15 @@ Newtech::Application.routes.draw do
 
   devise_for :users, :controllers => { :registrations => :registrations }
 
+#
+  # Profile Area
+  #
+  get "profile/account" => "profile#account"
+  put "profile/password" => "profile#password_update"
+  get "profile" => "profile#show"
+  put "profile/update" => "profile#update"
+
+
   root :to => 'home#welcome'
 
 end

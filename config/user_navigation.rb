@@ -7,7 +7,7 @@ SimpleNavigation::Configuration.run do |navigation|
     if user_signed_in?
       primary.item :account, current_user.username, "#" do |account|
         account.item :account_profile, content_tag(:i, nil, :class => 'icon-user icon-large') << t(:'simple_navigation.account.profile'),
-                     "#"
+                     profile_path
 
         account.item :account_logout, content_tag(:i, nil, :class => 'icon-off') << t(:'simple_navigation.account.logout'),
                      destroy_user_session_path, :method => 'delete'
