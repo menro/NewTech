@@ -69,7 +69,6 @@
     $.getJSON($(container).data("offices_url"), searchParams(), function(data) {
 
       var thumbTemplate = ''
-        +'<ul class="thumbnails">'
         +'<li class="span2 custom-thumbnail-li">'
         +'<div class="company-marker">'
         +'<img src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chs=24x32&chld=__MARKER_NUMBER__|c8c626|000000">'
@@ -79,10 +78,9 @@
         +'<h3>__COMPANY_NAME__</h3>'
         //+'<p>Thumbnail caption...</p>'
         +'</div>'
-        +'</li>'
-        +'</ul>';
+        +'</li>';
 
-      var thumbsHtml = '';
+      var thumbsHtml = '<ul class="thumbnails">';
 
       companyOfficesMarkers = new Array();
       nOffices = 0;
@@ -133,6 +131,7 @@
       $('.gmap').each(function() {
         $(this).css('width', '80%');
       });
+      thumbsHtml = thumbsHtml+'</ul>';
       $('#company-list').show();
       $('#company-list').html(thumbsHtml);
 
