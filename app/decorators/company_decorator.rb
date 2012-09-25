@@ -5,4 +5,8 @@ class CompanyDecorator < Draper::Base
     tags.map(&:code).join(", ")
   end
 
+  def full_address
+    self.offices.first.full_address rescue "no address"
+  end
+
 end

@@ -50,4 +50,7 @@ class Office < ActiveRecord::Base
         }
 
 
+  def full_address
+    "#{address1}, #{zip_code}, #{city.name}"
+  end
 end

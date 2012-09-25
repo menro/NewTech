@@ -5,7 +5,7 @@ Newtech::Application.routes.draw do
     resources :offices,     :only => [:index]
   end
 
-  resources :companies, :only => [:create, :new]  do
+  resources :companies  do
       member do
         get "image/:style", :as => "image", :to => "companies#send_image"
       end

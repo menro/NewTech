@@ -4,6 +4,7 @@
 en:
   simple_navigation:
     account:
+      companies: "Companies"
       profile: "Profile"
       logout: "Logout"
     home: "Home"

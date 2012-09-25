@@ -1,7 +1,25 @@
 class CompaniesController < ApplicationController
 
+  def index
+    @companies = CompanyService::find_all_by_user(current_user, params)
+  end
+
   def new
     @company = CompanyService::build
+  end
+
+  def edit
+    @company = CompanyService::find(params[:id])
+  end
+
+  def update
+    @company = CompanyService::update_by_user(current_user, params[:id], params[:company])
+    render :edit
+  end
+
+  def destroy
+    CompanyService::destroy_by_user(current_user, params)
+    redirect_to :back
   end
 
   def create

@@ -52,6 +52,9 @@ end
 # REST
 gem "httpclient"
 
+# Pagination
+gem "kaminari"
+
 # API
 gem 'rabl'
 

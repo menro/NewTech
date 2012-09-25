@@ -9,6 +9,9 @@ SimpleNavigation::Configuration.run do |navigation|
         account.item :account_profile, content_tag(:i, nil, :class => 'icon-user icon-large') << t(:'simple_navigation.account.profile'),
                      profile_path
 
+        account.item :companies, content_tag(:i, nil, :class => 'icon-folder-open icon-large') << t(:'simple_navigation.account.companies'),
+                     companies_path
+
         account.item :account_logout, content_tag(:i, nil, :class => 'icon-off') << t(:'simple_navigation.account.logout'),
                      destroy_user_session_path, :method => 'delete'
       end

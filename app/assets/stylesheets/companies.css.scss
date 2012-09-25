@@ -4,50 +4,49 @@
 
 
 
-#new_company {
-  .new_company {
-    label {
-      color:#888;
-    }
-    label.radio {
-      font-size: 11px;
-    }
-    p.help-block {
-      font-style: oblique;
-      font-size: 11px;
-      margin-top: -2px;
-    }
-    span.header {
-      font-family: 'Original Surfer', cursive;
-      font-size: 14px;
-    }
-    .hiring {
-      label.control-label {
-        width: 200px;
-        margin-right: 10px;
-      }
-    }
-    .current-employees-count {
-      .controls {
-      }
-    }
-    input.string {
-      width: 95%;
-    }
-    input.file {
-    }
-    textarea {
-      width: 95%;
-      height: 50px;
-    }
-    abbr {
-      color: red;
-    }
-    select {
-      width: 97%;
-      height: 70px;
+.new_company {
+  label {
+    color:#888;
+  }
+  label.radio {
+    font-size: 11px;
+  }
+  p.help-block {
+    font-style: oblique;
+    font-size: 11px;
+    margin-top: -2px;
+  }
+  span.header {
+    font-family: 'Original Surfer', cursive;
+    font-size: 14px;
+  }
+  .hiring {
+    label.control-label {
+      width: 200px;
+      margin-right: 10px;
     }
   }
+  .current-employees-count {
+    .controls {
+    }
+  }
+  input.string {
+    width: 95%;
+  }
+  input.file {
+  }
+  textarea {
+    width: 95%;
+    height: 50px;
+  }
+  abbr {
+    color: red;
+  }
+  select {
+    width: 97%;
+    height: 70px;
+  }
+
   .btn-save {
     margin-top: 10px;
     margin-left: 100px;
@@ -55,28 +54,31 @@
     height: 50px;
     text-align: center
   }
+
+
+  .fileinput-button {
+    position: relative;
+    overflow: hidden;
+    float: right;
+    margin-right: 4px;
+    width: 200px;
+  }
+  .fileinput-button input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    border: solid transparent;
+    border-width: 0 0 100px 200px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -moz-transform: translate(-300px, 0) scale(4);
+    direction: ltr;
+    cursor: pointer;
+  }
+
 }
 
-
-.fileinput-button {
-  position: relative;
-  overflow: hidden;
-  float: right;
-  margin-right: 4px;
-  width: 200px;
+.actions {
+  width: 75px;
 }
-.fileinput-button input {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 0;
-  border: solid transparent;
-  border-width: 0 0 100px 200px;
-  opacity: 0;
-  filter: alpha(opacity=0);
-  -moz-transform: translate(-300px, 0) scale(4);
-  direction: ltr;
-  cursor: pointer;
-}
-
-

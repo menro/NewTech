@@ -1,0 +1,45 @@
+
+.span12.new_company
+  .span6
+    .well
+      .form-inputs.row
+        = f.input :name, :label => "Company Name", :as => :string
+        = f.simple_fields_for :offices do |office|
+          = office.input :address1, :label => "Address", :as => :string
+          = office.association :city
+          = office.input :zip_code,  :as => :string
+        = f.input :email_address, :as => :string
+        = f.input :founded_year, :as => :string
+        = f.input :tags_list, :as => :string, :hint => "E.g.,marketing-automation, lead-generation,analytics, email-marketing"
+        = f.input :description
+    .well
+      %span.header Investment
+      = f.association :investments_type, as: :radio_buttons, item_wrapper_class: 'inline'
+    .well.current-employees-count
+      %span.header Current Employee Count
+      = f.association :employees_type, as: :radio_buttons, item_wrapper_class: 'inline', :label => ""
+  .span5
+    .well.hiring
+      %span.header Hiring
+      = f.input :hiring, as: :radio_buttons, item_wrapper_class: 'inline', :label => "Hiring in the next 30 days"
+    .well
+      %span.header Images
+      %span.btn.btn-primary.fileinput-button
+        %i.icon-plus.icon-white
+        %span.header Add Company Logo
+        = f.file_field :image, :label => "Logo"
+      %br.clearfix
+      %p.help-block
+        Valid format [png, jpg, gig]
+    .well.clear
+      .form-inputs.row
+        = f.input :homepage_url, :as => :string
+        = f.input :twitter, :as => :string
+        = f.input :facebook, :as => :string
+        = f.input :jobs_url, :as => :string
+  %br
+  .control-group
+    .controls
+      .actions
+        = f.submit 'Save', class: "btn btn-success btn-save"
+
