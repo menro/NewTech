@@ -10,7 +10,7 @@ class CompaniesController < ApplicationController
   end
 
   def edit
-    @company = CompanyService::find(params[:id])
+    @company = CompanyService::edit(params[:id])
   end
 
   def update

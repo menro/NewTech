@@ -32,6 +32,12 @@ class CompanyService
     CompanyDecorator.new(company)
   end
 
+  def self.edit(id)
+    company = Company.find(id)
+    company.offices.build if company.offices.nil? || company.offices.empty?
+    CompanyDecorator.decorate(company)
+  end
+
   def self.build(attributes = nil, options = {})
     tags_list = attributes.delete("tags_list").split(",") rescue []
     company = Company.new(attributes, options) do |c|
