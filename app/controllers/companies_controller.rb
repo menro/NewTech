@@ -1,4 +1,5 @@
 class CompaniesController < ApplicationController
+  before_filter :authenticate_user!
 
   def index
     @companies = CompanyService::find_all_by_user(current_user, params)
@@ -14,7 +15,12 @@ class CompaniesController < ApplicationController
 
   def update
     @company = CompanyService::update_by_user(current_user, params[:id], params[:company])
-    render :edit
+    if @company.errors.empty?
+      redirect_to companies_url
+    else
+      flash.now[:error] = @company.errors.full_messages.join(" ")
+      render :edit
+    end
   end
 
   def destroy
@@ -23,9 +29,9 @@ class CompaniesController < ApplicationController
   end
 
   def create
-    @company = CompanyService::create( params[:company] )
+    @company = CompanyService::create(current_user, params[:company])
     if @company.persisted?
-      redirect_to root_path, :notice => "Company added correctly."
+      redirect_to companies_url, :notice => "Company added correctly."
     else
       flash.now[:warning] = "Some errors are occured. fix it please! Remember to upload the image before submit"
       render :new

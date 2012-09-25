@@ -20,9 +20,9 @@ class CompanyService
     company.tags = tags
     geocode = find_geocode attributes[:offices_attributes]['0']
     if !geocode.success || geocode.accuracy.to_i < 6
-      company.offices.first.errors.add :address1, "Address not founds"
+      company.errors.add :base, "Address not founds"
     elsif !( attributes[:offices_attributes]['0'][:zip_code].eql?(geocode.zip) )
-      company.offices.first.errors.add :zip_code, "Postal code not valid"
+      company.errors.add :base, "Postal code not valid"
     else
       attributes[:offices_attributes]['0'][:address1] = geocode.street_address
       attributes[:offices_attributes]['0'][:latitude] = geocode.lat
@@ -43,7 +43,7 @@ class CompanyService
     CompanyDecorator.new(company)
   end
 
-  def self.create attributes
+  def self.create(user, attributes)
     geocode = find_geocode attributes[:offices_attributes]['0']
     if !geocode.success || geocode.accuracy.to_i < 6
       company = build attributes
@@ -56,6 +56,7 @@ class CompanyService
       attributes[:offices_attributes]['0'][:latitude] = geocode.lat
       attributes[:offices_attributes]['0'][:longitude] = geocode.lng
       company = build attributes
+      company.user = user
       company.save
     end
     CompanyDecorator.decorate(company)
