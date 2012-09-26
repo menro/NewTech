@@ -3,6 +3,7 @@
 
 en:
   simple_navigation:
+    admin:  "Administration"
     account:
       companies: "Companies"
       profile: "Profile"

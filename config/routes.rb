@@ -1,5 +1,7 @@
 Newtech::Application.routes.draw do
 
+  ActiveAdmin.routes(self)
+
   scope "/api/v1", :as => "api_v1" do
     resources :counties,  :only => [:index]
     resources :offices,     :only => [:index]

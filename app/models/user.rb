@@ -7,4 +7,10 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me
+
+
+  # TODO: implement real roles logic
+  def is_admin?
+    return username.eql?("admin")
+  end
 end
