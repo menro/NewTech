@@ -5,6 +5,8 @@
 
   var companyOfficesMarkers;
   var nOffices = 0;
+  var infoWindows;
+  var currentInfoWindow;
 
   var countyCircles;
   var nCountyCircles = 0;
@@ -65,11 +67,17 @@
     }
   }
 
+  function closeCurrentInfoWindow() {
+    if (currentInfoWindow) {
+      currentInfoWindow.close();
+    }
+  }
+
   function drawCompanyOffices(container) {
     $.getJSON($(container).data("offices_url"), searchParams(), function(data) {
 
       var thumbTemplate = ''
-        +'<li class="span2 custom-thumbnail-li">'
+        +'<li id="thumb__MARKER_NUMBER__" class="span2 custom-thumbnail-li">'
         +'<div class="company-marker">'
         +'<img src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chs=24x32&chld=__MARKER_NUMBER__|c8c626|000000">'
         +'</div>'
@@ -83,11 +91,12 @@
       var thumbsHtml = '<ul class="thumbnails">';
 
       companyOfficesMarkers = new Array();
+      infoWindows = new Array();
       nOffices = 0;
       $.each(data, function(i, office) {
         var contentString = ''
           +'<div class="content well">'
-          +'<img src="'+office.company_image_url+'" alt="" />'
+          //+'<img src="'+office.company_image_url+'" alt="" />'
           +'<h1>'+office.company_name+'</h1>'
           +'<p><a href="'+office.company_homepage_url+'" target="_blank">'+office.company_homepage_url+'</a></p>'
           +'<p><b>Year founded: </b>'+office.company_founded_year+'</p>'
@@ -114,27 +123,45 @@
         //console.log("marker");
         //console.log(marker);
         google.maps.event.addListener(marker, 'click', function() {
+          closeCurrentInfoWindow();
           infowindow.open(currentMap,marker);
+          currentInfoWindow = infowindow;
         });
 
-        companyOfficesMarkers[nOffices++] = marker;
+        companyOfficesMarkers[nOffices] = marker;
+        infoWindows[nOffices] = infowindow;
+        nOffices++;
 
         //company thumbnail
-        var thumbHtml = thumbTemplate.replace('__MARKER_NUMBER__',i+1);
+        var thumbHtml = thumbTemplate.replace(/__MARKER_NUMBER__/g,i+1);
         thumbHtml = thumbHtml.replace('__COMPANY_LOGO_URL__',office.company_image_url);
         thumbHtml = thumbHtml.replace('__COMPANY_NAME__',office.company_name);
         thumbsHtml = thumbsHtml+thumbHtml;
       });
       //console.log(companyOfficesMarkers);
+      //console.log(infoWindows);
 
       //show company list
       $('.gmap').each(function() {
         $(this).css('width', '80%');
       });
       thumbsHtml = thumbsHtml+'</ul>';
-      $('#company-list').show();
-      $('#company-list').html(thumbsHtml);
+      var companyList = $('#company-list');
+      companyList.show();
+      companyList.html(thumbsHtml);
 
+      //open infowindow when company thumbnail is clicked
+      $.each(companyOfficesMarkers, function(i, marker) {
+        var thumb = $('#thumb'+(i+1));
+        thumb.click(function() {
+          $('#company-list li').removeClass('custom-thumbnail-li-selected');
+          $(this).addClass('custom-thumbnail-li-selected');
+          //console.log(i);
+          closeCurrentInfoWindow();
+          infoWindows[i].open(currentMap,marker);
+          currentInfoWindow = infoWindows[i];
+        });
+      });
     });
 
   }
@@ -261,7 +288,8 @@
   });
 
   $(function () {
-    $('#tag-cloud a').tagcloud({
+    var tagCloudLink = $('#tag-cloud a');
+    tagCloudLink.tagcloud({
       size: {
         start: 14,
         end: 18,
@@ -272,7 +300,7 @@
         end: '#222'
       }
     });
-    $('#tag-cloud a').click(function() {
+    tagCloudLink.click(function() {
       //highlight
       $('#tag-cloud a').removeClass('selected-tag');
       $(this).addClass('selected-tag');
