@@ -250,44 +250,47 @@
   }
 
   function searchParams() {
-      search_params = {
-          from_year: $("#search_params").data("from_year"),
-          to_year: $("#search_params").data("to_year"),
-          tag_code: $("#search_params").data("tag_code"),
-          current_county_id: $("#search_params").data("current_county_id"),
-          hiring: $("#search_params").data("hiring") ,
-          employee_id: $("#search_params").data("employee_id"),
-          investment_id: $("#search_params").data("investment_id")
-      }
-      return search_params;
+    var srcParamsEl = $('#search_params');
+    search_params = {
+        from_year: srcParamsEl.data("from_year"),
+        to_year: srcParamsEl.data("to_year"),
+        tag_code: srcParamsEl.data("tag_code"),
+        current_county_id: srcParamsEl.data("current_county_id"),
+        hiring: srcParamsEl.data("hiring") ,
+        employee_id: srcParamsEl.data("employee_id"),
+        investment_id: srcParamsEl.data("investment_id")
+    }
+    return search_params;
   }
 
   $(function() {
-      $( "#years_slider" ).slider({
-          range: true,
-          min: 1950,
-          max: 2012,
-          values: [ 1950, 2012 ],
-          slide: function( event, ui ) {
-              $( "#years_range" ).html(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-          },
-          stop: function( event, ui ) {
-              $("#search_params").data("from_year", ui.values[ 0 ])
-              $("#search_params").data("to_year", ui.values[ 1])
-              return $('.gmap').each(function() {
-                  return refreshMap(this);
-              });
-          }
-      });
-      $( "#years_range" ).html( $( "#years_slider" ).slider( "values", 0 ) +
-          " - " + $( "#years_slider" ).slider( "values", 1 ) );
+    var srcParamsEl = $('#search_params');
+    $( "#years_slider" ).slider({
+        range: true,
+        min: 1950,
+        max: 2012,
+        values: [ 1950, 2012 ],
+        slide: function( event, ui ) {
+            $( "#years_range" ).html(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        },
+        stop: function( event, ui ) {
+          srcParamsEl.data("from_year", ui.values[ 0 ])
+          srcParamsEl.data("to_year", ui.values[ 1])
+          return $('.gmap').each(function() {
+              return refreshMap(this);
+          });
+        }
+    });
+    $( "#years_range" ).html( $( "#years_slider" ).slider( "values", 0 ) +
+        " - " + $( "#years_slider" ).slider( "values", 1 ) );
 
-      return $('.gmap').each(function() {
-          return GMap.init(this);
-      });
+    return $('.gmap').each(function() {
+        return GMap.init(this);
+    });
   });
 
   $(function () {
+    var searchParams = $('#search_params');
     var tagCloudLink = $('#tag-cloud a');
     tagCloudLink.tagcloud({
       size: {
@@ -302,11 +305,11 @@
     });
     tagCloudLink.click(function() {
       //highlight
-      $('#tag-cloud a').removeClass('selected-tag');
+      tagCloudLink.removeClass('selected-tag');
       $(this).addClass('selected-tag');
 
       var tag_code = $(this).data("tag_code");
-      $("#search_params").data("tag_code", tag_code);
+      searchParams.data("tag_code", tag_code);
       $('.gmap').each(function() {
         refreshMap(this);
       });
@@ -314,11 +317,11 @@
     $('.bottom_filters a.btn-hiring').click(function(e){
         e.preventDefault();
         if($(this).is('.active')) {
-            $(this).removeClass("active");
-            $("#search_params").data("hiring", "");
+          $(this).removeClass("active");
+          searchParams.data("hiring", "");
         } else {
-            $(this).addClass("active");
-            $("#search_params").data("hiring", true);
+          $(this).addClass("active");
+          searchParams.data("hiring", true);
         }
         $('.gmap').each(function() {
           refreshMap(this);
@@ -327,35 +330,35 @@
     $('.bottom_filters a.btn-employee').click(function(e){
         e.preventDefault();
         if($(this).parent().is('.active')) {
-            $(this).parent().removeClass("active");
-            $('.bottom_filters .btn-employee-group a.btn-primary').removeClass("active");
-            $("#search_params").data("employee_id", "");
+          $(this).parent().removeClass("active");
+          $('.bottom_filters .btn-employee-group a.btn-primary').removeClass("active");
+          searchParams.data("employee_id", "");
         } else {
-            $('.bottom_filters .btn-employee-group a.btn-primary').addClass("active");
-            $('.bottom_filters .btn-employee-group ul.dropdown-menu li').removeClass("active");
-            $(this).parent().addClass("active");
-            $("#search_params").data("employee_id", $(this).data("employee_id"));
+          $('.bottom_filters .btn-employee-group a.btn-primary').addClass("active");
+          $('.bottom_filters .btn-employee-group ul.dropdown-menu li').removeClass("active");
+          $(this).parent().addClass("active");
+          searchParams.data("employee_id", $(this).data("employee_id"));
         }
         $('.gmap').each(function() {
           refreshMap(this);
         });
     });
-      $('.bottom_filters a.btn-investment').click(function(e){
-          e.preventDefault();
-          if($(this).parent().is('.active')) {
-              $(this).parent().removeClass("active");
-              $('.bottom_filters .btn-investment-group a.btn-primary').removeClass("active");
-              $("#search_params").data("investment_id", "");
-          } else {
-              $('.bottom_filters .btn-investment-group a.btn-primary').addClass("active");
-              $('.bottom_filters .btn-investment-group ul.dropdown-menu li').removeClass("active");
-              $(this).parent().addClass("active");
-              $("#search_params").data("investment_id", $(this).data("investment_id"));
-          }
-          $('.gmap').each(function() {
-            refreshMap(this);
-          });
-      });
+    $('.bottom_filters a.btn-investment').click(function(e){
+        e.preventDefault();
+        if($(this).parent().is('.active')) {
+          $(this).parent().removeClass("active");
+          $('.bottom_filters .btn-investment-group a.btn-primary').removeClass("active");
+          searchParams.data("investment_id", "");
+        } else {
+          $('.bottom_filters .btn-investment-group a.btn-primary').addClass("active");
+          $('.bottom_filters .btn-investment-group ul.dropdown-menu li').removeClass("active");
+          $(this).parent().addClass("active");
+          searchParams.data("investment_id", $(this).data("investment_id"));
+        }
+        $('.gmap').each(function() {
+          refreshMap(this);
+        });
+    });
   });
 
 }).call(this);
