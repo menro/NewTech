@@ -15,6 +15,7 @@ gem "devise", ">= 2.1.0"
 
 #Admin
 gem 'activeadmin'
+gem "meta_search",    '>= 1.1.0.pre'
 
 # simple navigation with bootstrap builder support
 gem 'simple-navigation-bootstrap'
