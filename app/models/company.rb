@@ -61,4 +61,8 @@ class Company < ActiveRecord::Base
     employees_type.name
   end
 
+  def tags_list
+    tags.map(&:code).join(", ")
+  end
+
 end

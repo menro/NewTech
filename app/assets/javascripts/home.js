@@ -94,18 +94,28 @@
       infoWindows = new Array();
       nOffices = 0;
       $.each(data, function(i, office) {
-        var contentString = ''
+        var html = ''
           +'<div class="content well">'
           //+'<img src="'+office.company_image_url+'" alt="" />'
           +'<h1>'+office.company_name+'</h1>'
-          +'<p><a href="'+office.company_homepage_url+'" target="_blank">'+office.company_homepage_url+'</a></p>'
-          +'<p><b>Year founded: </b>'+office.company_founded_year+'</p>'
-          +'<p><b>Number of employees: </b>'+office.company_number_of_employees+'</p>'
-          +'<p>'+office.company_description+'</p>'
-          +'<div class="hiring-'+office.company_hiring+'">&#160</div>'
-          +'</div>';
+          +'<p><a href="'+office.company_homepage_url+'" target="_blank">'+office.company_homepage_url+'</a></p>';
+        var field = office.facebook;
+        if (field != null) html += '<p><b>Facebook: </b><a href="'+field+'" target="_blank">'+field+'</a></p>'
+        field = office.twitter;
+        if (field != null) html += '<p><b>Twitter: </b><a href="'+field+'" target="_blank">'+field+'</a></p>'
+        field = office.company_founded_year;
+        if (field != null) html += '<p><b>Year founded: </b>'+field+'</p>';
+        field = office.company_number_of_employees;
+        if (field != null) html += '<p><b>Number of employees: </b>'+field+'</p>';
+        field = office.company_tags_list;
+        if (field != null && field != '') html += '<p><b>Tags: </b>'+field+'</p>';
+        field = office.company_description;
+        if (field != null) html += '<p>'+field+'</p>';
+        field = office.company_hiring;
+        if (field != null) html += '<div class="hiring-'+field+'">&#160</div>';
+        html += '</div>';
         var infowindow = new google.maps.InfoWindow({
-          content: contentString
+          content: html
         });
 
         var imageUrl = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chs=24x32&chld='

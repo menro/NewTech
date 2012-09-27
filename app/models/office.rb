@@ -9,6 +9,7 @@ class Office < ActiveRecord::Base
 
   delegate :id, :name, :permalink, :homepage_url, :description, :overview, :hiring,
            :number_of_employees, :founded_year, :email_address, :phone_number, :image,
+           :twitter, :facebook,
            :to => :company, :prefix => true
 
   validates_presence_of :address1, :city_id, :zip_code
