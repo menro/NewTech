@@ -17,8 +17,8 @@ class Company < ActiveRecord::Base
 
   has_attached_file :image,
                     :styles => {
-                        :thumbnail => "128x128#",
-                        :medium => "256x256#"
+                        :thumbnail => "128x128>",
+                        :medium => "256x256>"
                     },
                     :url  => ':class/:id/image/:style',
                     :path => ':rails_root/uploads/:class/:id_partition/:style.:extension'
@@ -26,7 +26,7 @@ class Company < ActiveRecord::Base
 
   validates_presence_of :name, :email_address, :founded_year
 
-  validates_numericality_of :founded_year, :less_than => Time.now.year
+  validates_numericality_of :founded_year, :less_than_or_equal_to => Time.now.year
 
   scope :founded_from,
         lambda {|year|

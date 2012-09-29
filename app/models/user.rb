@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_many :companies
 
+  rolify
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :token_authenticatable, :confirmable, :lockable, :timeoutable
@@ -9,8 +11,7 @@ class User < ActiveRecord::Base
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me
 
 
-  # TODO: implement real roles logic
   def is_admin?
-    return username.eql?("admin")
+    has_role?(:admin)
   end
 end

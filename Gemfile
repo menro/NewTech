@@ -12,6 +12,8 @@ gem 'mysql2'
 
 # Authentication
 gem "devise", ">= 2.1.0"
+gem 'cancan', '1.6.8'
+gem 'rolify', '3.1.0'
 
 #Admin
 gem 'activeadmin'

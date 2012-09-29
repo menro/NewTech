@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(:version => 20120926211642) do
     t.string   "permalink"
     t.boolean  "hiring"
     t.boolean  "enabled"
+    t.boolean  "presented"
+    t.date     "presentation_date"
     t.string   "homepage_url"
     t.string   "facebook"
     t.string   "twitter"
@@ -101,6 +103,14 @@ ActiveRecord::Schema.define(:version => 20120926211642) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "tags", :force => true do |t|
     t.string   "name"
     t.string   "code"
@@ -137,5 +147,10 @@ ActiveRecord::Schema.define(:version => 20120926211642) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
+
+  create_table "users_roles", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+  end
 
 end

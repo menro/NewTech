@@ -8,6 +8,8 @@ class CreateCompanies < ActiveRecord::Migration
       t.string      :permalink
       t.boolean     :hiring
       t.boolean     :enabled
+      t.boolean     :presented
+      t.date        :presentation_date
       t.string      :homepage_url
       t.string      :facebook
       t.string      :twitter

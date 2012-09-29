@@ -8,12 +8,4 @@ namespace :system do
     puts "Done"
   end
 
-
-  desc "Import colorado's companies from crunchbase"
-  task :import_crunchbase_companies => :environment do |t|
-    puts "Import companies..."
-    CrunchbaseService::import_companies_of_colorado
-    puts "Done"
-  end
-
 end
