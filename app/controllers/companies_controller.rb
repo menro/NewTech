@@ -29,7 +29,7 @@ class CompaniesController < ApplicationController
   end
 
   def create
-    @company = CompanyService::create(current_user, params[:company])
+    @company = CompanyService::create_by_user(current_user, params[:company])
     if @company.persisted?
       redirect_to companies_url, :notice => "Company added correctly."
     else

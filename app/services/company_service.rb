@@ -10,6 +10,7 @@ class CompanyService
     company.destroy
   end
 
+  # TODO: fix duplication code
   def self.update_by_user(user, id, attributes = {})
     company = user.companies.find(id)
     tags_list = attributes.delete("tags_list").split(",") rescue []
@@ -32,6 +33,26 @@ class CompanyService
     CompanyDecorator.new(company)
   end
 
+
+  def self.create_by_user(user, attributes)
+    geocode = find_geocode attributes[:offices_attributes]['0']
+    if !geocode.success || geocode.accuracy.to_i < 6
+      company = build(attributes)
+      company.offices.first.errors.add :address1, "Address not founds"
+    elsif !( attributes[:offices_attributes]['0'][:zip_code].eql?(geocode.zip) )
+      company = build(attributes)
+      company.offices.first.errors.add :zip_code, "Postal code not valid"
+    else
+      attributes[:offices_attributes]['0'][:address1] = geocode.street_address
+      attributes[:offices_attributes]['0'][:latitude] = geocode.lat
+      attributes[:offices_attributes]['0'][:longitude] = geocode.lng
+      company = build(attributes)
+      company.user = user
+      company.save
+    end
+    CompanyDecorator.decorate(company)
+  end
+
   def self.edit(id)
     company = Company.find(id)
     company.offices.build if company.offices.nil? || company.offices.empty?
@@ -49,24 +70,6 @@ class CompanyService
     CompanyDecorator.new(company)
   end
 
-  def self.create(user, attributes)
-    geocode = find_geocode attributes[:offices_attributes]['0']
-    if !geocode.success || geocode.accuracy.to_i < 6
-      company = build attributes
-      company.offices.first.errors.add :address1, "Address not founds"
-    elsif !( attributes[:offices_attributes]['0'][:zip_code].eql?(geocode.zip) )
-      company = build attributes
-      company.offices.first.errors.add :zip_code, "Postal code not valid"
-    else
-      attributes[:offices_attributes]['0'][:address1] = geocode.street_address
-      attributes[:offices_attributes]['0'][:latitude] = geocode.lat
-      attributes[:offices_attributes]['0'][:longitude] = geocode.lng
-      company = build attributes
-      company.user = user
-      company.save
-    end
-    CompanyDecorator.decorate(company)
-  end
 
   def self.find(id)
     CompanyDecorator.find(id)
