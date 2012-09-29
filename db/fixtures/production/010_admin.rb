@@ -4,6 +4,7 @@ unless User.count > 0
     admin.email = "admin@local.host"
     admin.password = "password1"
     admin.password_confirmation = "password1"
+    admin.roles << Role.all
     admin.confirm!
   end
 
