@@ -1,3 +1,6 @@
+/*
+ *= require chosen
+ */
 // SASS variable overrides must be declared before loading up Active Admin's styles.
 //
 // To view the variables that Active Admin provides, take a look at
@@ -32,3 +35,13 @@
   float: left;
   list-style: none;
 }
+
+@import "bootstrap/_variables.scss";
+@import "bootstrap/_mixins.scss";
+@import "bootstrap/_forms.scss";
+@import "bootstrap/_buttons.scss";
+@import "bootstrap/_button-groups.scss";
+
+
+
+@import "active_admin/companies.css.scss";

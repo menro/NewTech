@@ -1,6 +1,33 @@
-= semantic_form_for [:admin, @company] do |f|
-  = f.inputs do
-    = f.input :user
-    = f.input :name
-    = f.input :email_address, :as => :string
-  = f.actions
+= simple_form_for([:admin, @company], :validate => true, :html => {:class => 'form-horizontal company_form' }) do |f|
+  .span12.new_company
+    .span6
+      .well
+        .form-inputs.row
+          = f.association :user
+          = f.input :enabled, as: :radio_buttons, item_wrapper_class: 'inline'
+          = f.input :presented, as: :radio_buttons, item_wrapper_class: 'inline'
+          = f.input :presentation_date, as: :string, :input_html => { :class => 'datepicker' }
+        .form-inputs.row
+          = f.input :name, :label => "Company Name", :as => :string
+          = f.simple_fields_for :offices do |office|
+            = office.input :address1, :label => "Address", :as => :string
+            = office.association :city
+            = office.input :zip_code,  :as => :string
+          = f.input :email_address, :as => :string
+          = f.input :founded_year, :as => :string
+          = f.input :tags_list, :as => :string, :hint => "E.g.,marketing-automation, lead-generation,analytics, email-marketing"
+          = f.input :description
+          = f.association :investments_type, as: :radio_buttons, item_wrapper_class: 'inline'
+          = f.association :employees_type, as: :radio_buttons, item_wrapper_class: 'inline'
+        .form-inputs.row
+          = f.input :homepage_url, :as => :string
+          = f.input :twitter, :as => :string
+          = f.input :facebook, :as => :string
+          = f.input :jobs_url, :as => :string
+    %br
+    .control-group
+      .controls
+        .actions
+          = f.submit 'Save', class: "btn btn-success btn-save"
+
+

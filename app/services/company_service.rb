@@ -70,7 +70,6 @@ class CompanyService
     CompanyDecorator.new(company)
   end
 
-
   def self.find(id)
     CompanyDecorator.find(id)
   end

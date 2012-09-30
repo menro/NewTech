@@ -1,7 +1,8 @@
 class Company < ActiveRecord::Base
   attr_accessible :name, :offices_attributes, :email_address, :founded_year, :description,
                   :homepage_url, :twitter, :facebook, :jobs_url, :hiring, :image,
-                  :investments_type_id, :employees_type_id
+                  :investments_type_id, :employees_type_id, :presentation_date,
+                  :user_id, :enabled, :presented
 
   belongs_to  :user
 
