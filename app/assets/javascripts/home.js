@@ -57,15 +57,17 @@
   }
 
   function refreshTags(container) {
-      $.getJSON($(container).data("tags_url"), searchParams(), function(data) {
-        var tagLinks = "";
-          $.each(data, function(i, tag) {
-            tagLinks += "<a href='#' rel='"+tag.companies_count+"' data-tag_code='"+ tag.code +"'>"+tag.code+"</a>\n";
-        });
-        $('#tag-cloud').html(tagLinks);
-        configureTagCloud();
+    var srcParams = searchParams();
+    $.getJSON($(container).data("tags_url"), srcParams, function(data) {
+      var tagLinks = "";
+      if (srcParams.tag_code != null && srcParams.tag_code != "")
+        tagLinks += "<a href='#' rel='2' data-tag_code=''><img src='/assets/delete_24x24.png'/> </a>\n";
+        $.each(data, function(i, tag) {
+          tagLinks += "<a href='#' rel='"+tag.companies_count+"' data-tag_code='"+ tag.code +"'>"+tag.code+"</a>\n";
       });
-
+      $('#tag-cloud').html(tagLinks);
+      configureTagCloud();
+    });
   }
 
   function configureTagCloud() {
