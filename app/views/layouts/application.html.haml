@@ -20,6 +20,8 @@
           .pull-left
             = render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap
           .pull-right
+            .nav.events
+              = render_next_event(@event)
             = render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap, :context => :user
     #main{:role => "main"}
       .container
