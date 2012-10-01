@@ -1,7 +1,8 @@
 class EventService
 
   def self.find_next
-    Event.where("start_at >= ?", Time.now).first
+    event = Event.where("start_at >= ?", Time.now).first
+    EventDecorator.decorate(event)
   end
 
 end
