@@ -61,7 +61,7 @@
     $.getJSON($(container).data("tags_url"), srcParams, function(data) {
       var tagLinks = "";
       if (srcParams.tag_code != null && srcParams.tag_code != "")
-        tagLinks += "<a href='#' rel='2' data-tag_code=''><i class='icon-trash'/> </i>\n";
+        tagLinks += "<a href='#' rel='2' data-tag_code=''><i class='icon-remove-sign'/> </i>\n";
         $.each(data, function(i, tag) {
           tagLinks += "<a href='#' rel='"+tag.companies_count+"' data-tag_code='"+ tag.code +"'>"+tag.code+"</a>\n";
       });
