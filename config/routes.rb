@@ -5,6 +5,7 @@ Newtech::Application.routes.draw do
   scope "/api/v1", :as => "api_v1" do
     resources :counties,  :only => [:index]
     resources :offices,     :only => [:index]
+    resources :tags,     :only => [:index]
   end
 
   resources :companies  do

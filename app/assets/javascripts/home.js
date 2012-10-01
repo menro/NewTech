@@ -53,6 +53,17 @@
       clearCompanyOffices();
       drawCompanyOffices(container);
     }
+    refreshTags(container);
+  }
+
+  function refreshTags(container) {
+      $.getJSON($(container).data("tags_url"), searchParams(), function(data) {
+          $('#tag-cloud').html("");
+          $.each(data, function(i, tag) {
+              $('#tag-cloud').append("<a href='#' rel='"+tag.companies_count+"' data-tag_code='"+ tag.code +"'>"+tag.code+"</a>")
+          });
+      });
+
   }
 
   function clearCompanyOffices() {
