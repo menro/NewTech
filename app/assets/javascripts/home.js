@@ -58,12 +58,40 @@
 
   function refreshTags(container) {
       $.getJSON($(container).data("tags_url"), searchParams(), function(data) {
-          $('#tag-cloud').html("");
+        var tagLinks = "";
           $.each(data, function(i, tag) {
-              $('#tag-cloud').append("<a href='#' rel='"+tag.companies_count+"' data-tag_code='"+ tag.code +"'>"+tag.code+"</a>")
-          });
+            tagLinks += "<a href='#' rel='"+tag.companies_count+"' data-tag_code='"+ tag.code +"'>"+tag.code+"</a>\n";
+        });
+        $('#tag-cloud').html(tagLinks);
+        configureTagCloud();
       });
 
+  }
+
+  function configureTagCloud() {
+    var tagCloudLink = $('#tag-cloud a');
+    tagCloudLink.tagcloud({
+      size: {
+        start: 14,
+        end: 18,
+        unit: 'pt'
+      },
+      color: {
+        start: '#777',
+        end: '#222'
+      }
+    });
+    tagCloudLink.click(function() {
+      //highlight
+      tagCloudLink.removeClass('selected-tag');
+      $(this).addClass('selected-tag');
+
+      var tag_code = $(this).data("tag_code");
+      $('#search_params').data("tag_code", tag_code);
+      $('.gmap').each(function() {
+        refreshMap(this);
+      });
+    });
   }
 
   function clearCompanyOffices() {
@@ -311,30 +339,9 @@
   });
 
   $(function () {
-    var searchParams = $('#search_params');
-    var tagCloudLink = $('#tag-cloud a');
-    tagCloudLink.tagcloud({
-      size: {
-        start: 14,
-        end: 18,
-        unit: 'pt'
-      },
-      color: {
-        start: '#777',
-        end: '#222'
-      }
-    });
-    tagCloudLink.click(function() {
-      //highlight
-      tagCloudLink.removeClass('selected-tag');
-      $(this).addClass('selected-tag');
+    configureTagCloud();
 
-      var tag_code = $(this).data("tag_code");
-      searchParams.data("tag_code", tag_code);
-      $('.gmap').each(function() {
-        refreshMap(this);
-      });
-    });
+    var searchParams = $('#search_params');
     $('.bottom_filters a.btn-hiring').click(function(e){
         e.preventDefault();
         if($(this).is('.active')) {
