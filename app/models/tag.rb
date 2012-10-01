@@ -1,6 +1,10 @@
 class Tag < ActiveRecord::Base
   has_and_belongs_to_many :companies
 
+  has_many :offices, :through => :companies
+
+  has_many :city, :through => :offices
+
   scope :with_companies_founded_from,
         lambda {|year|
           joins(:companies).merge(Company.founded_from(year))
@@ -27,6 +31,11 @@ class Tag < ActiveRecord::Base
   scope :with_company_investment_type,
         lambda {|investment_id|
           joins(:companies).merge(Company.investment_type(investment_id))
+        }
+
+  scope :located_in_county,
+        lambda {|county_id|
+          joins(:city).merge(Office.located_in_county(county_id))
         }
 
   def companies_count
