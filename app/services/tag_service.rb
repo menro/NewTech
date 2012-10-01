@@ -10,7 +10,7 @@ class TagService
     tags = tags.with_company_investment_type(params[:investment_id]) unless params[:investment_id].nil? || params[:investment_id].empty?
 
     tags = tags.reject {|tag| tag.companies_count <= 1}
-    TagDecorator.decorate(tags.uniq, :search_params => params)
+    TagDecorator.decorate(tags.uniq)
   end
 
   def self.tags_for_cloud
