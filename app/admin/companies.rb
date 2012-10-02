@@ -3,6 +3,8 @@ ActiveAdmin.register Company  do
   # Create sections on the index screen
   scope :all, :default => true
 
+  actions :index, :edit, :update, :destroy
+
   filter :name
   filter :founded_year
 
@@ -15,27 +17,14 @@ ActiveAdmin.register Company  do
 
   controller do
 
-    def new
-      @company = CompanyService::build
-    end
-
-    def create
-      @company = CompanyService::create_by_user(current_user, params[:company])
-      if @company.persisted?
-        redirect_to admin_companies_url, :notice => "Company added correctly."
-      else
-        flash.now[:warning] = "Some errors are occured. fix it please! Remember to upload the image before submit"
-        render :new
-      end
-    end
-
     def edit
       @company = CompanyService::edit(params[:id])
     end
 
     def update
-      @company = CompanyService::update_by_user(current_user, params[:id], params[:company])
+      @company = CompanyService::update(params[:id], params[:company])
       if @company.errors.empty?
+        flash[:notice] = "Company was successfully updated."
         redirect_to admin_companies_url
       else
         flash.now[:error] = @company.errors.full_messages.join(" ")

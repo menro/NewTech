@@ -1,5 +1,5 @@
 class CreateCompanies < ActiveRecord::Migration
-  def change
+  def up
     create_table :companies do |t|
       t.belongs_to  :user
       t.belongs_to  :employees_type
@@ -22,5 +22,18 @@ class CreateCompanies < ActiveRecord::Migration
       t.attachment  :image
       t.timestamps
     end
+
+    add_index :companies, :user_id
+    add_index :companies, :employees_type_id
+    add_index :companies, :investments_type_id
+    add_index :companies, :hiring
+    add_index :companies, :enabled
+    add_index :companies, :founded_year
+
+  end
+
+
+  def down
+    drop_table :companies
   end
 end

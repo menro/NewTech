@@ -59,6 +59,11 @@ class CompanyService
     CompanyDecorator.decorate(company)
   end
 
+  def self.update(id, attributes = {})
+    user = User.find(attributes[:user_id])
+    update_by_user(user, id, attributes)
+  end
+
   def self.build(attributes = nil, options = {})
     tags_list = attributes.delete("tags_list").split(",") rescue []
     company = Company.new(attributes, options) do |c|

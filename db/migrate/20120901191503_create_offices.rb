@@ -1,5 +1,5 @@
 class CreateOffices < ActiveRecord::Migration
-  def change
+  def up
     create_table :offices do |t|
       t.belongs_to  :company
       t.belongs_to  :city
@@ -11,5 +11,12 @@ class CreateOffices < ActiveRecord::Migration
       t.string      :longitude
       t.timestamps
     end
+    add_index :offices, :company_id
+    add_index :offices, :city_id
+  end
+
+
+  def down
+    drop_table :offices
   end
 end
