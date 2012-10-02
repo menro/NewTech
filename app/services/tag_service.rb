@@ -13,7 +13,7 @@ class TagService
     tags = tags.where("code = ?",  params[:tag_code] )unless params[:tag_code].nil? || params[:tag_code].empty?
 
     tags = TagDecorator.decorate(tags.uniq, :search_params => params)
-    tags = tags.reject {|tag| tag.companies_count <= 1}
+    tags = tags.reject {|tag| tag.companies_count <= 1} if tags.count > 20
     tags
   end
 
