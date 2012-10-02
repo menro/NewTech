@@ -12,7 +12,8 @@ class TagService
     tags = tags.located_in_county params[:current_county_id] unless params[:current_county_id].nil? || params[:current_county_id].empty?
     tags = TagDecorator.decorate(tags.uniq, :search_params => params)
     tags = tags.reject {|tag| tag.companies_count == 0}
-    #tags = tags.reject {|tag| tag.companies_count == 1} if tags.count > 40
+    temp = tags.reject {|tag| tag.companies_count == 1} if tags.count > 40
+    tags = temp if temp.count > 0
     tags
   end
 
