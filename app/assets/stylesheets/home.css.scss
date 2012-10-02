@@ -13,6 +13,11 @@
   width: 100%;
 }
 
+.shadowed {
+  border: 1px solid #777777;
+  box-shadow: 6px 6px 3px #999;
+}
+
 .search {
   #years_range {
     text-align: center;
