@@ -12,6 +12,8 @@ class Company < ActiveRecord::Base
 
   has_many :offices, :dependent => :destroy
 
+  has_many :cities, :through => :offices
+
   accepts_nested_attributes_for :offices
 
   has_and_belongs_to_many :tags
@@ -56,6 +58,11 @@ class Company < ActiveRecord::Base
   scope :investment_type,
         lambda {|investment_id|
           where("`companies`.investments_type_id = ?", investment_id)
+        }
+
+  scope :located_in_county,
+        lambda {|county_id|
+          joins(:cities).merge(City.with_county_id(county_id))
         }
 
   def number_of_employees
