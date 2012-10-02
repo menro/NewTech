@@ -38,8 +38,4 @@ class Tag < ActiveRecord::Base
           joins(:city).merge(Office.located_in_county(county_id))
         }
 
-  def companies_count
-    self.companies.count
-  end
-
 end
