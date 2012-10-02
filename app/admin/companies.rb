@@ -34,7 +34,7 @@ ActiveAdmin.register Company  do
     end
 
     def update
-      @company = CompanyService::update_by_user(current_user, params[:id], params[:company])
+      @company = CompanyService::update(params[:id], params[:company])
       if @company.errors.empty?
         redirect_to admin_companies_url
       else
