@@ -20,8 +20,7 @@ class Company < ActiveRecord::Base
 
   has_attached_file :image,
                     :styles => {
-                        :thumbnail => "128x128>",
-                        :medium => "256x256>"
+                        :thumbnail => "160x120>"
                     },
                     :url  => ':class/:id/image/:style',
                     :path => ':rails_root/uploads/:class/:id_partition/:style.:extension'

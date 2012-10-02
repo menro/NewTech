@@ -2,7 +2,7 @@ class OfficeDecorator < Draper::Base
   decorates :office
 
   def company_image_url
-    h.image_company_url(self.company, :medium)
+    h.image_company_url(self.company, :thumbnail)
   end
 
   def company_tags_list
