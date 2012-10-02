@@ -13,7 +13,7 @@ class TagService
     tags = TagDecorator.decorate(tags.uniq, :search_params => params)
     tags = tags.reject {|tag| tag.companies_count == 0}
     temp = tags.reject {|tag| tag.companies_count == 1} if tags.count > 40
-    tags = temp if temp.count > 0
+    tags = temp unless temp.nil? || temp.count <= 0
     tags
   end
 
