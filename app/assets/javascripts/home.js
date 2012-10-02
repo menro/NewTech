@@ -62,8 +62,11 @@
       var tagLinks = "";
       if (srcParams.tag_code != null && srcParams.tag_code != "")
         tagLinks += "<a href='#' rel='2' data-tag_code=''><i class='icon-remove-sign'/> </i>\n";
-        $.each(data, function(i, tag) {
-          tagLinks += "<a href='#' rel='"+tag.companies_count+"' data-tag_code='"+ tag.code +"'>"+tag.code+"</a>\n";
+      $.each(data, function(i, tag) {
+        tagLinks += "<a href='#' rel='"+tag.companies_count+"' data-tag_code='"+ tag.code +"' ";
+        if (tag.code == srcParams.tag_code)
+          tagLinks += "class ='selected-tag'";
+        tagLinks += ">"+tag.code+"</a>\n";
       });
       $('#tag-cloud').html(tagLinks);
       configureTagCloud();
@@ -220,6 +223,7 @@
 
   function drawCountyCircles(container) {
     $('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
+    //$('#search_params').data("tag_code",'');
     // County circles
     $.getJSON($(container).data("counties_url"), searchParams(), function(data) {
 
@@ -232,6 +236,7 @@
       countyCircles = new Array();
       nCountyCircles = 0;
       countyLabels = new Array();
+      var colors = ["#bdc4ca", "#9da9a0", "#cdc9b6", "#8ca5b6", "#e7db59", "#fbd5b5", "#eeb949", "#b8b8d3"];
       $.each(data, function(i, county) {
         if (county.offices_numbers == 0) return;
         //var circlePosition = new google.maps.LatLng(county.offices_avg_latitude, county.offices_avg_longitude);
@@ -244,12 +249,13 @@
           multiplier /= 1.5;
         }
         var radius = 1500*multiplier;
+        var color = colors[getRandomInt(1,8)-1];
         var circleOptions = {
-          strokeColor: '#efeff2',
+          strokeColor: '#ffffff',
           strokeOpacity: 0.6,
           strokeWeight: 2,
-          fillColor: '#aaaab4',
-          fillOpacity: 0.45,
+          fillColor: color,
+          fillOpacity: 0.6,
           map: currentMap,
           center: circlePosition,
           radius: radius
@@ -269,6 +275,14 @@
         nCountyCircles++;
       });
     });
+  }
+
+  /**
+   * Returns a random integer between min and max
+   * Using Math.round() will give you a non-uniform distribution!
+   */
+  function getRandomInt (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   function removeCountyLabel(i) {
