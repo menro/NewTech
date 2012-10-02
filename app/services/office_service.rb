@@ -13,7 +13,8 @@ class OfficeService
     offices = offices.with_company_are_hiring unless params[:hiring].nil? || params[:hiring].empty?
     offices = offices.with_company_employee_type(params[:employee_id]) unless params[:employee_id].nil? || params[:employee_id].empty?
     offices = offices.with_company_investment_type(params[:investment_id]) unless params[:investment_id].nil? || params[:investment_id].empty?
-    OfficeDecorator.decorate(offices.uniq)
+    offices = offices.joins(:company).order("`companies`.name").uniq
+    OfficeDecorator.decorate(offices)
   end
 
 end
