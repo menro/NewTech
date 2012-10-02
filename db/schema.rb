@@ -37,6 +37,9 @@ ActiveRecord::Schema.define(:version => 20121001205235) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "cities", ["county_id"], :name => "index_cities_on_county_id"
+  add_index "cities", ["name"], :name => "index_cities_on_name"
+
   create_table "companies", :force => true do |t|
     t.integer  "user_id"
     t.integer  "employees_type_id"
@@ -64,10 +67,20 @@ ActiveRecord::Schema.define(:version => 20121001205235) do
     t.datetime "updated_at",          :null => false
   end
 
+  add_index "companies", ["employees_type_id"], :name => "index_companies_on_employees_type_id"
+  add_index "companies", ["enabled"], :name => "index_companies_on_enabled"
+  add_index "companies", ["founded_year"], :name => "index_companies_on_founded_year"
+  add_index "companies", ["hiring"], :name => "index_companies_on_hiring"
+  add_index "companies", ["investments_type_id"], :name => "index_companies_on_investments_type_id"
+  add_index "companies", ["user_id"], :name => "index_companies_on_user_id"
+
   create_table "companies_tags", :id => false, :force => true do |t|
     t.integer "company_id"
     t.integer "tag_id"
   end
+
+  add_index "companies_tags", ["company_id"], :name => "index_companies_tags_on_company_id"
+  add_index "companies_tags", ["tag_id"], :name => "index_companies_tags_on_tag_id"
 
   create_table "counties", :force => true do |t|
     t.string   "name"
@@ -78,11 +91,15 @@ ActiveRecord::Schema.define(:version => 20121001205235) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "counties", ["name"], :name => "index_counties_on_name"
+
   create_table "employees_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "employees_types", ["name"], :name => "index_employees_types_on_name"
 
   create_table "events", :force => true do |t|
     t.string   "title"
@@ -92,11 +109,15 @@ ActiveRecord::Schema.define(:version => 20121001205235) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "events", ["start_at"], :name => "index_events_on_start_at"
+
   create_table "investments_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "investments_types", ["name"], :name => "index_investments_types_on_name"
 
   create_table "offices", :force => true do |t|
     t.integer  "company_id"
@@ -111,6 +132,9 @@ ActiveRecord::Schema.define(:version => 20121001205235) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "offices", ["city_id"], :name => "index_offices_on_city_id"
+  add_index "offices", ["company_id"], :name => "index_offices_on_company_id"
+
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.integer  "resource_id"
@@ -119,12 +143,17 @@ ActiveRecord::Schema.define(:version => 20121001205235) do
     t.datetime "updated_at",    :null => false
   end
 
+  add_index "roles", ["name"], :name => "index_roles_on_name"
+
   create_table "tags", :force => true do |t|
     t.string   "name"
     t.string   "code"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "tags", ["code"], :name => "index_tags_on_code"
+  add_index "tags", ["name"], :name => "index_tags_on_name"
 
   create_table "users", :force => true do |t|
     t.string   "username",               :default => "", :null => false
@@ -160,5 +189,8 @@ ActiveRecord::Schema.define(:version => 20121001205235) do
     t.integer "user_id"
     t.integer "role_id"
   end
+
+  add_index "users_roles", ["role_id"], :name => "index_users_roles_on_role_id"
+  add_index "users_roles", ["user_id"], :name => "index_users_roles_on_user_id"
 
 end

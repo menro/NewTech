@@ -11,8 +11,15 @@ class CreateRoles < ActiveRecord::Migration
       t.references :user
       t.references :role
     end
+
+    add_index :roles, :name
+    add_index :users_roles, :user_id
+    add_index :users_roles, :role_id
   end
 
+
   def down
+    drop_table :users_roles
+    drop_table :roles
   end
 end
