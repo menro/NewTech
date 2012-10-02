@@ -10,8 +10,6 @@ class TagService
     tags = tags.with_company_employee_type(params[:employee_id]) unless params[:employee_id].nil? || params[:employee_id].empty?
     tags = tags.with_company_investment_type(params[:investment_id]) unless params[:investment_id].nil? || params[:investment_id].empty?
     tags = tags.located_in_county params[:current_county_id] unless params[:current_county_id].nil? || params[:current_county_id].empty?
-    tags = tags.where("code = ?",  params[:tag_code] )unless params[:tag_code].nil? || params[:tag_code].empty?
-
     tags = TagDecorator.decorate(tags.uniq, :search_params => params)
     tags = tags.reject {|tag| tag.companies_count <= 1} if tags.count > 20
     tags

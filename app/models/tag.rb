@@ -15,11 +15,6 @@ class Tag < ActiveRecord::Base
           joins(:companies).merge(Company.founded_to(year))
         }
 
-  scope :with_company_tagged_as,
-        lambda {|tag_code|
-          joins(:tags).merge(Company.tagged_as(tag_code))
-        }
-
   scope :with_company_are_hiring,
         joins(:companies).merge(Company.are_hiring)
 
