@@ -21,13 +21,14 @@
 @import 'font-awesome';
 
 /* Web Font */
-@import url(http://fonts.googleapis.com/css?family=Eater);
-@import url(http://fonts.googleapis.com/css?family=Pontano+Sans);
 @import url(http://fonts.googleapis.com/css?family=Original+Surfer);
 @import url(http://fonts.googleapis.com/css?family=Arbutus+Slab);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:800italic);
 
 body {
   padding-top: 60px;
+  background: url(image_path('bg.png'));
+  background-repeat: repeat;
 }
 
 .events {
@@ -40,4 +41,8 @@ body {
     text-align: right;
   }
 
+}
+
+.brand {
+  font-family: 'Open Sans', sans-serif;
 }
