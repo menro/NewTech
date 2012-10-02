@@ -1,7 +1,7 @@
 class TagDecorator  < Draper::Base
   decorates :tag
 
-  def total_companies
+  def companies_count
     filter_companies_by_search_params(Company).count
   end
 
