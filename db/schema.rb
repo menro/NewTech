@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(:version => 20121001205235) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
+  add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
   create_table "users_roles", :id => false, :force => true do |t|
     t.integer "user_id"
