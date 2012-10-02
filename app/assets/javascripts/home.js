@@ -126,7 +126,7 @@
         +'<img src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chs=24x32&chld=__MARKER_NUMBER__|c8c626|000000">'
         +'</div>'
         +'<div class="thumbnail custom-thumbnail">'
-        +'<a href="__COMPANY_WEB_URL__" target="_blank"><img src="__COMPANY_LOGO_URL__" alt=""></a>'
+        +'<img src="__COMPANY_LOGO_URL__" alt="">'
         +'<h3>__COMPANY_NAME__</h3>'
         //+'<p>Thumbnail caption...</p>'
         +'</div>'
@@ -188,7 +188,6 @@
 
         //company thumbnail
         var thumbHtml = thumbTemplate.replace(/__MARKER_NUMBER__/g,i+1);
-        thumbHtml = thumbHtml.replace('__COMPANY_WEB_URL__',office.company_homepage_url);
         thumbHtml = thumbHtml.replace('__COMPANY_LOGO_URL__',office.company_image_url);
         thumbHtml = thumbHtml.replace('__COMPANY_NAME__',office.company_name);
         thumbsHtml = thumbsHtml+thumbHtml;
