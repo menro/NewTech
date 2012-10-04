@@ -16,7 +16,7 @@ class CompaniesController < ApplicationController
   def update
     @company = CompanyService::update_by_user(current_user, params[:id], params[:company])
     if @company.errors.empty?
-      redirect_to companies_url
+      redirect_to companies_url, :notice => "Company updated correctly."
     else
       flash.now[:error] = @company.errors.full_messages.join(" ")
       render :edit
@@ -25,7 +25,8 @@ class CompaniesController < ApplicationController
 
   def destroy
     CompanyService::destroy_by_user(current_user, params)
-    redirect_to :back
+
+    redirect_to :back, :notice => "Company deleted correctly."
   end
 
   def create
@@ -40,10 +41,20 @@ class CompaniesController < ApplicationController
 
   def send_image
     company = CompanyService::find params[:id]
-    if company.nil? || company.image.path(params[:style]).nil?
+    if company.nil? || !company.image?
       send_file("#{Rails.root}/app/assets/images/company-default.png", :filename => "#{company.image_file_name}")
     else
       send_file(company.image.path(params[:style]), :filename => "#{company.image_file_name}")
+    end
+  end
+
+  def destroy_image
+    @company = CompanyService::destroy_image_by_userr(current_user, params)
+    if @company
+      redirect_to companies_url, :notice => "Image deleted correctly."
+    else
+      flash.now[:warning] = "Some errors are occured. fix it please! Remember to upload the image before submit"
+      render :edit
     end
   end
 end
