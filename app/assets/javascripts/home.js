@@ -222,7 +222,7 @@
 
   function drawCountyCircles(container) {
     $('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
-    //$('#search_params').data("tag_code",'');
+    $("#search_params").data("current_county_id", "");
     // County circles
     $.getJSON($(container).data("counties_url"), searchParams(), function(data) {
 
