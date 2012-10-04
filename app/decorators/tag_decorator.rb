@@ -17,7 +17,6 @@ class TagDecorator  < Draper::Base
       results = results.employee_type(search_params[:employee_id]) unless search_params[:employee_id].nil? || search_params[:employee_id].empty?
       results = results.investment_type(search_params[:investment_id]) unless search_params[:investment_id].nil? || search_params[:investment_id].empty?
       results = results.located_in_county search_params[:current_county_id] unless search_params[:current_county_id].nil? || search_params[:current_county_id].empty?
-      results = results.tagged_as search_params[:tag_code] unless search_params[:tag_code].nil? || search_params[:tag_code].empty?
     end
     results
   end
