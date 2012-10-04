@@ -10,6 +10,13 @@ class CompanyService
     company.destroy
   end
 
+  def self.destroy_image_by_userr(user, params = {})
+    company = user.companies.find(params[:id])
+    company.image = nil
+    company.save
+    company
+  end
+
   # TODO: fix duplication code
   def self.update_by_user(user, id, attributes = {})
     company = user.companies.find(id)
