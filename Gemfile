@@ -32,7 +32,8 @@ gem 'haml-rails'
 gem 'simple_form'
 
 # Use clien side validation
-gem 'client_side_validations'
+gem 'client_side_validations', '3.1.4'
+gem 'cocaine', '0.3.2'
 
 group :assets do
   gem "sass-rails", "3.2.5"
