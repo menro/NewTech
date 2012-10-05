@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20121001205235) do
     t.integer  "user_id"
     t.integer  "employees_type_id"
     t.integer  "investments_type_id"
+    t.integer  "city_id"
     t.string   "name"
     t.string   "permalink"
     t.boolean  "hiring"
@@ -63,10 +64,15 @@ ActiveRecord::Schema.define(:version => 20121001205235) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.string   "address"
+    t.string   "zip_code"
+    t.string   "latitude"
+    t.string   "longitude"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end
 
+  add_index "companies", ["city_id"], :name => "index_companies_on_city_id"
   add_index "companies", ["employees_type_id"], :name => "index_companies_on_employees_type_id"
   add_index "companies", ["enabled"], :name => "index_companies_on_enabled"
   add_index "companies", ["founded_year"], :name => "index_companies_on_founded_year"
@@ -118,22 +124,6 @@ ActiveRecord::Schema.define(:version => 20121001205235) do
   end
 
   add_index "investments_types", ["name"], :name => "index_investments_types_on_name"
-
-  create_table "offices", :force => true do |t|
-    t.integer  "company_id"
-    t.integer  "city_id"
-    t.string   "description"
-    t.string   "address1"
-    t.string   "address2"
-    t.string   "zip_code"
-    t.string   "latitude"
-    t.string   "longitude"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "offices", ["city_id"], :name => "index_offices_on_city_id"
-  add_index "offices", ["company_id"], :name => "index_offices_on_company_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"

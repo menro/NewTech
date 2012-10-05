@@ -2,7 +2,7 @@ class ApiController < ApplicationController
   respond_to :json
 
   def companies
-    @offices = OfficeService::search(params)
+    @companies = CompanyService::search(params)
   end
 
   def tags

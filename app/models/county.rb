@@ -1,9 +1,7 @@
 class County < ActiveRecord::Base
   has_many :cities
 
-  has_many :offices, :through => :cities
-
-  has_many :companies, :through => :offices
+  has_many :companies, :through => :cities
 
   has_many :tags, :through => :companies
 

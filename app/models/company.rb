@@ -2,7 +2,7 @@ class Company < ActiveRecord::Base
   attr_accessible :name, :offices_attributes, :email_address, :founded_year, :description,
                   :homepage_url, :twitter, :facebook, :jobs_url, :hiring, :image,
                   :investments_type_id, :employees_type_id, :presentation_date,
-                  :user_id, :enabled, :presented
+                  :user_id, :enabled, :presented, :address, :city_id, :zip_code, :latitude, :longitude
 
   belongs_to  :user
 
@@ -10,13 +10,13 @@ class Company < ActiveRecord::Base
 
   belongs_to  :employees_type
 
-  has_many :offices, :dependent => :destroy
-
-  has_many :cities, :through => :offices
-
-  accepts_nested_attributes_for :offices
+  belongs_to :city
 
   has_and_belongs_to_many :tags
+
+  validates_presence_of :address, :city_id, :zip_code
+
+  validates_numericality_of :zip_code
 
   has_attached_file :image,
                     :styles => {
@@ -59,9 +59,10 @@ class Company < ActiveRecord::Base
           where("`companies`.investments_type_id = ?", investment_id)
         }
 
+  # TODO: improve performances
   scope :located_in_county,
         lambda {|county_id|
-          joins(:cities).merge(City.with_county_id(county_id))
+          joins(:city).merge(City.with_county_id(county_id))
         }
 
   def number_of_employees

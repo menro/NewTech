@@ -137,25 +137,25 @@
       companyOfficesMarkers = new Array();
       infoWindows = new Array();
       nOffices = 0;
-      $.each(data, function(i, office) {
+      $.each(data, function(i, company) {
         var html = ''
           +'<div class="content well">'
-          //+'<img src="'+office.company_image_url+'" alt="" />'
-          +'<h1>'+office.company_name+'</h1>'
-          +'<p><a href="'+office.company_homepage_url+'" target="_blank">'+office.company_homepage_url+'</a></p>';
-        var field = office.facebook;
+          //+'<img src="'+office.image_url+'" alt="" />'
+          +'<h1>'+company.name+'</h1>'
+          +'<p><a href="'+company.homepage_url+'" target="_blank">'+company.homepage_url+'</a></p>';
+        var field = company.facebook;
         if (field != null) html += '<p><b>Facebook: </b><a href="'+field+'" target="_blank">'+field+'</a></p>'
-        field = office.twitter;
+        field = company.twitter;
         if (field != null) html += '<p><b>Twitter: </b><a href="'+field+'" target="_blank">'+field+'</a></p>'
-        field = office.company_founded_year;
+        field = company.founded_year;
         if (field != null) html += '<p><b>Year founded: </b>'+field+'</p>';
-        field = office.company_number_of_employees;
+        field = company.number_of_employees;
         if (field != null) html += '<p><b>Number of employees: </b>'+field+'</p>';
-        field = office.company_tags_list;
+        field = company.tags_list;
         if (field != null && field != '') html += '<p><b>Tags: </b>'+field+'</p>';
-        field = office.company_description;
+        field = company.description;
         if (field != null) html += '<p>'+field+'</p>';
-        field = office.company_hiring;
+        field = company.hiring;
         if (field != null) html += '<div class="hiring-'+field+'">&#160</div>';
         html += '</div>';
         var infowindow = new google.maps.InfoWindow({
@@ -168,9 +168,9 @@
           imageUrl, new google.maps.Size(24, 32));
 
         var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(office.latitude, office.longitude),
+          position: new google.maps.LatLng(company.latitude, company.longitude),
           //draggable: false,
-          title: office.company_name,
+          title: company.name,
           icon: markerImage,
           map: currentMap
         });
@@ -188,8 +188,8 @@
 
         //company thumbnail
         var thumbHtml = thumbTemplate.replace(/__MARKER_NUMBER__/g,i+1);
-        thumbHtml = thumbHtml.replace('__COMPANY_LOGO_URL__',office.company_image_url);
-        thumbHtml = thumbHtml.replace('__COMPANY_NAME__',office.company_name);
+        thumbHtml = thumbHtml.replace('__COMPANY_LOGO_URL__',company.image_url);
+        thumbHtml = thumbHtml.replace('__COMPANY_NAME__',company.name);
         thumbsHtml = thumbsHtml+thumbHtml;
       });
       //console.log(companyOfficesMarkers);

@@ -40,28 +40,26 @@ json.each do |row|
     c.description   = details.delete("description")
     c.overview      = details.delete("overview").gsub(/<\/?[^>]+>/, '') rescue nil
 
-    ( details.delete("tag_list").split(",") rescue [] ).each do |tag|
+    ( details.delete("tag_list").split(",") rescue [] ).each_with_index do |tag, index|
+      break if index > 4
       c.tags << Tag.find_or_create_by_code(tag.strip)
     end
 
     offices = details.delete("offices")
+
     offices.each do |company_offices|
-      office = Office.new do |o|
-        city = company_offices["city"]
-        o.city          = City.where("name LIKE ?","%#{city.strip.split(",").first}%" ).first rescue nil
-        o.description   = company_offices.delete("description")
-        o.address1      = company_offices.delete("address1")
-        o.address2      = company_offices.delete("address2")
-        o.zip_code      = company_offices.delete("zip_code")
-        o.latitude      = company_offices.delete("latitude")
-        o.longitude     = company_offices.delete("longitude")
-      end
-      c.offices << office if( company_offices.delete("state_code").eql?("CO") && office.valid? )
+      next unless (company_offices.delete("state_code")).eql?("CO")
+
+      city = company_offices["city"]
+      c.city          = City.where("name LIKE ?","%#{city.strip.split(",").first}%" ).first rescue nil
+      c.address      = company_offices.delete("address1")
+      c.zip_code      = company_offices.delete("zip_code")
+      c.latitude      = company_offices.delete("latitude")
+      c.longitude     = company_offices.delete("longitude")
     end
     uri = details.delete("screenshot")
     c.image = URI.parse(uri) unless uri.nil? or uri.empty?
   end
-  next if company.offices.empty?
   company.save if company.valid?
 end
 
