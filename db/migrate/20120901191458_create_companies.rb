@@ -5,6 +5,7 @@ class CreateCompanies < ActiveRecord::Migration
       t.belongs_to  :employees_type
       t.belongs_to  :investments_type
       t.belongs_to  :city
+      t.belongs_to  :county
 
       t.string      :name
       t.string      :permalink
@@ -37,6 +38,7 @@ class CreateCompanies < ActiveRecord::Migration
     add_index :companies, :enabled
     add_index :companies, :founded_year
     add_index :companies, :city_id
+    add_index :companies, :county_id
   end
 
 

@@ -12,11 +12,15 @@ class Company < ActiveRecord::Base
 
   belongs_to :city
 
+  belongs_to :county
+
   has_and_belongs_to_many :tags
 
   validates_presence_of :address, :city_id, :zip_code
 
   validates_numericality_of :zip_code
+
+  before_save :attach_county
 
   has_attached_file :image,
                     :styles => {
@@ -59,10 +63,9 @@ class Company < ActiveRecord::Base
           where("`companies`.investments_type_id = ?", investment_id)
         }
 
-  # TODO: improve performances
   scope :located_in_county,
-        lambda {|county_id|
-          joins(:city).merge(City.with_county_id(county_id))
+        lambda {|id|
+          where("`companies`.county_id = ?", id)
         }
 
   def number_of_employees
@@ -71,6 +74,12 @@ class Company < ActiveRecord::Base
 
   def tags_list
     tags.map(&:code).join(", ")
+  end
+
+
+  private
+  def attach_county
+    self.county = city.county unless city.county.nil?
   end
 
 end

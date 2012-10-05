@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20121001205235) do
     t.integer  "employees_type_id"
     t.integer  "investments_type_id"
     t.integer  "city_id"
+    t.integer  "county_id"
     t.string   "name"
     t.string   "permalink"
     t.boolean  "hiring"
@@ -73,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20121001205235) do
   end
 
   add_index "companies", ["city_id"], :name => "index_companies_on_city_id"
+  add_index "companies", ["county_id"], :name => "index_companies_on_county_id"
   add_index "companies", ["employees_type_id"], :name => "index_companies_on_employees_type_id"
   add_index "companies", ["enabled"], :name => "index_companies_on_enabled"
   add_index "companies", ["founded_year"], :name => "index_companies_on_founded_year"

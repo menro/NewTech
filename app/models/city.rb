@@ -3,9 +3,4 @@ class City < ActiveRecord::Base
 
   has_many :companies
 
-  scope :with_county_id,
-        lambda {|id|
-          where("county_id = ?", id)
-        }
-
 end

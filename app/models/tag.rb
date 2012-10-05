@@ -1,8 +1,6 @@
 class Tag < ActiveRecord::Base
   has_and_belongs_to_many :companies
 
-  has_many :city, :through => :companies
-
   scope :with_companies_founded_from,
         lambda {|year|
           joins(:companies).merge(Company.founded_from(year))
@@ -26,10 +24,9 @@ class Tag < ActiveRecord::Base
           joins(:companies).merge(Company.investment_type(investment_id))
         }
 
-  # TODO rename this with company prefix
-  scope :located_in_county,
+  scope :with_company_located_in_county,
         lambda {|county_id|
-          joins(:city).merge(Company.located_in_county(county_id))
+          joins(:companies).merge(Company.located_in_county(county_id))
         }
 
 end
