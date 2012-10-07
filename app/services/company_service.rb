@@ -26,15 +26,15 @@ class CompanyService
       tags << Tag.find_or_create_by_code(tag.strip)
     end
     company.tags = tags
-    geocode = find_geocode attributes[:offices_attributes]['0']
+    geocode = find_geocode attributes
     if !geocode.success || geocode.accuracy.to_i < 6
-      company.errors.add :base, "Address not founds"
-    elsif !( attributes[:offices_attributes]['0'][:zip_code].eql?(geocode.zip) )
-      company.errors.add :base, "Postal code not valid"
+      company.errors.add :address, "Address not founds"
+    elsif !( attributes[:zip_code].eql?(geocode.zip) )
+      company.errors.add :zip_code, "Postal code not valid"
     else
-      attributes[:offices_attributes]['0'][:address1] = geocode.street_address
-      attributes[:offices_attributes]['0'][:latitude] = geocode.lat
-      attributes[:offices_attributes]['0'][:longitude] = geocode.lng
+      attributes[:address] = geocode.street_address
+      attributes[:latitude] = geocode.lat
+      attributes[:longitude] = geocode.lng
       company.update_attributes attributes
     end
     CompanyDecorator.new(company)
@@ -42,17 +42,17 @@ class CompanyService
 
 
   def self.create_by_user(user, attributes)
-    geocode = find_geocode attributes[:offices_attributes]['0']
+    geocode = find_geocode attributes
     if !geocode.success || geocode.accuracy.to_i < 6
       company = build(attributes)
-      company.offices.first.errors.add :address1, "Address not founds"
-    elsif !( attributes[:offices_attributes]['0'][:zip_code].eql?(geocode.zip) )
+      company.errors.add :address, "Address not founds"
+    elsif !( attributes[:zip_code].eql?(geocode.zip) )
       company = build(attributes)
-      company.offices.first.errors.add :zip_code, "Postal code not valid"
+      company.errors.add :zip_code, "Postal code not valid"
     else
-      attributes[:offices_attributes]['0'][:address1] = geocode.street_address
-      attributes[:offices_attributes]['0'][:latitude] = geocode.lat
-      attributes[:offices_attributes]['0'][:longitude] = geocode.lng
+      attributes[:address] = geocode.street_address
+      attributes[:latitude] = geocode.lat
+      attributes[:longitude] = geocode.lng
       company = build(attributes)
       company.user = user
       company.save
@@ -62,7 +62,6 @@ class CompanyService
 
   def self.edit(id)
     company = Company.find(id)
-    company.offices.build if company.offices.nil? || company.offices.empty?
     CompanyDecorator.decorate(company)
   end
 
@@ -77,7 +76,6 @@ class CompanyService
       tags_list.each do |tag|
         c.tags << Tag.find_or_create_by_code(tag.strip)
       end
-      c.offices.build if c.offices.nil? || c.offices.empty?
     end
     CompanyDecorator.new(company)
   end
@@ -86,9 +84,22 @@ class CompanyService
     CompanyDecorator.find(id)
   end
 
-  def self.find_geocode(address)
-    city = City.find_by_id(address[:city_id])
-    geocode = Geokit::Geocoders::GoogleGeocoder3.geocode("#{address[:address1]}, #{address[:zip_code]}, #{city.name}")
+  def self.search(params)
+    companies = Company.scoped
+    companies = companies.founded_from params[:from_year] unless params[:from_year].nil? || params[:from_year].empty?
+    companies = companies.founded_to params[:to_year] unless params[:to_year].nil? || params[:to_year].empty?
+    companies = companies.tagged_as params[:tag_code] unless params[:tag_code].nil? || params[:tag_code].empty?
+    companies = companies.located_in_county params[:current_county_id] unless params[:current_county_id].nil? || params[:current_county_id].empty?
+    companies = companies.are_hiring unless params[:hiring].nil? || params[:hiring].empty?
+    companies = companies.employee_type(params[:employee_id]) unless params[:employee_id].nil? || params[:employee_id].empty?
+    companies = companies.investment_type(params[:investment_id]) unless params[:investment_id].nil? || params[:investment_id].empty?
+    companies.order("`companies`.name").uniq
+    CompanyDecorator.decorate(companies)
+  end
+
+  def self.find_geocode(params)
+    city = City.find_by_id(params[:city_id])
+    geocode = Geokit::Geocoders::GoogleGeocoder3.geocode("#{params[:address]}, #{params[:zip_code]}, #{city.name}")
     geocode
   end
 

@@ -10,10 +10,9 @@
           = f.input :presentation_date, as: :string, :input_html => { :class => 'datepicker' }
         .form-inputs.row
           = f.input :name, :label => "Company Name", :as => :string
-          = f.simple_fields_for :offices do |office|
-            = office.input :address1, :label => "Address", :as => :string
-            = office.association :city
-            = office.input :zip_code,  :as => :string
+          = f.input :address, :as => :string
+          = f.association :city
+          = f.input :zip_code,  :as => :string
           = f.input :email_address, :as => :string
           = f.input :founded_year, :as => :string
           = f.input :tags_list, :as => :string, :hint => "E.g.,marketing-automation, lead-generation,analytics, email-marketing"

@@ -230,7 +230,8 @@ DEPENDENCIES
   cancan (= 1.6.8)
   capistrano
   chosen-rails
-  client_side_validations
+  client_side_validations (= 3.1.4)
+  cocaine (= 0.3.2)
   coffee-rails (= 3.2.2)
   configatron (= 2.8.4)
   devise (>= 2.1.0)

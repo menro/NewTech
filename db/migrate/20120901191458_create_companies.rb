@@ -4,6 +4,9 @@ class CreateCompanies < ActiveRecord::Migration
       t.belongs_to  :user
       t.belongs_to  :employees_type
       t.belongs_to  :investments_type
+      t.belongs_to  :city
+      t.belongs_to  :county
+
       t.string      :name
       t.string      :permalink
       t.boolean     :hiring
@@ -20,6 +23,11 @@ class CreateCompanies < ActiveRecord::Migration
       t.text        :description
       t.text        :overview
       t.attachment  :image
+      t.string      :address
+      t.string      :zip_code
+      t.string      :latitude
+      t.string      :longitude
+
       t.timestamps
     end
 
@@ -29,7 +37,8 @@ class CreateCompanies < ActiveRecord::Migration
     add_index :companies, :hiring
     add_index :companies, :enabled
     add_index :companies, :founded_year
-
+    add_index :companies, :city_id
+    add_index :companies, :county_id
   end
 
 

@@ -11,7 +11,7 @@
         #search_params{ :data => { :from_year => "", :to_year => "", :tag_code => "", :current_county_id => "", :hiring => "", :employee_id => "", :investment_id => "" } }
         %label{ :id => "years_range" }
         #years_slider
-      .gmap{ :data => { :offices_url => "#{api_v1_offices_url(:json)}", :counties_url => "#{api_v1_counties_url(:json)}", :tags_url => "#{api_v1_tags_url(:json)}" } }
+      .gmap{ :data => { :offices_url => "#{companies_api_v1_url(:json)}", :counties_url => "#{counties_api_v1_url(:json)}", :tags_url => "#{tags_api_v1_url(:json)}" } }
       #company-list
       .container
         .pull-right
