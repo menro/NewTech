@@ -54,6 +54,27 @@
       drawCompanyOffices(container);
     }
     refreshTags(container);
+    //refreshFilterMenus(container);
+  }
+
+  function refreshFilterMenus(container) {
+    var srcParams = searchParams();
+    $.getJSON($(container).data("employees_range_url"), srcParams, function(data) {
+      var rangeLinks = "";
+      $.each(data, function(i, employeeRange) {
+        rangeLinks += "<li><a href='#' class='btn-employee' data-employee_id='"+employeeRange.id+"'>"+employeeRange.description+"</a></li>";
+      });
+      $('#employee-filter-menu').html(rangeLinks);
+      setEmployeeMenuListener();
+    });
+    $.getJSON($(container).data("investments_range_url"), srcParams, function(data) {
+      var investmentLinks = "";
+      $.each(data, function(i, investmentRange) {
+        investmentLinks += "<li><a href='#' class='btn-investment' data-employee_id='"+investmentRange.id+"'>"+investmentRange.description+"</a></li>";
+      });
+      $('#investment-filter-menu').html(investmentLinks);
+      setInvestmentMenuListener();
+    });
   }
 
   function refreshTags(container) {
@@ -371,38 +392,47 @@
           refreshMap(this);
         });
     });
-    $('.bottom_filters a.btn-employee').click(function(e){
-        e.preventDefault();
-        if($(this).parent().is('.active')) {
-          $(this).parent().removeClass("active");
-          $('.bottom_filters .btn-employee-group a.btn-primary').removeClass("active");
-          searchParams.data("employee_id", "");
-        } else {
-          $('.bottom_filters .btn-employee-group a.btn-primary').addClass("active");
-          $('.bottom_filters .btn-employee-group ul.dropdown-menu li').removeClass("active");
-          $(this).parent().addClass("active");
-          searchParams.data("employee_id", $(this).data("employee_id"));
-        }
-        $('.gmap').each(function() {
-          refreshMap(this);
-        });
-    });
-    $('.bottom_filters a.btn-investment').click(function(e){
-        e.preventDefault();
-        if($(this).parent().is('.active')) {
-          $(this).parent().removeClass("active");
-          $('.bottom_filters .btn-investment-group a.btn-primary').removeClass("active");
-          searchParams.data("investment_id", "");
-        } else {
-          $('.bottom_filters .btn-investment-group a.btn-primary').addClass("active");
-          $('.bottom_filters .btn-investment-group ul.dropdown-menu li').removeClass("active");
-          $(this).parent().addClass("active");
-          searchParams.data("investment_id", $(this).data("investment_id"));
-        }
-        $('.gmap').each(function() {
-          refreshMap(this);
-        });
-    });
+
+    setFilterButtonsListeners();
   });
 
+  function setEmployeeMenuListener() {
+    var searchParams = $('#search_params');
+    $('.bottom_filters a.btn-employee').click(function(e){
+      e.preventDefault();
+      if($(this).parent().is('.active')) {
+        $(this).parent().removeClass("active");
+        $('.bottom_filters .btn-employee-group a.btn-primary').removeClass("active");
+        searchParams.data("employee_id", "");
+      } else {
+        $('.bottom_filters .btn-employee-group a.btn-primary').addClass("active");
+        $('.bottom_filters .btn-employee-group ul.dropdown-menu li').removeClass("active");
+        $(this).parent().addClass("active");
+        searchParams.data("employee_id", $(this).data("employee_id"));
+      }
+      $('.gmap').each(function() {
+        refreshMap(this);
+      });
+    });
+  }
+
+  function setInvestmentMenuListener() {
+    var searchParams = $('#search_params');
+    $('.bottom_filters a.btn-investment').click(function(e){
+      e.preventDefault();
+      if($(this).parent().is('.active')) {
+        $(this).parent().removeClass("active");
+        $('.bottom_filters .btn-investment-group a.btn-primary').removeClass("active");
+        searchParams.data("investment_id", "");
+      } else {
+        $('.bottom_filters .btn-investment-group a.btn-primary').addClass("active");
+        $('.bottom_filters .btn-investment-group ul.dropdown-menu li').removeClass("active");
+        $(this).parent().addClass("active");
+        searchParams.data("investment_id", $(this).data("investment_id"));
+      }
+      $('.gmap').each(function() {
+        refreshMap(this);
+      });
+    });
+  }
 }).call(this);

@@ -6,7 +6,7 @@
         %a.btn.btn-primary.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
           Employee
           %b.caret
-        %ul.dropdown-menu{:role => "menu" }
+        %ul.dropdown-menu#employee-filter-menu{:role => "menu" }
           %li
             %a.btn-employee{:href => "#", :data => { :employee_id => "1" }} <10
           %li
@@ -23,7 +23,7 @@
         %a.btn.btn-primary.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
           Investment
           %b.caret
-        %ul.dropdown-menu{:role => "menu" }
+        %ul.dropdown-menu#investment-filter-menu{:role => "menu" }
           %li
             %a.btn-investment{:href => "#", :data => { :investment_id => "1" }}  <100,000
           %li
