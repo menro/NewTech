@@ -3,4 +3,11 @@ class City < ActiveRecord::Base
 
   has_many :companies
 
+  attr_accessible :county_id, :name, :state, :latitude, :longitude
+
+  validates_presence_of :county_id, :name, :state, :latitude, :longitude
+
+  validates_numericality_of :latitude, :longitude
+
+
 end

@@ -4,7 +4,7 @@
       .form-inputs.row
         = f.input :name, :label => "Company Name", :as => :string
         = f.input :address, :label => "Address", :as => :string
-        = f.association :city
+        = f.association :city, :label_method => :name_for_select, :collection => CityService::all
         = f.input :zip_code,  :as => :string
         = f.input :email_address, :as => :string
         = f.input :founded_year, :as => :string

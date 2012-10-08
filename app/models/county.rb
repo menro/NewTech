@@ -5,7 +5,13 @@ class County < ActiveRecord::Base
 
   has_many :tags, :through => :companies
 
-  attr_accessible :name, :zip, :state, :latitude, :longitude
+  attr_accessible :name, :state, :latitude, :longitude
+
+
+  validates_presence_of :name, :state, :latitude, :longitude
+
+  validates_numericality_of :latitude, :longitude
+
 
   scope :with_companies_founded_from,
         lambda {|year|
