@@ -96,13 +96,12 @@
     var srcParams = searchParams();
     $.getJSON($(container).data("tags_url"), srcParams, function(data) {
       var tagLinks = "";
-      if (srcParams.tag_code != null && srcParams.tag_code != "")
-        tagLinks += "<a href='#' rel='2' data-tag_code=''><i class='icon-remove-sign'/> </i>\n";
       $.each(data, function(i, tag) {
-        tagLinks += "<a href='#' rel='"+tag.companies_count+"' data-tag_code='"+ tag.code +"' ";
-        if (tag.code == srcParams.tag_code)
-          tagLinks += "class ='selected-tag'";
-        tagLinks += ">"+tag.code+"</a>\n";
+        if (tag.code == srcParams.tag_code) {
+          tagLinks += "<a href='#' rel='2' data-tag_code=''><i class='icon-remove-sign'/></a>\n";
+          tagLinks += "<a href='#' rel='"+tag.companies_count+"' data-tag_code='"+ tag.code +"' class ='selected-tag'>"+tag.code+"</a>\n";
+        } else
+          tagLinks += "<a href='#' rel='"+tag.companies_count+"' data-tag_code='"+ tag.code +"' >"+tag.code+"</a>\n";
       });
       $('#tag-cloud').html(tagLinks);
       configureTagCloud();
