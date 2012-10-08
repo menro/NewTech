@@ -20,11 +20,20 @@
       // Initialize Google Map
       var defaultOptions;
       defaultOptions = {
-          minZoom: 7,
-          zoom: 8,
-          scrollwheel: false,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          center: new google.maps.LatLng(39.232253, -105.08606)
+        panControl: false,
+        zoomControl: true,
+        zoomControlOptions: {
+          style: google.maps.ZoomControlStyle.SMALL
+        },
+        mapTypeControl: true,
+        scaleControl: false,
+        streetViewControl: false,
+        overviewMapControl: false,
+        minZoom: 7,
+        zoom: 8,
+        scrollwheel: false,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: new google.maps.LatLng(39.232253, -105.08606)
       };
       currentMap = new google.maps.Map(container, defaultOptions);
       google.maps.event.addListener(currentMap, 'zoom_changed', function() {
@@ -54,23 +63,29 @@
       drawCompanyOffices(container);
     }
     refreshTags(container);
-    //refreshFilterMenus(container);
+    refreshFilterMenus(container);
   }
 
   function refreshFilterMenus(container) {
     var srcParams = searchParams();
-    $.getJSON($(container).data("employees_range_url"), srcParams, function(data) {
+    $.getJSON($(container).data("employees_types_url"), srcParams, function(data) {
       var rangeLinks = "";
       $.each(data, function(i, employeeRange) {
-        rangeLinks += "<li><a href='#' class='btn-employee' data-employee_id='"+employeeRange.id+"'>"+employeeRange.description+"</a></li>";
+        rangeLinks += "<li";
+        if (employeeRange.id == srcParams.employee_id)
+          rangeLinks += " class='active'";
+        rangeLinks += "><a href='#' class='btn-employee' data-employee_id='"+employeeRange.id+"'>"+employeeRange.name+"</a></li>";
       });
       $('#employee-filter-menu').html(rangeLinks);
       setEmployeeMenuListener();
     });
-    $.getJSON($(container).data("investments_range_url"), srcParams, function(data) {
+    $.getJSON($(container).data("investments_types_url"), srcParams, function(data) {
       var investmentLinks = "";
       $.each(data, function(i, investmentRange) {
-        investmentLinks += "<li><a href='#' class='btn-investment' data-employee_id='"+investmentRange.id+"'>"+investmentRange.description+"</a></li>";
+        investmentLinks += "<li";
+        if (investmentRange.id == srcParams.investment_id)
+          investmentLinks += " class='active'";
+        investmentLinks += "><a href='#' class='btn-investment' data-investment_id='"+investmentRange.id+"'>"+investmentRange.name+"</a></li>";
       });
       $('#investment-filter-menu').html(investmentLinks);
       setInvestmentMenuListener();
@@ -393,12 +408,13 @@
         });
     });
 
-    setFilterButtonsListeners();
+    setEmployeeMenuListener();
+    setInvestmentMenuListener();
   });
 
   function setEmployeeMenuListener() {
     var searchParams = $('#search_params');
-    $('.bottom_filters a.btn-employee').click(function(e){
+    $('#employee-filter-menu a.btn-employee').click(function(e){
       e.preventDefault();
       if($(this).parent().is('.active')) {
         $(this).parent().removeClass("active");
@@ -406,7 +422,7 @@
         searchParams.data("employee_id", "");
       } else {
         $('.bottom_filters .btn-employee-group a.btn-primary').addClass("active");
-        $('.bottom_filters .btn-employee-group ul.dropdown-menu li').removeClass("active");
+        $('#employee-filter-menu li').removeClass("active");
         $(this).parent().addClass("active");
         searchParams.data("employee_id", $(this).data("employee_id"));
       }
@@ -418,7 +434,7 @@
 
   function setInvestmentMenuListener() {
     var searchParams = $('#search_params');
-    $('.bottom_filters a.btn-investment').click(function(e){
+    $('#investment-filter-menu a.btn-investment').click(function(e){
       e.preventDefault();
       if($(this).parent().is('.active')) {
         $(this).parent().removeClass("active");
@@ -426,7 +442,7 @@
         searchParams.data("investment_id", "");
       } else {
         $('.bottom_filters .btn-investment-group a.btn-primary').addClass("active");
-        $('.bottom_filters .btn-investment-group ul.dropdown-menu li').removeClass("active");
+        $('#investment-filter-menu li').removeClass("active");
         $(this).parent().addClass("active");
         searchParams.data("investment_id", $(this).data("investment_id"));
       }

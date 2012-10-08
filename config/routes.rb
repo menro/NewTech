@@ -7,6 +7,8 @@ Newtech::Application.routes.draw do
       get :companies
       get :counties
       get :tags
+      get :employees_types
+      get :investments_types
     end
   end
 

@@ -19,7 +19,12 @@ class County < ActiveRecord::Base
 
   scope :with_company_tagged_as,
         lambda {|tag_code|
-          joins(:tags).merge(Company.tagged_as(tag_code))
+          joins(:companies).merge(Company.tagged_as(tag_code))
+        }
+
+  scope :with_companies_in_county,
+        lambda {|county_id|
+          joins(:companies).merge(Company.located(county_id))
         }
 
   scope :with_company_are_hiring,
