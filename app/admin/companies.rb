@@ -3,7 +3,7 @@ ActiveAdmin.register Company  do
   # Create sections on the index screen
   scope :all, :default => true
 
-  actions :index, :edit, :update, :destroy
+  actions :index, :show, :edit, :update, :destroy
 
   filter :name
   filter :founded_year

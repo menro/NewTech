@@ -18,7 +18,7 @@ class Company < ActiveRecord::Base
 
   has_and_belongs_to_many :tags
 
-  validates_presence_of :address, :city_id, :zip_code
+  validates_presence_of :address, :city_id, :zip_code, :category_id
 
   validates_numericality_of :zip_code
 

@@ -421,6 +421,7 @@
 
     setEmployeeMenuListener();
     setInvestmentMenuListener();
+    setCategoryMenuListener();
   });
 
   function setEmployeeMenuListener() {
