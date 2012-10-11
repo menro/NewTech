@@ -90,6 +90,17 @@
       $('#investment-filter-menu').html(investmentLinks);
       setInvestmentMenuListener();
     });
+    $.getJSON($(container).data("categories_url"), srcParams, function(data) {
+      var categoryLinks = "";
+      $.each(data, function(i, category) {
+        categoryLinks += "<li";
+        if (category.id == srcParams.category_id)
+          categoryLinks += " class='active'";
+        categoryLinks += "><a href='#' class='btn-category' data-category_id='"+category.id+"'>"+category.name+"</a></li>";
+      });
+      $('#category-filter-menu').html(categoryLinks);
+      //TODO setCategoryMenuListener();
+    });
   }
 
   function refreshTags(container) {

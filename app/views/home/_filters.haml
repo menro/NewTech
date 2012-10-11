@@ -1,5 +1,16 @@
 .btn-toolbar.bottom_filters
   %a.btn.btn-primary.btn-hiring{ :role => "button", :href => "#" } Hiring
+  .btn-group.btn-category-group
+    %ul.filters
+      %li.dropup
+        %a.btn.btn-primary.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
+          Category
+          %b.caret
+        %ul.dropdown-menu#category-filter-menu{:role => "menu" }
+          - @categories.each do |category|
+            %li
+              //%img{:src => "/assets/"+category.marker_image}
+              %a.btn-category{:href => "#", :data => { :category_id => category.id }}=category.name
   .btn-group.btn-employee-group
     %ul.filters
       %li.dropup
