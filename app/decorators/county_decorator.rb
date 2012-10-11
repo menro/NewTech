@@ -26,7 +26,7 @@ class CountyDecorator < Draper::Base
       results = results.are_hiring unless search_params[:hiring].nil? || search_params[:hiring].empty?
       results = results.employee_type(search_params[:employee_id]) unless search_params[:employee_id].nil? || search_params[:employee_id].empty?
       results = results.investment_type(search_params[:investment_id]) unless search_params[:investment_id].nil? || search_params[:investment_id].empty?
-      results = results.with_company_category(search_params[:category_id]) unless search_params[:category_id].nil? || search_params[:category_id].empty?
+      results = results.with_category(search_params[:category_id]) unless search_params[:category_id].nil? || search_params[:category_id].empty?
     end
     results
   end
