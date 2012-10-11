@@ -29,4 +29,8 @@ class Tag < ActiveRecord::Base
           joins(:companies).merge(Company.located_in_county(county_id))
         }
 
+  scope :with_company_category,
+        lambda {|category_id|
+          joins(:companies).merge(Company.with_category(category_id))
+        }
 end

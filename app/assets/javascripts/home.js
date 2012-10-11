@@ -99,7 +99,7 @@
         categoryLinks += "><a href='#' class='btn-category' data-category_id='"+category.id+"'>"+category.name+"</a></li>";
       });
       $('#category-filter-menu').html(categoryLinks);
-      //TODO setCategoryMenuListener();
+      setCategoryMenuListener();
     });
   }
 
@@ -369,7 +369,8 @@
         current_county_id: srcParamsEl.data("current_county_id"),
         hiring: srcParamsEl.data("hiring") ,
         employee_id: srcParamsEl.data("employee_id"),
-        investment_id: srcParamsEl.data("investment_id")
+        investment_id: srcParamsEl.data("investment_id"),
+        category_id: srcParamsEl.data("category_id")
     }
     return search_params;
   }
@@ -461,4 +462,25 @@
       });
     });
   }
+
+  function setCategoryMenuListener() {
+    var searchParams = $('#search_params');
+    $('#category-filter-menu a.btn-category').click(function(e){
+      e.preventDefault();
+      if($(this).parent().is('.active')) {
+        $(this).parent().removeClass("active");
+        $('.bottom_filters .btn-category-group a.btn-primary').removeClass("active");
+        searchParams.data("category_id", "");
+      } else {
+        $('.bottom_filters .btn-category-group a.btn-primary').addClass("active");
+        $('#category-filter-menu li').removeClass("active");
+        $(this).parent().addClass("active");
+        searchParams.data("category_id", $(this).data("category_id"));
+      }
+      $('.gmap').each(function() {
+        refreshMap(this);
+      });
+    });
+  }
+
 }).call(this);

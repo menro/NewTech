@@ -32,4 +32,8 @@ class InvestmentsType < ActiveRecord::Base
           joins(:companies).merge(Company.employee_type(employee_id))
         }
 
+  scope :with_company_category,
+        lambda {|category_id|
+          joins(:companies).merge(Company.with_category(category_id))
+        }
 end

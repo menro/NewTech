@@ -65,6 +65,11 @@ class Company < ActiveRecord::Base
           where("`companies`.investments_type_id = ?", investment_id)
         }
 
+  scope :with_category,
+        lambda {|category_id|
+          where("`companies`.category_id = ?", category_id)
+        }
+
   scope :located_in_county,
         lambda {|id|
           where("`companies`.county_id = ?", id)

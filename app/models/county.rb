@@ -45,4 +45,9 @@ class County < ActiveRecord::Base
         lambda {|investment_id|
           joins(:companies).merge(Company.investment_type(investment_id))
         }
+
+  scope :with_company_category,
+        lambda {|category_id|
+          joins(:companies).merge(Company.with_category(category_id))
+        }
 end
