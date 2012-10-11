@@ -1,7 +1,7 @@
 class Company < ActiveRecord::Base
   attr_accessible :name, :offices_attributes, :email_address, :founded_year, :description,
                   :homepage_url, :twitter, :facebook, :jobs_url, :hiring, :image,
-                  :investments_type_id, :employees_type_id, :presentation_date,
+                  :investments_type_id, :employees_type_id, :category_id, :presentation_date,
                   :user_id, :enabled, :presented, :address, :city_id, :zip_code, :latitude, :longitude
 
   belongs_to  :user
@@ -13,6 +13,8 @@ class Company < ActiveRecord::Base
   belongs_to :city
 
   belongs_to :county
+
+  belongs_to :category
 
   has_and_belongs_to_many :tags
 

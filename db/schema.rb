@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(:version => 20121001205235) do
   add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
   add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
 
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.string   "marker_image"
+    t.text     "description"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "cities", :force => true do |t|
     t.integer  "county_id"
     t.string   "name"
@@ -46,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20121001205235) do
     t.integer  "investments_type_id"
     t.integer  "city_id"
     t.integer  "county_id"
+    t.integer  "category_id"
     t.string   "name"
     t.string   "permalink"
     t.boolean  "hiring"

@@ -32,6 +32,7 @@ json.each do |row|
 
     c.employees_type = employees_type_from_integer(details.delete("number_of_employees"))
     c.investments_type = InvestmentsType.find(1)
+    c.category = Category.find(1)
 
     c.founded_year  = details.delete("founded_year")
     c.twitter       = details.delete("twitter_username")

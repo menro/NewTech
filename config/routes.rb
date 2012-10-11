@@ -9,6 +9,7 @@ Newtech::Application.routes.draw do
       get :tags
       get :employees_types
       get :investments_types
+      get :categories
     end
   end
 

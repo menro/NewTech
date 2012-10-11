@@ -21,4 +21,8 @@ class ApiController < ApplicationController
     @investments_types = InvestmentsTypeService::search(params)
   end
 
+  def categories
+    @categories = CategoryService::search(params)
+  end
+
 end

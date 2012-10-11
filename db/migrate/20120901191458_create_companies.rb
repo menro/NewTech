@@ -6,6 +6,7 @@ class CreateCompanies < ActiveRecord::Migration
       t.belongs_to  :investments_type
       t.belongs_to  :city
       t.belongs_to  :county
+      t.belongs_to  :category
 
       t.string      :name
       t.string      :permalink

@@ -9,6 +9,7 @@
         = f.input :email_address, :as => :string
         = f.input :founded_year, :as => :string
         = f.input :tags_list, :as => :string, :hint => "E.g.,marketing-automation, lead-generation,analytics, email-marketing"
+        = f.association :category, :label_method => :name, :collection => CategoryService::all
         = f.input :description
     .well
       %span.header Investment
