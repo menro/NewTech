@@ -9,6 +9,7 @@
           = f.input :presented, as: :radio_buttons, item_wrapper_class: 'inline'
           = f.input :presentation_date, as: :string, :input_html => { :class => 'datepicker' }
         .form-inputs.row
+          = f.association :category, :label_method => :name, :collection => CategoryService::all
           = f.input :name, :label => "Company Name", :as => :string
           = f.input :address, :as => :string
           = f.association :city
