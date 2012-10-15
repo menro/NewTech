@@ -42,7 +42,11 @@ body {
   }
 
 }
-
-.brand {
+.newtech {
   font-family: 'Open Sans', sans-serif;
+  background-image: url(image_path('logo.png'));
+  background-repeat: no-repeat;
+  width: 150px;
+  height: 25px;
+  margin-top: 5px;
 }
