@@ -19,6 +19,10 @@
 //= require chosen-jquery
 //= require_tree .
 
+$(function() {
+    $('select').chosen()
+});
+
 
 
 
