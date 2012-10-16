@@ -18,7 +18,7 @@ class ProfileController < ApplicationController
       flash[:notice] = "Password was successfully updated. Please login with it"
       redirect_to new_user_session_path
     else
-      flash.now[:error] = "Please contact support"
+      flash.now[:error] = "We're sorry, but something went wrong. Try again"
       render action: "show"
     end
   end
