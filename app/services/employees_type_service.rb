@@ -1,5 +1,10 @@
 class EmployeesTypeService
 
+  def self.all
+    types = EmployeesType.all
+    EmployeesTypeDecorator::decorate(types)
+  end
+
   def self.search(params)
     types = EmployeesType.scoped
     types = types.with_companies_founded_from params[:from_year] unless params[:from_year].nil? || params[:from_year].empty?

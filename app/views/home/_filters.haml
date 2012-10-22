@@ -2,7 +2,7 @@
   %a.btn.btn-primary.btn-hiring{ :role => "button", :href => "#" } Hiring
   .btn-group.btn-category-group
     %ul.filters
-      %li.dropup
+      %li.dropdown
         %a.btn.btn-primary.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
           Category
           %b.caret
@@ -12,35 +12,21 @@
               %a.btn-category{:href => "#", :data => { :category_id => category.id }}=category.name
   .btn-group.btn-employee-group
     %ul.filters
-      %li.dropup
+      %li.dropdown
         %a.btn.btn-primary.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
           Employee
           %b.caret
         %ul.dropdown-menu#employee-filter-menu{:role => "menu" }
-          %li
-            %a.btn-employee{:href => "#", :data => { :employee_id => "1" }} <10
-          %li
-            %a.btn-employee{:href => "#", :data => { :employee_id => "2" }} 11-25
-          %li
-            %a.btn-employee{:href => "#", :data => { :employee_id => "3" }} 26-75
-          %li
-            %a.btn-employee{:href => "#", :data => { :employee_id => "4" }} 76-250
-          %li
-            %a.btn-employee{:href => "#", :data => { :employee_id => "5" }} >251
+          - @employees_types.each do |employee|
+            %li
+              %a.btn-employee{:href => "#", :data => { :employee_id => employee.id }}=employee.name
   .btn-group.btn-investment-group
     %ul.filters
-      %li.dropup
+      %li.dropdown
         %a.btn.btn-primary.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
           Investment
           %b.caret
         %ul.dropdown-menu#investment-filter-menu{:role => "menu" }
-          %li
-            %a.btn-investment{:href => "#", :data => { :investment_id => "1" }}  <100,000
-          %li
-            %a.btn-investment{:href => "#", :data => { :investment_id => "2" }} <500,000
-          %li
-            %a.btn-investment{:href => "#", :data => { :investment_id => "3" }} <2M
-          %li
-            %a.btn-investment{:href => "#", :data => { :investment_id => "4" }} <10M
-          %li
-            %a.btn-investment{:href => "#", :data => { :investment_id => "5" }} >25M
+          - @employees_types.each do |investment|
+            %li
+              %a.btn-investment{:href => "#", :data => { :investment_id => investment.id }}=investment.name

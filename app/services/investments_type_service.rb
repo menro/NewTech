@@ -1,5 +1,10 @@
 class InvestmentsTypeService
 
+  def self.all
+    types = InvestmentsType.all
+    InvestmentsTypeDecorator::decorate(types)
+  end
+
   def self.search(params)
     types = InvestmentsType.scoped
     types = types.with_companies_founded_from params[:from_year] unless params[:from_year].nil? || params[:from_year].empty?
