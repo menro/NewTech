@@ -2,22 +2,22 @@
   = javascript_include_tag("https://maps.googleapis.com/maps/api/js?sensor=false")
   = javascript_include_tag("http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.5/src/markerwithlabel.js")
 
-%h1
+.container-fluid
+  %h1
 
-.content
-  .row
-    .span12.shadowed
-      .container
-        .search.pull-left
-          #search_params{ :data => { :from_year => "", :to_year => "", :tag_code => "", :current_county_id => "", :hiring => "", :employee_id => "", :investment_id => "", :category_id => "" } }
-          .slider
-            #years_slider
-          %label{ :id => "years_range" }
-        .pull-right
-          = render :partial => 'filters'
-      .gmap{ :data => { :offices_url => "#{companies_api_v1_url(:json)}", :counties_url => "#{counties_api_v1_url(:json)}", :tags_url => "#{tags_api_v1_url(:json)}", :employees_types_url => "#{employees_types_api_v1_url(:json)}", :investments_types_url => "#{investments_types_api_v1_url(:json)}", :categories_url => "#{categories_api_v1_url(:json)}"} }
-      #company-list
+.container-fluid
+  .search.pull-left
+    #search_params{ :data => { :from_year => "", :to_year => "", :tag_code => "", :current_county_id => "", :hiring => "", :employee_id => "", :investment_id => "", :category_id => "" } }
+    .slider
+      #years_slider
+    %label{ :id => "years_range" }
+  .pull-right
+    = render :partial => 'filters'
 
-#tag-cloud
-  - @tags_for_cloud.each do |tag|
-    %a{:href => "#", :rel => tag.companies_count, :data => { :tag_code => tag.code} }= tag.code
+.gmap{ :data => { :offices_url => "#{companies_api_v1_url(:json)}", :counties_url => "#{counties_api_v1_url(:json)}", :tags_url => "#{tags_api_v1_url(:json)}", :employees_types_url => "#{employees_types_api_v1_url(:json)}", :investments_types_url => "#{investments_types_api_v1_url(:json)}", :categories_url => "#{categories_api_v1_url(:json)}"} }
+#company-list
+
+.container-fluid
+  #tag-cloud
+    - @tags_for_cloud.each do |tag|
+      %a{:href => "#", :rel => tag.companies_count, :data => { :tag_code => tag.code} }= tag.code
