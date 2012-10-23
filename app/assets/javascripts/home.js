@@ -242,9 +242,9 @@
       //console.log(infoWindows);
 
       //show company list
-      $('.gmap').each(function() {
-        $(this).css('width', '80%');
-      });
+      //$('.gmap').each(function() {
+      //  $(this).css('width', '80%');
+      //});
       thumbsHtml = thumbsHtml+'</ul>';
       var companyList = $('#company-list');
       companyList.show();
@@ -267,16 +267,16 @@
   }
 
   function drawCountyCircles(container) {
-    $('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
+    //$('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
     $("#search_params").data("current_county_id", "");
     // County circles
     $.getJSON($(container).data("counties_url"), searchParams(), function(data) {
 
       //hide company list
       $('#company-list').hide();
-      $('.gmap').each(function() {
-        $(this).css('width', '100%');
-      });
+      //$('.gmap').each(function() {
+      //  $(this).css('width', '100%');
+      //});
 
       countyCircles = new Array();
       nCountyCircles = 0;
@@ -335,7 +335,7 @@
   }
 
   function onCountySelected(county, circlePosition) {
-    $('h1').html('Tech Companies in '+county.name);
+    //$('h1').html('Tech Companies in '+county.name);
     $("#search_params").data("current_county_id", county.id);
     //currentMap.setZoom(currentMap.getZoom()+1);
     currentMap.setCenter(circlePosition);

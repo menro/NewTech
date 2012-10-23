@@ -18,10 +18,6 @@
   .pull-right
     = render :partial => 'filters'
 
-.gmap{ :data => { :offices_url => "#{companies_api_v1_url(:json)}", :counties_url => "#{counties_api_v1_url(:json)}", :tags_url => "#{tags_api_v1_url(:json)}", :employees_types_url => "#{employees_types_api_v1_url(:json)}", :investments_types_url => "#{investments_types_api_v1_url(:json)}", :categories_url => "#{categories_api_v1_url(:json)}"} }
+.gmap_wrapper
+  .gmap{ :data => { :offices_url => "#{companies_api_v1_url(:json)}", :counties_url => "#{counties_api_v1_url(:json)}", :tags_url => "#{tags_api_v1_url(:json)}", :employees_types_url => "#{employees_types_api_v1_url(:json)}", :investments_types_url => "#{investments_types_api_v1_url(:json)}", :categories_url => "#{categories_api_v1_url(:json)}"} }
 #company-list
-
-.container-fluid
-  #tag-cloud
-    - @tags_for_cloud.each do |tag|
-      %a{:href => "#", :rel => tag.companies_count, :data => { :tag_code => tag.code} }= tag.code
