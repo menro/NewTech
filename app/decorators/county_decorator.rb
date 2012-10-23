@@ -11,6 +11,12 @@ class CountyDecorator < Draper::Base
     ((offices_numbers * 100).to_f / Company.count).to_f
   end
 
+  def companies_by_category
+    filter_offices_by_search_params(companies).joins(:category)
+      .select("`categories`.name as category_name, count(`companies`.id) as companies_count")
+      .group("`categories`.name")
+  end
+
   private
 
   def total_offices
@@ -28,7 +34,7 @@ class CountyDecorator < Draper::Base
       results = results.investment_type(search_params[:investment_id]) unless search_params[:investment_id].nil? || search_params[:investment_id].empty?
       results = results.with_category(search_params[:category_id]) unless search_params[:category_id].nil? || search_params[:category_id].empty?
     end
-    results
+    results.uniq
   end
 
   def search_params
