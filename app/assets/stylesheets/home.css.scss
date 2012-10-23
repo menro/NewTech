@@ -2,10 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.content {
-  padding: 0px 0px 0px 0px;
-  margin: 10px 0px 10px 0px;
-}
 
 .gmap_wrapper {
   position: fixed;
@@ -99,7 +95,7 @@
 }
 
 .btn-investment-group {
-  margin-right: 20px;
+  margin-right: 50px;
 }
 
 .filters {
@@ -113,12 +109,13 @@
 }
 
 #company-list {
-  position: absolute;
-  background-color: #ffffff;
+  position: fixed;
+  background: url(image_path('bg.png'));
+  background-repeat: repeat;
   width: 300px;
   right: 10px;
-  top: 150px;
-  height: 640px;
+  margin-top: 25px;
+  height: 80%;
   overflow: auto;
   overflow-x: hidden;
   display: none;
