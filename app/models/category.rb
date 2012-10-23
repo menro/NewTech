@@ -5,6 +5,11 @@ class Category < ActiveRecord::Base
 
   has_many :tags, :through => :companies
 
+  scope :with_companies_name_like,
+        lambda {|name|
+          joins(:companies).merge(Company.name_like(name))
+        }
+
   scope :with_companies_founded_from,
         lambda {|year|
           joins(:companies).merge(Company.founded_from(year))

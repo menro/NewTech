@@ -370,7 +370,8 @@
         hiring: srcParamsEl.data("hiring") ,
         employee_id: srcParamsEl.data("employee_id"),
         investment_id: srcParamsEl.data("investment_id"),
-        category_id: srcParamsEl.data("category_id")
+        category_id: srcParamsEl.data("category_id"),
+        company_name: srcParamsEl.data("company_name")
     }
     return search_params;
   }
@@ -422,7 +423,19 @@
     setEmployeeMenuListener();
     setInvestmentMenuListener();
     setCategoryMenuListener();
+    setcategoryNameListener();
   });
+
+  function setcategoryNameListener() {
+      $('#search_form').on('submit', function(e){
+          e.preventDefault();
+          var searchParams = $('#search_params');
+          searchParams.data("company_name", $('#search_query').val());
+          $('.gmap').each(function() {
+            refreshMap(this);
+          });
+      });
+  }
 
   function setEmployeeMenuListener() {
     var searchParams = $('#search_params');

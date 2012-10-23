@@ -26,6 +26,7 @@ class CountyDecorator < Draper::Base
   def filter_offices_by_search_params(companies)
     results = companies.scoped
     unless search_params.nil?
+      results = results.name_like search_params[:company_name] unless search_params[:company_name].nil? || search_params[:company_name].empty?
       results = results.founded_from search_params[:from_year] unless search_params[:from_year].nil? || search_params[:from_year].empty?
       results = results.founded_to search_params[:to_year] unless search_params[:to_year].nil? || search_params[:to_year].empty?
       results = results.tagged_as search_params[:tag_code] unless search_params[:tag_code].nil? || search_params[:tag_code].empty?

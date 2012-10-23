@@ -7,6 +7,7 @@ class CategoryService
 
   def self.search(params)
     categories = Category.scoped
+    categories = categories.with_companies_name_like params[:company_name] unless params[:company_name].nil? || params[:company_name].empty?
     categories = categories.with_companies_founded_from params[:from_year] unless params[:from_year].nil? || params[:from_year].empty?
     categories = categories.with_companies_founded_to params[:to_year] unless params[:to_year].nil? || params[:to_year].empty?
     categories = categories.with_company_tagged_as params[:tag_code] unless params[:tag_code].nil? || params[:tag_code].empty?

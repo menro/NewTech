@@ -13,6 +13,11 @@ class County < ActiveRecord::Base
   validates_numericality_of :latitude, :longitude
 
 
+  scope :with_companies_name_like,
+        lambda {|name|
+          joins(:companies).merge(Company.name_like(name))
+        }
+
   scope :with_companies_founded_from,
         lambda {|year|
           joins(:companies).merge(Company.founded_from(year))

@@ -36,6 +36,11 @@ class Company < ActiveRecord::Base
 
   validates_numericality_of :founded_year, :less_than_or_equal_to => Time.now.year
 
+  scope :name_like,
+        lambda {|name|
+          where("`companies`.name LIKE ?", "%#{name}%")
+        }
+
   scope :founded_from,
         lambda {|year|
           where("`companies`.founded_year >= ?", year)
