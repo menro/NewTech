@@ -25,7 +25,7 @@
         zoomControlOptions: {
           style: google.maps.ZoomControlStyle.SMALL
         },
-        mapTypeControl: true,
+        mapTypeControl: false,
         scaleControl: false,
         streetViewControl: false,
         overviewMapControl: false,
