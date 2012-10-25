@@ -7,11 +7,7 @@
     %input{:id => "search_query", :class => "search-query span3"}
 
 .container-fluid
-  %h1
-
-.container-fluid
   .search.pull-left
-    #search_params{ :data => { :company_name => "", :from_year => "", :to_year => "", :tag_code => "", :current_county_id => "", :hiring => "", :employee_id => "", :investment_id => "", :category_id => "" } }
     .slider
       #years_slider
     %label{ :id => "years_range" }
@@ -20,7 +16,18 @@
 
 .gmap_wrapper
   .gmap{ :data => { :offices_url => "#{companies_api_v1_url(:json)}", :counties_url => "#{counties_api_v1_url(:json)}", :tags_url => "#{tags_api_v1_url(:json)}", :employees_types_url => "#{employees_types_api_v1_url(:json)}", :investments_types_url => "#{investments_types_api_v1_url(:json)}", :categories_url => "#{categories_api_v1_url(:json)}"} }
-#company-list
 
+#search_params{ :data => { :company_name => "", :from_year => "", :to_year => "", :tag_code => "", :current_county_id => "", :hiring => "", :employee_id => "", :investment_id => "", :category_id => "" } }
+#company-list
+  %ul{:id => "companies", :class => "thumbnails" }
 #box-summary-county
 #box-summary-total
+
+
+%script{:id => "company_tpl", :type=>"text/x-jquery-tmpl" }
+  %li{:id => "thumb${marker_number}", :class=>"span2 custom-thumbnail-li"}
+    .company-marker
+      %img{:src => "/assets/${category_marker_image}"}
+    .thumbnail.custom-thumbnail.shadowed
+      %img{:src => "${image_url}"}
+      %h3 ${name}
