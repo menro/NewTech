@@ -17,6 +17,16 @@ class CountyDecorator < Draper::Base
       .group("`categories`.name")
   end
 
+  def companies_avg_latitude
+    filtered_companies = filter_offices_by_search_params(companies)
+    filtered_companies.average(:latitude)
+  end
+
+  def companies_avg_longitude
+    filtered_companies = filter_offices_by_search_params(companies)
+    filtered_companies.average(:longitude)
+  end
+
   private
 
   def total_offices
