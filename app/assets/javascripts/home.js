@@ -163,20 +163,20 @@
     }
   }
 
+  var thumbTemplate = ''
+    +'<li id="thumb__MARKER_NUMBER__" class="span2 custom-thumbnail-li">'
+    +'<div class="company-marker">'
+    +'<img src="/assets/__CATEGORY_MARKER_IMAGE__">'
+    +'</div>'
+    +'<div class="thumbnail custom-thumbnail">'
+    +'<img src="__COMPANY_LOGO_URL__" alt="">'
+    +'<h3>__COMPANY_NAME__</h3>'
+    //+'<p>Thumbnail caption...</p>'
+    +'</div>'
+    +'</li>';
+
   function drawCompanyOffices(container) {
     $.getJSON($(container).data("offices_url"), searchParams(), function(data) {
-
-      var thumbTemplate = ''
-        +'<li id="thumb__MARKER_NUMBER__" class="span2 custom-thumbnail-li">'
-        +'<div class="company-marker">'
-        +'<img src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chs=24x32&chld=__MARKER_NUMBER__|c8c626|000000">'
-        +'</div>'
-        +'<div class="thumbnail custom-thumbnail">'
-        +'<img src="__COMPANY_LOGO_URL__" alt="">'
-        +'<h3>__COMPANY_NAME__</h3>'
-        //+'<p>Thumbnail caption...</p>'
-        +'</div>'
-        +'</li>';
 
       var thumbsHtml = '<ul class="thumbnails">';
 
@@ -208,10 +208,11 @@
           content: html
         });
 
-        var imageUrl = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chs=24x32&chld='
-          +(i+1)+'|c8c626|000000';
+        //var imageUrl = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chs=24x32&chld='
+        //  +(i+1)+'|c8c626|000000';
+        var imageUrl = '/assets/'+company.category_marker_image;
         var markerImage = new google.maps.MarkerImage(
-          imageUrl, new google.maps.Size(24, 32));
+          imageUrl, new google.maps.Size(31, 42));
 
         var marker = new google.maps.Marker({
           position: new google.maps.LatLng(company.latitude, company.longitude),
@@ -234,6 +235,7 @@
 
         //company thumbnail
         var thumbHtml = thumbTemplate.replace(/__MARKER_NUMBER__/g,i+1);
+        thumbHtml = thumbHtml.replace('__CATEGORY_MARKER_IMAGE__',company.category_marker_image);
         thumbHtml = thumbHtml.replace('__COMPANY_LOGO_URL__',company.image_url);
         thumbHtml = thumbHtml.replace('__COMPANY_NAME__',company.name);
         thumbsHtml = thumbsHtml+thumbHtml;
@@ -333,7 +335,7 @@
       //draw total summary box
       var totalBox = totalBoxTemplate.replace('__TOTAL_COMPANIES__',totalCompanies);
       var boxSummaryTotal = $('#box-summary-total');
-      boxSummaryTotal.addClass('well summary-box shadowed summary-total');
+      boxSummaryTotal.addClass('well summary-box shadowed bottom-left-1');
       boxSummaryTotal.html(totalBox);
       boxSummaryTotal.show();
     });
@@ -351,8 +353,11 @@
     //$('h1').html('Tech Companies in '+county.name);
     $("#search_params").data("current_county_id", county.id);
 
-    //hide county and total boxes
-    $('#box-summary-county').hide();
+    //hide boxes
+    var boxSummaryCounty = $('#box-summary-county');
+    boxSummaryCounty.removeClass('bottom-left-2');
+    boxSummaryCounty.addClass('bottom-left-1');
+    //boxSummaryCounty.hide();
     $('#box-summary-total').hide();
 
     //currentMap.setZoom(currentMap.getZoom()+1);
@@ -383,7 +388,7 @@
       +countyBoxThead+countyBoxTbody+'</table>';
 
     var boxSummaryCounty = $('#box-summary-county');
-    boxSummaryCounty.addClass("well summary-box shadowed summary-county");
+    boxSummaryCounty.addClass("well summary-box shadowed bottom-left-2");
     boxSummaryCounty.html(countyBoxTable);
     boxSummaryCounty.show();
   }
