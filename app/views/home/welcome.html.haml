@@ -26,8 +26,6 @@
 
 %script{:id => "company_tpl", :type=>"text/x-jquery-tmpl" }
   %li{:id => "thumb${marker_number}", :class=>"span2 custom-thumbnail-li"}
-    .company-marker
-      %img{:src => "/assets/${category_marker_image}"}
     .thumbnail.custom-thumbnail.shadowed
       %img{:src => "${image_url}"}
       %h3 ${name}
