@@ -455,10 +455,10 @@
       e.preventDefault();
       if($(this).parent().is('.active')) {
         $(this).parent().removeClass("active");
-        $('.bottom_filters .btn-employee-group a.btn-primary').removeClass("active");
+        $('.bottom_filters .btn-employee-group a.btn').removeClass("active");
         searchParams.data("employee_id", "");
       } else {
-        $('.bottom_filters .btn-employee-group a.btn-primary').addClass("active");
+        $('.bottom_filters .btn-employee-group a.btn').addClass("active");
         $('#employee-filter-menu li').removeClass("active");
         $(this).parent().addClass("active");
         searchParams.data("employee_id", $(this).data("employee_id"));
@@ -475,10 +475,10 @@
       e.preventDefault();
       if($(this).parent().is('.active')) {
         $(this).parent().removeClass("active");
-        $('.bottom_filters .btn-investment-group a.btn-primary').removeClass("active");
+        $('.bottom_filters .btn-investment-group a.btn').removeClass("active");
         searchParams.data("investment_id", "");
       } else {
-        $('.bottom_filters .btn-investment-group a.btn-primary').addClass("active");
+        $('.bottom_filters .btn-investment-group a.btn').addClass("active");
         $('#investment-filter-menu li').removeClass("active");
         $(this).parent().addClass("active");
         searchParams.data("investment_id", $(this).data("investment_id"));
@@ -495,10 +495,10 @@
       e.preventDefault();
       if($(this).parent().is('.active')) {
         $(this).parent().removeClass("active");
-        $('.bottom_filters .btn-category-group a.btn-primary').removeClass("active");
+        $('.bottom_filters .btn-category-group a.btn').removeClass("active");
         searchParams.data("category_id", "");
       } else {
-        $('.bottom_filters .btn-category-group a.btn-primary').addClass("active");
+        $('.bottom_filters .btn-category-group a.btn').addClass("active");
         $('#category-filter-menu li').removeClass("active");
         $(this).parent().addClass("active");
         searchParams.data("category_id", $(this).data("category_id"));
