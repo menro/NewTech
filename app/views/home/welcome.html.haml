@@ -31,3 +31,10 @@
     .thumbnail.custom-thumbnail.shadowed
       %img{:src => "${image_url}"}
       %h3 ${name}
+
+%script{:id => "total-box_tpl", :type=>"text/x-jquery-tmpl" }
+  %table.table.summary-table
+    %thead
+      %tr
+        %th ${totalCompanies}
+        %th.summary-title NEW TECH COMPANIES

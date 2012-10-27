@@ -247,11 +247,6 @@
 
   }
 
-  var totalBoxTemplate = '<table class="table summary-table"><thead>'
-    +'<tr><th>__TOTAL_COMPANIES__</th>'
-    +'<th class="summary-title">NEW TECH COMPANIES</th></tr>'
-    +'</thead></table>';
-
   function drawCountyCircles(container) {
     //$('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
     $("#search_params").data("current_county_id", "");
@@ -312,10 +307,9 @@
       });
 
       //draw total summary box
-      var totalBox = totalBoxTemplate.replace('__TOTAL_COMPANIES__',totalCompanies);
       var boxSummaryTotal = $('#box-summary-total');
+      $('#total-box_tpl').tmpl({totalCompanies: totalCompanies}).appendTo(boxSummaryTotal);
       boxSummaryTotal.addClass('well summary-box shadowed bottom-left-1');
-      boxSummaryTotal.html(totalBox);
       boxSummaryTotal.show();
     });
   }
