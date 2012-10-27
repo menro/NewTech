@@ -38,3 +38,20 @@
       %tr
         %th ${totalCompanies}
         %th.summary-title NEW TECH COMPANIES
+
+%script{:id => "county-box_tpl", :type=>"text/x-jquery-tmpl" }
+  %table.table.summary-table
+    %thead
+      %tr.underlined
+        %th
+          ${name.toUpperCase()}
+          %span.summary-small County
+        %th.summary-numbers
+          ${offices_numbers}
+          %span.summary-small companies
+    %tbody
+      {{each companies_by_category}}
+      %tr
+        %td ${category_name}
+        %td.summary-numbers ${companies_count}
+      {{/each}}

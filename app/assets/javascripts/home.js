@@ -308,7 +308,7 @@
 
       //draw total summary box
       var boxSummaryTotal = $('#box-summary-total');
-      $('#total-box_tpl').tmpl({totalCompanies: totalCompanies}).appendTo(boxSummaryTotal);
+      boxSummaryTotal.html($('#total-box_tpl').tmpl({totalCompanies: totalCompanies}));
       boxSummaryTotal.addClass('well summary-box shadowed bottom-left-1');
       boxSummaryTotal.show();
     });
@@ -338,31 +338,10 @@
     currentMap.setZoom(countyZoomLevel);
   }
 
-  var countyBoxTheadTemplate = '<thead><tr class="underlined">'
-    +'<th>__COUNTY_NAME__<span class="summary-small">County</span></th>'
-    +'<th class="summary-numbers">__COUNTY_NUM_COMPANIES__<span class="summary-small">companies</span></th>'
-    +'</tr></thead>';
-  var countyBoxTrTemplate = '<tr><td>__CATEGORY_NAME__</td>'
-    +'<td class="summary-numbers">__CATEGORY_NUM_COMPANIES__</td></tr>';
-
   function drawCountySummaryBox(county) {
-    var countyBoxThead = countyBoxTheadTemplate.replace('__COUNTY_NAME__',county.name.toUpperCase());
-    countyBoxThead = countyBoxThead.replace('__COUNTY_NUM_COMPANIES__',county.offices_numbers);
-
-    var countyBoxTbody = '<tbody>';
-    $.each(county.companies_by_category, function(j, category) {
-      var countyBoxTr = countyBoxTrTemplate.replace('__CATEGORY_NAME__',category.category_name);
-      countyBoxTr = countyBoxTr.replace('__CATEGORY_NUM_COMPANIES__',category.companies_count);
-      countyBoxTbody = countyBoxTbody + countyBoxTr;
-    });
-    countyBoxTbody = countyBoxTbody+'</tbody>';
-
-    var countyBoxTable = '<table class="table summary-table">'
-      +countyBoxThead+countyBoxTbody+'</table>';
-
     var boxSummaryCounty = $('#box-summary-county');
     boxSummaryCounty.addClass("well summary-box shadowed bottom-left-2");
-    boxSummaryCounty.html(countyBoxTable);
+    boxSummaryCounty.html($('#county-box_tpl').tmpl(county));
     boxSummaryCounty.show();
   }
 
