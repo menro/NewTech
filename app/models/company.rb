@@ -37,7 +37,7 @@ class Company < ActiveRecord::Base
 
   validates_numericality_of :founded_year, :less_than_or_equal_to => Time.now.year
 
-  default_scope order('name ASC')
+  default_scope order('`companies`.name ASC')
 
   scope :name_like,
         lambda {|name|
