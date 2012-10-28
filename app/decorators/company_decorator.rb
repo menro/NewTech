@@ -6,7 +6,7 @@ class CompanyDecorator < Draper::Base
   end
 
   def image_url
-    h.image_company_url(self, :thumbnail)
+    h.image_company_url(self, :preview)
   end
 
   def category_marker_image
