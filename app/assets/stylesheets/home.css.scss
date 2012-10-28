@@ -104,28 +104,35 @@
 
 #company-list {
   position: fixed;
-  background-color: transparent;
+  background-color: #ffffff;
   width: 300px;
-  right: 10px;
-  margin-top: 25px;
-  height: 80%;
+  right: 0px;
+  height: 99%;
   overflow: auto;
   overflow-x: hidden;
   display: none;
+  top: 100px;
+  padding-bottom: 25px;
 }
 
 .custom-thumbnail {
-  margin-left: 35px;
+  display: inline-block;
+  margin-left: 5px;
+  width: 100%;
   background-color: #ffffff;
   opacity: 0.8;
 }
 
 .custom-thumbnail img {
-  height: 50px;
+  height: 32px;
+  width: 32px;
+  float: left;
 }
 
 .custom-thumbnail h3 {
-  font-family: 'Original', sans-serif;
+  font-size: 12px;
+  float: left;
+  margin-left: 5px;
 }
 
 .custom-thumbnail-li {
@@ -135,16 +142,6 @@
 .custom-thumbnail-li-selected .custom-thumbnail {
   background-color: #d9d856;
 }
-
-.company-marker {
-  float: left;
-  width: 28px;
-  margin-left: 5px;
-  margin-right: 5px;
-  position: relative;
-  top: 20px;
-}
-
 
 // STYLES FOR SUMMARY BOXES
 
