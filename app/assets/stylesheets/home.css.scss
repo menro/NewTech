@@ -112,34 +112,39 @@
   overflow-x: hidden;
   display: none;
   top: 100px;
-  padding-bottom: 25px;
+  margin-bottom: 25px;
 }
 
-.custom-thumbnail {
+.company-row {
   display: inline-block;
   margin-left: 5px;
-  width: 100%;
+  width: 95%;
   background-color: #ffffff;
   opacity: 0.8;
 }
 
-.custom-thumbnail img {
+.company-row img {
   height: 32px;
   width: 32px;
   float: left;
 }
 
-.custom-thumbnail h3 {
+.company-row h3 {
   font-size: 12px;
   float: left;
   margin-left: 5px;
 }
 
-.custom-thumbnail-li {
-  width: 85%;
+.company-row span.hiring {
+  position: relative;
+  float: right;
+  top: 10px;
+  padding: 1px 1px 1px 1px;
+  background-color: #0a3642;
+  color: #ffffff;
 }
 
-.custom-thumbnail-li-selected .custom-thumbnail {
+.company-row-selected .company-row {
   background-color: #d9d856;
 }
 

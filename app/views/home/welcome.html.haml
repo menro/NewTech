@@ -19,16 +19,19 @@
 
 #search_params{ :data => { :company_name => "", :from_year => "", :to_year => "", :tag_code => "", :current_county_id => "", :hiring => "", :employee_id => "", :investment_id => "", :category_id => "" } }
 #company-list
-  %ul{:id => "companies", :class => "thumbnails" }
+  %div{:id => "companies", :class => "thumbnails" }
 #box-summary-county
 #box-summary-total
 
 
 %script{:id => "company_tpl", :type=>"text/x-jquery-tmpl" }
-  %li{:id => "thumb${marker_number}", :class=>"span2 custom-thumbnail-li"}
-    .thumbnail.custom-thumbnail
+  %div{:id => "company${marker_number}"}
+    .thumbnail.company-row
       %img{:src => "${image_url}"}
       %h3 ${name}
+      {{if hiring == true}}
+      %span.hiring H
+      {{/if}}
 
 %script{:id => "total-box_tpl", :type=>"text/x-jquery-tmpl" }
   %table.table.summary-table

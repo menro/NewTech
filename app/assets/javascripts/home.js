@@ -176,7 +176,7 @@
       infoWindows = new Array();
       nOffices = 0;
 
-      $('#companies').html("");
+      $('#company-list').html("");
       $.each(data, function(i, company) {
         var html = ''
           +'<div class="content well">'
@@ -195,8 +195,6 @@
         if (field != null && field != '') html += '<p><b>Tags: </b>'+field+'</p>';
         field = company.description;
         if (field != null) html += '<p>'+field+'</p>';
-        field = company.hiring;
-        if (field != null) html += '<div class="hiring-'+field+'">&#160</div>';
         html += '</div>';
         var infowindow = new google.maps.InfoWindow({
           content: html
@@ -225,7 +223,7 @@
         infoWindows[nOffices] = infowindow;
         nOffices++;
         company.marker_number = i+1;
-        $('#company_tpl').tmpl(company).appendTo( $('#companies') );
+        $('#company_tpl').tmpl(company).appendTo( $('#company-list') );
 
       });
       var companyList = $('#company-list');
@@ -233,10 +231,10 @@
 
       //open infowindow when company thumbnail is clicked
       $.each(companyOfficesMarkers, function(i, marker) {
-        var thumb = $('#thumb'+(i+1));
+        var thumb = $('#company'+(i+1));
         thumb.click(function() {
-          $('#company-list li').removeClass('custom-thumbnail-li-selected');
-          $(this).addClass('custom-thumbnail-li-selected');
+          $('#company-list div').removeClass('company-row-selected');
+          $(this).addClass('company-row-selected');
           //console.log(i);
           closeCurrentInfoWindow();
           infoWindows[i].open(currentMap,marker);
