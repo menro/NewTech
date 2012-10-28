@@ -6,16 +6,14 @@ ActiveAdmin.register_page "Dashboard" do
 
     section "Recent Companies", :priority => 1 do
       table_for Company.order("created_at desc").limit(10) do
-        column :created_at
+        column("Name")    {|company| link_to company.name, [:admin, company] }
         column "Owner", :user
-        column :name
       end
       strong { link_to "View All Companies", admin_companies_path }
     end
 
     section "Recent Users", :priority => 4 do
       table_for User.order("created_at desc").limit(10) do
-        column :created_at
         column("Name")    {|user| link_to user.name, [:admin, user] }
         column :email
       end

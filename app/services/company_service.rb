@@ -113,7 +113,7 @@ class CompanyService
     companies = companies.employee_type(params[:employee_id]) unless params[:employee_id].nil? || params[:employee_id].empty?
     companies = companies.investment_type(params[:investment_id]) unless params[:investment_id].nil? || params[:investment_id].empty?
     companies = companies.with_category(params[:category_id]) unless params[:category_id].nil? || params[:category_id].empty?
-    companies.order("`companies`.name ASC").uniq
+    companies.uniq
     CompanyDecorator.decorate(companies)
   end
 
