@@ -4,10 +4,10 @@ SimpleNavigation::Configuration.run do |navigation|
   navigation.selected_class = 'active'
 
   navigation.items do |primary|
-    primary.item :jobs, t(:'simple_navigation.jobs'), "#"
-    primary.item :register_to_attend, t(:'simple_navigation.register_to_attend'), "#"
     primary.item :present, t(:'simple_navigation.present'), "#"
-    primary.item :add_you_company, t(:'simple_navigation.add_you_company'), new_company_url
+    primary.item :message_board, t(:'simple_navigation.message_board'), "#"
+    primary.item :jobs_board, t(:'simple_navigation.jobs'), "#"
+    primary.item :blogs, t(:'simple_navigation.blogs'), "#"
     primary.dom_class = 'nav'
   end
 

@@ -4,6 +4,7 @@ SimpleNavigation::Configuration.run do |navigation|
   navigation.selected_class = 'active'
 
   navigation.items do |primary|
+    primary.item :add_you_company, content_tag(:i, nil, :class => 'icon-plus') << t(:'simple_navigation.add_you_company'), new_company_url
     if user_signed_in?
       if current_user.is_admin?
         primary.item :admin, content_tag(:i, nil, :class => 'icon-cogs') << t(:'simple_navigation.admin'), admin_dashboard_path

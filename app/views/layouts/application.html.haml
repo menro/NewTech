@@ -21,8 +21,6 @@
             = render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap
             = yield(:navbar_extras)
           .pull-right
-            .nav.events
-              = render_next_event(@event)
             = render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap, :context => :user
     #main{:role => "main"}
       = render :partial => 'layouts/messages'
