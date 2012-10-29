@@ -6,6 +6,7 @@ Newtech::Application.routes.draw do
     collection do
       get :companies
       get :counties
+      get :county
       get :tags
       get :employees_types
       get :investments_types

@@ -68,6 +68,7 @@
       clearCountyCircles();
       clearCompanyOffices();
       drawCompanyOffices(container);
+      drawCountySummaryBox(container)
     }
     refreshTags(container);
     refreshFilterMenus(container);
@@ -245,6 +246,13 @@
 
   }
 
+  function drawCountySummaryBox(container) {
+    setCountySummaryBoxStyle("bottom-left-1");
+    $.getJSON($(container).data("county_url"), searchParams(), function(data) {
+      drawRetrievedCountySummaryBox(data.county);
+    });
+  }
+
   function drawCountyCircles(container) {
     //$('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
     $("#search_params").data("current_county_id", "");
@@ -269,8 +277,8 @@
       $.each(data, function(i, county) {
         if (county.offices_numbers == 0) return;
         totalCompanies += county.offices_numbers;
-        //var circlePosition = new google.maps.LatLng(county.offices_avg_latitude, county.offices_avg_longitude);
-        var circlePosition = new google.maps.LatLng(county.latitude, county.longitude);
+        var circlePosition = new google.maps.LatLng(county.companies_avg_latitude, county.companies_avg_longitude);
+        //var circlePosition = new google.maps.LatLng(county.latitude, county.longitude);
         var multiplier = county.offices_percentage;
         if (multiplier<5) {
           multiplier *= 2;
@@ -295,7 +303,8 @@
           onCountySelected(county, circlePosition);
         });
         google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseover', function() {
-          drawCountySummaryBox(county);
+          setCountySummaryBoxStyle("bottom-left-2");
+          drawRetrievedCountySummaryBox(county);
         });
         //remove county box when moouse goes out of the circle
         google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseout', function() {
@@ -324,11 +333,6 @@
     //$('h1').html('Tech Companies in '+county.name);
     $("#search_params").data("current_county_id", county.id);
 
-    //hide boxes
-    var boxSummaryCounty = $('#box-summary-county');
-    boxSummaryCounty.removeClass('bottom-left-2');
-    boxSummaryCounty.addClass('bottom-left-1');
-    //boxSummaryCounty.hide();
     $('#box-summary-total').hide();
 
     //currentMap.setZoom(currentMap.getZoom()+1);
@@ -336,11 +340,14 @@
     currentMap.setZoom(countyZoomLevel);
   }
 
-  function drawCountySummaryBox(county) {
+  function drawRetrievedCountySummaryBox(county, positionStyle) {
     var boxSummaryCounty = $('#box-summary-county');
-    boxSummaryCounty.addClass("well summary-box shadowed bottom-left-2");
     boxSummaryCounty.html($('#county-box_tpl').tmpl(county));
     boxSummaryCounty.show();
+  }
+
+  function setCountySummaryBoxStyle(positionStyle) {
+    $('#box-summary-county').attr("class","well summary-box shadowed "+positionStyle);
   }
 
   function searchParams() {

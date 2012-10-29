@@ -13,4 +13,10 @@ class CountyService
     counties = counties.with_company_category(params[:category_id]) unless params[:category_id].nil? || params[:category_id].empty?
     CountyDecorator.decorate(counties.uniq, :search_params => params)
   end
+
+  def self.find(params)
+    county = County.find(params[:current_county_id])
+    CountyDecorator.decorate(county, :search_params => params)
+  end
+
 end

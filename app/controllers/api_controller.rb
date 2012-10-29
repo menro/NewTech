@@ -13,6 +13,10 @@ class ApiController < ApplicationController
     @counties = CountyService::search(params)
   end
 
+  def county
+    @county = CountyService::find(params)
+  end
+
   def employees_types
     @employees_types = EmployeesTypeService::search(params)
   end
