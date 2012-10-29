@@ -34,12 +34,28 @@
         scrollwheel: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         styles:
-            [{
-                "stylers": [
-                    { "lightness": 18 },
-                    { "gamma": 1.18 }
-                ]
-            }],
+          [
+            {
+              "elementType": "geometry.fill",
+              "stylers": [
+                { "color": "#ffffff" },
+                { "visibility": "on" }
+              ]
+            },{
+            "featureType": "road.highway",
+            "elementType": "geometry.stroke",
+            "stylers": [
+              { "visibility": "on" }
+            ]
+          },{
+            "featureType": "road.highway",
+            "elementType": "geometry.fill",
+            "stylers": [
+              { "color": "#ffffff" }
+            ]
+          },{
+          }
+          ],
         center: new google.maps.LatLng(39.232253, -105.08606)
       };
       currentMap = new google.maps.Map(container, defaultOptions);
