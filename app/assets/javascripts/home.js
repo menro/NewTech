@@ -86,7 +86,7 @@
       drawCompanyOffices(container);
       drawCountySummaryBox(container)
     }
-    refreshTags(container);
+    //refreshTags(container);
     refreshFilterMenus(container);
   }
 
@@ -115,15 +115,26 @@
       setInvestmentMenuListener();
     });
     $.getJSON($(container).data("categories_url"), srcParams, function(data) {
-      var categoryLinks = "";
-      $.each(data, function(i, category) {
-        categoryLinks += "<li";
-        if (category.id == srcParams.category_id)
-          categoryLinks += " class='active'";
-        categoryLinks += "><a href='#' class='btn-category' data-category_id='"+category.id+"'>"+category.name+"</a></li>";
-      });
-      $('#category-filter-menu').html(categoryLinks);
-      setCategoryMenuListener();
+        var categoryLinks = "";
+        $.each(data, function(i, category) {
+          categoryLinks += "<li";
+          if (category.id == srcParams.category_id)
+            categoryLinks += " class='active'";
+          categoryLinks += "><a href='#' class='btn-category' data-category_id='"+category.id+"'>"+category.name+"</a></li>";
+        });
+        $('#category-filter-menu').html(categoryLinks);
+        setCategoryMenuListener();
+    });
+    $.getJSON($(container).data("tags_url"), srcParams, function(data) {
+        var tagLinks = "";
+        $.each(data, function(i, tag) {
+            tagLinks += "<li";
+          if (tag.code == srcParams.tag_code)
+              tagLinks += " class='active'";
+            tagLinks += "><a href='#' class='btn-tag' data-tag_code='"+tag.code+"'>"+tag.code+"</a></li>";
+        });
+        $('#tags-filter-menu').html(tagLinks);
+        setTagMenuListener();
     });
   }
 
@@ -430,6 +441,7 @@
     setInvestmentMenuListener();
     setCategoryMenuListener();
     setcategoryNameListener();
+    setTagMenuListener();
   });
 
   function setcategoryNameListener() {
@@ -503,4 +515,23 @@
     });
   }
 
+  function setTagMenuListener() {
+      var searchParams = $('#search_params');
+      $('#tags-filter-menu a.btn-tag').click(function(e){
+        e.preventDefault();
+        if($(this).parent().is('.active')) {
+          $(this).parent().removeClass("active");
+          $('.bottom_filters .btn-tags-group a.btn').removeClass("active");
+          searchParams.data("tag_code", "");
+        } else {
+          $('.bottom_filters .btn-tags-group a.btn').addClass("active");
+          $('#tags-filter-menu li').removeClass("active");
+          $(this).parent().addClass("active");
+          searchParams.data("tag_code", $(this).data("tag_code"));
+        }
+        $('.gmap').each(function() {
+          refreshMap(this);
+        });
+      });
+    }
 }).call(this);

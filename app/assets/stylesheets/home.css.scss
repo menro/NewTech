@@ -89,7 +89,16 @@
 }
 
 .btn-investment-group {
-  margin-right: 50px;
+  margin-right: -7px;
+}
+
+.btn-tags-group {
+  margin-right: 170px;
+}
+
+.has-scroll ul.dropdown-menu {
+	max-height: 300px;
+	overflow: auto;
 }
 
 .filters {

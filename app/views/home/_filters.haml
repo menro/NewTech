@@ -30,3 +30,13 @@
           - @employees_types.each do |investment|
             %li
               %a.btn-investment{:href => "#", :data => { :investment_id => investment.id }}=investment.name
+  .btn-group.btn-tags-group
+    %ul.filters.has-scroll
+      %li.dropdown
+        %a.btn.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
+          Tags
+          %b.caret
+        %ul.dropdown-menu#tags-filter-menu{:role => "menu" }
+          - @tags.each do |tag|
+            %li
+              %a.btn-tag{:href => "#", :data => { :tag_code => tag.code }}=tag.code
