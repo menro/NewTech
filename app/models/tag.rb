@@ -1,6 +1,8 @@
 class Tag < ActiveRecord::Base
   has_and_belongs_to_many :companies
 
+  default_scope order('`tags`.code ASC')
+
   scope :with_companies_name_like,
         lambda {|name|
           joins(:companies).merge(Company.name_like(name))
