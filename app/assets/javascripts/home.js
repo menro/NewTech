@@ -208,7 +208,7 @@
       $.each(data, function(i, company) {
         var html = ''
           +'<div class="content well">'
-          //+'<img src="'+office.image_url+'" alt="" />'
+          +'<img src="'+company.image_url+'" alt="" />'
           +'<h1>'+company.name+'</h1>'
           +'<p><a href="'+company.homepage_url+'" target="_blank">'+company.homepage_url+'</a></p>';
         var field = company.facebook;

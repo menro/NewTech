@@ -111,6 +111,27 @@
   text-decoration: underline;
 }
 
+#tooltip {
+  display: block;
+  position: absolute;
+  top: 110px;
+  left: 60px;
+  width: 60%;
+  background-color: #999999;
+  opacity: 0.6;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  text-align: center;
+}
+
+button.close {
+  color: #000000;
+}
+
+// STYLES FOR COMPANY LIST
+
 #company-list {
   position: fixed;
   background-color: #ffffff;
