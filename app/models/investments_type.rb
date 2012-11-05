@@ -4,6 +4,9 @@ class InvestmentsType < ActiveRecord::Base
 
   has_many :tags, :through => :companies
 
+
+  default_scope order('`investments_types`.name ASC')
+
   scope :with_companies_name_like,
         lambda {|name|
           joins(:companies).merge(Company.name_like(name))
