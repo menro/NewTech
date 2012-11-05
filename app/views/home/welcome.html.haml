@@ -50,12 +50,12 @@
         {{if hiring == true}}
         %span.hiring H
         {{/if}}
-        {{if facebook != null}}
-        %a{:href => "${facebook}", :target => "_blank"}
+        {{if facebook != null && facebook != ""}}
+        %a{:href => "https://www.facebook.com/${facebook}", :target => "_blank"}
           %span.facebook F
         {{/if}}
-        {{if twitter != null}}
-        %a{:href => "${twitter}", :target => "_blank" }
+        {{if twitter != null && twitter != ""}}
+        %a{:href => "https://twitter.com/${twitter}", :target => "_blank" }
           %span.twitter T
         {{/if}}
 
