@@ -4,7 +4,7 @@ class EmployeesType < ActiveRecord::Base
 
   has_many :tags, :through => :companies
 
-  default_scope order('`employees_types`.name ASC')
+  default_scope order('`employees_types`.id ASC')
 
   scope :with_companies_name_like,
         lambda {|name|

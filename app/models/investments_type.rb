@@ -5,7 +5,7 @@ class InvestmentsType < ActiveRecord::Base
   has_many :tags, :through => :companies
 
 
-  default_scope order('`investments_types`.name ASC')
+  default_scope order('`investments_types`.id ASC')
 
   scope :with_companies_name_like,
         lambda {|name|
