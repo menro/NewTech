@@ -284,7 +284,6 @@
       countyCircles = new Array();
       nCountyCircles = 0;
       countyLabels = new Array();
-      var colors = ["#bdc4ca", "#9da9a0", "#cdc9b6", "#8ca5b6", "#e7db59", "#fbd5b5", "#eeb949", "#b8b8d3"];
       var totalCompanies = 0;
       $.each(data, function(i, county) {
         if (county.offices_numbers == 0) return;
@@ -299,12 +298,11 @@
           multiplier /= 1.5;
         }
         var radius = 1500*multiplier;
-        var color = colors[getRandomInt(1,8)-1];
         var circleOptions = {
           strokeColor: '#ffffff',
           strokeOpacity: 0.6,
           strokeWeight: 2,
-          fillColor: color,
+          fillColor: "#ee8485",
           fillOpacity: 0.6,
           map: currentMap,
           center: circlePosition,
