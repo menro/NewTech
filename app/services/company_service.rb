@@ -78,7 +78,7 @@ class CompanyService
     if !geocode.success || geocode.accuracy.to_i < 6
       company.errors.add :address, "Address not founds"
     elsif !( attributes[:zip_code].eql?(geocode.zip) )
-      company.errors.add :zip_code, "Postal code not valid"
+      company.errors.add :zip_code, "Postal code not valid, google return address zipcode #{geocode.zip}"
     else
       attributes[:address] = geocode.street_address
       attributes[:latitude] = geocode.lat
