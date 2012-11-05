@@ -206,26 +206,11 @@
 
       $('#company-list').html("");
       $.each(data, function(i, company) {
-        var html = ''
-          +'<div class="content well">'
-          +'<img src="'+company.image_url+'" alt="" />'
-          +'<h1>'+company.name+'</h1>'
-          +'<p><a href="'+company.homepage_url+'" target="_blank">'+company.homepage_url+'</a></p>';
-        var field = company.facebook;
-        if (field != null) html += '<p><b>Facebook: </b><a href="'+field+'" target="_blank">'+field+'</a></p>'
-        field = company.twitter;
-        if (field != null) html += '<p><b>Twitter: </b><a href="'+field+'" target="_blank">'+field+'</a></p>'
-        field = company.founded_year;
-        if (field != null) html += '<p><b>Year founded: </b>'+field+'</p>';
-        field = company.number_of_employees;
-        if (field != null) html += '<p><b>Number of employees: </b>'+field+'</p>';
-        field = company.tags_list;
-        if (field != null && field != '') html += '<p><b>Tags: </b>'+field+'</p>';
-        field = company.description;
-        if (field != null) html += '<p>'+field+'</p>';
-        html += '</div>';
+
+        var content = $( "#gmap_info_window_tpl" ).tmpl( company ).html();
+        console.log(content);
         var infowindow = new google.maps.InfoWindow({
-          content: html
+          content: content
         });
 
         var imageUrl = '/assets/'+company.category_marker_image;

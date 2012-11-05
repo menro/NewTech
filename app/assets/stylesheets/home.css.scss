@@ -21,6 +21,56 @@
   overflow: "hidden";
 }
 
+
+// gmap_info_window
+
+.gmap_info_window {
+  width: 400px;
+  height: 240px;
+  background-color: #ffffff;
+  opacity: 0.75;
+  color: #0a3642;
+
+  p.description {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  span.label_marked {
+    font-weight: bold;
+  }
+
+  div.bottom_bar {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+
+    span.hiring {
+      float: left;
+      position: relative;
+      padding: 2px 2px 2px 2px;
+      background-color: #0a3642;
+      color: #ffffff;
+    }
+    span.facebook {
+      float: right;
+      position: relative;
+      padding: 2px 2px 2px 2px;
+      margin-right: 4px;
+      background-color: #0a3642;
+      color: #ffffff;
+    }
+    span.twitter {
+      float: right;
+      position: relative;
+      padding: 2px 2px 2px 2px;
+      margin-right: 4px;
+      background-color: #0a3642;
+      color: #ffffff;
+    }
+  }
+}
+
 .navbar-search .search-query {
     padding-left: 29px;
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJ5JREFUeNpi+P//PwMQMANxERCfAeI/UBrEZwbJQ9WAFR0A4u1AbAnEbFB6O1ScGaawGoi3wHQiYyBYDZKHKbwHxLo4FOqC5GEKf4Ksw6EQ5IyfIDYTkPEUiNUZsAOQ+F9GRkYJEKcFiDficSOIcRjE4QTiY0C8DuRbqAJLKP8/FP9kQArHUiA+jySJjA8w4LAS5KZd0MAHhaccQIABALsMiBZy4YLtAAAAAElFTkSuQmCC);

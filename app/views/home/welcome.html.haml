@@ -28,6 +28,37 @@
 #box-summary-total
 
 
+%script{:id => "gmap_info_window_tpl", :type=>"text/x-jquery-tmpl" }
+  %div
+    %div{:class => "gmap_info_window"}
+      %h1.name
+        ${name}
+      %a{:url => "${homepage_url}" }
+        ${homepage_url}
+      %br
+      %p.description ${description}
+      %br
+      %span.label_marked Year Founded:
+      %span.value ${founded_year}
+      %br
+      %span.label_marked Number of employees:
+      %span.value ${number_of_employees}
+      %br
+      %span.label_marked Tags:
+      %span.value ${tags_list}
+      .bottom_bar
+        {{if hiring == true}}
+        %span.hiring H
+        {{/if}}
+        {{if facebook != null}}
+        %a{:href => "${facebook}", :target => "_blank"}
+          %span.facebook F
+        {{/if}}
+        {{if twitter != null}}
+        %a{:href => "${twitter}", :target => "_blank" }
+          %span.twitter T
+        {{/if}}
+
 %script{:id => "company_tpl", :type=>"text/x-jquery-tmpl" }
   %div{:id => "company${marker_number}"}
     .thumbnail.company-row
