@@ -56,6 +56,10 @@ group :development do
    gem 'thin', '1.4.1'
 end
 
+group :production do
+  gem 'pg', '0.14.0'
+end
+
 # REST
 gem "httpclient"
 
