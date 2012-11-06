@@ -51,13 +51,14 @@ group :development do
    # Deploy with Capistrano
    gem 'capistrano'
    gem 'rvm-capistrano'
-
-   # Use thin as the app server
-   gem 'thin', '1.4.1'
 end
 
 group :production do
   gem 'pg', '0.14.0'
+end
+
+group :development, :production do
+  gem 'thin', '1.4.1'
 end
 
 # REST
