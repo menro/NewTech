@@ -27,6 +27,13 @@ configatron.email.user_name = ENV['EMAIL_USER_NAME']
 configatron.email.password = ENV['EMAIL_PASSWORD']
 configatron.email.authentication = ENV['EMAIL_AUTHENTICATION']
 
+#S3
+configatron.avatar.default_url =  ENV['STORAGE_DEFAULT_URL']
+configatron.s3.bucket = ENV['AWS_BUCKET']
+configatron.s3.credentials.access_key_id = ENV['AWS_ACCESS_KEY_ID']
+configatron.s3.credentials.secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
+
+
 
 
 

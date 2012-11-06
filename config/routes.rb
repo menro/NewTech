@@ -16,7 +16,6 @@ Newtech::Application.routes.draw do
 
   resources :companies  do
       member do
-        get "image/:style", :as => "image", :to => "companies#send_image"
         delete "image/destroy", :as => "image_destroy", :to => "companies#destroy_image"
       end
     end

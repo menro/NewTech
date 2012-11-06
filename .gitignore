@@ -31,3 +31,5 @@ uploads/
 # Paperclip
 config/initializers/paperclip.rb
 
+# Mysql2PSQL
+mysql2psql.yml

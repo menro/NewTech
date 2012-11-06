@@ -39,15 +39,6 @@ class CompaniesController < ApplicationController
     end
   end
 
-  def send_image
-    company = CompanyService::find params[:id]
-    if company.nil? || !company.image?
-      send_file("#{Rails.root}/app/assets/images/company-default.png", :filename => "#{company.image_file_name}")
-    else
-      send_file(company.image.path(params[:style]), :filename => "#{company.image_file_name}")
-    end
-  end
-
   def destroy_image
     @company = CompanyService::destroy_image_by_userr(current_user, params)
     if @company

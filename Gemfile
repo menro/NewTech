@@ -67,6 +67,7 @@ gem 'rabl'
 
 # Attachment
 gem "paperclip", "~> 3.0"
+gem 'aws-sdk', '1.5.6'
 gem "rmagick"
 
 # Seed data

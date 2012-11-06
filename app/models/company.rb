@@ -28,9 +28,19 @@ class Company < ActiveRecord::Base
                     :styles => {
                         :thumbnail => "160x120>"
                     },
-                    :url  => ':class/:id/image/:style',
-                    :path => ':rails_root/uploads/:class/:id_partition/:style.:extension'
+                    :storage => :s3,
+                    :s3_protocol => 'https',
+                    :s3_permissions => :public_read,
+                    :bucket => configatron.s3.bucket,
+                    :s3_credentials => {
+                        :access_key_id => configatron.s3.credentials.access_key_id,
+                        :secret_access_key => configatron.s3.credentials.secret_access_key
+                    },
+                    :path => "/:class/:id/:style.:extension"
 
+
+  validates_attachment_size :image, :less_than => 1.megabyte
+  validates_attachment_content_type :image, :content_type => /image/
 
   validates_presence_of :name, :email_address, :founded_year
 
