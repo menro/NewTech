@@ -76,8 +76,8 @@ ActiveRecord::Schema.define(:version => 20121001205235) do
     t.datetime "image_updated_at"
     t.string   "address"
     t.string   "zip_code"
-    t.string   "latitude"
-    t.string   "longitude"
+    t.decimal  "latitude"
+    t.decimal  "longitude"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end

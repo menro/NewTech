@@ -26,8 +26,8 @@ class CreateCompanies < ActiveRecord::Migration
       t.attachment  :image
       t.string      :address
       t.string      :zip_code
-      t.string      :latitude
-      t.string      :longitude
+      t.decimal     :latitude
+      t.decimal     :longitude
 
       t.timestamps
     end

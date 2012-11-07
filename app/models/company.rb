@@ -46,50 +46,50 @@ class Company < ActiveRecord::Base
 
   validates_numericality_of :founded_year, :less_than_or_equal_to => Time.now.year
 
-  default_scope order('`companies`.name ASC')
+  default_scope order('companies.name ASC')
 
   scope :name_like,
         lambda {|name|
-          where("`companies`.name LIKE ?", "%#{name}%")
+          where("companies.name LIKE ?", "%#{name}%")
         }
 
   scope :founded_from,
         lambda {|year|
-          where("`companies`.founded_year >= ?", year)
+          where("companies.founded_year >= ?", year)
         }
 
   scope :founded_to,
         lambda {|year|
-          where("`companies`.founded_year <= ?", year)
+          where("companies.founded_year <= ?", year)
         }
 
 
   scope :tagged_as,
         lambda {|tag_code|
-          joins(:tags).where("`tags`.code = ?", tag_code)
+          joins(:tags).where("tags.code = ?", tag_code)
         }
 
 
-  scope :are_hiring, where("`companies`.hiring = true")
+  scope :are_hiring, where("companies.hiring = true")
 
   scope :employee_type,
         lambda {|employee_id|
-          where("`companies`.employees_type_id = ?", employee_id)
+          where("companies.employees_type_id = ?", employee_id)
         }
 
   scope :investment_type,
         lambda {|investment_id|
-          where("`companies`.investments_type_id = ?", investment_id)
+          where("companies.investments_type_id = ?", investment_id)
         }
 
   scope :with_category,
         lambda {|category_id|
-          where("`companies`.category_id = ?", category_id)
+          where("companies.category_id = ?", category_id)
         }
 
   scope :located_in_county,
         lambda {|id|
-          where("`companies`.county_id = ?", id)
+          where("companies.county_id = ?", id)
         }
 
   def number_of_employees
