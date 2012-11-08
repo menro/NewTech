@@ -33,9 +33,16 @@ class Category < ActiveRecord::Base
   scope :with_company_are_hiring,
         joins(:companies).merge(Company.are_hiring)
 
+  scope :with_company_employee_type,
+        lambda {|employee_id|
+          joins(:companies).merge(Company.employee_type(employee_id))
+        }
+
   scope :with_company_investment_type,
         lambda {|investment_id|
           joins(:companies).merge(Company.investment_type(investment_id))
         }
+
+
 
 end
