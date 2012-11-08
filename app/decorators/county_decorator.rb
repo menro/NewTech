@@ -1,40 +1,35 @@
 class CountyDecorator < Draper::Base
   decorates :county
 
-  def offices_numbers
-    results = filter_offices_by_search_params(companies)
+  def companies_numbers
+    results = filter_companies_by_search_params(companies)
     results.count
   end
 
-  def offices_percentage
+  def companies_percentage
     # The base is always the total count of offices
-    ((offices_numbers * 100).to_f / Company.count).to_f
+    ((companies_numbers * 100).to_f / Company.count).to_f
   end
 
   def companies_by_category
-    0
-    #filter_offices_by_search_params(companies).joins(:category)
-    #.select("categories.name as category_name, count(companies.id) as companies_count")
-    #.group("categories.name")
+    filter_companies_by_search_params(companies).joins(:category)
+    .select("categories.name as category_name, count(companies.id) as companies_count")
+    .group("categories.name")
   end
 
   def companies_avg_latitude
-    filtered_companies = filter_offices_by_search_params(companies)
+    filtered_companies = filter_companies_by_search_params(companies)
     filtered_companies.average(:latitude)
   end
 
   def companies_avg_longitude
-    filtered_companies = filter_offices_by_search_params(companies)
+    filtered_companies = filter_companies_by_search_params(companies)
     filtered_companies.average(:longitude)
   end
 
   private
 
-  def total_offices
-    filter_offices_by_search_params(Company).count
-  end
-
-  def filter_offices_by_search_params(companies)
+  def filter_companies_by_search_params(companies)
     results = companies.scoped
     unless search_params.nil?
       results = results.name_like search_params[:company_name] unless search_params[:company_name].nil? || search_params[:company_name].empty?

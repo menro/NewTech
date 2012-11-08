@@ -286,11 +286,11 @@
       countyLabels = new Array();
       var totalCompanies = 0;
       $.each(data, function(i, county) {
-        if (county.offices_numbers == 0) return;
-        totalCompanies += county.offices_numbers;
+        if (county.companies_numbers == 0) return;
+        totalCompanies += county.companies_numbers;
         var circlePosition = new google.maps.LatLng(county.companies_avg_latitude, county.companies_avg_longitude);
         //var circlePosition = new google.maps.LatLng(county.latitude, county.longitude);
-        var multiplier = county.offices_percentage;
+        var multiplier = county.companies_percentage;
         if (multiplier<5) {
           multiplier *= 2;
         }
