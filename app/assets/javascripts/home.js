@@ -259,10 +259,13 @@
   }
 
   function drawCountySummaryBox(container) {
-    setCountySummaryBoxStyle("bottom-left-1");
-    $.getJSON($(container).data("county_url"), searchParams(), function(data) {
-      drawRetrievedCountySummaryBox(data.county);
-    });
+      var current_county_id = $('#search_params').data("current_county_id");
+      if(current_county_id != "") {
+          setCountySummaryBoxStyle("bottom-left-1");
+          $.getJSON($(container).data("county_url"), searchParams(), function(data) {
+            drawRetrievedCountySummaryBox(data.county);
+          });
+      }
   }
 
   function drawCountyCircles(container) {
