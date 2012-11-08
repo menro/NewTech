@@ -1,5 +1,5 @@
 defaults: &defaults
-   adapter: mysql2
+   adapter: postgresql
    username: root
    password: 
    host: localhost
