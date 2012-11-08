@@ -43,7 +43,7 @@ group :assets do
   gem 'chosen-rails'
   gem "jquery-rails", "2.0.2"
   gem "jquery-ui-rails", "0.5.0"
-  gem "modernizr", "2.5.3"
+  gem 'modernizr-rails'
   gem 'bootstrap-sass', "2.0.4"
 end
 
