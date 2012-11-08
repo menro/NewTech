@@ -28,6 +28,7 @@ class Company < ActiveRecord::Base
                     :styles => {
                         :thumbnail => "160x120>"
                     },
+                    :default_url => "http://b.dryicons.com/images/icon_sets/colorful_stickers_icons_set/png/256x256/help.png",
                     :storage => :s3,
                     :s3_protocol => 'https',
                     :s3_permissions => :public_read,
