@@ -39,9 +39,17 @@ class Category < ActiveRecord::Base
         }
 
   scope :with_company_investment_type,
-        lambda {|investment_id|
-          joins(:companies).merge(Company.investment_type(investment_id))
-        }
+          lambda {|investment_id|
+            joins(:companies).merge(Company.investment_type(investment_id))
+          }
+
+  scope :group_name_with_companies,
+          lambda {|filter|
+            joins(:companies).merge(filter)
+            .select("categories.name as category_name, count(companies.id) as companies_count")
+            .group("categories.name")
+          }
+
 
 
 

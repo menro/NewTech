@@ -1,0 +1,63 @@
+%script{:id => "gmap_info_window_tpl", :type=>"text/x-jquery-tmpl" }
+  %div
+    %div{:class => "gmap_info_window"}
+      %h1.name
+        ${name}
+      %a{:url => "${homepage_url}" }
+        ${homepage_url}
+      %br
+      %p.description ${description}
+      %br
+      %span.label_marked Year Founded:
+      %span.value ${founded_year}
+      %br
+      %span.label_marked Number of employees:
+      %span.value ${number_of_employees}
+      %br
+      %span.label_marked Tags:
+      %span.value ${tags_list}
+      .bottom_bar
+        {{if hiring == true}}
+        %span.hiring H
+        {{/if}}
+        {{if facebook != null && facebook != ""}}
+        %a{:href => "https://www.facebook.com/${facebook}", :target => "_blank"}
+          %span.facebook F
+        {{/if}}
+        {{if twitter != null && twitter != ""}}
+        %a{:href => "https://twitter.com/${twitter}", :target => "_blank" }
+          %span.twitter T
+        {{/if}}
+
+%script{:id => "company_tpl", :type=>"text/x-jquery-tmpl" }
+  %div{:id => "company${marker_number}"}
+    .thumbnail.company-row
+      %img{:src => "${image_url}"}
+      %h3 ${name}
+      {{if hiring == true}}
+      %span.hiring H
+      {{/if}}
+
+%script{:id => "total-box_tpl", :type=>"text/x-jquery-tmpl" }
+  %table.table.summary-table
+    %thead
+      %tr
+        %th ${totalCompanies}
+        %th.summary-title NEW TECH COMPANIES
+
+%script{:id => "county-box_tpl", :type=>"text/x-jquery-tmpl" }
+  %table.table.summary-table
+    %thead
+      %tr.underlined
+        %th
+          ${name.toUpperCase()}
+          %span.summary-small County
+        %th.summary-numbers
+          ${offices_numbers}
+          %span.summary-small companies
+    %tbody
+      {{each companies_by_category}}
+      %tr
+        %td ${category_name}
+        %td.summary-numbers ${companies_count}
+      {{/each}}

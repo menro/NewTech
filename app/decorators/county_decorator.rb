@@ -12,9 +12,7 @@ class CountyDecorator < Draper::Base
   end
 
   def companies_by_category
-    filter_companies_by_search_params(companies).joins(:category)
-    .select("categories.name as category_name, count(companies.id) as companies_count")
-    .group("categories.name")
+    Category.group_name_with_companies(filter_companies_by_search_params(companies))
   end
 
   def companies_avg_latitude

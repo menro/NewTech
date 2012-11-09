@@ -19,75 +19,11 @@
   %button.close{:type => "button", :data => {:dismiss => "alert" }} x
 
 .gmap_wrapper
-  .gmap{ :data => { :offices_url => "#{companies_api_v1_url(:json)}", :counties_url => "#{counties_api_v1_url(:json)}", :county_url => "#{county_api_v1_url(:json)}", :tags_url => "#{tags_api_v1_url(:json)}", :employees_types_url => "#{employees_types_api_v1_url(:json)}", :investments_types_url => "#{investments_types_api_v1_url(:json)}", :categories_url => "#{categories_api_v1_url(:json)}"} }
+  .gmap{ :data => gmap_data }
 
-#search_params{ :data => { :company_name => "", :from_year => "", :to_year => "", :tag_code => "", :current_county_id => "", :hiring => "", :employee_id => "", :investment_id => "", :category_id => "" } }
+#search_params{ :data => search_params_data }
 #company-list
   %div{:id => "companies", :class => "thumbnails" }
 #box-summary-county
 #box-summary-total
-
-
-%script{:id => "gmap_info_window_tpl", :type=>"text/x-jquery-tmpl" }
-  %div
-    %div{:class => "gmap_info_window"}
-      %h1.name
-        ${name}
-      %a{:url => "${homepage_url}" }
-        ${homepage_url}
-      %br
-      %p.description ${description}
-      %br
-      %span.label_marked Year Founded:
-      %span.value ${founded_year}
-      %br
-      %span.label_marked Number of employees:
-      %span.value ${number_of_employees}
-      %br
-      %span.label_marked Tags:
-      %span.value ${tags_list}
-      .bottom_bar
-        {{if hiring == true}}
-        %span.hiring H
-        {{/if}}
-        {{if facebook != null && facebook != ""}}
-        %a{:href => "https://www.facebook.com/${facebook}", :target => "_blank"}
-          %span.facebook F
-        {{/if}}
-        {{if twitter != null && twitter != ""}}
-        %a{:href => "https://twitter.com/${twitter}", :target => "_blank" }
-          %span.twitter T
-        {{/if}}
-
-%script{:id => "company_tpl", :type=>"text/x-jquery-tmpl" }
-  %div{:id => "company${marker_number}"}
-    .thumbnail.company-row
-      %img{:src => "${image_url}"}
-      %h3 ${name}
-      {{if hiring == true}}
-      %span.hiring H
-      {{/if}}
-
-%script{:id => "total-box_tpl", :type=>"text/x-jquery-tmpl" }
-  %table.table.summary-table
-    %thead
-      %tr
-        %th ${totalCompanies}
-        %th.summary-title NEW TECH COMPANIES
-
-%script{:id => "county-box_tpl", :type=>"text/x-jquery-tmpl" }
-  %table.table.summary-table
-    %thead
-      %tr.underlined
-        %th
-          ${name.toUpperCase()}
-          %span.summary-small County
-        %th.summary-numbers
-          ${offices_numbers}
-          %span.summary-small companies
-    %tbody
-      {{each companies_by_category}}
-      %tr
-        %td ${category_name}
-        %td.summary-numbers ${companies_count}
-      {{/each}}
+= render :partial => 'jquerytpl'
