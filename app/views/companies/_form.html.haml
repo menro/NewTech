@@ -29,12 +29,12 @@
         = f.file_field :image, :label => "Logo"
       %br.clearfix
       %p.help-block
-        Valid format [png, jpg, gig]
+        Valid format [png, jpg, gif]
       - unless company.new_record? || !company.image?
         %hr
         %ul.thumbnails
           %li.span4
-            = image_tag( image_company_url(company, :thumbnail) )
+            = image_tag( company.image_url )
             .caption
               %p
                 = link_to "Cancel Company Logo", image_destroy_company_path(company), :class => "btn btn-danger btn-delete-photo", :method => :delete, :confirm => "Are you sure?"
