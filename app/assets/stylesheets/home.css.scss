@@ -83,19 +83,6 @@
     background-position: 13px 9px;
 }
 
-.search {
-  margin: 20px 10px 10px 20px;
-  .slider {
-    width: 600px;
-    margin-right: 20px;
-    float: left;
-  }
-  #years_range {
-    text-align: center;
-    font-family: 'Original Surfer', cursive;
-    float: right;
-  }
-}
 
 .gmap img {
     max-width: none;
@@ -116,44 +103,125 @@
   line-height: 100%;
 }
 
-.btn-hiring {
-  margin-right: -3px;
-}
 
-.hiring-true {
-  background: url(image_path('hiring.png'));
-  background-repeat: no-repeat;
-  background-position: bottom left;
-  width: 91px;
-  height: 75px;
-}
-
-.btn-category-group {
-  margin-right: -7px;
-  margin-left: 2px;
-}
-
-.btn-employee-group {
-  margin-right: -7px;
-
-}
-
-.btn-investment-group {
-  margin-right: -7px;
-}
-
-.btn-tags-group {
-  margin-right: 170px;
-}
-
-.has-scroll ul.dropdown-menu {
-	max-height: 300px;
-	overflow: auto;
-}
-
+/* FILTERS */
 .filters {
-  margin-left: 0;
-  list-style: none;
+
+  height: 38px;
+  border: solid 1px;
+  border-right: none;
+  border-left: none;
+
+  color: #9aafba;
+
+  .slider-container {
+    width: 400px;
+    height: 100%;
+
+    .slider {
+      margin-top: 12px;
+      width: 300px;
+      float: left;
+      .ui-slider-range {
+        height: 3px;
+        margin-top: 3px;
+      }
+    }
+    #years_slider {
+      border: none;
+
+      a {
+        width: 40px;
+        color: #9aafba;
+      }
+      a:hover {
+        text-decoration: none;
+      }
+    }
+    #years_range {
+      margin-top: 12px;
+      text-align: center;
+      font-family: 'Original Surfer', cursive;
+      float: left;
+    }
+  }
+
+  .dropdown-menu-container {
+    height: 100%;
+
+    display:inline;
+
+    .btn, .btn-group {
+      width: 120px;
+      height:30px;
+      float: left;
+      border: none;
+      background: none;
+      color: #9aafba;
+    }
+
+    .caret {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      vertical-align: top;
+      border-top:   4px solid #9aafba;
+      border-right: 4px solid transparent;
+      border-left:  4px solid transparent;
+      content: "";
+    }
+
+    .btn-group {
+      margin-left: 25px;
+    }
+
+    ul.dropdown-ul {
+      list-style: none;
+      ul {
+        margin-top: 30px;
+      }
+    }
+
+    .btn-hiring-group {
+      border-left: 1px;
+    }
+
+    .btn-category-group {
+      border-left: 1px;
+    }
+
+    .btn-employee-group {
+      border-left: 1px;
+
+    }
+
+    .btn-investment-group {
+      border-left: 1px;
+    }
+
+    .btn-tags-group {
+      border-left: 1px;
+    }
+
+    .has-scroll ul.dropdown-menu {
+    	max-height: 300px;
+    	overflow: auto;
+    }
+
+    .companies-header {
+      border-left: solid 1px;
+      width: 275px;
+      height: 100%;
+      text-align: center;
+      display: none;
+      .companies-label {
+        margin-top: 8px;
+      }
+    }
+
+  }
+
+
 }
 
 .selected-tag {
@@ -190,7 +258,7 @@ button.close {
   overflow: auto;
   overflow-x: hidden;
   display: none;
-  top: 100px;
+  top: 105px;
   bottom: 2px;
 }
 

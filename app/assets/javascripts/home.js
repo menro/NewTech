@@ -241,6 +241,7 @@
       });
       var companyList = $('#company-list');
       companyList.show();
+      $('#companies-header').show();
 
       //open infowindow when company thumbnail is clicked
       $.each(companyOfficesMarkers, function(i, marker) {
@@ -276,6 +277,8 @@
 
       //hide company list and flush companies results
       $('#company-list').hide();
+
+      $('#companies-header').hide();
       //$('.gmap').each(function() {
       //  $(this).css('width', '100%');
       //});
@@ -387,7 +390,8 @@
         max: 2012,
         values: [ 1950, 2012 ],
         slide: function( event, ui ) {
-            $( "#years_range" ).html(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+            $("#years_slider").find("a").first().html(ui.values[ 0 ]);
+            $("#years_slider").find("a").last().html(ui.values[ 1 ]);
         },
         stop: function( event, ui ) {
           srcParamsEl.data("from_year", ui.values[ 0 ])
@@ -397,8 +401,9 @@
           });
         }
     });
-    $( "#years_range" ).html( $( "#years_slider" ).slider( "values", 0 ) +
-        " - " + $( "#years_slider" ).slider( "values", 1 ) );
+
+      $("#years_slider").find("a").first().html($( "#years_slider" ).slider( "values", 0 ));
+      $("#years_slider").find("a").last().html($( "#years_slider" ).slider( "values", 1 ));
 
     return $('.gmap').each(function() {
         return GMap.init(this);
@@ -409,7 +414,7 @@
     configureTagCloud();
 
     var searchParams = $('#search_params');
-    $('.bottom_filters a.btn-hiring').click(function(e){
+    $('a.btn-hiring').click(function(e){
         e.preventDefault();
         if($(this).is('.active')) {
           $(this).removeClass("active");
@@ -447,10 +452,10 @@
       e.preventDefault();
       if($(this).parent().is('.active')) {
         $(this).parent().removeClass("active");
-        $('.bottom_filters .btn-employee-group a.btn').removeClass("active");
+        $('.btn-employee-group a.btn').removeClass("active");
         searchParams.data("employee_id", "");
       } else {
-        $('.bottom_filters .btn-employee-group a.btn').addClass("active");
+        $('.btn-employee-group a.btn').addClass("active");
         $('#employee-filter-menu li').removeClass("active");
         $(this).parent().addClass("active");
         searchParams.data("employee_id", $(this).data("employee_id"));
@@ -467,10 +472,10 @@
       e.preventDefault();
       if($(this).parent().is('.active')) {
         $(this).parent().removeClass("active");
-        $('.bottom_filters .btn-investment-group a.btn').removeClass("active");
+        $('.btn-investment-group a.btn').removeClass("active");
         searchParams.data("investment_id", "");
       } else {
-        $('.bottom_filters .btn-investment-group a.btn').addClass("active");
+        $('.btn-investment-group a.btn').addClass("active");
         $('#investment-filter-menu li').removeClass("active");
         $(this).parent().addClass("active");
         searchParams.data("investment_id", $(this).data("investment_id"));
@@ -487,10 +492,10 @@
       e.preventDefault();
       if($(this).parent().is('.active')) {
         $(this).parent().removeClass("active");
-        $('.bottom_filters .btn-category-group a.btn').removeClass("active");
+        $('.btn-category-group a.btn').removeClass("active");
         searchParams.data("category_id", "");
       } else {
-        $('.bottom_filters .btn-category-group a.btn').addClass("active");
+        $('.btn-category-group a.btn').addClass("active");
         $('#category-filter-menu li').removeClass("active");
         $(this).parent().addClass("active");
         searchParams.data("category_id", $(this).data("category_id"));
@@ -507,10 +512,10 @@
         e.preventDefault();
         if($(this).parent().is('.active')) {
           $(this).parent().removeClass("active");
-          $('.bottom_filters .btn-tags-group a.btn').removeClass("active");
+          $('.btn-tags-group a.btn').removeClass("active");
           searchParams.data("tag_code", "");
         } else {
-          $('.bottom_filters .btn-tags-group a.btn').addClass("active");
+          $('.btn-tags-group a.btn').addClass("active");
           $('#tags-filter-menu li').removeClass("active");
           $(this).parent().addClass("active");
           searchParams.data("tag_code", $(this).data("tag_code"));

@@ -5,6 +5,8 @@ class Category < ActiveRecord::Base
 
   has_many :tags, :through => :companies
 
+  default_scope order('categories.name ASC')
+
   scope :with_companies_name_like,
         lambda {|name|
           joins(:companies).merge(Company.name_like(name))

@@ -6,13 +6,8 @@
   %form{:id => "search_form", :class => "navbar-search"}
     %input{:id => "search_query", :placeholder => "search for a company...", :class => "search-query span3"}
 
-.container-fluid
-  .search.pull-left
-    .slider
-      #years_slider
-    %label{ :id => "years_range" }
-  .pull-right
-    = render :partial => 'filters'
+
+= render :partial => 'header'
 
 #tooltip.alert.alert-info
   Tap a hotspot to zoom-in and see specific companies or customize by tapping a filter

@@ -23,7 +23,6 @@
           .pull-right
             = render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap, :context => :user
     #main{:role => "main"}
-      = render :partial => 'layouts/messages'
       = yield
       %footer
     = javascript_include_tag "application"
