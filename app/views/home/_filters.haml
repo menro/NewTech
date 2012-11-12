@@ -5,7 +5,7 @@
   .dropdown-menu-container
     .btn-group.btn-category-group
       %ul.dropdown-ul
-        %li.dropdown
+        %li.dropdown.menu-item-container
           %a.btn.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
             Category
             %b.caret
@@ -15,12 +15,12 @@
                 %a.btn-category{:href => "#", :data => { :category_id => category.id }}=category.name
     .btn-group.btn-hiring-group
       %ul.dropdown-ul
-        %li
+        %li.menu-item-container
           %a.btn.btn-hiring{ :role => "button", :href => "#" } Hiring
 
     .btn-group.btn-employee-group
       %ul.dropdown-ul
-        %li.dropdown
+        %li.dropdown.menu-item-container
           %a.btn.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
             Employee
             %b.caret
@@ -30,17 +30,17 @@
                 %a.btn-employee{:href => "#", :data => { :employee_id => employee.id }}=employee.name
     .btn-group.btn-investment-group
       %ul.dropdown-ul
-        %li.dropdown
+        %li.dropdown.menu-item-container
           %a.btn.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
             Investment
             %b.caret
           %ul.dropdown-menu#investment-filter-menu{:role => "menu" }
-            - @employees_types.each do |investment|
+            - @investments_types.each do |investment|
               %li
                 %a.btn-investment{:href => "#", :data => { :investment_id => investment.id }}=investment.name
     .btn-group.btn-tags-group
       %ul.dropdown-ul.has-scroll
-        %li.dropdown
+        %li.dropdown.menu-item-container
           %a.btn.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
             Tags
             %b.caret

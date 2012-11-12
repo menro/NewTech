@@ -109,10 +109,10 @@
 
 /* FILTERS */
 .filters {
-
-  height: 35px;
+  margin-top: -12px;
+  height: 32px;
   border-bottom: solid 1px;
-
+  border-color: #cccccc;
   color: #9aafba;
 
   .slider-container {
@@ -144,12 +144,21 @@
 
   .dropdown-menu-container {
     margin-top: -10px;
+
     .btn, .btn-group {
-      width: 120px;
       float: left;
       border: none;
       background: none;
       color: #9aafba;
+    }
+
+    .btn {
+      width: 80px;
+    }
+
+    .btn-group {
+      border-left: 1px solid;
+      border-color: #cccccc;
     }
 
     .caret {
@@ -163,8 +172,10 @@
       content: "";
     }
 
-    .btn-group {
-      margin-left: 25px;
+    li.menu-item-container {
+      margin-left: -20px;
+      border-left: 1 px solid;
+      margin-top: 5px;
     }
 
     ul.dropdown-ul {

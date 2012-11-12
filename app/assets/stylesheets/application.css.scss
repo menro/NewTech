@@ -27,14 +27,16 @@
 
 body {
   padding-top: 60px;
-  background-repeat: repeat;
+  background: #ffffff;
 }
 
 
+.navbar {
+}
 
 .navbar, .navbar-fixed-top {
   .navbar-inner {
-    background: none;
+    background: #ffffff;
 
     .newtech {
       background-image: url(image_path('logo.png'));
@@ -49,12 +51,17 @@ body {
 
     ul.nav {
       li {
-        border-right: 1px solid;
+        border-left: 1px solid;
         border-color: #cccccc;
         width: 150px;
         text-align: center;
         padding-top: 5px;
       }
+
+      #blogs {
+        border-right: 1px solid;
+      }
+
       .active {
         background: none;
       }
@@ -68,6 +75,12 @@ body {
       a:hover {
        color: #0a3642;
      }
+
+     .dropdown-menu li {
+      text-align: left;
+     }
+
     }
-   }
+  }
 }
+
