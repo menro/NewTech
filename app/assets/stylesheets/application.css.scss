@@ -30,11 +30,44 @@ body {
   background-repeat: repeat;
 }
 
-.newtech {
-  font-family: 'Open Sans', sans-serif;
-  background-image: url(image_path('logo.png'));
-  background-repeat: no-repeat;
-  width: 150px;
-  height: 25px;
-  margin-top: 5px;
+
+
+.navbar, .navbar-fixed-top {
+  .navbar-inner {
+    background: none;
+
+    .newtech {
+      background-image: url(image_path('logo.png'));
+      background-repeat: no-repeat;
+      width: 150px;
+      height: 25px;
+
+    }
+    .brand {
+      margin: auto;
+    }
+
+    ul.nav {
+      li {
+        border-right: 1px solid;
+        border-color: #cccccc;
+        width: 150px;
+        text-align: center;
+        padding-top: 5px;
+      }
+      .active {
+        background: none;
+      }
+      a.active {
+        color: #0a3642;
+      }
+      a {
+        color: #9aafba;
+      }
+
+      a:hover {
+       color: #0a3642;
+     }
+    }
+   }
 }

@@ -241,7 +241,6 @@
       });
       var companyList = $('#company-list');
       companyList.show();
-      $('#companies-header').show();
 
       //open infowindow when company thumbnail is clicked
       $.each(companyOfficesMarkers, function(i, marker) {
@@ -278,7 +277,6 @@
       //hide company list and flush companies results
       $('#company-list').hide();
 
-      $('#companies-header').hide();
       //$('.gmap').each(function() {
       //  $(this).css('width', '100%');
       //});
