@@ -391,8 +391,8 @@
         max: 2012,
         values: [ 1950, 2012 ],
         slide: function( event, ui ) {
-            $("#years_slider").find("a").first().html(ui.values[ 0 ]);
-            $("#years_slider").find("a").last().html(ui.values[ 1 ]);
+            $( "#years_range" ).html(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+
         },
         stop: function( event, ui ) {
           srcParamsEl.data("from_year", ui.values[ 0 ])
@@ -402,9 +402,8 @@
           });
         }
     });
-
-      $("#years_slider").find("a").first().html($( "#years_slider" ).slider( "values", 0 ));
-      $("#years_slider").find("a").last().html($( "#years_slider" ).slider( "values", 1 ));
+      $( "#years_range" ).html( $( "#years_slider" ).slider( "values", 0 ) +
+          " - " + $( "#years_slider" ).slider( "values", 1 ) );
 
     return $('.gmap').each(function() {
         return GMap.init(this);
