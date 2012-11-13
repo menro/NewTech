@@ -16,12 +16,12 @@
     %header.navbar
       %nav.navbar-inner
         .container-fluid
-          = link_to "", root_path, :class => "brand newtech"
           .pull-left
+            = link_to "", root_path, :class => "brand newtech"
             = render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap
             = yield(:navbar_extras)
-          .pull-right
-            = render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap, :context => :user
+            .pull-right
+              = render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap, :context => :user
     #main{:role => "main"}
       = yield
       %footer

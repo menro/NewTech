@@ -32,9 +32,10 @@ body {
 .navbar {
   .navbar-inner {
     background: #ffffff;
-
     min-width: 960px;
-
+    .pull-left {
+      width: 99%;
+    }
     .newtech {
       background-image: url(image_path('logo.png'));
       background-repeat: no-repeat;
