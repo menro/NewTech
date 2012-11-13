@@ -77,7 +77,7 @@
   background-repeat: no-repeat;
   background-position: 12px 8px;
   background-color: #ffffff;
-  border-color: #9aafba;
+  border: none;
   color: #9aafba;
 }
 
@@ -114,16 +114,15 @@
   border-bottom: solid 1px;
   border-color: #cccccc;
   color: #9aafba;
+  min-width: 960px;
 
   .slider-container {
-    width: 400px;
     height: 100%;
     margin-left: 15px;
     margin-top: 10px;
-
+    width: 300px;
     .slider {
-      width: 300px;
-      float: left;
+      width: 100%;
       .ui-slider-range {
         height: 3px;
         margin-top: 3px;
@@ -143,8 +142,7 @@
   }
 
   .dropdown-menu-container {
-    margin-top: -10px;
-
+    margin-top: -5px;
     .btn, .btn-group {
       float: left;
       border: none;
@@ -173,9 +171,10 @@
     }
 
     li.menu-item-container {
+      margin-top: 4px;
       margin-left: -20px;
       border-left: 1 px solid;
-      margin-top: 5px;
+      height: 25px;
     }
 
     ul.dropdown-ul {
@@ -189,6 +188,17 @@
     	max-height: 300px;
     	overflow: auto;
     }
+
+    .companies-header {
+      border-left: solid 1px;
+      width: 300px;
+      height: 37px;
+      text-align: center;
+      .companies-label {
+        margin-top: 8px;
+      }
+    }
+
 
   }
 
@@ -229,7 +239,7 @@ button.close {
   overflow: auto;
   overflow-x: hidden;
   display: none;
-  top: 100px;
+  top: 90px;
   bottom: 2px;
 }
 

@@ -26,17 +26,14 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:800italic);
 
 body {
-  padding-top: 60px;
   background: #ffffff;
 }
 
-
 .navbar {
-}
-
-.navbar, .navbar-fixed-top {
   .navbar-inner {
     background: #ffffff;
+
+    min-width: 960px;
 
     .newtech {
       background-image: url(image_path('logo.png'));
@@ -53,7 +50,7 @@ body {
       li {
         border-left: 1px solid;
         border-color: #cccccc;
-        width: 150px;
+        min-width: 100px;
         text-align: center;
         padding-top: 5px;
       }

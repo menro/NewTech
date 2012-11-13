@@ -2,7 +2,7 @@
   .slider-container.pull-left
     .slider
       #years_slider
-  .dropdown-menu-container
+  .dropdown-menu-container.pull-right
     .btn-group.btn-category-group
       %ul.dropdown-ul
         %li.dropdown.menu-item-container
@@ -49,3 +49,6 @@
               %li
                 %a.btn-tag{:href => "#", :data => { :tag_code => tag.code }}=tag.code
 
+    #companies-header.companies-header.pull-right
+      .companies-label
+        COMPANIES
