@@ -13,11 +13,6 @@
             - @categories.each do |category|
               %li
                 %a.btn-category{:href => "#", :data => { :category_id => category.id }}=category.name
-    .btn-group.btn-hiring-group
-      %ul.dropdown-ul
-        %li.menu-item-container
-          %a.btn.btn-hiring{ :role => "button", :href => "#" } Hiring
-
     .btn-group.btn-employee-group
       %ul.dropdown-ul
         %li.dropdown.menu-item-container
@@ -48,6 +43,10 @@
             - @tags.each do |tag|
               %li
                 %a.btn-tag{:href => "#", :data => { :tag_code => tag.code }}=tag.code
+    .btn-group.btn-hiring-group
+      %ul.dropdown-ul
+        %li.menu-item-container
+          %a.btn.btn-hiring{ :role => "button", :href => "#" } Hiring
 
     #companies-header.companies-header.pull-right
       .companies-label
