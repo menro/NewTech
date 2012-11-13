@@ -147,7 +147,7 @@
       float: left;
       border: none;
       background: none;
-      color: #9aafba;
+      color: #7895A4;
     }
 
     .btn {
@@ -176,11 +176,15 @@
       border-left: 1 px solid;
       height: 25px;
     }
-
+    a {
+      color: #7895A4;
+      margin: 2px 2px 2px 2px;
+    }
+    li.active a {
+      color: #ffffff;
+    }
     ul.dropdown-ul {
       list-style: none;
-      ul {
-      }
     }
 
     .has-scroll ul.dropdown-menu {
@@ -211,8 +215,9 @@
 }
 
 #tooltip {
+  position: relative;
   width: 60%;
-  margin: 30px auto;
+  margin: 50px auto;
   background-color: #7895A4;
   border-color: #507282;
   opacity: 0.8;
@@ -221,6 +226,7 @@
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 14px;
   text-align: center;
+  z-index: 9999;
 }
 
 button.close {
