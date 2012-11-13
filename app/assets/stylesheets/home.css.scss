@@ -239,12 +239,15 @@ button.close {
   width: 95%;
   background-color: #ffffff;
   opacity: 0.8;
+  border-bottom: 1px solid #cccccc;
+  padding: 2px 2px 2px 2px;
 }
 
 .company-row img {
   height: 32px;
   width: 32px;
   float: left;
+  background-color: #ffffff;
 }
 
 .company-row h3 {

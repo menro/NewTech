@@ -31,7 +31,7 @@
 
 %script{:id => "company_tpl", :type=>"text/x-jquery-tmpl" }
   %div{:id => "company${marker_number}"}
-    .thumbnail.company-row
+    .company-row
       %img{:src => "${image_url}"}
       %h3 ${name}
       {{if hiring == true}}
