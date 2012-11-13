@@ -211,13 +211,11 @@
 }
 
 #tooltip {
-  display: block;
-  position: absolute;
-  top: 110px;
-  left: 60px;
   width: 60%;
-  background-color: #999999;
-  opacity: 0.6;
+  margin: 30px auto;
+  background-color: #7895A4;
+  border-color: #507282;
+  opacity: 0.8;
   color: #FFFFFF;
   font-weight: bold;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -289,12 +287,13 @@ button.close {
 
 .summary-box {
   width: 200px;
-  background-color: #999999;
-  opacity: 0.6;
+  background-color: #7895A4;
+  opacity: 0.8;
   padding: 10px;
   display:block;
   position: absolute;
   left: 20px;
+  border-color: #507282;
 }
 
 .bottom-left-1 {

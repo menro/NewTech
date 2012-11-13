@@ -32,6 +32,7 @@ body {
 .navbar {
   .navbar-inner {
     background: #ffffff;
+
     min-width: 960px;
     .pull-left {
       width: 99%;
@@ -48,6 +49,7 @@ body {
     }
 
     ul.nav {
+
       li {
         border-left: 1px solid;
         border-color: #cccccc;
@@ -64,14 +66,17 @@ body {
         background: none;
       }
       a.active {
-        color: #0a3642;
+
+        color: #7895A4;
       }
       a {
-        color: #9aafba;
+        color: #7895A4;
       }
 
       a:hover {
-       color: #0a3642;
+       color: #7895A4;
+        font-weight: bold;
+        font-family: "helvetica";
      }
 
      .dropdown-menu li {
