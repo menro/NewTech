@@ -174,11 +174,13 @@
 
   function drawCompanyOffices(container) {
     $.getJSON($(container).data("offices_url"), searchParams(), function(data) {
+
       companyOfficesMarkers = new Array();
       infoWindows = new Array();
       nOffices = 0;
 
-      $('#company-list').html("");
+      var companyList = $('#company-list');
+      companyList.html("");
       $.each(data, function(i, company) {
 
         var content = $( "#gmap_info_window_tpl" ).tmpl( company ).html();
@@ -210,10 +212,9 @@
         infoWindows[nOffices] = infowindow;
         nOffices++;
         company.marker_number = i+1;
-        $('#company_tpl').tmpl(company).appendTo( $('#company-list') );
+        $('#company_tpl').tmpl(company).appendTo( companyList );
 
       });
-      var companyList = $('#company-list');
       companyList.show();
       $('#companies-header').show();
 
@@ -325,6 +326,8 @@
     $("#search_params").data("current_county_id", county.id);
 
     $('#box-summary-total').hide();
+
+    $('#tooltip').remove();
 
     //currentMap.setZoom(currentMap.getZoom()+1);
     currentMap.setCenter(circlePosition);
