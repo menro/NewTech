@@ -357,18 +357,6 @@
     return search_params;
   }
 
-  $(function () {
-    setSlider();
-    setHiringListener();
-    setEmployeeMenuListener();
-    setInvestmentMenuListener();
-    setCategoryMenuListener();
-    setcategoryNameListener();
-    setTagMenuListener();
-    return $('.gmap').each(function() {
-        return GMap.init(this);
-    });
-  });
 
   function setSlider(){
       var srcParamsEl = $('#search_params');
@@ -500,4 +488,19 @@
         });
       });
     }
+
+    // Main
+    $(function () {
+      setSlider();
+      setHiringListener();
+      setEmployeeMenuListener();
+      setInvestmentMenuListener();
+      setCategoryMenuListener();
+      setcategoryNameListener();
+      setTagMenuListener();
+      return $('.gmap').each(function() {
+          return GMap.init(this);
+      });
+    });
+
 }).call(this);
