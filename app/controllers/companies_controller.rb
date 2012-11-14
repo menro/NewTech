@@ -1,5 +1,5 @@
 class CompaniesController < ApplicationController
-  before_filter :authenticate_user!, :except => [:send_image]
+  before_filter :authenticate_user!
 
   def index
     @companies = CompanyService::find_all_by_user(current_user, params)

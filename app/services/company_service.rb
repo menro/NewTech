@@ -1,7 +1,7 @@
 class CompanyService
 
   def self.find_all_by_user(user, params = {})
-    companies = user.companies.page(params[:page])
+    companies = user.companies.order("name ASC").page(params[:page])
     CompanyDecorator.decorate(companies)
   end
 
@@ -16,30 +16,6 @@ class CompanyService
     company.save
     company
   end
-
-  # TODO: fix duplication code
-  def self.update_by_user(user, id, attributes = {})
-    company = user.companies.find(id)
-    tags_list = attributes.delete("tags_list").split(",") rescue []
-    tags = []
-    tags_list.each do |tag|
-      tags << Tag.find_or_create_by_code(tag.strip)
-    end
-    company.tags = tags
-    geocode = find_geocode attributes
-    if !geocode.success || geocode.accuracy.to_i < 6
-      company.errors.add :address, "Address not founds"
-    elsif !( attributes[:zip_code].eql?(geocode.zip) )
-      company.errors.add :zip_code, "Postal code not valid"
-    else
-      attributes[:address] = geocode.street_address
-      attributes[:latitude] = geocode.lat
-      attributes[:longitude] = geocode.lng
-      company.update_attributes attributes
-    end
-    CompanyDecorator.new(company)
-  end
-
 
   def self.create_by_user(user, attributes)
     geocode = find_geocode attributes
@@ -63,6 +39,11 @@ class CompanyService
   def self.edit(id)
     company = Company.find(id)
     CompanyDecorator.decorate(company)
+  end
+
+  def self.update_by_user(user, id, attributes = {})
+    attributes[:user_id] = user.id
+    update(id, attributes)
   end
 
   def self.update(id, attributes = {})
@@ -104,15 +85,15 @@ class CompanyService
 
   def self.search(params)
     companies = Company.scoped
-    companies = companies.name_like params[:company_name] unless params[:company_name].nil? || params[:company_name].empty?
-    companies = companies.founded_from params[:from_year] unless params[:from_year].nil? || params[:from_year].empty?
-    companies = companies.founded_to params[:to_year] unless params[:to_year].nil? || params[:to_year].empty?
-    companies = companies.tagged_as params[:tag_code] unless params[:tag_code].nil? || params[:tag_code].empty?
-    companies = companies.located_in_county params[:current_county_id] unless params[:current_county_id].nil? || params[:current_county_id].empty?
-    companies = companies.are_hiring unless params[:hiring].nil? || params[:hiring].empty?
-    companies = companies.employee_type(params[:employee_id]) unless params[:employee_id].nil? || params[:employee_id].empty?
-    companies = companies.investment_type(params[:investment_id]) unless params[:investment_id].nil? || params[:investment_id].empty?
-    companies = companies.with_category(params[:category_id]) unless params[:category_id].nil? || params[:category_id].empty?
+    companies = companies.name_like params[:company_name] unless params[:company_name].blank?
+    companies = companies.founded_from params[:from_year] unless params[:from_year].blank?
+    companies = companies.founded_to params[:to_year] unless params[:to_year].blank?
+    companies = companies.tagged_as params[:tag_code] unless params[:tag_code].blank?
+    companies = companies.located_in_county params[:current_county_id] unless params[:current_county_id].blank?
+    companies = companies.are_hiring unless params[:hiring].blank?
+    companies = companies.employee_type(params[:employee_id]) unless params[:employee_id].blank?
+    companies = companies.investment_type(params[:investment_id]) unless params[:investment_id].blank?
+    companies = companies.with_category(params[:category_id]) unless params[:category_id].blank?
     companies.uniq
     CompanyDecorator.decorate(companies)
   end
