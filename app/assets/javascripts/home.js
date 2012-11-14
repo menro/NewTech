@@ -154,32 +154,6 @@
     });
   }
 
-  function configureTagCloud() {
-    var tagCloudLink = $('#tag-cloud a');
-    tagCloudLink.tagcloud({
-      size: {
-        start: 14,
-        end: 18,
-        unit: 'pt'
-      },
-      color: {
-        start: '#777',
-        end: '#222'
-      }
-    });
-    tagCloudLink.click(function() {
-      //highlight
-      tagCloudLink.removeClass('selected-tag');
-      $(this).addClass('selected-tag');
-
-      var tag_code = $(this).data("tag_code");
-      $('#search_params').data("tag_code", tag_code);
-      $('.gmap').each(function() {
-        refreshMap(this);
-      });
-    });
-  }
-
   function clearCompanyOffices() {
     for (var i=0; i<nOffices; i++) {
       companyOfficesMarkers[i].setMap(null);
@@ -383,57 +357,58 @@
     return search_params;
   }
 
-  $(function() {
-    var srcParamsEl = $('#search_params');
-    $( "#years_slider" ).slider({
-        range: true,
-        min: 1950,
-        max: 2012,
-        values: [ 1950, 2012 ],
-        slide: function( event, ui ) {
-            $( "#years_range" ).html(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-
-        },
-        stop: function( event, ui ) {
-          srcParamsEl.data("from_year", ui.values[ 0 ])
-          srcParamsEl.data("to_year", ui.values[ 1])
-          return $('.gmap').each(function() {
-              return refreshMap(this);
-          });
-        }
-    });
-      $( "#years_range" ).html( $( "#years_slider" ).slider( "values", 0 ) +
-          " - " + $( "#years_slider" ).slider( "values", 1 ) );
-
-    return $('.gmap').each(function() {
-        return GMap.init(this);
-    });
-  });
-
   $(function () {
-    configureTagCloud();
-
-    var searchParams = $('#search_params');
-    $('a.btn-hiring').click(function(e){
-        e.preventDefault();
-        if($(this).is('.active')) {
-          $(this).removeClass("active");
-          searchParams.data("hiring", "");
-        } else {
-          $(this).addClass("active");
-          searchParams.data("hiring", true);
-        }
-        $('.gmap').each(function() {
-          refreshMap(this);
-        });
-    });
-
+    setSlider();
+    setHiringListener();
     setEmployeeMenuListener();
     setInvestmentMenuListener();
     setCategoryMenuListener();
     setcategoryNameListener();
     setTagMenuListener();
+    return $('.gmap').each(function() {
+        return GMap.init(this);
+    });
   });
+
+  function setSlider(){
+      var srcParamsEl = $('#search_params');
+      $( "#years_slider" ).slider({
+          range: true,
+          min: 1950,
+          max: 2012,
+          values: [ 1950, 2012 ],
+          slide: function( event, ui ) {
+              $( "#years_range" ).html(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+
+          },
+          stop: function( event, ui ) {
+            srcParamsEl.data("from_year", ui.values[ 0 ])
+            srcParamsEl.data("to_year", ui.values[ 1])
+            return $('.gmap').each(function() {
+                return refreshMap(this);
+            });
+          }
+      });
+        $( "#years_range" ).html( $( "#years_slider" ).slider( "values", 0 ) +
+            " - " + $( "#years_slider" ).slider( "values", 1 ) );
+  }
+
+  function setHiringListener(){
+      var searchParams = $('#search_params');
+      $('a.btn-hiring').click(function(e){
+          e.preventDefault();
+          if($(this).is('.active')) {
+            $(this).removeClass("active");
+            searchParams.data("hiring", "");
+          } else {
+            $(this).addClass("active");
+            searchParams.data("hiring", true);
+          }
+          $('.gmap').each(function() {
+            refreshMap(this);
+          });
+      });
+  }
 
   function setcategoryNameListener() {
       $('#search_form').on('submit', function(e){
