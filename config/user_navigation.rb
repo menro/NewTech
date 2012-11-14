@@ -23,7 +23,7 @@ SimpleNavigation::Configuration.run do |navigation|
       end
 
     end
-    primary.dom_class = 'nav'
+    primary.dom_class = 'nav pull-right'
   end
 
 end
