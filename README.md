@@ -1,4 +1,4 @@
-BDNT
+New Tech
 ====
 
 Developed for new tech colorado. (http://bdnt.org)
