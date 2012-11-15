@@ -1,7 +1,8 @@
 BDNT
 ====
 
-Developed for new tech colorado. (http://bdnt.org) 
+Developed for new tech colorado. (http://bdnt.org)
+
 The app provides two ways to visualize companies within a state. 
 Maximum zoom out summarizes all companies within a state by county and displays them as a hotspot on a map.
 Zooming into a hot spot displays a list of companies and their location on a map
