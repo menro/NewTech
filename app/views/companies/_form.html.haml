@@ -12,14 +12,11 @@
         = f.association :category, :label_method => :name, :collection => CategoryService::all
         = f.input :description
     .well
-      %span.header Investment
-      = f.association :investments_type, as: :radio_buttons, item_wrapper_class: 'inline'
+      = f.association :investments_type, as: :radio_buttons, item_wrapper_class: 'inline', :label => "Investments"
     .well.current-employees-count
-      %span.header Current Employee Count
-      = f.association :employees_type, as: :radio_buttons, item_wrapper_class: 'inline', :label => ""
+      = f.association :employees_type, as: :radio_buttons, item_wrapper_class: 'inline', :label => "Current Employee"
   .span5
     .well.hiring
-      %span.header Hiring
       = f.input :hiring, as: :radio_buttons, item_wrapper_class: 'inline', :label => "Hiring in the next 30 days"
     .well
       %span.header Images
@@ -42,10 +39,10 @@
 
     .well.clear
       .form-inputs.row
-        = f.input :homepage_url, :as => :string
-        = f.input :twitter, :as => :string
-        = f.input :facebook, :as => :string
-        = f.input :jobs_url, :as => :string
+        = f.input :homepage_url, :as => :string, :hint => "E.g.,http://www.homepage.example"
+        = f.input :twitter, :as => :string, :hint => "E.g.,newtech"
+        = f.input :facebook, :as => :string, :hint => "E.g.,newtech"
+        = f.input :jobs_url, :as => :string, :hint => "E.g.,http://www.blogurl.example"
   %br
   .control-group
     .controls
