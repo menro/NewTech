@@ -66,7 +66,7 @@
     }
 
     GMap.init = function(container) {
-      console.log("Initialize Gmap");
+      //console.log("Initialize Gmap");
       return new GMap(container);
     };
 
@@ -184,7 +184,7 @@
       $.each(data, function(i, company) {
 
         var content = $( "#gmap_info_window_tpl" ).tmpl( company ).html();
-        console.log(content);
+        //console.log(content);
         var infowindow = new google.maps.InfoWindow({
           content: content
         });
@@ -237,6 +237,7 @@
 
   function drawCountySummaryBox(container) {
       var current_county_id = $('#search_params').data("current_county_id");
+      //console.log("current_county_id="+current_county_id);
       if(current_county_id != "") {
           setCountySummaryBoxStyle("bottom-left-1");
           $.getJSON($(container).data("county_url"), searchParams(), function(data) {

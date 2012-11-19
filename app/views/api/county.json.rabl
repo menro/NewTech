@@ -1,3 +1,3 @@
 object @county
 
-attributes :id, :name, :offices_numbers, :companies_by_category
+attributes :id, :name, :companies_numbers, :companies_by_category

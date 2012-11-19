@@ -17,7 +17,7 @@ class CountyService
 
   def self.find(params)
     county = County.find(params[:current_county_id])
-    CountyDecorator.decorate(county)
+    CountyDecorator.decorate(county, :search_params => params)
   end
 
 end
