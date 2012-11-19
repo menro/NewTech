@@ -11,7 +11,8 @@ class CountyService
     counties = counties.with_company_employee_type(params[:employee_id]) unless params[:employee_id].blank?
     counties = counties.with_company_investment_type(params[:investment_id]) unless params[:investment_id].blank?
     counties = counties.with_company_category(params[:category_id]) unless params[:category_id].blank?
-    CountyDecorator.decorate(counties.uniq, :search_params => params)
+    counties = CountyDecorator.decorate(counties.uniq, :search_params => params)
+    counties = counties.sort_by(&:companies_numbers).reverse
   end
 
   def self.find(params)
