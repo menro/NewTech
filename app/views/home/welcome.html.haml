@@ -9,9 +9,10 @@
 
 = render :partial => 'filters'
 
-#tooltip.alert.alert-info
-  Tap a hotspot to zoom-in and see specific companies or customize by tapping a filter
-  %button.close{:type => "button", :data => {:dismiss => "alert" }} x
+#tooltip-centerer
+  #tooltip.alert.alert-info
+    Tap a hotspot to zoom-in and see specific companies or customize by tapping a filter
+    %button.close{:type => "button", :data => {:dismiss => "alert" }} x
 
 .gmap_wrapper
   .gmap{ :data => gmap_data }

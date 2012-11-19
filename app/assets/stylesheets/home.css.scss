@@ -222,10 +222,17 @@
   text-decoration: underline;
 }
 
+#tooltip-centerer {
+  width: 600px;
+  position: absolute;
+  left: 50%;
+}
+
 #tooltip {
-  position: relative;
-  width: 60%;
-  margin: 50px auto;
+  position: absolute;
+  width: 600px;
+  top: 10px;
+  left: -300px;
   background-color: #7895A4;
   border-color: #507282;
   opacity: 0.8;
@@ -234,7 +241,7 @@
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 14px;
   text-align: center;
-  z-index: 9999;
+  //z-index: -999;
 }
 
 button.close {
