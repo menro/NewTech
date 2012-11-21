@@ -3,7 +3,7 @@
     %div{:class => "gmap_info_window"}
       %h1.name
         ${name}
-      %a{:url => "${homepage_url}" }
+      %a{:href => "${homepage_url}", :target => "_blank" }
         ${homepage_url}
       %br
       %p.description ${description}
