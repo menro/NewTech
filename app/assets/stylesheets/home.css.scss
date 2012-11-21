@@ -204,7 +204,7 @@
   }
 
   .companies-header {
-    border-left: solid 1px;
+    border-left: 1px solid #CCCCCC;
     width: 250px;
     height: 35px;
     margin-top: -5px;
@@ -223,16 +223,16 @@
 }
 
 #tooltip-centerer {
-  width: 600px;
+  width: 614px;
   position: absolute;
   left: 50%;
 }
 
 #tooltip {
   position: absolute;
-  width: 600px;
+  width: 614px;
   top: 10px;
-  left: -300px;
+  left: -307px;
   background-color: #7895A4;
   border-color: #507282;
   opacity: 0.8;
@@ -253,6 +253,7 @@ button.close {
 #company-list {
   position: fixed;
   background-color: #ffffff;
+  border-left: 1px solid #CCCCCC;
   width: 250px;
   right: 0px;
   overflow: auto;
