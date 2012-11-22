@@ -49,7 +49,7 @@ class Company < ActiveRecord::Base
 
   scope :name_like,
         lambda {|name|
-          where("companies.name LIKE ?", "%#{name}%")
+          where("companies.name ILIKE ?", "%#{name}%")
         }
 
   scope :founded_from,
