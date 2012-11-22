@@ -3,8 +3,8 @@
   = javascript_include_tag("http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.5/src/markerwithlabel.js")
 
 = content_for :navbar_extras do
-  %form{:id => "search_form", :class => "navbar-search"}
-    %input{:id => "search_query", :placeholder => "search for a company...", :class => "search-query span3"}
+  %form#search_form.navbar-search
+    %input#search_query.search-query.span3{:placeholder => "search for a company..."}
 
 
 = render :partial => 'filters'

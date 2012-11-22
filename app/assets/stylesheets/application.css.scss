@@ -29,21 +29,29 @@ body {
   background: #ffffff;
 }
 
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 .navbar {
   .navbar-inner {
     background: #ffffff;
+    padding-left: 0px;
+    padding-right: 0px;
+    min-width: 960px;
 
-    min-width: 1060px;
     .pull-left {
-      width: 99%;
+      width: 100%;
     }
+
     .newtech {
       background-image: url(image_path('logo.png'));
       background-repeat: no-repeat;
-      width: 190px;
+      width: 195px;
       height: 25px;
       margin-top: 10px;
-      margin-left: -30px;
+      margin-left: 5px;
       padding: 0px;
     }
     .brand {
@@ -54,13 +62,21 @@ body {
       li {
         border-left: 1px solid;
         border-color: #cccccc;
-        min-width: 100px;
+        min-width: 80px;
         text-align: center;
         padding-top: 5px;
       }
 
+      #message_board {
+        min-width: 130px;
+      }
+
       #blogs {
         border-right: 1px solid;
+      }
+
+      #add_you_company {
+        min-width: 165px;
       }
 
       .active {
