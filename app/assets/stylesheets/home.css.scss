@@ -151,7 +151,7 @@
   }
 
   .dropdown-menu-container {
-    width: 570px;
+    //width: 570px;
     margin-top: -5px;
     .btn, .btn-group {
       float: left;
@@ -160,8 +160,20 @@
       color: #7895A4;
     }
 
-    .btn {
+    .btn-categories {
+      width: 70px;
+    }
+    .btn-employees {
       width: 80px;
+    }
+    .btn-investments {
+      width: 80px;
+    }
+    .btn-tags {
+      width: 50px;
+    }
+    .btn-hiring {
+      width: 50px;
     }
 
     .btn-group {
