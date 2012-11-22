@@ -26,7 +26,9 @@
         = f.file_field :image, :label => "Logo"
       %br.clearfix
       %p.help-block
-        Valid format [png, jpg, gif]
+        %br
+        Upload a .jpg, .gif, or .png file.
+        File size limit is 1 MB and for best results your logo should be 160x160 px.
       - unless company.new_record? || !company.image?
         %hr
         %ul.thumbnails
