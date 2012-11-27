@@ -274,8 +274,8 @@
         var circlePosition = new google.maps.LatLng(county.companies_avg_latitude, county.companies_avg_longitude);
         //var circlePosition = new google.maps.LatLng(county.latitude, county.longitude);
         var multiplier = county.companies_percentage;
-        if (multiplier<5) {
-          multiplier *= 2;
+        if (multiplier<3.5) {
+          multiplier = 3;
         }
         if (multiplier>20) {
           multiplier /= 1.5;
