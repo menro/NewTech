@@ -88,12 +88,14 @@ body {
       }
       a {
         color: #7895A4;
+        text-shadow: 0 0 0;
       }
 
       a:hover {
        color: #7895A4;
         font-weight: bold;
         font-family: "helvetica";
+        text-shadow: 0 0 0;
      }
 
      .dropdown-menu li {
