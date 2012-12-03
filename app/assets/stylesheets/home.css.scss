@@ -81,6 +81,10 @@
   color: #9aafba;
 }
 
+#search_form {
+  min-width: 200px;
+}
+
 .navbar-search .search-query:focus, .navbar-search .search-query.focused {
     padding-left: 30px;
     background-position: 13px 9px;
@@ -132,10 +136,10 @@
 
     #years_slider {
       border: none;
-      position: relative;
+      //position: relative;
       float: left;
       width:300px;
-      margin-right: 30px;
+      margin-right: 20px;
 
       a {
         width: 25px;
@@ -145,7 +149,7 @@
     }
 
     #years_range {
-      position: relative;
+      //position: relative;
       float: left;
     }
   }
@@ -167,13 +171,13 @@
       width: 80px;
     }
     .btn-investments {
-      width: 80px;
+      width: 85px;
     }
     .btn-tags {
-      width: 50px;
+      width: 65px;
     }
     .btn-hiring {
-      width: 50px;
+      width: 70px;
     }
 
     .btn-group {
