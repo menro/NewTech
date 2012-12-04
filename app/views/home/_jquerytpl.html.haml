@@ -18,7 +18,8 @@
       %span.value ${tags_list}
       .bottom_bar
         {{if hiring == true}}
-        %span.hiring H
+        %a{:href => "${jobs_url}", :target => "_blank"}
+          %span.hiring H
         {{/if}}
         {{if facebook != null && facebook != ""}}
         %a{:href => "https://www.facebook.com/${facebook}", :target => "_blank"}
