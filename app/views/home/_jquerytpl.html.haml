@@ -36,7 +36,8 @@
       %img{:src => "${image_url}"}
       %h3 ${name}
       {{if hiring == true}}
-      %span.hiring H
+      %a{:href => "${jobs_url}", :target => "_blank"}
+        %span.hiring H
       {{/if}}
 
 %script{:id => "total-box_tpl", :type=>"text/x-jquery-tmpl" }
