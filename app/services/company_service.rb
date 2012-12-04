@@ -94,6 +94,7 @@ class CompanyService
     companies = companies.employee_type(params[:employee_id]) unless params[:employee_id].blank?
     companies = companies.investment_type(params[:investment_id]) unless params[:investment_id].blank?
     companies = companies.with_category(params[:category_id]) unless params[:category_id].blank?
+    companies = companies.order('companies.name ASC')
     companies.uniq
     CompanyDecorator.decorate(companies)
   end
