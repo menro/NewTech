@@ -137,9 +137,11 @@
     margin-left: 15px;
     margin-top: 5px;
     //float:right;
-    margin-right: 30px;
+    margin-right: 545px;
     display: block;
+    text-align: center;
     .slider {
+        width: 100%;
       .ui-slider-range {
         height: 3px;
         margin-top: 5px;
@@ -149,9 +151,9 @@
     #years_slider {
       border: none;
       //position: relative;
-      float: left;
-      width:300px;
       margin-right: 20px;
+      position: relative;
+      top: 4px;
 
       a {
         width: 25px;
@@ -162,7 +164,6 @@
 
     #years_range {
       //position: relative;
-      float: left;
     }
   }
 
