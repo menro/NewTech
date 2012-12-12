@@ -292,17 +292,31 @@
           radius: radius
         };
         countyCircles[nCountyCircles] = new google.maps.Circle(circleOptions);
-        google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function() {
-          onCountySelected(county, circlePosition);
-        });
-        google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseover', function() {
-          setCountySummaryBoxStyle("bottom-left-2");
-          drawRetrievedCountySummaryBox(county);
-        });
-        //remove county box when moouse goes out of the circle
-        google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseout', function() {
-          $('#box-summary-county').hide();
-        });
+
+        if('ontouchend' in document) {
+          google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function() {
+            if($("#box-summary-county").data("current_county_id") != county.id) {
+              setCountySummaryBoxStyle("bottom-left-2");
+              drawRetrievedCountySummaryBox(county);
+            }
+            else {
+              onCountySelected(county, circlePosition);
+            }
+          });
+        }
+        else {
+          google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function() {
+            onCountySelected(county, circlePosition);
+          });
+          google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseover', function() {
+            setCountySummaryBoxStyle("bottom-left-2");
+            drawRetrievedCountySummaryBox(county);
+          });
+          //remove county box when moouse goes out of the circle
+          google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseout', function() {
+            $('#box-summary-county').hide();
+          });
+        }
         nCountyCircles++;
       });
 
@@ -338,6 +352,7 @@
   function drawRetrievedCountySummaryBox(county, positionStyle) {
     var boxSummaryCounty = $('#box-summary-county');
     boxSummaryCounty.html($('#county-box_tpl').tmpl(county));
+    boxSummaryCounty.data("current_county_id", county.id);
     boxSummaryCounty.show();
   }
 
