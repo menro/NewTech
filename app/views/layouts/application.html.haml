@@ -14,6 +14,8 @@
     = csrf_meta_tags
   %body
     %header.navbar
+      %div#events_bar
+        = yield(:eventsbar)
       %nav.navbar-inner
         .container-fluid
           .pull-left

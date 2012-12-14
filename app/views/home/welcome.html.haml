@@ -6,6 +6,48 @@
   %form#search_form.navbar-search
     %input#search_query.search-query.span3{:placeholder => "search for a company..."}
 
+= content_for :eventsbar do
+  %h2.bar_title
+    Upcoming Events
+  %div.events-accordion
+    %ul.event-list
+      %li.event-item
+        %div.event-item-inner
+          .main
+            .title
+              Boulder October 2nd
+            425 registered and 50 on waiting list
+          .status.attending
+      %li.event-item
+        %div.event-item-inner
+          .main
+            .title
+              Boulder October 2nd
+            425 registered and 50 on waiting list
+          .status.rsvp
+      %li.event-item
+        %div.event-item-inner
+          .main
+            .title
+              Boulder October 2nd
+            425 registered and 50 on waiting list
+          .status.rsvp
+    %ul.attendees-list
+      %li.attendee-item
+        %img.attendee-image{:src => "assets/sample.jpg"}
+        Greg Furman RSVPed Yes for the New Tech Denver
+      %li.attendee-item
+        %img.attendee-image{:src => "assets/sample.jpg"}
+        Greg Furman RSVPed Yes for the New Tech Denver
+      %li.attendee-item
+        %img.attendee-image{:src => "assets/sample.jpg"}
+        Greg Furman RSVPed Yes for the New Tech Denver
+      %li.attendee-item
+        %img.attendee-image{:src => "assets/sample.jpg"}
+        Greg Furman RSVPed Yes for the New Tech Denver
+      %li.attendee-item
+        %img.attendee-image{:src => "assets/sample.jpg"}
+        Greg Furman RSVPed Yes for the New Tech Denver
 
 = render :partial => 'filters'
 
