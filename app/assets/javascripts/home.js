@@ -509,7 +509,7 @@
     }
 
   function setEventsBarListener() {
-      $('#events_bar .bar_title').click(function(e){
+      $('#events_bar .bar_title .title').click(function(e){
         e.preventDefault();
         var accordion = $('#events_bar .events-accordion');
         if(!accordion.height()) {

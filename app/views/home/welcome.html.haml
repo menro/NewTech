@@ -8,7 +8,21 @@
 
 = content_for :eventsbar do
   %h2.bar_title
-    Upcoming Events
+    %span.title
+      Upcoming Events
+    %ul.social
+      %li
+        %a{:href => "#"}
+          %img{:src => "assets/g.png"}
+      %li
+        %a{:href => "#"}
+          %img{:src => "assets/twitter.png"}
+      %li
+        %a{:href => "#"}
+          %img{:src => "assets/facebook.png"}
+      %li
+        %a{:href => "#"}
+          %img{:src => "assets/linkedin.png"}
   %div.events-accordion
     %ul.event-list
       %li.event-item

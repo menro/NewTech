@@ -94,8 +94,25 @@
 
 #events_bar h2.bar_title {
   text-align: center;
+}
+
+#events_bar h2.bar_title span.title {
   cursor: pointer;
   cursor: hand;
+}
+
+#events_bar ul.social {
+  float: right;
+  list-style: none;
+  margin: .25em 0 0 0;
+  padding: 0;
+}
+
+#events_bar ul.social li {
+  list-style: none;
+  margin: 0 .5em;
+  padding: 0;
+  float: left;
 }
 
 #events_bar .events-accordion {
