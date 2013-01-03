@@ -509,17 +509,21 @@
     }
 
   function setEventsBarListener() {
+      var accordion = $('#events_bar .events-accordion');
+      var height = $('ul.event-list', accordion).outerHeight(true) + $('ul.attendees-list', accordion).outerHeight(true);
+      accordion.css({height: height + "px"}, 250);
+      $('.gmap_wrapper, #company-list').css({top: (138 + height) + "px"}, 250);
+
       $('#events_bar .bar_title .title').click(function(e){
         e.preventDefault();
-        var accordion = $('#events_bar .events-accordion');
+
         if(!accordion.height()) {
-          var height = $('ul.event-list', accordion).outerHeight(true) + $('ul.attendees-list', accordion).outerHeight(true);
           accordion.animate({height: height + "px"}, 250);
-          $('.gmap_wrapper').animate({top: (138 + height) + "px"}, 250);
+          $('.gmap_wrapper, #company-list').animate({top: (138 + height) + "px"}, 250);
         }
         else {
           accordion.animate({height: "0px"}, 250);
-          $('.gmap_wrapper').animate({top: 138 + "px"}, 250);
+          $('.gmap_wrapper, #company-list').animate({top: 138 + "px"}, 250);
         }
       });
     }
