@@ -384,7 +384,7 @@
 
 #tooltip {
   position: absolute;
-  width: 614px;
+  width: 688px;
   top: 10px;
   left: -307px;
   background-color: #7895A4;
@@ -399,8 +399,23 @@
   //z-index: -999;
 }
 
-button.close {
-  color: #000000;
+#tooltip h2 {
+  font-size: 27px;
+  line-height: 29px;
+  margin-top: 5px;
+}
+
+#tooltip hr {
+  margin: 5px 0;
+  border-top: 0;
+}
+
+#tooltip button.close {
+  color: #ffffff;
+  opacity: 0.8;
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
 
 // STYLES FOR COMPANY LIST
