@@ -102,9 +102,10 @@
 }
 
 #events_bar ul.social {
-  float: right;
+  position: absolute;
+  top: .6em;
+  right: 0em;
   list-style: none;
-  margin: .25em 0 0 0;
   padding: 0;
 }
 

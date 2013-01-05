@@ -514,16 +514,20 @@
       accordion.css({height: height + "px"}, 250);
       $('.gmap_wrapper, #company-list').css({top: (138 + height) + "px"}, 250);
 
-      $('#events_bar .bar_title .title').click(function(e){
+      $('#events_bar .bar_title .title, #events_bar #events_switch').click(function(e){
         e.preventDefault();
 
         if(!accordion.height()) {
           accordion.animate({height: height + "px"}, 250);
           $('.gmap_wrapper, #company-list').animate({top: (138 + height) + "px"}, 250);
+
+          $("#events_bar #events_switch img").attr("src", "assets/close.png");
         }
         else {
           accordion.animate({height: "0px"}, 250);
           $('.gmap_wrapper, #company-list').animate({top: 138 + "px"}, 250);
+
+          $("#events_bar #events_switch img").attr("src", "assets/open.png");
         }
       });
     }
