@@ -538,6 +538,9 @@
       setcategoryNameListener();
       setTagMenuListener();
       setEventsBarListener();
+
+      $('#tooltip').css("left", (document.body.offsetWidth / 2 - 344) + "px");
+
       return $('.gmap').each(function() {
           return GMap.init(this);
       });
