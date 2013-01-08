@@ -126,6 +126,7 @@
   margin: 1em 0 .5em;
   padding: 0;
   list-style-image: none;
+  min-width: 960px;
 }
 
 #events_bar li.event-item {
@@ -139,6 +140,11 @@
 #events_bar li.event-item .event-item-inner {
   text-align: left;
   display: inline-block;
+}
+
+#events_bar li.event-item .event-item-inner a {
+    color: #063640;
+    text-decoration: none;
 }
 
 #events_bar li.event-item .event-item-inner .main {

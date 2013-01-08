@@ -511,13 +511,10 @@
   function setEventsBarListener() {
       var accordion = $('#events_bar .events-accordion'), eventList = $('#events_bar ul.event-list');
       var height = eventList.outerHeight(true);
-      accordion.css({height: height + "px"}, 250);
+      accordion.css({height: height + "px"});
+      eventList.css({height: height + "px"});
 
-      var width = 0;
-      $("li", eventList).each(function() { width += this.offsetWidth; });
-      eventList.css({height: height + "px", width: width + "px"}, 250);
-
-      $('.gmap_wrapper, #company-list').css({top: (138 + height) + "px"}, 250);
+      $('.gmap_wrapper, #company-list').css({top: (138 + height) + "px"});
 
       $('#events_bar .bar_title .title, #events_bar #events_switch').click(function(e){
         e.preventDefault();

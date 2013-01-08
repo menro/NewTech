@@ -28,27 +28,14 @@
           %img{:src => "assets/close.png"}
   %div.events-accordion
     %ul.event-list
-      %li.event-item
-        %div.event-item-inner
-          .main
-            .title
-              Boulder October 2nd
-            425 registered and 50 on waiting list
-          .status.rsvp
-      %li.event-item
-        %div.event-item-inner
-          .main
-            .title
-              Boulder October 2nd
-            425 registered and 50 on waiting list
-          .status.rsvp
-      %li.event-item
-        %div.event-item-inner
-          .main
-            .title
-              Boulder October 2nd
-            425 registered and 50 on waiting list
-          .status.rsvp
+      - @events.each do |event|
+        %li.event-item
+          %div.event-item-inner
+            %a{:href => event.preview, :target => "_blank"}
+              .main
+                .title=event.title
+                .text=event.start_at.to_time.strftime("%B %e %l.%M%p")
+              .status.rsvp
 
 = render :partial => 'filters'
 
