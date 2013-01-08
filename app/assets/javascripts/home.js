@@ -509,9 +509,14 @@
     }
 
   function setEventsBarListener() {
-      var accordion = $('#events_bar .events-accordion');
-      var height = $('ul.event-list', accordion).outerHeight(true) + $('ul.attendees-list', accordion).outerHeight(true);
+      var accordion = $('#events_bar .events-accordion'), eventList = $('#events_bar ul.event-list');
+      var height = eventList.outerHeight(true);
       accordion.css({height: height + "px"}, 250);
+
+      var width = 0;
+      $("li", eventList).each(function() { width += this.offsetWidth; });
+      eventList.css({height: height + "px", width: width + "px"}, 250);
+
       $('.gmap_wrapper, #company-list').css({top: (138 + height) + "px"}, 250);
 
       $('#events_bar .bar_title .title, #events_bar #events_switch').click(function(e){
