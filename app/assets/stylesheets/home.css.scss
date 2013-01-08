@@ -118,24 +118,33 @@
 
 #events_bar .events-accordion {
   overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-#events_bar ul.event-list, #events_bar ul.attendees-list {
+#events_bar ul.event-list {
   margin: 1em 0 .5em;
   padding: 0;
   list-style-image: none;
+  min-width: 960px;
 }
 
-#events_bar li.event-item, #events_bar li.attendee-item {
+#events_bar li.event-item {
   list-style-image: none;
   display: inline-block;
   width: 33%;
+  min-width: 310px;
   text-align: center;
 }
 
 #events_bar li.event-item .event-item-inner {
   text-align: left;
   display: inline-block;
+}
+
+#events_bar li.event-item .event-item-inner a {
+    color: #063640;
+    text-decoration: none;
 }
 
 #events_bar li.event-item .event-item-inner .main {
@@ -161,31 +170,12 @@
   left: 2px;
 }
 
-#events_bar li.event-item .event-item-inner .status.attending {
-  background-color: #77949B;
-}
-#events_bar li.event-item .event-item-inner .status.attending:before {
-  content: "I'm Attending";
-}
-
 #events_bar li.event-item .event-item-inner .status.rsvp {
   background-color: #0A3545;
   color: white;
 }
 #events_bar li.event-item .event-item-inner .status.rsvp:before {
   content: "RSVP";
-}
-
-#events_bar li.attendee-item {
-  width: 18%;
-  font-size: .9em;
-  text-align: left;
-  margin-left: 1.5%;
-}
-
-#events_bar li.attendee-item img.attendee-image {
-  float: left;
-  margin-right: 5px;
 }
 
 .navbar-search {
