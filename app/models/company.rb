@@ -92,7 +92,7 @@ class Company < ActiveRecord::Base
         }
 
   def number_of_employees
-    employees_type.name
+    employees_type.name rescue 0
   end
 
   def tags_list
