@@ -5,6 +5,7 @@ class HomeController < ApplicationController
     @categories=CategoryService.all
     @employees_types = EmployeesTypeService::all
     @investments_types = InvestmentsTypeService::all
+    @events = EventService.all
   end
 
 end
