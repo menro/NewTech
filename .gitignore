@@ -33,3 +33,7 @@ config/initializers/paperclip.rb
 
 # Mysql2PSQL
 mysql2psql.yml
+
+# mac's files
+.DS_Store
+
