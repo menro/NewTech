@@ -197,12 +197,10 @@
 }
 
 #search_form {
-  min-width: 100px;
   display: block;
-  margin-left: 555px;
-  margin-right: 170px;
   float: none;
   text-align: center;
+  overflow: hidden;
 }
 
 .navbar-search .search-query:focus, .navbar-search .search-query.focused {
