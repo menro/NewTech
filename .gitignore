@@ -10,22 +10,23 @@
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
-# Ingore variables configuration files
+# Ignore variables configuration files
 database.yml
 .env*
+.powenv
 
-# Ingore IDE confifurations
+# Ignore IDE configurations
 .idea
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
 
-# Ingore capistrano configuration files
+# Ignore capistrano configuration files
 Capfile
 config/deploy.rb
 
-# Ingore uploads dir
+# Ignore uploads dir
 uploads/
 
 # Paperclip
