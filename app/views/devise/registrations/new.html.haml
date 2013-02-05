@@ -1,6 +1,6 @@
 .span8.pull-left
   = simple_form_for(resource, :validate => true, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'well form form-horizontal registration-box' }) do |f|
-    %h2 Your Awesome - Check your email to Confirm
+    %h2 You're Awesome - Check your email to Confirm
     .inputs
       = f.text_field :username, :class => "text top", :placeholder => "Username"
       = f.text_field :email, :class => "text top", :placeholder => "Email"
