@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121001205235) do
+ActiveRecord::Schema.define(:version => 20130205222624) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -135,6 +135,24 @@ ActiveRecord::Schema.define(:version => 20121001205235) do
   end
 
   add_index "investments_types", ["name"], :name => "index_investments_types_on_name"
+
+  create_table "jobs", :force => true do |t|
+    t.string   "title"
+    t.string   "kind"
+    t.string   "role"
+    t.string   "skills"
+    t.integer  "salary_low"
+    t.integer  "salary_high"
+    t.string   "address"
+    t.string   "city"
+    t.string   "zip_code"
+    t.integer  "company_id"
+    t.integer  "city_id"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "roles", :force => true do |t|
     t.string   "name"

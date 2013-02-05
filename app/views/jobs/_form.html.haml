@@ -1,0 +1,21 @@
+.span12.new_company
+  .span6
+    .well
+      .form-inputs.row
+        = f.association :company, :label_method => :name, :collection => CompanyService::find_all_by_user(current_user)
+        = f.input :title, :as => :string
+        = f.input :kind, :label => "Type", :as => :radio_buttons, collection: JobService::types
+        = f.input :role, :as => :radio_buttons, collection: JobService::roles
+        = f.input :skills,  :as => :string
+        = f.input :salary_low, label: "Salary (Low)"
+        = f.input :salary_high, label: "Salary (High)"
+        = f.input :address, :label => "Address", :as => :string, hint: 'Optional'
+        = f.association :city, :label_method => :name_for_select, :collection => CityService::all, hint: 'Optional'
+        = f.input :zip_code,  :as => :string, hint: 'Optional'
+
+  %br
+  .control-group
+    .controls
+      .actions
+        = f.submit 'Save', class: "btn btn-success btn-save"
+

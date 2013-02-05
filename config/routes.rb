@@ -18,16 +18,17 @@ Newtech::Application.routes.draw do
   end
 
   resources :companies  do
-      member do
-        delete "image/destroy", :as => "image_destroy", :to => "companies#destroy_image"
-      end
+    member do
+      delete "image/destroy", :as => "image_destroy", :to => "companies#destroy_image"
     end
+  end
+
+  resources :jobs
 
   devise_for :users, :controllers => { :registrations => :registrations }
   get "email_confirmation" => "home#email_confirmation", :as => "email_confirmation"
-#
+
   # Profile Area
-  #
   get "profile/account" => "profile#account"
   put "profile/password" => "profile#password_update"
   get "profile" => "profile#show"

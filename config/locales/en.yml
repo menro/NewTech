@@ -7,6 +7,7 @@ en:
     account:
       companies: "Companies"
       profile: "Profile"
+      jobs: "Jobs"
       logout: "Logout"
     home: "newtech"
     present: "Present"
