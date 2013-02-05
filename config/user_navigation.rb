@@ -14,6 +14,9 @@ SimpleNavigation::Configuration.run do |navigation|
         account.item :companies, content_tag(:i, nil, :class => 'icon-folder-open icon-large') << t(:'simple_navigation.account.companies'),
                      companies_path
 
+        account.item :jobs, content_tag(:i, nil, :class => 'icon-briefcase icon-large') << t(:'simple_navigation.account.jobs'),
+                     jobs_path
+
         if current_user.is_admin?
           account.item :admin, content_tag(:i, nil, :class => 'icon-cogs') << t(:'simple_navigation.admin'), admin_dashboard_path
         end
