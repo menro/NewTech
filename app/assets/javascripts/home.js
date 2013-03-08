@@ -76,6 +76,12 @@
 
   function refreshMap(container) {
     var zoomLevel = currentMap.getZoom();
+    if(zoomLevel == 7){
+       $('#box-events-list').fadeIn(1000);
+     }
+     else{
+       $('#box-events-list').fadeOut(1000);
+    }
     if (zoomLevel <= 8) {
       clearCompanyOffices();
       clearCountyCircles();
