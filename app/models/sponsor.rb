@@ -32,6 +32,7 @@ class Sponsor < ActiveRecord::Base
   end
 
   def self.get_randomly
+    return '' if Sponsor.count == 0
     id = 0
     ids = Sponsor.select('id').collect(&:id)
     id = ids[Random.rand(ids.count+1)] while id == 0 || id.blank?
