@@ -99,6 +99,9 @@ class Company < ActiveRecord::Base
     tags.map(&:code).join(", ")
   end
 
+  def self.get_recent_companies(limit=5)
+    Company.order("created_at desc").limit(limit)
+  end
 
   private
   def attach_county

@@ -51,6 +51,7 @@ group :development do
    # Deploy with Capistrano
    gem 'capistrano'
    gem 'rvm-capistrano'
+   gem 'therubyracer'
 end
 
 group :development, :production do
@@ -81,4 +82,5 @@ gem "draper"
 # Geokit
 gem 'geokit-rails3'
 
-
+# Heroku deployment
+gem 'heroku'

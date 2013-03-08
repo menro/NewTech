@@ -530,3 +530,84 @@ table.summary-table td.summary-numbers {
   padding-right: 10px;
   text-align: right;
 }
+
+// Event list styling
+
+
+#box-events-list {
+    width: 200px;
+    height: auto;
+    float: right;
+    margin-right: 10px;
+    bottom: 10px;
+    text-align: center;
+    position: fixed;
+    display: block;
+    vertical-align: bottom;
+    right: -5px;
+    border-width: 4px;
+    border-color: maroon    ;
+    border-style: solid;
+    padding-top: 15px;
+    border-radius: 2px;
+    padding-left: 15px;
+}
+#event-box {
+    background-color: white;
+    opacity: 0.8;
+    box-shadow: 4px 4px 2px #999;
+    width: 95%;
+    height: 70%;
+    border: 2px solid #7895A4;
+    padding-bottom: 5px;
+}
+#sponsor-box {
+    background-color: white;
+    opacity: 0.8;
+    box-shadow: 4px 4px 2px #999;
+    width: 95%;
+    height: 100px;
+    margin-top: 5%;
+    border: 2px solid #7895A4;
+    margin-bottom: 10px;
+}
+.company-item{
+    padding-left: 2px;
+    padding-top: 2px;
+    margin-top: 0px;
+    height: 34px;
+}
+.company-thumb {
+    width: 22%;
+    float: left;
+    margin-left: 2px;
+    margin-top: 2px;
+    margin-right: 10px;
+}
+#updates-header{
+    width: 100%;
+    height: 10%;
+    padding-top: 5px;
+    margin-bottom: 5px;
+}
+#updates-header h3, #sponsor-heading h3, #sponsor-name h3{
+    font-size: 17px;
+    line-height: 20px;
+    font-weight: bolder;
+    color: #7895A4;
+    font-style: inherit;
+    text-shadow: black 0.1em 0.1em 0.1em;
+}
+.company-desc h4{
+    font-size: 14px;
+    text-align: left;
+}
+.company-desc h6{
+    font-size: 11px;
+    color: #999;
+    text-transform: none;
+    text-align: left;
+}
+.company-desc{
+
+}

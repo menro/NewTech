@@ -6,6 +6,8 @@ class HomeController < ApplicationController
     @employees_types = EmployeesTypeService::all
     @investments_types = InvestmentsTypeService::all
     @events = EventService.all
+    @recent_companies = Company.get_recent_companies
+    @sponsor = Sponsor.get_randomly
   end
 
 end

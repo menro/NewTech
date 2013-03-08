@@ -1,0 +1,8 @@
+.company-item
+  .company-thumb
+    = image_tag company.image, :height => "30px", :width => "30px"
+  .company-desc
+    %h4
+      = company.name
+    %h6
+      = company.county.name
