@@ -545,12 +545,13 @@ table.summary-table td.summary-numbers {
     display: block;
     vertical-align: bottom;
     right: -5px;
-    border-width: 4px;
-    border-color: maroon    ;
-    border-style: solid;
-    padding-top: 15px;
-    border-radius: 2px;
-    padding-left: 15px;
+    //border-width: 4px;
+    //border-color: maroon    ;
+    //border-style: solid;
+    //padding-top: 15px;
+    //border-radius: 2px;
+    //padding-left: 15px;
+    display: none;
 }
 #event-box {
     background-color: white;
@@ -590,23 +591,30 @@ table.summary-table td.summary-numbers {
     padding-top: 5px;
     margin-bottom: 5px;
 }
-#updates-header h3, #sponsor-heading h3, #sponsor-name h3{
+#updates-header h3, #sponsor-heading h4, #sponsor-name h3{
     font-size: 17px;
     line-height: 20px;
     font-weight: bolder;
     color: #7895A4;
     font-style: inherit;
-    text-shadow: black 0.1em 0.1em 0.1em;
+    text-shadow: white 0.1em 0.1em 0.1em;
+}
+#sponsor-heading{
+    padding-top: 4px;
 }
 .company-desc h4{
-    font-size: 14px;
+    font-size: 15px;
     text-align: left;
+    font-weight: normal;
+    color: black;
 }
 .company-desc h6{
     font-size: 11px;
     color: #999;
     text-transform: none;
     text-align: left;
+    margin-top: -3px;
+    font-weight: normal;
 }
 .company-desc{
 }
