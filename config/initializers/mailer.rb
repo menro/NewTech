@@ -1,4 +1,5 @@
 ActionMailer::Base.delivery_method = configatron.email.delivery_method
+ActionMailer::Base.perform_deliveries = false
 ActionMailer::Base.default_url_options = { :host => configatron.host.present? ? configatron.host : 'localhost:3000' }
 
 ActionMailer::Base.smtp_settings = {
