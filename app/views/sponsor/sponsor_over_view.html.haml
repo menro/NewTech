@@ -1,0 +1,81 @@
+= stylesheet_link_tag "sponsor"
+= javascript_include_tag "home.js"
+= content_for :javascripts do
+  = javascript_include_tag("https://maps.googleapis.com/maps/api/js?sensor=false")
+  = javascript_include_tag("http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.5/src/markerwithlabel.js")
+
+= content_for :navbar_extras do
+  %form#search_form.navbar-search
+    %input#search_query.search-query.span3{:placeholder => "search for a company..."}
+
+= content_for :eventsbar do
+  %h2.bar_title
+    %span.title
+      Upcoming Events
+    %ul.social
+      %li
+        %a{:href => "https://plus.google.com/u/0/communities/112853241608609044498", :target => "_blank"}
+          %img{:src => "assets/g.png"}
+      %li
+        %a{:href => "http://www.twitter.com/bdnt", :target => "_blank"}
+          %img{:src => "assets/twitter.png"}
+      %li
+        %a{:href => "http://www.facebook.com/bdnewtech", :target => "_blank"}
+          %img{:src => "assets/facebook.png"}
+      %li
+        %a{:href => "http://www.linkedin.com/groups/Boulder-Denver-New-Tech-BDNT-134062/about", :target => "_blank"}
+          %img{:src => "assets/linkedin.png"}
+      %li
+        %a{:href => "#", :id => "events_switch"}
+          %img{:src => "assets/close.png"}
+  %div.events-accordion
+    %ul.event-list
+      - @events.each do |event|
+        %li.event-item
+          %div.event-item-inner
+            %a{:href => event.preview, :target => "_blank"}
+              .main
+                .title=event.title
+                .text=event.start_at.to_time.strftime("%B %e %l.%M%p")
+              .status.rsvp
+
+#content-body
+  %br
+  %h1 NEW TECH IS A COMMUNITY OF OVER 9,000 GEEKS WHO LIVE AND WORK IN COLORADO.
+  %h2 Interested in sponsoring New Tech
+  %h4 Event Sponsor - $1,500 for 3 months - includes:
+  %h4  1) Corporate name and description in the email blasts that go to the complete membership
+  %h4  2) Sponsor highlight during announcement section
+  %h4  3) Your ad rotated on the www.bdnewtech.com home page
+  %h4  4) 1 sponsored video
+  %br
+  %h4  Video Sponsorship - $2,500 for a 3 months - inlcudes:
+  %h4  1) Same as Event sposnor plus
+  %h4  2) 2 sponsored videos per month
+  %br
+
+  = render :partial => 'sponsor/pay_now'
+
+  #pay-now
+    %table{:border => "0", :cellpadding=>"0", :cellspacing=>"0", :width=>"100%", :class => "table"}
+      %tr
+        = form_tag 'https://authorize.payments.amazon.com/pba/paypipeline', :method=> :post do
+          = hidden_field_tag 'returnUrl','', :value => 'http://bdnt.org'
+          = hidden_field_tag 'processImmediate','', :value => '1'
+          = hidden_field_tag 'accessKey', '', :value => '11SEM03K88SD016FS1G2'
+          = hidden_field_tag 'signatureMethod','', :value => 'HmacSHA256'
+          = hidden_field_tag 'collectShippingAddress', '',  :value => '0'
+          = hidden_field_tag 'isDonationWidget','',   :value => '1'
+          = hidden_field_tag 'amazonPaymentsAccountId','',   :value => 'JCHIRVGOTJAV5J5ME81P7S2HL9CLSE5S1GUKUI'
+          = hidden_field_tag 'referenceId','',   :value => 'Nehw Tech'
+          = hidden_field_tag 'cobrandingStyle', '',  :value => 'logo'
+          = hidden_field_tag 'immediateReturn','',  :value => '1'
+          = hidden_field_tag 'abandonUrl', '',  :value => 'http://bdnt.org'
+          = hidden_field_tag 'signatureVersion','',  :value => '2'
+          = hidden_field_tag 'signature','',   :value => 'rneZuV3eFNUsXrtdQff+rwY8SDcF2fVOdc8RviC6Cxs='
+          %td
+            $&nbsp;
+          %td
+            = text_field_tag 'amount', '', :size => "8"
+          %td
+            = image_submit_tag 'http://g-ecx.images-amazon.com/images/G/01/asp/golden_small_donate_withlogo_whitebg.gif', :border => "0"

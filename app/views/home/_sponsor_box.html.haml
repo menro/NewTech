@@ -1,5 +1,6 @@
 #sponsor-heading
-  %h4 SPONSOR
+  %h4 
+    = link_to 'SPONSOR', sponsor_view_path
 - unless @sponsor.blank?
   #sponsor-logo
     = link_to (image_tag @sponsor.get_image, :width => '50px', :height => '50px'), url_with_protocol(@sponsor.url), :target => '_blank'

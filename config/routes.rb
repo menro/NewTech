@@ -1,5 +1,7 @@
 Newtech::Application.routes.draw do
 
+  get "/sponsor_over_view" => "sponsor#sponsor_over_view", :as => "sponsor_view"
+
   ActiveAdmin.routes(self)
 
   resource :api, :path => "api/v1", :as => "api_v1", :controller => "api", :only => [] do
