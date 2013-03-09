@@ -30,7 +30,7 @@
         streetViewControl: false,
         overviewMapControl: false,
         minZoom: 7,
-        zoom: 8,
+        zoom: 7,
         scrollwheel: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         styles:
@@ -63,6 +63,7 @@
           refreshMap(container)
       });
       drawCountyCircles(container);
+      load_recent_box(7);
     }
 
     GMap.init = function(container) {
@@ -76,12 +77,7 @@
 
   function refreshMap(container) {
     var zoomLevel = currentMap.getZoom();
-    if(zoomLevel == 7){
-       $('#box-events-list').fadeIn(1000);
-     }
-     else{
-       $('#box-events-list').fadeOut(1000);
-    }
+    load_recent_box(zoomLevel);
     if (zoomLevel <= 8) {
       clearCompanyOffices();
       clearCountyCircles();
@@ -94,6 +90,15 @@
     }
     //refreshTags(container);
     refreshFilterMenus(container);
+  }
+
+  function load_recent_box(zoomLevel){
+    if(zoomLevel == 7){
+       $('#box-events-list').fadeIn(500);
+     }
+     else{
+       $('#box-events-list').hide("fast");
+    }
   }
 
   function refreshFilterMenus(container) {
