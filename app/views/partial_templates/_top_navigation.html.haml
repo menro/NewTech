@@ -1,0 +1,39 @@
+= javascript_include_tag "home.js"
+= content_for :javascripts do
+  = javascript_include_tag("https://maps.googleapis.com/maps/api/js?sensor=false")
+  = javascript_include_tag("http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.5/src/markerwithlabel.js")
+
+= content_for :navbar_extras do
+  %form#search_form.navbar-search
+    %input#search_query.search-query.span3{:placeholder => "search for a company..."}
+
+= content_for :eventsbar do
+  %h2.bar_title
+    %span.title
+      Upcoming Events
+    %ul.social
+      %li
+        %a{:href => "https://plus.google.com/u/0/communities/112853241608609044498", :target => "_blank"}
+          %img{:src => "assets/g.png"}
+      %li
+        %a{:href => "http://www.twitter.com/bdnt", :target => "_blank"}
+          %img{:src => "assets/twitter.png"}
+      %li
+        %a{:href => "http://www.facebook.com/bdnewtech", :target => "_blank"}
+          %img{:src => "assets/facebook.png"}
+      %li
+        %a{:href => "http://www.linkedin.com/groups/Boulder-Denver-New-Tech-BDNT-134062/about", :target => "_blank"}
+          %img{:src => "assets/linkedin.png"}
+      %li
+        %a{:href => "#", :id => "events_switch"}
+          %img{:src => "assets/close.png"}
+  %div.events-accordion
+    %ul.event-list
+      - @events.each do |event|
+        %li.event-item
+          %div.event-item-inner
+            %a{:href => event.preview, :target => "_blank"}
+              .main
+                .title=event.title
+                .text=event.start_at.to_time.strftime("%B %e %l.%M%p")
+              .status.rsvp

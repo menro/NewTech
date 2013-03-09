@@ -1,6 +1,14 @@
 class SponsorController < ApplicationController
 
+  before_filter :load_service_data
+
   def sponsor_over_view
+  end
+
+  def thanks
+  end
+
+  def load_service_data
     @tags=TagService.tags_for_cloud
     @categories=CategoryService.all
     @employees_types = EmployeesTypeService::all

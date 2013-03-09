@@ -1,6 +1,7 @@
 Newtech::Application.routes.draw do
 
   get "/sponsor_over_view" => "sponsor#sponsor_over_view", :as => "sponsor_view"
+  get "/thanks" => "sponsor#thanks", :as => "thanks"
 
   ActiveAdmin.routes(self)
 
