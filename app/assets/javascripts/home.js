@@ -16,7 +16,7 @@
   GMap = (function() {
 
     function GMap(container) {
-
+        $(window).resize(function(){updateRecentBox();});
       // Initialize Google Map
       var defaultOptions;
       defaultOptions = {
@@ -63,7 +63,7 @@
           refreshMap(container)
       });
       drawCountyCircles(container);
-      load_recent_box(7);
+      loadRecentBox(7);
     }
 
     GMap.init = function(container) {
@@ -77,7 +77,7 @@
 
   function refreshMap(container) {
     var zoomLevel = currentMap.getZoom();
-    load_recent_box(zoomLevel);
+    loadRecentBox(zoomLevel);
     if (zoomLevel <= 8) {
       clearCompanyOffices();
       clearCountyCircles();
@@ -92,13 +92,33 @@
     refreshFilterMenus(container);
   }
 
-  function load_recent_box(zoomLevel){
-    if(zoomLevel == 7){
+  function loadRecentBox(zoomLevel){
+      if(isMobileDevice()){return;}
+    if(zoomLevel == 7 && $(window).height() > 594){
        $('#box-events-list').fadeIn(500);
      }
      else{
        $('#box-events-list').hide("fast");
     }
+  }
+
+  function updateRecentBox(){
+      console.log('Resizing...'+currentMap.getZoom()+$(window).height())
+      if(currentMap.getZoom() == 7){
+          if($(window).height() < 594){
+              $('#box-events-list').hide("fast");
+          }
+          else{
+              $('#box-events-list').fadeIn(500);
+          }
+      }
+  }
+
+  function isMobileDevice(){
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+       return true;
+    }
+    return false;
   }
 
   function refreshFilterMenus(container) {
