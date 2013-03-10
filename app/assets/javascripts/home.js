@@ -30,7 +30,7 @@
         streetViewControl: false,
         overviewMapControl: false,
         minZoom: 7,
-        zoom: 7,
+        zoom: 8,
         scrollwheel: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         styles:
@@ -63,7 +63,7 @@
           refreshMap(container)
       });
       drawCountyCircles(container);
-      loadRecentBox(7);
+      loadRecentBox(8);
     }
 
     GMap.init = function(container) {
@@ -94,7 +94,7 @@
 
   function loadRecentBox(zoomLevel){
       if(isMobileDevice()){return;}
-    if(zoomLevel == 7 && $(window).height() > 594){
+    if(zoomLevel <= 8 && $(window).height() > 594){
        $('#box-events-list').fadeIn(500);
      }
      else{
@@ -103,8 +103,7 @@
   }
 
   function updateRecentBox(){
-      console.log('Resizing...'+currentMap.getZoom()+$(window).height())
-      if(currentMap.getZoom() == 7){
+      if(currentMap.getZoom() <= 8){
           if($(window).height() < 594){
               $('#box-events-list').hide("fast");
           }
