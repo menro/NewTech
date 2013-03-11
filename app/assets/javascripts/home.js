@@ -16,12 +16,12 @@
   GMap = (function() {
 
     function GMap(container) {
-        var supportsOrientationChange = "onorientationchange" in window,
-        orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
-
-        window.addEventListener(orientationEvent, function() {
-            updateRecentBox();
-        }, false);
+        $(window).bind('orientationchange',function(e) {
+          updateRecentBox();
+        });
+        $(window).bind('resize',function(e) {
+          updateRecentBox();
+        });
 //        $(window).resize(function(){updateRecentBox();});
       // Initialize Google Map
       var defaultOptions;
