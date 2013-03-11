@@ -95,6 +95,8 @@
   function loadRecentBox(zoomLevel){
       if(isMobileDevice()){return;}
     if(zoomLevel <= 8 && $(window).height() > 594){
+      $('#company-list').hide();
+      $('#companies-header').hide();
        $('#box-events-list').fadeIn(500);
      }
      else{
@@ -108,6 +110,8 @@
               $('#box-events-list').hide("fast");
           }
           else{
+              $('#company-list').hide();
+              $('#companies-header').hide();
               $('#box-events-list').fadeIn(500);
           }
       }
