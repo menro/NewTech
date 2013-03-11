@@ -93,7 +93,7 @@
   }
 
   function loadRecentBox(zoomLevel){
-      if(isMobileDevice()){return;}
+      if(isMobileDevice()){$('#box-events-list').hide("fast");return;}
     if(zoomLevel <= 8 && $(window).height() > 594){
       $('#company-list').hide();
       $('#companies-header').hide();
