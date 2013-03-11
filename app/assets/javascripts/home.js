@@ -111,6 +111,9 @@
               $('#box-events-list').fadeIn(500);
           }
       }
+      else{
+          $('#box-events-list').hide("fast");
+      }
   }
 
   function isMobileDevice(){
@@ -548,7 +551,7 @@
 
       $('#events_bar .bar_title .title, #events_bar #events_switch').click(function(e){
         e.preventDefault();
-
+        $('#box-events-list').hide("fast");
         if(!accordion.height()) {
           accordion.animate({height: height + "px"}, 250);
           $('.gmap_wrapper, #company-list').animate({top: (138 + height) + "px"}, 250);
