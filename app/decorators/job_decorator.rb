@@ -58,4 +58,8 @@ class JobDecorator < Draper::Base
     created_at.to_date.to_s(:long)
   end
 
+  def expires_date
+    expires_on.to_date.to_s(:long)
+  end
+
 end

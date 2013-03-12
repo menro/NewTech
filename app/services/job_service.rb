@@ -72,6 +72,7 @@ class JobService
 
   def self.search(params)
     jobs = Job.scoped.joins(:company)
+    jobs = jobs.currently_running
     jobs = jobs.title_like params[:title] unless params[:title].blank?
     jobs = jobs.tagged_as params[:tag_code] unless params[:tag_code].blank?
     jobs = jobs.employee_type(params[:employee_id]) unless params[:employee_id].blank?

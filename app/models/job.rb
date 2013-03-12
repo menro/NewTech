@@ -1,8 +1,11 @@
 class Job < ActiveRecord::Base
-  attr_accessible :address, :city_id, :kind, :role, :salary_high, :salary_low, :skills, :title, :zip_code, :latitude, :longitude
+  attr_accessible :address, :city_id, :kind, :role, :salary_high, :salary_low, :skills, :title, :zip_code, :latitude, :longitude, :expires_on
 
   belongs_to :company
   belongs_to :city
+
+  scope :currently_running,
+        lambda { where("jobs.created_at > ?", 30.days.ago) }
 
   scope :title_like,
         lambda {|title|

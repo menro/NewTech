@@ -1,11 +1,14 @@
 %table.table.table-striped.table-bordered.table-condensed
   %thead
     %th Title
+    %th Expires On
     %th.cred Actions
+
 
   - @jobs.each do |job|
     %tr
       %td= job.title
+      %td= job.expires_date
       %td.actions
         = link_to content_tag(:i, nil, :class => 'icon-edit icon-large'), [ :edit, job ], id: "edit_#{job.id}", class: "btn small"
         = link_to content_tag(:i, nil, :class => 'icon-trash icon-large'), job, method: :delete, id: "edit_#{job.id}", class: "btn small", :confirm => 'are you sure?'
