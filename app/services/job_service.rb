@@ -15,23 +15,11 @@ class JobService
   end
 
   def self.create_by_user(user, attributes)
-    geocode = find_geocode attributes
-    if !geocode.success || geocode.accuracy.to_i < 6
-      job = build(attributes)
-      job.errors.add :address, "Address not founds"
-    elsif !( attributes[:zip_code].eql?(geocode.zip) )
-      job = build(attributes)
-      job.errors.add :zip_code, "Postal code not valid"
-    else
-      attributes[:address] = geocode.street_address
-      attributes[:latitude] = geocode.lat
-      attributes[:longitude] = geocode.lng
-      attributes[:expires_on] = 30.days.from_now
-      company = user.companies.find_by_id(attributes.delete(:company_id))
-      job = build(attributes)
-      job.company = company
-      job.save
-    end
+    attributes[:expires_on] = 30.days.from_now
+    company = user.companies.find_by_id(attributes.delete(:company_id))
+    job = build(attributes)
+    job.company = company
+    job.save
     JobDecorator.decorate(job)
   end
 
@@ -42,29 +30,13 @@ class JobService
 
   def self.update_by_user(user, id, attributes = {})
     job = user.jobs.find(id)
-    geocode = find_geocode attributes
-    if !geocode.success || geocode.accuracy.to_i < 6
-      job.errors.add :address, "Address not founds"
-    elsif !( attributes[:zip_code].eql?(geocode.zip) )
-      job.errors.add :zip_code, "Postal code not valid, google return address zipcode #{geocode.zip}"
-    else
-      attributes[:address] = geocode.street_address
-      attributes[:latitude] = geocode.lat
-      attributes[:longitude] = geocode.lng
-      job.update_attributes attributes
-    end
+    job.update_attributes attributes
     JobDecorator.new(job)
   end
 
   def self.destroy_by_user(user, params = {})
     job = user.jobs.find(params[:id])
     job.destroy
-  end
-
-  def self.find_geocode(params)
-    city = City.find_by_id(params[:city_id])
-    geocode = Geokit::Geocoders::GoogleGeocoder3.geocode([ params[:address], params[:zip_code], city.try(:name) ].compact.join(', '))
-    geocode
   end
 
   def self.kinds

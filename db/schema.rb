@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130312032453) do
+ActiveRecord::Schema.define(:version => 20130312045319) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -143,13 +143,9 @@ ActiveRecord::Schema.define(:version => 20130312032453) do
     t.string   "skills"
     t.integer  "salary_low"
     t.integer  "salary_high"
-    t.string   "address"
-    t.string   "city"
     t.string   "zip_code"
     t.integer  "company_id"
     t.integer  "city_id"
-    t.float    "latitude"
-    t.float    "longitude"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.datetime "expires_on"
