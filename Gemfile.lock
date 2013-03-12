@@ -162,6 +162,7 @@ GEM
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     netrc (0.7.7)
+    newrelic_rpm (3.5.7.59)
     nokogiri (1.5.5)
     orm_adapter (0.4.0)
     paperclip (3.2.1)
@@ -280,6 +281,7 @@ DEPENDENCIES
   meta_search (>= 1.1.0.pre)
   modernizr-rails
   mysql2
+  newrelic_rpm
   paperclip (~> 3.0)
   pg (= 0.14.0)
   rabl
