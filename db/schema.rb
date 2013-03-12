@@ -164,6 +164,17 @@ ActiveRecord::Schema.define(:version => 20130205222624) do
 
   add_index "roles", ["name"], :name => "index_roles_on_name"
 
+  create_table "sponsors", :force => true do |t|
+    t.string   "name"
+    t.string   "url"
+    t.string   "image"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.string   "image_file_size"
+  end
+
   create_table "tags", :force => true do |t|
     t.string   "name"
     t.string   "code"
