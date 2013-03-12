@@ -12,4 +12,5 @@ attributes  :id,
             :formatted_salary_high,
             :city_name,
             :posted_date,
-            :thumbnail_url
+            :thumbnail_url,
+            :clickthrough

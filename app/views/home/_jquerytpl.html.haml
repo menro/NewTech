@@ -66,7 +66,7 @@
 
 %script{:id => "jobs-list-item_tpl", :type=>"text/x-jquery-tmpl" }
   %tr
-    %td ${title}
+    %td= link_to '${title}','${clickthrough}'
     %td
       %img(src='${thumbnail_url}')
       ${company_name}
