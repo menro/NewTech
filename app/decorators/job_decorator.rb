@@ -62,4 +62,14 @@ class JobDecorator < Draper::Base
     expires_on.to_date.to_s(:long)
   end
 
+  def clickthrough
+    if email.present?
+      "mailto:#{email}"
+    elsif link.present?
+      link
+    else
+      ''
+    end
+  end
+
 end

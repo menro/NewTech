@@ -1,5 +1,5 @@
 class Job < ActiveRecord::Base
-  attr_accessible :address, :city_id, :kind, :role, :salary_high, :salary_low, :skills, :title, :zip_code, :latitude, :longitude, :expires_on
+  attr_accessible :address, :city_id, :kind, :role, :salary_high, :salary_low, :skills, :title, :zip_code, :latitude, :longitude, :expires_on, :link, :email
 
   belongs_to :company
   belongs_to :city
