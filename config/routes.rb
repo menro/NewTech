@@ -14,6 +14,9 @@ Newtech::Application.routes.draw do
       get :employees_types
       get :investments_types
       get :categories
+      get :jobs
+      get :job_kinds
+      get :job_roles
     end
   end
 
@@ -34,7 +37,7 @@ Newtech::Application.routes.draw do
   get "profile" => "profile#show"
   put "profile/update" => "profile#update"
 
-
+  get 'hiring' => 'home#jobs', as: 'hiring'
   root :to => 'home#welcome'
 
 end

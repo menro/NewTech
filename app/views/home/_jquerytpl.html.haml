@@ -63,3 +63,13 @@
         %td ${category_name}
         %td.summary-numbers ${companies_count}
       {{/each}}
+
+%script{:id => "jobs-list-item_tpl", :type=>"text/x-jquery-tmpl" }
+  %tr
+    %td ${title}
+    %td
+      %img(src='${thumbnail_url}')
+      ${company_name}
+    %td ${formatted_salary_low} - ${formatted_salary_high}
+    %td ${city_name}
+    %td ${posted_date}

@@ -3,4 +3,30 @@ class Job < ActiveRecord::Base
 
   belongs_to :company
   belongs_to :city
+
+  scope :title_like,
+        lambda {|title|
+          where("jobs.title ILIKE ?", "%#{title}%")
+        }
+
+  scope :tagged_as,
+        lambda {|tag_code|
+          joins(:company => :tags).where("tags.code = ?", tag_code)
+        }
+
+  scope :employee_type,
+        lambda {|employee_id|
+          where("companies.employees_type_id = ?", employee_id)
+        }
+
+  scope :investment_type,
+        lambda {|investment_id|
+          where("companies.investments_type_id = ?", investment_id)
+        }
+
+  scope :with_category,
+        lambda {|category_id|
+          where("companies.category_id = ?", category_id)
+        }
+
 end

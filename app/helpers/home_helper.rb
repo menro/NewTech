@@ -10,7 +10,9 @@ module HomeHelper
         :hiring => "",
         :employee_id => "",
         :investment_id => "",
-        :category_id => ""
+        :category_id => "",
+        :job_kind => "",
+        :job_role => ""
     }
   end
 
@@ -22,7 +24,10 @@ module HomeHelper
         :tags_url => "#{tags_api_v1_url(:json)}",
         :employees_types_url => "#{employees_types_api_v1_url(:json)}",
         :investments_types_url => "#{investments_types_api_v1_url(:json)}",
-        :categories_url => "#{categories_api_v1_url(:json)}"
+        :categories_url => "#{categories_api_v1_url(:json)}",
+        :jobs_url => "#{jobs_api_v1_url(:json)}",
+        :job_kinds_url => "#{job_kinds_api_v1_url(:json)}",
+        :job_roles_url => "#{job_roles_api_v1_url(:json)}"
     }
   end
 end

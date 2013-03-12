@@ -11,7 +11,6 @@
       %td.actions
         =link_to content_tag(:i, nil, :class => 'icon-edit icon-large'), edit_company_path(company), id: "edit_#{company.id}", class: "btn small"
         =link_to content_tag(:i, nil, :class => 'icon-trash icon-large'), company_path(company), method: :delete, id: "edit_#{company.id}", class: "btn small", :confirm => 'are you sure?'
-        =link_to content_tag(:i, nil, :class => 'icon-briefcase icon-large'), company_jobs_path(company), id: "#{company.id}_jobs", class: "btn small"
 
 
 = paginate @companies
