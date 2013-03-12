@@ -9,7 +9,7 @@
   function drawTable(container) {
     // Retrieve and draw the data
     $.getJSON($(container).data("jobs_url"), searchParams(), function(data) {
-      var jobList = $('#jobs_list');
+      var jobList = $('#jobs_list tbody');
       jobList.html("");
       $.each(data, function(i, job) {
         $('#jobs-list-item_tpl').tmpl(job).appendTo( jobList );
