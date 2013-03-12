@@ -73,3 +73,7 @@
     %td ${formatted_salary_low} - ${formatted_salary_high}
     %td ${city_name}
     %td ${posted_date}
+
+%script{:id => "jobs-list-empty_tpl", :type=>"text/x-jquery-tmpl" }
+  %tr
+    %td(colspan=5) Sorry, no matching listings found
