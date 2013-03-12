@@ -1,14 +1,24 @@
 .span12.new_company
+  - if @job.new_record?
+    %p Please fill out as many fields as you can. Including more details with your posting will help job-seekers find it more readily.
+    %p By default, all job postings will stay live for 30 days. If your position is still open after that time, you may re-post it.
   .span6
     .well
       .form-inputs.row
-        = f.association :company, :label_method => :name, :collection => CompanyService::find_all_by_user(current_user)
+        - if @job.new_record?
+          = f.association :company, :label_method => :name, :collection => CompanyService.find_all_by_user(current_user)
         = f.input :title, :as => :string
         = f.input :kind, :label => "Type", :as => :radio_buttons, collection: JobService.kinds
-        = f.input :role, :as => :radio_buttons, collection: JobService::roles
+        = f.input :role, :as => :radio_buttons, collection: JobService.roles
         = f.input :skills,  :as => :string
-        = f.input :salary_low, label: "Salary (Low)"
-        = f.input :salary_high, label: "Salary (High)"
+        = f.input :salary_low, label: "Salary Range", wrapper_html: { class: 'controls-row' } do
+          .input-append
+            = f.input_field :salary_low, as: :numeric
+            %i.add-on ,000
+          &nbsp; to &nbsp;
+          .input-append
+            = f.input_field :salary_high, as: :numeric
+            %i.add-on ,000
         = f.input :address, :label => "Address", :as => :string, hint: 'Optional'
         = f.association :city, :label_method => :name_for_select, :collection => CityService::all, hint: 'Optional'
         = f.input :zip_code,  :as => :string, hint: 'Optional'
@@ -17,5 +27,5 @@
   .control-group
     .controls
       .actions
-        = f.submit 'Save', class: "btn btn-success btn-save"
+        = f.submit 'Post Job', class: "btn btn-success btn-save"
 
