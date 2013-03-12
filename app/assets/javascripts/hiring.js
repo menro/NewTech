@@ -11,9 +11,13 @@
     $.getJSON($(container).data("jobs_url"), searchParams(), function(data) {
       var jobList = $('#jobs_list tbody');
       jobList.html("");
-      $.each(data, function(i, job) {
-        $('#jobs-list-item_tpl').tmpl(job).appendTo( jobList );
-      });
+      if(data.length) {
+        $.each(data, function(i, job) {
+          $('#jobs-list-item_tpl').tmpl(job).appendTo( jobList );
+        });
+      } else {
+        $('#jobs-list-empty_tpl').tmpl({}).appendTo( jobList );
+      }
     });
   }
 
