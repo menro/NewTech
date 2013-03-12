@@ -246,7 +246,6 @@ var loadGmap = (function() {
             company["description"] = company["description"].length < 160 ? company["description"]: company["description"].substring(0,157)+"..."
         }
         var content = $( "#gmap_info_window_tpl" ).tmpl( company ).html();
-        //console.log(content);
         var infowindow = new google.maps.InfoWindow({
           content: content
         });
@@ -262,8 +261,7 @@ var loadGmap = (function() {
           icon: markerImage,
           map: currentMap
         });
-        //console.log("marker");
-        //console.log(marker);
+
         google.maps.event.addListener(marker, 'click', function() {
           closeCurrentInfoWindow();
           infowindow.open(currentMap,marker);
