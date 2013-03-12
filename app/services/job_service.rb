@@ -56,6 +56,11 @@ class JobService
     JobDecorator.new(job)
   end
 
+  def self.destroy_by_user(user, params = {})
+    job = user.jobs.find(params[:id])
+    job.destroy
+  end
+
   def self.find_geocode(params)
     city = City.find_by_id(params[:city_id])
     geocode = Geokit::Geocoders::GoogleGeocoder3.geocode([ params[:address], params[:zip_code], city.try(:name) ].compact.join(', '))

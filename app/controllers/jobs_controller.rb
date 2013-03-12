@@ -34,4 +34,9 @@ class JobsController < ApplicationController
     end
   end
 
+  def destroy
+    JobService.destroy_by_user(current_user, params)
+    redirect_to :back, :notice => "Job deleted successfully."
+  end
+
 end
