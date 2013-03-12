@@ -1,4 +1,7 @@
 class JobDecorator < Draper::Base
+
+  include ActionView::Helpers::NumberHelper
+
   decorates :job
 
   # Accessing Helpers
@@ -29,4 +32,30 @@ class JobDecorator < Draper::Base
   #     h.content_tag :span, attributes["created_at"].strftime("%a %m/%d/%y"),
   #                   :class => 'timestamp'
   #   end
+  #
+
+  def thumbnail_url
+    company.image.url(:thumbnail)
+  end
+
+  def company_name
+    company.name
+  end
+
+  def formatted_salary_low
+    number_to_currency(salary_low * 1000, precision: 0)
+  end
+
+  def formatted_salary_high
+    number_to_currency(salary_high * 1000, precision: 0)
+  end
+
+  def city_name
+    city.name
+  end
+
+  def posted_date
+    created_at.to_date.to_s(:long)
+  end
+
 end

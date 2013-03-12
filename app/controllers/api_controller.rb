@@ -37,4 +37,17 @@ class ApiController < ApplicationController
     respond_with @categories
   end
 
+  def jobs
+    @jobs = JobService.search(params)
+  end
+
+  def job_kinds
+    render json: JobService.kinds.to_json
+  end
+
+  def job_roles
+    render json: JobService.roles.to_json
+  end
+
+
 end
