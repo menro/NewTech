@@ -1,7 +1,9 @@
 class ChangeDataTypeForImageFileSize < ActiveRecord::Migration
-  def change
-    change_table :sponsors do |t|
-      t.change :image_file_size, :integer
-    end
+  def up
+    execute <<-SQL
+      ALTER TABLE the_table
+        ALTER COLUMN image_file_size TYPE integer 
+        USING (trim(image_file_size)::integer);
+    SQL
   end
 end
