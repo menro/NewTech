@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130407044356) do
+ActiveRecord::Schema.define(:version => 20130407060044) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -150,6 +150,10 @@ ActiveRecord::Schema.define(:version => 20130407044356) do
     t.datetime "expires_on"
     t.string   "link"
     t.string   "email"
+    t.float    "hourly_high"
+    t.float    "hourly_low"
+    t.float    "equity_high"
+    t.float    "equity_low"
   end
 
   create_table "jobs_skills", :id => false, :force => true do |t|

@@ -19,6 +19,22 @@
           .input-append
             = f.input_field :salary_high, as: :numeric
             %i.add-on ,000
+        = f.input :hourly_low, label: "Hourly Range", wrapper_html: { class: 'controls-row' } do
+          .input-prepend
+            %i.add-on $
+            = f.input_field :hourly_low, as: :numeric
+          &nbsp; to &nbsp;
+          .input-prepend
+            %i.add-on $
+            = f.input_field :hourly_high, as: :numeric
+        = f.input :equity_low, label: "Equity Range", wrapper_html: { class: 'controls-row' } do
+          .input-append
+            = f.input_field :equity_low, as: :numeric
+            %i.add-on %
+          &nbsp; to &nbsp;
+          .input-append
+            = f.input_field :equity_high, as: :numeric
+            %i.add-on %
         = f.association :city, :label_method => :name_for_select, :collection => CityService::all
         = f.input :zip_code,  :as => :string, hint: 'Optional'
         = f.input :email, label: 'Contact E-mail'

@@ -42,12 +42,40 @@ class JobDecorator < Draper::Base
     company.name
   end
 
+  def salary_comp?
+    salary_low.present? && salary_high.present?
+  end
+
   def formatted_salary_low
     number_to_currency(salary_low * 1000, precision: 0)
   end
 
   def formatted_salary_high
     number_to_currency(salary_high * 1000, precision: 0)
+  end
+
+  def hourly_comp?
+    hourly_low.present? && hourly_high.present?
+  end
+
+  def formatted_hourly_low
+    number_to_currency(hourly_low, precision: 2)
+  end
+
+  def formatted_hourly_high
+    number_to_currency(hourly_high, precision: 2)
+  end
+
+  def equity_comp?
+    equity_low.present? && equity_high.present?
+  end
+
+  def formatted_equity_low
+    number_to_percentage(equity_low, precision: 2, strip_insignificant_zeros: true)
+  end
+
+  def formatted_equity_high
+    number_to_percentage(equity_high, precision: 2, strip_insignificant_zeros: true)
   end
 
   def city_name

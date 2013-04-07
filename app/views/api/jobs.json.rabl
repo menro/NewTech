@@ -10,7 +10,15 @@ attributes  :id,
             :company_name,
             :formatted_salary_low,
             :formatted_salary_high,
+            :formatted_hourly_low,
+            :formatted_hourly_high,
+            :formatted_equity_low,
+            :formatted_equity_high,
             :city_name,
             :posted_date,
             :thumbnail_url,
             :clickthrough
+
+attributes  :salary_comp? => :salary_comp,
+            :equity_comp? => :equity_comp,
+            :hourly_comp? => :hourly_comp
