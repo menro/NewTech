@@ -9,7 +9,7 @@ class JobService
     JobDecorator.decorate(jobs)
   end
 
-  def self.build(attributes = nil, options = {})
+  def self.build(attributes = {}, options = {})
     job = Job.new(attributes, options)
     job.skills = parse_skill_list(attributes['skill_list'])
     JobDecorator.new(job)
