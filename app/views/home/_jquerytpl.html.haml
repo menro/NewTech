@@ -18,16 +18,16 @@
       %span.value ${tags_list}
       .bottom_bar
         {{if hiring == true}}
-        %a{:href => "${jobs_url}", :target => "_blank"}
-          %span.hiring H
+        %a{:href => "${jobs_url}", :target => "_blank", :title => 'Hiring'}
+          %span.hiring.icon-briefcase
         {{/if}}
         {{if facebook != null && facebook != ""}}
-        %a{:href => "https://www.facebook.com/${facebook}", :target => "_blank"}
-          %span.facebook F
+        %a{:href => "https://www.facebook.com/${facebook}", :target => "_blank", :title => 'Facebook'}
+          %span.facebook.icon-facebook
         {{/if}}
         {{if twitter != null && twitter != ""}}
-        %a{:href => "https://twitter.com/${twitter}", :target => "_blank" }
-          %span.twitter T
+        %a{:href => "https://twitter.com/${twitter}", :target => "_blank", :title => 'Twitter' }
+          %span.twitter.icon-twitter
         {{/if}}
 
 %script{:id => "company_tpl", :type=>"text/x-jquery-tmpl" }
@@ -36,8 +36,8 @@
       %img{:src => "${image_url}"}
       %h3 ${name}
       {{if hiring == true}}
-      %a{:href => "${jobs_url}", :target => "_blank"}
-        %span.hiring H
+      %a{:href => "${jobs_url}", :target => "_blank", :title => 'Hiring'}
+        %span.hiring.icon-briefcase
       {{/if}}
 
 %script{:id => "total-box_tpl", :type=>"text/x-jquery-tmpl" }
