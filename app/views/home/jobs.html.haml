@@ -33,16 +33,16 @@
             - @investments_types.each do |investment|
               %li
                 %a.btn-investment{:href => "#", :data => { :investment_id => investment.id }}=investment.name
-    .btn-group.btn-tags-group
+    .btn-group.btn-skills-group
       %ul.dropdown-ul.has-scroll
         %li.dropdown.menu-item-container
-          %a.btn.btn-tags.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
-            Tags
+          %a.btn.btn-skills.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
+            Skills
             %b.caret
-          %ul.dropdown-menu#tags-filter-menu{:role => "menu" }
-            - @tags.each do |tag|
+          %ul.dropdown-menu#skills-filter-menu{:role => "menu" }
+            - @skills.each do |skill|
               %li
-                %a.btn-tag{:href => "#", :data => { :tag_code => tag.code }}=tag.code
+                %a.btn-skill{:href => "#", :data => { :skill_name => skill.name }}= skill.name
 
     .btn-group.btn-category-group
       %ul.dropdown-ul

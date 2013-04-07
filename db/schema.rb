@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130312045319) do
+ActiveRecord::Schema.define(:version => 20130407044356) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -140,7 +140,6 @@ ActiveRecord::Schema.define(:version => 20130312045319) do
     t.string   "title"
     t.string   "kind"
     t.string   "role"
-    t.string   "skills"
     t.integer  "salary_low"
     t.integer  "salary_high"
     t.string   "zip_code"
@@ -153,6 +152,11 @@ ActiveRecord::Schema.define(:version => 20130312045319) do
     t.string   "email"
   end
 
+  create_table "jobs_skills", :id => false, :force => true do |t|
+    t.integer "job_id"
+    t.integer "skill_id"
+  end
+
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.integer  "resource_id"
@@ -162,6 +166,12 @@ ActiveRecord::Schema.define(:version => 20130312045319) do
   end
 
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "skills", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "sponsors", :force => true do |t|
     t.string   "name"

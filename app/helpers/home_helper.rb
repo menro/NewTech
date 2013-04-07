@@ -22,6 +22,7 @@ module HomeHelper
         :counties_url => "#{counties_api_v1_url(:json)}",
         :county_url => "#{county_api_v1_url(:json)}",
         :tags_url => "#{tags_api_v1_url(:json)}",
+        :skills_url => "#{skills_api_v1_url(:json)}",
         :employees_types_url => "#{employees_types_api_v1_url(:json)}",
         :investments_types_url => "#{investments_types_api_v1_url(:json)}",
         :categories_url => "#{categories_api_v1_url(:json)}",

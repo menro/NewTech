@@ -5,7 +5,7 @@ class Job < ActiveRecord::Base
                   :role,
                   :salary_high,
                   :salary_low,
-                  :skills,
+                  :skill_list,
                   :title,
                   :zip_code,
                   :expires_on,
@@ -15,6 +15,9 @@ class Job < ActiveRecord::Base
 
   belongs_to :company
   belongs_to :city
+  has_and_belongs_to_many :skills
+
+  attr_accessor :skill_list
 
   validates :city_id,
             :company_id,
@@ -34,6 +37,11 @@ class Job < ActiveRecord::Base
   scope :tagged_as,
         lambda {|tag_code|
           joins(:company => :tags).where("tags.code = ?", tag_code)
+        }
+
+  scope :with_skill,
+        lambda {|skill_name|
+          joins(:skills).where("skills.name = ?", skill_name)
         }
 
   scope :employee_type,

@@ -12,6 +12,10 @@ class ApiController < ApplicationController
     respond_with @tags
   end
 
+  def skills
+    @skills = SkillService::search(params)
+  end
+
   def counties
     @counties = CountyService::search(params)
     respond_with @counties

@@ -2,7 +2,6 @@
 
   function refreshTable(container) {
     drawTable(container);
-    //refreshTags(container);
     refreshFilterMenus(container);
   }
 
@@ -56,16 +55,16 @@
       $('#investment-filter-menu').html(investmentLinks);
       setInvestmentMenuListener();
     });
-    $.getJSON($(container).data("tags_url"), srcParams, function(data) {
-        var tagLinks = "";
-        $.each(data, function(i, tag) {
-            tagLinks += "<li";
-          if (tag.code == srcParams.tag_code)
-              tagLinks += " class='active'";
-            tagLinks += "><a href='#' class='btn-tag' data-tag_code='"+tag.code+"'>"+tag.code+"</a></li>";
+    $.getJSON($(container).data("skills_url"), srcParams, function(data) {
+        var skillLinks = "";
+        $.each(data, function(i, skill) {
+            skillLinks += "<li";
+          if (skill.name == srcParams.skill_name)
+              skillLinks += " class='active'";
+            skillLinks += "><a href='#' class='btn-skill' data-skill_name='"+skill.name+"'>"+skill.name+"</a></li>";
         });
-        $('#tags-filter-menu').html(tagLinks);
-        setTagMenuListener();
+        $('#skills-filter-menu').html(skillLinks);
+        setSkillMenuListener();
     });
     $.getJSON($(container).data("job_kinds_url"), srcParams, function(data) {
       var kindLinks = "";
@@ -91,26 +90,10 @@
     });
   }
 
-  function refreshTags(container) {
-    var srcParams = searchParams();
-    $.getJSON($(container).data("tags_url"), srcParams, function(data) {
-      var tagLinks = "";
-      $.each(data, function(i, tag) {
-        if (tag.code == srcParams.tag_code) {
-          tagLinks += "<a href='#' rel='2' data-tag_code=''><i class='icon-remove-sign'/></a>\n";
-          tagLinks += "<a href='#' rel='"+tag.companies_count+"' data-tag_code='"+ tag.code +"' class ='selected-tag'>"+tag.code+"</a>\n";
-        } else
-          tagLinks += "<a href='#' rel='"+tag.companies_count+"' data-tag_code='"+ tag.code +"' >"+tag.code+"</a>\n";
-      });
-      $('#tag-cloud').html(tagLinks);
-      configureTagCloud();
-    });
-  }
-
   function searchParams() {
     var srcParamsEl = $('#search_params');
     search_params = {
-        tag_code: srcParamsEl.data("tag_code"),
+        skill_name: srcParamsEl.data("skill_name"),
         employee_id: srcParamsEl.data("employee_id"),
         investment_id: srcParamsEl.data("investment_id"),
         category_id: srcParamsEl.data("category_id"),
@@ -191,19 +174,19 @@
     });
   }
 
-  function setTagMenuListener() {
+  function setSkillMenuListener() {
       var searchParams = $('#search_params');
-      $('#tags-filter-menu a.btn-tag').click(function(e){
+      $('#skills-filter-menu a.btn-skill').click(function(e){
         e.preventDefault();
         if($(this).parent().is('.active')) {
           $(this).parent().removeClass("active");
-          $('.btn-tags-group a.btn').removeClass("active");
-          searchParams.data("tag_code", "");
+          $('.btn-skills-group a.btn').removeClass("active");
+          searchParams.data("skill_name", "");
         } else {
-          $('.btn-tags-group a.btn').addClass("active");
-          $('#tags-filter-menu li').removeClass("active");
+          $('.btn-skills-group a.btn').addClass("active");
+          $('#skills-filter-menu li').removeClass("active");
           $(this).parent().addClass("active");
-          searchParams.data("tag_code", $(this).data("tag_code"));
+          searchParams.data("skill_name", $(this).data("skill_name"));
         }
         $('.jobs-table').each(function() {
           refreshTable(this);
@@ -257,7 +240,7 @@
       setInvestmentMenuListener();
       setCategoryMenuListener();
       setCategoryNameListener();
-      setTagMenuListener();
+      setSkillMenuListener();
 
       return $('.jobs-table').each(function() {
           refreshTable(this);

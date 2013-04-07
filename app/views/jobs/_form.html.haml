@@ -10,7 +10,7 @@
         = f.input :title, :as => :string
         = f.input :kind, :label => "Type", :as => :radio_buttons, collection: JobService.kinds
         = f.input :role, :as => :radio_buttons, collection: JobService.roles
-        = f.input :skills,  :as => :string
+        = f.input :skill_list,  :as => :string, :labels => 'Skills', :hint => 'Comma-separated list'
         = f.input :salary_low, label: "Salary Range", wrapper_html: { class: 'controls-row' } do
           .input-append
             = f.input_field :salary_low, as: :numeric
