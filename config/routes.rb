@@ -11,6 +11,7 @@ Newtech::Application.routes.draw do
       get :counties
       get :county
       get :tags
+      get :skills
       get :employees_types
       get :investments_types
       get :categories
