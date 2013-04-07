@@ -68,9 +68,16 @@
   %tr
     %td= link_to '${title}','${clickthrough}'
     %td
-      %img(src='${thumbnail_url}')
+      {{if thumbnail_url}}
+      %img(src='${thumbnail_url}' title='${company_name}' alt='${company_name}')
+      {{else}}
       ${company_name}
-    %td ${formatted_salary_low} - ${formatted_salary_high}
+      {{/if}}
+    %td
+      %dl
+        {{if salary_comp}}<dt>Salary:</dt><dd>${formatted_salary_low} - ${formatted_salary_high}</dd>{{/if}}
+        {{if equity_comp}}<dt>Equity:</dt><dd>${formatted_equity_low} - ${formatted_equity_high}</dd>{{/if}}
+        {{if hourly_comp}}<dt>Hourly:</dt><dd>${formatted_hourly_low} - ${formatted_hourly_high}</dd>{{/if}}
     %td ${city_name}
     %td ${posted_date}
 

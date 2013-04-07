@@ -71,7 +71,7 @@
     %tr
       %td Job Title
       %td Company
-      %td Salary Range
+      %td Compensation
       %td Location
       %td Date Posted
 
@@ -89,8 +89,10 @@
           - else
             %td= job.title
           %td
-            = image_tag job.thumbnail_url
-            = job.company_name
+            - if job.thumbnail_url.present?
+              = image_tag job.thumbnail_url, alt: job.company_name, title: job.company_name
+            - else
+              = job.company_name
           %td= "#{job.formatted_salary_low} - #{job.formatted_salary_high}"
           %td= job.city_name
           %td= job.posted_date
