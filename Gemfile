@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.13'
 
 # Use configatron to manage global settings
 gem 'configatron', '2.8.4'
@@ -84,3 +84,4 @@ gem 'geokit-rails3'
 
 # Heroku deployment
 gem 'heroku'
+gem 'newrelic_rpm'
