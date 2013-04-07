@@ -1,6 +1,10 @@
 = content_for :eventsbar do
   = render partial: 'partial_templates/events_bar'
 
+= content_for :navbar_extras do
+  %form#search_form.navbar-search
+    %input#search_query.search-query.span3{:placeholder => "search for a job..."}
+
 .filters
   .dropdown-menu-container
     .btn-group.btn-category-group
