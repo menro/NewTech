@@ -63,4 +63,9 @@ class Job < ActiveRecord::Base
           where("companies.category_id = ?", category_id)
         }
 
+  scope :with_kind,
+        lambda { |kind| where(kind: kind) }
+
+  scope :with_role,
+        lambda { |role| where(role: role) }
 end

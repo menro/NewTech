@@ -12,7 +12,7 @@
           %ul.dropdown-menu#category-filter-menu{:role => "menu" }
             - @categories.each do |category|
               %li
-                %a.btn-category{:href => "#", :data => { :category_id => category.id }}=category.name
+                %a.btn-category{:href => "#", :data => { :category_id => category.id }}= category.name
     .btn-group.btn-employee-group
       %ul.dropdown-ul
         %li.dropdown.menu-item-container
@@ -33,8 +33,8 @@
             - @investments_types.each do |investment|
               %li
                 %a.btn-investment{:href => "#", :data => { :investment_id => investment.id }}=investment.name
-    .btn-group.btn-skills-group
-      %ul.dropdown-ul.has-scroll
+    .btn-group.btn-skill-group
+      %ul.dropdown-ul
         %li.dropdown.menu-item-container
           %a.btn.btn-skills.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
             Skills
@@ -44,10 +44,11 @@
               %li
                 %a.btn-skill{:href => "#", :data => { :skill_name => skill.name }}= skill.name
 
-    .btn-group.btn-category-group
+      %ul.dropdown-ul
+    .btn-group.btn-kind-group
       %ul.dropdown-ul
         %li.dropdown.menu-item-container
-          %a.btn.btn-categories.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
+          %a.btn.btn-kinds.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
             Type
             %b.caret
           %ul.dropdown-menu#kind-filter-menu{:role => "menu" }
@@ -55,13 +56,13 @@
               %li
                 %a.btn-kind{:href => "#", :data => { :kind => kind }}= kind
 
-    .btn-group.btn-category-group
+    .btn-group.btn-role-group
       %ul.dropdown-ul
         %li.dropdown.menu-item-container
-          %a.btn.btn-categories.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
+          %a.btn.btn-roles.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
             Role
             %b.caret
-          %ul.dropdown-menu#kind-filter-menu{:role => "menu" }
+          %ul.dropdown-menu#role-filter-menu{:role => "menu" }
             - @roles.each do |role|
               %li
                 %a.btn-role{:href => "#", :data => { :role => role }}= role
