@@ -85,3 +85,6 @@ gem 'geokit-rails3'
 # Heroku deployment
 gem 'heroku'
 gem 'newrelic_rpm'
+
+# unicorn: Rack based HTTP server
+gem 'unicorn'
