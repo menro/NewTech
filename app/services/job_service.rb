@@ -54,6 +54,8 @@ class JobService
     jobs = Job.scoped.joins(:company)
     jobs = jobs.currently_running
     jobs = jobs.title_like params[:title] unless params[:title].blank?
+    jobs = jobs.with_kind params[:kind] unless params[:kind].blank?
+    jobs = jobs.with_role params[:role] unless params[:role].blank?
     jobs = jobs.with_skill params[:skill_name] unless params[:skill_name].blank?
     jobs = jobs.employee_type(params[:employee_id]) unless params[:employee_id].blank?
     jobs = jobs.investment_type(params[:investment_id]) unless params[:investment_id].blank?

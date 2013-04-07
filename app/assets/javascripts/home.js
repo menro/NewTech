@@ -477,7 +477,7 @@ var loadGmap = (function() {
       });
   }
 
-  function setcategoryNameListener() {
+  function setCategoryNameListener() {
       $('#search_form').on('submit', function(e){
           e.preventDefault();
           var searchParams = $('#search_params');
@@ -596,19 +596,19 @@ var loadGmap = (function() {
 
     // Main
     $(function () {
-      setSlider();
-      setHiringListener();
-      setEmployeeMenuListener();
-      setInvestmentMenuListener();
-      setCategoryMenuListener();
-      setcategoryNameListener();
-      setTagMenuListener();
-      setEventsBarListener();
 
       $('#tooltip').css("left", (document.body.offsetWidth / 2 - 344) + "px");
 
       return $('.gmap').each(function() {
-          return GMap.init(this);
+        setSlider();
+        setHiringListener();
+        setEmployeeMenuListener();
+        setInvestmentMenuListener();
+        setCategoryMenuListener();
+        setCategoryNameListener();
+        setTagMenuListener();
+        setEventsBarListener();
+        return GMap.init(this);
       });
     });
 
