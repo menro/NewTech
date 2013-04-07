@@ -18,6 +18,7 @@
   function searchParams() {
     var srcParamsEl = $('#search_params');
     return {
+        title: srcParamsEl.data("title"),
         skill_name: srcParamsEl.data("skill_name"),
         employee_id: srcParamsEl.data("employee_id"),
         investment_id: srcParamsEl.data("investment_id"),
@@ -27,11 +28,11 @@
     };
   }
 
-  function setCategoryNameListener() {
+  function setSearchListener() {
       $('#search_form').on('submit', function(e){
           e.preventDefault();
           var searchParams = $('#search_params');
-          searchParams.data("company_name", $('#search_query').val());
+          searchParams.data("title", $('#search_query').val());
           $('.jobs-table').each(function() {
             refreshTable(this);
           });
@@ -164,7 +165,7 @@
         setEmployeeMenuListener();
         setInvestmentMenuListener();
         setCategoryMenuListener();
-        setCategoryNameListener();
+        setSearchListener();
         setSkillMenuListener();
         setRoleMenuListener();
         setKindMenuListener();
