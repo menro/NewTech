@@ -12,10 +12,6 @@ class ApiController < ApplicationController
     respond_with @tags
   end
 
-  def skills
-    @skills = SkillService::search(params)
-  end
-
   def counties
     @counties = CountyService::search(params)
     respond_with @counties
@@ -43,14 +39,20 @@ class ApiController < ApplicationController
 
   def jobs
     @jobs = JobService.search(params)
+    respond_with @jobs
   end
 
   def job_kinds
-    render json: JobService.kinds.to_json
+    respond_with JobService.kinds
   end
 
   def job_roles
-    render json: JobService.roles.to_json
+    respond_with JobService.roles
+  end
+
+  def skills
+    @skills = SkillService::search(params)
+    respond_with @skills
   end
 
 
