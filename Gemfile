@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
+gem 'pg', '0.14.0'
+gem 'thin', '1.4.1'
 
 # Use configatron to manage global settings
 gem 'configatron', '2.8.4'
@@ -11,13 +13,13 @@ gem 'configatron', '2.8.4'
 gem 'mysql2'
 
 # Authentication
-gem "devise", ">= 2.1.0"
+gem 'devise', '>= 2.1.0'
 gem 'cancan', '1.6.8'
 gem 'rolify', '3.1.0'
 
 #Admin
 gem 'activeadmin'
-gem "meta_search",    '>= 1.1.0.pre'
+gem 'meta_search',    '>= 1.1.0.pre'
 
 # simple navigation with bootstrap builder support
 gem 'simple-navigation-bootstrap'
@@ -39,15 +41,15 @@ gem 'client_side_validations', '3.1.4'
 gem 'cocaine', '0.3.2'
 
 group :assets do
-  gem "sass-rails", "3.2.5"
-  gem "coffee-rails", "3.2.2"
-  gem "uglifier", "1.0.3"
-  #gem "therubyracer" our use nodejs
+  gem 'sass-rails', '3.2.5'
+  gem 'coffee-rails', '3.2.2'
+  gem 'uglifier', '1.0.3'
+  #gem 'therubyracer' our use nodejs
   gem 'chosen-rails'
-  gem "jquery-rails", "2.0.2"
-  gem "jquery-ui-rails", "0.5.0"
+  gem 'jquery-rails', '2.0.2'
+  gem 'jquery-ui-rails', '0.5.0'
   gem 'modernizr-rails'
-  gem 'bootstrap-sass', "2.0.4"
+  gem 'bootstrap-sass', '2.0.4'
 end
 
 group :development do
@@ -57,30 +59,25 @@ group :development do
    gem 'therubyracer'
 end
 
-group :development, :production do
-  gem 'pg', '0.14.0'
-  gem 'thin', '1.4.1'
-end
-
 # REST
-gem "httpclient"
+gem 'httpclient'
 
 # Pagination
-gem "kaminari"
+gem 'kaminari'
 
 # API
 gem 'rabl'
 
 # Attachment
-gem "paperclip", "~> 3.0"
+gem 'paperclip', '~> 3.0'
 gem 'aws-sdk', '1.5.6'
-gem "rmagick"
+gem 'rmagick'
 
 # Seed data
-gem "seed-fu", '~> 2.2.0'
+gem 'seed-fu', '~> 2.2.0'
 
 # Decorators
-gem "draper"
+gem 'draper'
 
 # Geokit
 gem 'geokit-rails3'
