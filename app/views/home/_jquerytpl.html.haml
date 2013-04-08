@@ -79,6 +79,7 @@
         {{if equity_comp}}<dt>Equity:</dt><dd>${formatted_equity_low} - ${formatted_equity_high}</dd>{{/if}}
         {{if hourly_comp}}<dt>Hourly:</dt><dd>${formatted_hourly_low} - ${formatted_hourly_high}</dd>{{/if}}
     %td ${city_name}
+    %td= link_to '${email}', 'mailto:${email}'
     %td ${posted_date}
 
 %script{:id => "jobs-list-empty_tpl", :type=>"text/x-jquery-tmpl" }

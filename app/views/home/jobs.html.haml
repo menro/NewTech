@@ -78,6 +78,7 @@
       %td Company
       %td Compensation
       %td Location
+      %td Contact
       %td Date Posted
 
   %tbody
@@ -87,12 +88,7 @@
     - else
       - @jobs.each do |job|
         %tr
-          - if job.link.present?
-            %td= link_to job.title, job.link
-          - elsif job.email.present?
-            %td= link_to job.title, "mailto:#{job.email}"
-          - else
-            %td= job.title
+          %td= link_to job.title, job.clickthrough
           %td
             - if job.thumbnail_url.present?
               = image_tag job.thumbnail_url, alt: job.company_name, title: job.company_name
@@ -100,6 +96,7 @@
               = job.company_name
           %td= "#{job.formatted_salary_low} - #{job.formatted_salary_high}"
           %td= job.city_name
+          %td= link_to job.email, "mailto:#{job.email}"
           %td= job.posted_date
 
 #search_params{ :data => search_params_data }
