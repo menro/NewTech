@@ -91,13 +91,7 @@ class JobDecorator < Draper::Base
   end
 
   def clickthrough
-    if email.present?
-      "mailto:#{email}"
-    elsif link.present?
-      link
-    else
-      ''
-    end
+    link.presence || company.homepage_url
   end
 
 end

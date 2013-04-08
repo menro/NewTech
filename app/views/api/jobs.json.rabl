@@ -17,6 +17,7 @@ attributes  :id,
             :city_name,
             :posted_date,
             :thumbnail_url,
+            :email,
             :clickthrough
 
 attributes  :salary_comp? => :salary_comp,
