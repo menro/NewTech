@@ -88,7 +88,7 @@
     - else
       - @jobs.each do |job|
         %tr
-          %td= link_to job.title, job.clickthrough
+          %td= link_to job.title, job.clickthrough, target: '_blank'
           %td
             - if job.thumbnail_url.present?
               = image_tag job.thumbnail_url, alt: job.company_name, title: job.company_name
