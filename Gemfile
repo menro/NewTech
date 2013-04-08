@@ -31,6 +31,9 @@ gem 'haml-rails'
 # simple form
 gem 'simple_form'
 
+# Cache by default
+gem 'responders'
+
 # Use clien side validation
 gem 'client_side_validations', '3.1.4'
 gem 'cocaine', '0.3.2'
@@ -84,4 +87,7 @@ gem 'geokit-rails3'
 
 # Heroku deployment
 gem 'heroku'
+gem 'dalli'
+
+# Performance monitoring
 gem 'newrelic_rpm'
