@@ -439,10 +439,9 @@
 }
 
 .company-row span.hiring {
-  position: relative;
+  display: inline-block;
   float: right;
-  top: 10px;
-  padding: 1px 4px;
+  margin-top: 5px;
   background-color: #0a3642;
   color: #ffffff;
 }
