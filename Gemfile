@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.13'
 gem 'pg', '0.14.0'
 gem 'thin', '1.4.1'
+gem 'unicorn'
 
 # Use configatron to manage global settings
 gem 'configatron', '2.8.4'
