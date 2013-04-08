@@ -202,10 +202,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
-<<<<<<< HEAD
     raindrops (0.10.0)
-=======
->>>>>>> 6c591761b7b4476ee6128c4db25cc1b9d16bbdd1
     rake (10.0.4)
     rdoc (3.12.2)
       json (~> 1.4)
@@ -214,7 +211,7 @@ GEM
       railties (~> 3.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    rmagick (2.13.1)
+    rmagick (2.13.2)
     rolify (3.1.0)
     rubyzip (0.9.9)
     rvm-capistrano (1.2.7)
@@ -297,10 +294,7 @@ DEPENDENCIES
   pg (= 0.14.0)
   rabl
   rails (= 3.2.13)
-<<<<<<< HEAD
-=======
   responders
->>>>>>> 6c591761b7b4476ee6128c4db25cc1b9d16bbdd1
   rmagick
   rolify (= 3.1.0)
   rvm-capistrano
