@@ -1,6 +1,6 @@
 #updates-header
   %h3 RECENT UPDATES
 - unless @recent_companies.blank?
-  - @recent_companies.each do |company|
-    = render :partial => 'company', :locals => {:company => company}
+  - @recent_companies.each_with_index do |company,index|
+    = render :partial => 'company', :locals => {:company => company,:index => index+1}
   
