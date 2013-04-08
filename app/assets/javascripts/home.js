@@ -41,27 +41,43 @@
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         styles:
           [
-            {
-              "elementType": "geometry.fill",
-              "stylers": [
-                { "color": "#ffffff" },
-                { "visibility": "on" }
-              ]
-            },{
-            "featureType": "road.highway",
-            "elementType": "geometry.stroke",
-            "stylers": [
-              { "visibility": "on" }
-            ]
-          },{
-            "featureType": "road.highway",
-            "elementType": "geometry.fill",
-            "stylers": [
-              { "color": "#ffffff" }
-            ]
-          },{
-          }
-          ],
+                {
+                    "stylers": [
+                    {
+                        "visibility": "on"
+                    },
+                    {
+                        "hue": "#ffc300"
+                    },
+                    {
+                        "saturation": -100
+                    }
+                    ]
+                },{
+                    "featureType": "water",
+                    "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                    ]
+                },{
+                    "featureType": "poi",
+                    "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                    ]
+                },{
+                    "featureType": "landscape",
+                    "stylers": [
+                    {
+                        "visibility": "simplified"
+                    }
+                    ]
+                },{
+                    "featureType": "administrative.country"
+                }
+                ],
         center: new google.maps.LatLng(39.232253, -105.08606)
       };
       currentMap = new google.maps.Map(container, defaultOptions);
