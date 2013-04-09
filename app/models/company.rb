@@ -89,7 +89,8 @@ class Company < ActiveRecord::Base
         }
 
 
-  scope :are_hiring, joins(:jobs).having("COUNT(jobs.id) > 0")
+  scope :are_hiring,
+        where('jobs_count > 0')
 
   scope :employee_type,
         lambda {|employee_id|
@@ -112,7 +113,7 @@ class Company < ActiveRecord::Base
         }
 
   def is_hiring?
-    jobs.length > 0
+    jobs_count > 0
   end
 
   def number_of_employees
