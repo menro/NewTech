@@ -47,11 +47,11 @@ class JobDecorator < Draper::Base
   end
 
   def formatted_salary_low
-    number_to_currency(salary_low * 1000, precision: 0)
+    number_to_currency((salary_low || 0) * 1000, precision: 0)
   end
 
   def formatted_salary_high
-    number_to_currency(salary_high * 1000, precision: 0)
+    number_to_currency((salary_high || 0) * 1000, precision: 0)
   end
 
   def hourly_comp?
