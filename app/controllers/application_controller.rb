@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
+  before_filter :miniprofiler
+
   rescue_from CanCan::AccessDenied do |exception|
     sign_out :user if user_signed_in?
     redirect_to new_user_session_path, alert: exception.message
@@ -16,6 +18,12 @@ class ApplicationController < ActionController::Base
     unless current_user && current_user.is_admin?
       raise CanCan::AccessDenied , "AccessDenied"
     end
+  end
+
+  private
+
+  def miniprofiler
+    Rack::MiniProfiler.authorize_request  if current_user && current_user.is_admin?
   end
 
 end

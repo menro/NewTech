@@ -93,3 +93,6 @@ gem 'newrelic_rpm'
 
 # unicorn: Rack based HTTP server
 gem 'unicorn'
+
+# rack mini profiler for analyzing page load time
+gem 'rack-mini-profiler'
