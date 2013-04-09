@@ -100,7 +100,7 @@ class Company < ActiveRecord::Base
   end
 
   def self.get_recent_companies(limit=5)
-    Company.order("created_at desc").limit(limit)
+    Company.select("companies.*, cnt.name as county_name").joins("INNER JOIN counties cnt on cnt.id = companies.county_id").order("companies.created_at DESC").last(limit)
   end
 
   private
