@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130407060044) do
+ActiveRecord::Schema.define(:version => 20130409151936) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -57,7 +57,6 @@ ActiveRecord::Schema.define(:version => 20130407060044) do
     t.integer  "category_id"
     t.string   "name"
     t.string   "permalink"
-    t.boolean  "hiring"
     t.boolean  "enabled"
     t.boolean  "presented"
     t.date     "presentation_date"
@@ -80,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20130407060044) do
     t.decimal  "longitude"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.integer  "jobs_count"
   end
 
   add_index "companies", ["city_id"], :name => "index_companies_on_city_id"
@@ -87,7 +87,6 @@ ActiveRecord::Schema.define(:version => 20130407060044) do
   add_index "companies", ["employees_type_id"], :name => "index_companies_on_employees_type_id"
   add_index "companies", ["enabled"], :name => "index_companies_on_enabled"
   add_index "companies", ["founded_year"], :name => "index_companies_on_founded_year"
-  add_index "companies", ["hiring"], :name => "index_companies_on_hiring"
   add_index "companies", ["investments_type_id"], :name => "index_companies_on_investments_type_id"
   add_index "companies", ["user_id"], :name => "index_companies_on_user_id"
 
@@ -185,7 +184,7 @@ ActiveRecord::Schema.define(:version => 20130407060044) do
     t.datetime "updated_at",         :null => false
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.string   "image_file_size"
+    t.integer  "image_file_size"
   end
 
   create_table "tags", :force => true do |t|
