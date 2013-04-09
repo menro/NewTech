@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  before_filter :miniprofiler
+#  before_filter :miniprofiler
 
   rescue_from CanCan::AccessDenied do |exception|
     sign_out :user if user_signed_in?
