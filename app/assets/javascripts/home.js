@@ -242,7 +242,9 @@
       companyList.html("");
       $.each(data, function(i, company) {
 
-        company["description"] = company["description"].length < 160 ? company["description"]: company["description"].substring(0,157)+"..."
+        if(typeof(company["description"]) != "undefined"){
+            company["description"] = company["description"].length < 160 ? company["description"]: company["description"].substring(0,157)+"..."
+        }
         var content = $( "#gmap_info_window_tpl" ).tmpl( company ).html();
         //console.log(content);
         var infowindow = new google.maps.InfoWindow({
