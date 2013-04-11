@@ -24,7 +24,7 @@ configatron.email.noreply = ENV['EMAIL_NO_REPLY']
 configatron.email.port = ENV['EMAIL_PORT']
 configatron.email.domain = 'heroku.com' # ENV['EMAIL_DOMAIN']
 configatron.email.user_name =  ENV['SENDGRID_USERNAME'] #ENV['EMAIL_USER_NAME']
-configatron.email.password = ENV['SENDGRID_PASSWORD'], #ENV['EMAIL_PASSWORD']
+configatron.email.password = ENV['SENDGRID_PASSWORD'] #ENV['EMAIL_PASSWORD']
 configatron.email.authentication = ENV['EMAIL_AUTHENTICATION']
 
 #S3
