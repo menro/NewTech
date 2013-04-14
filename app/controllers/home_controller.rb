@@ -10,4 +10,7 @@ class HomeController < ApplicationController
     @sponsor = Sponsor.get_randomly
   end
 
+  def email_confirmation
+  end
+  
 end

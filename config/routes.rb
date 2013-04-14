@@ -24,7 +24,7 @@ Newtech::Application.routes.draw do
     end
 
   devise_for :users, :controllers => { :registrations => :registrations }
-
+  get "email_confirmation" => "home#email_confirmation", :as => "email_confirmation"
 #
   # Profile Area
   #
