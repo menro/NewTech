@@ -19,7 +19,7 @@
   <% end %>
 </div>
 <div class="offset4">
-  <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'well form-horizontal registration-box' }) do |f| %>
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'well form-horizontal registration-box' }) do |f| %>
       <% if resource.errors.any? %>
         <div class="alert alert-error"><p>Please fix the following errors.</p>
           <ul>
