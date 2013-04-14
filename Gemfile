@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
-ruby "1.9.3"
+#ruby "1.9.3"
 
 gem 'rails', '3.2.13'
 gem 'pg', '0.14.0'
-gem 'thin', '1.4.1'
+#gem 'thin', '1.4.1'
 gem 'unicorn'
 
 # Use configatron to manage global settings
