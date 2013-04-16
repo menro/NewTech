@@ -1,4 +1,4 @@
-(function() {
+var loadGmap = (function() {
   var GMap;
 
   var currentMap;
@@ -614,4 +614,4 @@
       });
     });
 
-}).call(this);
+});
