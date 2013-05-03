@@ -67,12 +67,7 @@
 %script{:id => "jobs-list-item_tpl", :type=>"text/x-jquery-tmpl" }
   %tr
     %td= link_to '${title}','${clickthrough}', target: '_blank'
-    %td
-      {{if thumbnail_url}}
-      %img(src='${thumbnail_url}' title='${company_name}' alt='${company_name}')
-      {{else}}
-      ${company_name}
-      {{/if}}
+    %td ${company_name}
     %td
       %dl
         {{if salary_comp}}<dt>Salary:</dt><dd>${formatted_salary_low} - ${formatted_salary_high}</dd>{{/if}}
