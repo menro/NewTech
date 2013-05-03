@@ -37,4 +37,23 @@ class ApiController < ApplicationController
     respond_with @categories
   end
 
+  def jobs
+    @jobs = JobService.search(params)
+    respond_with @jobs
+  end
+
+  def job_kinds
+    respond_with JobService.kinds
+  end
+
+  def job_roles
+    respond_with JobService.roles
+  end
+
+  def skills
+    @skills = SkillService::search(params)
+    respond_with @skills
+  end
+
+
 end

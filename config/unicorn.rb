@@ -4,7 +4,7 @@
 #see Unicorn’s documentation(http://unicorn.bogomips.org/Unicorn/Configurator.html).
 
 worker_processes Integer(ENV["WEB_CONCURRENCY"] || 3)
-timeout 20
+timeout 25
 preload_app true
 listen ENV['PORT'].to_i || 3000, tcp_nopush: false
 

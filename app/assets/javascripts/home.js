@@ -246,7 +246,6 @@
             company["description"] = company["description"].length < 160 ? company["description"]: company["description"].substring(0,157)+"..."
         }
         var content = $( "#gmap_info_window_tpl" ).tmpl( company ).html();
-        //console.log(content);
         var infowindow = new google.maps.InfoWindow({
           content: content
         });
@@ -262,8 +261,7 @@
           icon: markerImage,
           map: currentMap
         });
-        //console.log("marker");
-        //console.log(marker);
+
         google.maps.event.addListener(marker, 'click', function() {
           closeCurrentInfoWindow();
           infowindow.open(currentMap,marker);
@@ -356,7 +354,10 @@
         countyCircles[nCountyCircles] = new google.maps.Circle(circleOptions);
 
         if('ontouchend' in document) {
-          google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function() {
+          google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function(e) {
+
+            if(bounceToCounty(county.id)) return false;
+
             if($("#box-summary-county").data("current_county_id") != county.id) {
               setCountySummaryBoxStyle("bottom-left-2");
               drawRetrievedCountySummaryBox(county);
@@ -368,6 +369,7 @@
         }
         else {
           google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function() {
+            if(bounceToCounty(county.id)) return false;
             onCountySelected(county, circlePosition);
           });
           google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseover', function() {
@@ -409,6 +411,15 @@
     //currentMap.setZoom(currentMap.getZoom()+1);
     currentMap.setCenter(circlePosition);
     currentMap.setZoom(countyZoomLevel);
+  }
+
+  function bounceToCounty(countyId) {
+    if($('#search_params').data("hiring")) {
+      window.open("/hiring?current_county_id=" + countyId, '_self');
+      return true;
+    } else {
+      return false;
+    }
   }
 
   function drawRetrievedCountySummaryBox(county, positionStyle) {
@@ -479,7 +490,7 @@
       });
   }
 
-  function setcategoryNameListener() {
+  function setCategoryNameListener() {
       $('#search_form').on('submit', function(e){
           e.preventDefault();
           var searchParams = $('#search_params');
@@ -598,19 +609,19 @@
 
     // Main
     $(function () {
-      setSlider();
-      setHiringListener();
-      setEmployeeMenuListener();
-      setInvestmentMenuListener();
-      setCategoryMenuListener();
-      setcategoryNameListener();
-      setTagMenuListener();
-      setEventsBarListener();
 
       $('#tooltip').css("left", (document.body.offsetWidth / 2 - 344) + "px");
 
       return $('.gmap').each(function() {
-          return GMap.init(this);
+        setSlider();
+        setHiringListener();
+        setEmployeeMenuListener();
+        setInvestmentMenuListener();
+        setCategoryMenuListener();
+        setCategoryNameListener();
+        setTagMenuListener();
+        setEventsBarListener();
+        return GMap.init(this);
       });
     });
 
