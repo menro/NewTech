@@ -18,6 +18,8 @@
   function searchParams() {
     var srcParamsEl = $('#search_params');
     return {
+        from_year:      srcParamsEl.data("from_year"),
+        to_year:        srcParamsEl.data("to_year"),
         title:          srcParamsEl.data("title"),
         skill_name:     srcParamsEl.data("skill_name"),
         employee_id:    srcParamsEl.data("employee_id"),
@@ -27,6 +29,28 @@
         role:           srcParamsEl.data("role"),
         county_id:      srcParamsEl.data("county_id")
     };
+  }
+
+  function setYearsSlider(){
+      var srcParamsEl = $('#search_params');
+      $( "#years_slider" ).slider({
+          range: true,
+          min: 1950,
+          max: 2012,
+          values: [ 1950, 2012 ],
+          slide: function( event, ui ) {
+              $( "#years_range" ).html(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+          },
+          stop: function( event, ui ) {
+            srcParamsEl.data("from_year", ui.values[ 0 ])
+            srcParamsEl.data("to_year", ui.values[ 1])
+            $('.jobs-table').each(function() {
+              refreshTable(this);
+            });
+          }
+      });
+        $( "#years_range" ).html( $( "#years_slider" ).slider( "values", 0 ) +
+            " - " + $( "#years_slider" ).slider( "values", 1 ) );
   }
 
   function setSearchListener() {
@@ -183,6 +207,7 @@
     // Main
     $(function () {
       return $('.jobs-table').each(function() {
+        setYearsSlider();
         setEmployeeMenuListener();
         setInvestmentMenuListener();
         setCategoryMenuListener();

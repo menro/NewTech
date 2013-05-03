@@ -50,17 +50,17 @@ class Job < ActiveRecord::Base
 
   scope :employee_type,
         lambda {|employee_id|
-          where("companies.employees_type_id = ?", employee_id)
+          joins(:company).where("companies.employees_type_id = ?", employee_id)
         }
 
   scope :investment_type,
         lambda {|investment_id|
-          where("companies.investments_type_id = ?", investment_id)
+          joins(:company).where("companies.investments_type_id = ?", investment_id)
         }
 
   scope :with_category,
         lambda {|category_id|
-          where("companies.category_id = ?", category_id)
+          joins(:company).where("companies.category_id = ?", category_id)
         }
 
   scope :with_kind,
@@ -72,5 +72,15 @@ class Job < ActiveRecord::Base
   scope :located_in_county,
         lambda {|id|
           joins(:city).where("cities.county_id = ?", id)
+        }
+
+  scope :founded_from,
+        lambda {|year|
+          joins(:company).where("companies.founded_year >= ?", year)
+        }
+
+  scope :founded_to,
+        lambda {|year|
+          joins(:company).where("companies.founded_year <= ?", year)
         }
 end
