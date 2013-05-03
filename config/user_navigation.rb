@@ -9,8 +9,9 @@ SimpleNavigation::Configuration.run do |navigation|
 
     primary.dom_class = 'nav pull-right'
 
+    primary.item :add_a_job, content_tag(:i, nil, :class => 'icon-plus') << t(:'simple_navigation.post_a_job'), new_job_url
+    primary.item :add_you_company, content_tag(:i, nil, :class => 'icon-plus') << t(:'simple_navigation.add_you_company'), new_company_url
     if user_signed_in?
-      primary.item :add_a_job, content_tag(:i, nil, :class => 'icon-plus') << t(:'simple_navigation.post_a_job'), new_job_url
       primary.item :account, content_tag(:i, nil, :class => 'icon-user') << current_user.username, "#" do |account|
         account.item  :account_profile,
                       content_tag(:i, nil, :class => 'icon-user icon-large') << t(:'simple_navigation.account.profile'),
@@ -33,7 +34,6 @@ SimpleNavigation::Configuration.run do |navigation|
       end
 
     else
-      primary.item :add_you_company, content_tag(:i, nil, :class => 'icon-plus') << t(:'simple_navigation.add_you_company'), new_company_url
       primary.item :sign_in, t(:'simple_navigation.login'), new_user_session_url
     end
 

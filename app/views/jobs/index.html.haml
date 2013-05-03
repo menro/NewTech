@@ -18,6 +18,6 @@
           = link_to content_tag(:i, nil, :class => 'icon-edit icon-large'), [ :edit, job ], id: "edit_#{job.id}", class: "btn small"
           = link_to content_tag(:i, nil, :class => 'icon-trash icon-large'), job, method: :delete, id: "edit_#{job.id}", class: "btn small", :confirm => 'are you sure?'
 
-= link_to "Create a new job posting", new_job_path, class: 'btn btn-important'
+= link_to "Add a new job posting", new_job_path, class: 'btn btn-important'
 
 = paginate @jobs
