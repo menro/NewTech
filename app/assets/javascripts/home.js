@@ -357,7 +357,7 @@ var loadGmap = (function() {
           google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function() {
 
             if($('#search_params').data("hiring")) {
-              window.location = ("/hiring?current_county_id=" + county.id);
+              window.open("/hiring?current_county_id=" + county.id, '_self');
             };
 
             if($("#box-summary-county").data("current_county_id") != county.id) {
