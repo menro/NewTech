@@ -6,7 +6,7 @@
     %input#search_query.search-query.span3{:placeholder => "search for a job..."}
 
 .filters
-  .dropdown-menu-container
+  .dropdown-menu-container.pull-right
     .btn-group.btn-county-group
       %ul.dropdown-ul
         %li.dropdown.menu-item-container
@@ -80,6 +80,10 @@
             - @roles.each do |role|
               %li
                 %a.btn-role{:href => "#", :data => { :role => role }}= role
+  #years_range
+  .slider-container
+    .slider
+      #years_slider
 
 %table#jobs_list.jobs-table{:data => gmap_data}
   %thead

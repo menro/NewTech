@@ -54,6 +54,8 @@ class JobService
     jobs = Job.scoped.joins(:company)
     jobs = jobs.currently_running
     jobs = jobs.title_like params[:title] unless params[:title].blank?
+    jobs = jobs.founded_from params[:from_year] unless params[:from_year].blank?
+    jobs = jobs.founded_to params[:to_year] unless params[:to_year].blank?
     jobs = jobs.with_kind params[:kind] unless params[:kind].blank?
     jobs = jobs.with_role params[:role] unless params[:role].blank?
     jobs = jobs.with_skill params[:skill_name] unless params[:skill_name].blank?
