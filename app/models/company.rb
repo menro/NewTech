@@ -90,7 +90,7 @@ class Company < ActiveRecord::Base
 
 
   scope :are_hiring,
-        where('jobs_count > 0')
+        where('companies.jobs_count > 0')
 
   scope :employee_type,
         lambda {|employee_id|

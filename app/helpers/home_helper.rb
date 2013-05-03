@@ -6,7 +6,7 @@ module HomeHelper
         :from_year => "",
         :to_year => "",
         :tag_code => "",
-        :current_county_id => "",
+        :current_county_id => params[:current_county_id] || "",
         :hiring => "",
         :employee_id => "",
         :investment_id => "",

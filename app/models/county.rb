@@ -39,7 +39,7 @@ class County < ActiveRecord::Base
         }
 
   scope :with_company_are_hiring,
-        joins(:companies).merge(Company.are_hiring)
+        joins(:cities).where('cities.jobs_count > 0')
 
   scope :with_company_employee_type,
         lambda {|employee_id|

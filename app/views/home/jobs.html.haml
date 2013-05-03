@@ -10,12 +10,12 @@
     .btn-group.btn-county-group
       %ul.dropdown-ul
         %li.dropdown.menu-item-container
-          %a.btn.btn-counties.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
+          %a.btn.btn-counties.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" }, :class => (params[:current_county_id] ? 'active' : '') }
             County
             %b.caret
           %ul.dropdown-menu#county-filter-menu{:role => "menu" }
             - @counties.each do |county|
-              %li
+              %li{:class => (params[:current_county_id] == county.id.to_s ? 'active' : '')}
                 %a.btn-county{:href => "#", :data => { :county_id => county.id }}= county.name
     .btn-group.btn-category-group
       %ul.dropdown-ul
