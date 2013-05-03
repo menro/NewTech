@@ -18,6 +18,7 @@
   function searchParams() {
     var srcParamsEl = $('#search_params');
     return {
+        hiring:             true,
         from_year:          srcParamsEl.data("from_year"),
         to_year:            srcParamsEl.data("to_year"),
         title:              srcParamsEl.data("title"),
