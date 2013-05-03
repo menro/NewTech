@@ -68,4 +68,9 @@ class Job < ActiveRecord::Base
 
   scope :with_role,
         lambda { |role| where(role: role) }
+
+  scope :located_in_county,
+        lambda {|id|
+          joins(:city).where("cities.county_id = ?", id)
+        }
 end
