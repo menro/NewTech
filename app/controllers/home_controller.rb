@@ -8,7 +8,7 @@ class HomeController < ApplicationController
   def jobs
     @kinds = JobService.kinds
     @roles = JobService.roles
-    @jobs = JobService.all
+    @jobs = JobService.search(params)
   end
 
   protected
