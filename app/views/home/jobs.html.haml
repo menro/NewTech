@@ -76,7 +76,7 @@
           %a.btn.btn-roles.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
             Role
             %b.caret
-          %ul.dropdown-menu#role-filter-menu{:role => "menu" }
+          %ul.dropdown-menu.pull-right#role-filter-menu{:role => "menu" }
             - @roles.each do |role|
               %li
                 %a.btn-role{:href => "#", :data => { :role => role }}= role
