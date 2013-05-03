@@ -18,7 +18,7 @@ class Job < ActiveRecord::Base
                   :company_id
 
   belongs_to :company, counter_cache: true
-  belongs_to :city
+  belongs_to :city, counter_cache: true
   has_and_belongs_to_many :skills
 
   attr_accessor :skill_list

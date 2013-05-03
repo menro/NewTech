@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130409151936) do
+ActiveRecord::Schema.define(:version => 20130503030810) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20130409151936) do
     t.string   "longitude"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "jobs_count"
   end
 
   add_index "cities", ["county_id"], :name => "index_cities_on_county_id"

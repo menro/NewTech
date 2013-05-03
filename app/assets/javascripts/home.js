@@ -355,6 +355,11 @@ var loadGmap = (function() {
 
         if('ontouchend' in document) {
           google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function() {
+
+            if($('#search_params').data("hiring")) {
+              window.location = ("/hiring?current_county_id=" + county.id);
+            };
+
             if($("#box-summary-county").data("current_county_id") != county.id) {
               setCountySummaryBoxStyle("bottom-left-2");
               drawRetrievedCountySummaryBox(county);

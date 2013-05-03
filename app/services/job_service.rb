@@ -59,7 +59,7 @@ class JobService
     jobs = jobs.with_kind params[:kind] unless params[:kind].blank?
     jobs = jobs.with_role params[:role] unless params[:role].blank?
     jobs = jobs.with_skill params[:skill_name] unless params[:skill_name].blank?
-    jobs = jobs.located_in_county params[:county_id] unless params[:county_id].blank?
+    jobs = jobs.located_in_county params[:current_county_id] unless params[:current_county_id].blank?
     jobs = jobs.employee_type(params[:employee_id]) unless params[:employee_id].blank?
     jobs = jobs.investment_type(params[:investment_id]) unless params[:investment_id].blank?
     jobs = jobs.with_category(params[:category_id]) unless params[:category_id].blank?
