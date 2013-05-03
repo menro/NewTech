@@ -7,6 +7,16 @@
 
 .filters
   .dropdown-menu-container
+    .btn-group.btn-county-group
+      %ul.dropdown-ul
+        %li.dropdown.menu-item-container
+          %a.btn.btn-counties.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
+            County
+            %b.caret
+          %ul.dropdown-menu#county-filter-menu{:role => "menu" }
+            - @counties.each do |county|
+              %li
+                %a.btn-county{:href => "#", :data => { :county_id => county.id }}= county.name
     .btn-group.btn-category-group
       %ul.dropdown-ul
         %li.dropdown.menu-item-container

@@ -18,13 +18,14 @@
   function searchParams() {
     var srcParamsEl = $('#search_params');
     return {
-        title: srcParamsEl.data("title"),
-        skill_name: srcParamsEl.data("skill_name"),
-        employee_id: srcParamsEl.data("employee_id"),
-        investment_id: srcParamsEl.data("investment_id"),
-        category_id: srcParamsEl.data("category_id"),
-        kind: srcParamsEl.data("kind"),
-        role: srcParamsEl.data("role")
+        title:          srcParamsEl.data("title"),
+        skill_name:     srcParamsEl.data("skill_name"),
+        employee_id:    srcParamsEl.data("employee_id"),
+        investment_id:  srcParamsEl.data("investment_id"),
+        category_id:    srcParamsEl.data("category_id"),
+        kind:           srcParamsEl.data("kind"),
+        role:           srcParamsEl.data("role"),
+        county_id:      srcParamsEl.data("county_id")
     };
   }
 
@@ -159,6 +160,26 @@
     });
   }
 
+  function setCountyMenuListener() {
+    var searchParams = $('#search_params');
+    $('#county-filter-menu a.btn-county').click(function(e){
+      e.preventDefault();
+      if($(this).closest('li').hasClass('active')) {
+        $(this).closest('li').removeClass("active");
+        $('.btn-county-group a.btn').removeClass("active");
+        searchParams.data("county_id", "");
+      } else {
+        $('.btn-county-group a.btn').addClass("active");
+        $('#county-filter-menu li').removeClass("active");
+        $(this).closest('li').addClass("active");
+        searchParams.data("county_id", $(this).data("county_id"));
+      }
+      $('.jobs-table').each(function() {
+        refreshTable(this);
+      });
+    });
+  }
+
     // Main
     $(function () {
       return $('.jobs-table').each(function() {
@@ -169,6 +190,7 @@
         setSkillMenuListener();
         setRoleMenuListener();
         setKindMenuListener();
+        setCountyMenuListener();
         refreshTable(this);
       });
     });
