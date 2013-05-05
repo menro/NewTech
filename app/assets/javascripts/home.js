@@ -452,11 +452,12 @@ var loadGmap = (function() {
 
   function setSlider(){
       var srcParamsEl = $('#search_params');
-      $( "#years_slider" ).slider({
-          range: true,
-          min: 1950,
-          max: 2012,
-          values: [ 1950, 2012 ],
+	  var currentYear = new Date().getFullYear();
+	  $( "#years_slider" ).slider({
+		  range: true,
+		  min: 1950,
+		  max: currentYear,
+		  values: [ 1950, currentYear ],
           slide: function( event, ui ) {
               $( "#years_range" ).html(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
 
