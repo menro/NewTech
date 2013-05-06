@@ -184,6 +184,7 @@
         $('#category-filter-menu').html(categoryLinks);
         setCategoryMenuListener();
     });
+    /*
     $.getJSON($(container).data("tags_url"), srcParams, function(data) {
         var tagLinks = "";
         $.each(data, function(i, tag) {
@@ -195,6 +196,7 @@
         $('#tags-filter-menu').html(tagLinks);
         setTagMenuListener();
     });
+    */
   }
 
   function refreshTags(container) {
