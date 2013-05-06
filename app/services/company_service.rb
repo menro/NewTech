@@ -84,7 +84,7 @@ class CompanyService
   end
 
   def self.search(params)
-    companies = Company.includes(:jobs)
+    companies = Company.scoped
     companies = companies.name_like params[:company_name] unless params[:company_name].blank?
     companies = companies.founded_from params[:from_year] unless params[:from_year].blank?
     companies = companies.founded_to params[:to_year] unless params[:to_year].blank?
@@ -101,7 +101,7 @@ class CompanyService
 
   def self.find_geocode(params)
     city = City.find_by_id(params[:city_id])
-    geocode = Geokit::Geocoders::GoogleGeocoder3.geocode("#{params[:address]}, #{params[:zip_code]}, #{city.try(:name)}")
+    geocode = Geokit::Geocoders::GoogleGeocoder3.geocode("#{params[:address]}, #{params[:zip_code]}, #{city.name}")
     geocode
   end
 

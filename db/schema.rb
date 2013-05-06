@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130503030810) do
+ActiveRecord::Schema.define(:version => 20121001205235) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(:version => 20130503030810) do
     t.string   "longitude"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "jobs_count"
   end
 
   add_index "cities", ["county_id"], :name => "index_cities_on_county_id"
@@ -58,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20130503030810) do
     t.integer  "category_id"
     t.string   "name"
     t.string   "permalink"
+    t.boolean  "hiring"
     t.boolean  "enabled"
     t.boolean  "presented"
     t.date     "presentation_date"
@@ -80,7 +80,6 @@ ActiveRecord::Schema.define(:version => 20130503030810) do
     t.decimal  "longitude"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
-    t.integer  "jobs_count"
   end
 
   add_index "companies", ["city_id"], :name => "index_companies_on_city_id"
@@ -88,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20130503030810) do
   add_index "companies", ["employees_type_id"], :name => "index_companies_on_employees_type_id"
   add_index "companies", ["enabled"], :name => "index_companies_on_enabled"
   add_index "companies", ["founded_year"], :name => "index_companies_on_founded_year"
+  add_index "companies", ["hiring"], :name => "index_companies_on_hiring"
   add_index "companies", ["investments_type_id"], :name => "index_companies_on_investments_type_id"
   add_index "companies", ["user_id"], :name => "index_companies_on_user_id"
 
@@ -136,31 +136,6 @@ ActiveRecord::Schema.define(:version => 20130503030810) do
 
   add_index "investments_types", ["name"], :name => "index_investments_types_on_name"
 
-  create_table "jobs", :force => true do |t|
-    t.string   "title"
-    t.string   "kind"
-    t.string   "role"
-    t.integer  "salary_low"
-    t.integer  "salary_high"
-    t.string   "zip_code"
-    t.integer  "company_id"
-    t.integer  "city_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.datetime "expires_on"
-    t.string   "link"
-    t.string   "email"
-    t.float    "hourly_high"
-    t.float    "hourly_low"
-    t.float    "equity_high"
-    t.float    "equity_low"
-  end
-
-  create_table "jobs_skills", :id => false, :force => true do |t|
-    t.integer "job_id"
-    t.integer "skill_id"
-  end
-
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.integer  "resource_id"
@@ -170,23 +145,6 @@ ActiveRecord::Schema.define(:version => 20130503030810) do
   end
 
   add_index "roles", ["name"], :name => "index_roles_on_name"
-
-  create_table "skills", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "sponsors", :force => true do |t|
-    t.string   "name"
-    t.string   "url"
-    t.string   "image"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-  end
 
   create_table "tags", :force => true do |t|
     t.string   "name"

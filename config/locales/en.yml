@@ -7,7 +7,6 @@ en:
     account:
       companies: "Companies"
       profile: "Profile"
-      jobs: "Jobs"
       logout: "Logout"
     home: "newtech"
     present: "Present"
@@ -17,6 +16,5 @@ en:
     login: "Login"
     present:  "Present"
     add_you_company:  "Add your company"
-    post_a_job:  "Post a job"
     register_to_attend: "Register to attend"
     sponsors: "Sponsor"

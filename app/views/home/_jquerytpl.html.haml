@@ -18,16 +18,16 @@
       %span.value ${tags_list}
       .bottom_bar
         {{if hiring == true}}
-        %a{:href => hiring_path, :title => 'Hiring'}
-          %span.hiring.icon-briefcase
+        %a{:href => "${jobs_url}", :target => "_blank"}
+          %span.hiring H
         {{/if}}
         {{if facebook != null && facebook != ""}}
-        %a{:href => "https://www.facebook.com/${facebook}", :target => "_blank", :title => 'Facebook'}
-          %span.facebook.icon-facebook
+        %a{:href => "https://www.facebook.com/${facebook}", :target => "_blank"}
+          %span.facebook F
         {{/if}}
         {{if twitter != null && twitter != ""}}
-        %a{:href => "https://twitter.com/${twitter}", :target => "_blank", :title => 'Twitter' }
-          %span.twitter.icon-twitter
+        %a{:href => "https://twitter.com/${twitter}", :target => "_blank" }
+          %span.twitter T
         {{/if}}
 
 %script{:id => "company_tpl", :type=>"text/x-jquery-tmpl" }
@@ -36,8 +36,8 @@
       %img{:src => "${image_url}"}
       %h3 ${name}
       {{if hiring == true}}
-      %a{:href => hiring_path, :title => 'Hiring'}
-        %span.hiring.icon-briefcase
+      %a{:href => "${jobs_url}", :target => "_blank"}
+        %span.hiring H
       {{/if}}
 
 %script{:id => "total-box_tpl", :type=>"text/x-jquery-tmpl" }
@@ -63,20 +63,3 @@
         %td ${category_name}
         %td.summary-numbers ${companies_count}
       {{/each}}
-
-%script{:id => "jobs-list-item_tpl", :type=>"text/x-jquery-tmpl" }
-  %tr
-    %td= link_to '${title}','${clickthrough}', target: '_blank'
-    %td ${company_name}
-    %td
-      %dl
-        {{if salary_comp}}<dt>Salary:</dt><dd>${formatted_salary_low} - ${formatted_salary_high}</dd>{{/if}}
-        {{if equity_comp}}<dt>Equity:</dt><dd>${formatted_equity_low} - ${formatted_equity_high}</dd>{{/if}}
-        {{if hourly_comp}}<dt>Hourly:</dt><dd>${formatted_hourly_low} - ${formatted_hourly_high}</dd>{{/if}}
-    %td ${city_name}
-    %td= link_to '${email}', 'mailto:${email}'
-    %td ${posted_date}
-
-%script{:id => "jobs-list-empty_tpl", :type=>"text/x-jquery-tmpl" }
-  %tr
-    %td(colspan=5) Sorry, no matching listings found

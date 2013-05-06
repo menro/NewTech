@@ -1,26 +1,8 @@
 class Company < ActiveRecord::Base
-  attr_accessible :name,
-                  :offices_attributes,
-                  :email_address,
-                  :founded_year,
-                  :description,
-                  :homepage_url,
-                  :twitter,
-                  :facebook,
-                  :jobs_url,
-                  :image,
-                  :investments_type_id,
-                  :employees_type_id,
-                  :category_id,
-                  :presentation_date,
-                  :user_id,
-                  :enabled,
-                  :presented,
-                  :address,
-                  :city_id,
-                  :zip_code,
-                  :latitude,
-                  :longitude
+  attr_accessible :name, :offices_attributes, :email_address, :founded_year, :description,
+                  :homepage_url, :twitter, :facebook, :jobs_url, :hiring, :image,
+                  :investments_type_id, :employees_type_id, :category_id, :presentation_date,
+                  :user_id, :enabled, :presented, :address, :city_id, :zip_code, :latitude, :longitude
 
   belongs_to  :user
 
@@ -35,8 +17,6 @@ class Company < ActiveRecord::Base
   belongs_to :category
 
   has_and_belongs_to_many :tags
-
-  has_many :jobs, dependent: :destroy
 
   validates_presence_of :address, :city_id, :zip_code, :category_id
 
@@ -89,8 +69,7 @@ class Company < ActiveRecord::Base
         }
 
 
-  scope :are_hiring,
-        where('companies.jobs_count > 0')
+  scope :are_hiring, where("companies.hiring = true")
 
   scope :employee_type,
         lambda {|employee_id|
@@ -111,10 +90,6 @@ class Company < ActiveRecord::Base
         lambda {|id|
           where("companies.county_id = ?", id)
         }
-
-  def is_hiring?
-    jobs_count > 0
-  end
 
   def number_of_employees
     employees_type.name rescue 0
