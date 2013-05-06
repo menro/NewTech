@@ -34,11 +34,12 @@
 
   function setYearsSlider(){
       var srcParamsEl = $('#search_params');
-      $( "#years_slider" ).slider({
+	  var currentYear = new Date().getFullYear();
+	  $( "#years_slider" ).slider({
           range: true,
           min: 1950,
-          max: 2012,
-          values: [ 1950, 2012 ],
+          max: currentYear,
+          values: [ 1950, currentYear ],
           slide: function( event, ui ) {
               $( "#years_range" ).html(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
           },
