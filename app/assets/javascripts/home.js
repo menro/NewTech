@@ -184,6 +184,7 @@ var loadGmap = (function() {
         $('#category-filter-menu').html(categoryLinks);
         setCategoryMenuListener();
     });
+    /*
     $.getJSON($(container).data("tags_url"), srcParams, function(data) {
         var tagLinks = "";
         $.each(data, function(i, tag) {
@@ -195,6 +196,7 @@ var loadGmap = (function() {
         $('#tags-filter-menu').html(tagLinks);
         setTagMenuListener();
     });
+    */
   }
 
   function refreshTags(container) {
@@ -246,7 +248,6 @@ var loadGmap = (function() {
             company["description"] = company["description"].length < 160 ? company["description"]: company["description"].substring(0,157)+"..."
         }
         var content = $( "#gmap_info_window_tpl" ).tmpl( company ).html();
-        //console.log(content);
         var infowindow = new google.maps.InfoWindow({
           content: content
         });
@@ -262,8 +263,7 @@ var loadGmap = (function() {
           icon: markerImage,
           map: currentMap
         });
-        //console.log("marker");
-        //console.log(marker);
+
         google.maps.event.addListener(marker, 'click', function() {
           closeCurrentInfoWindow();
           infowindow.open(currentMap,marker);
@@ -356,7 +356,10 @@ var loadGmap = (function() {
         countyCircles[nCountyCircles] = new google.maps.Circle(circleOptions);
 
         if('ontouchend' in document) {
-          google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function() {
+          google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function(e) {
+
+            if(bounceToCounty(county.id)) return false;
+
             if($("#box-summary-county").data("current_county_id") != county.id) {
               setCountySummaryBoxStyle("bottom-left-2");
               drawRetrievedCountySummaryBox(county);
@@ -368,6 +371,7 @@ var loadGmap = (function() {
         }
         else {
           google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function() {
+            if(bounceToCounty(county.id)) return false;
             onCountySelected(county, circlePosition);
           });
           google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseover', function() {
@@ -411,6 +415,15 @@ var loadGmap = (function() {
     currentMap.setZoom(countyZoomLevel);
   }
 
+  function bounceToCounty(countyId) {
+    if($('#search_params').data("hiring")) {
+      window.open("/hiring?current_county_id=" + countyId, '_self');
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   function drawRetrievedCountySummaryBox(county, positionStyle) {
     var boxSummaryCounty = $('#box-summary-county');
     boxSummaryCounty.html($('#county-box_tpl').tmpl(county));
@@ -441,11 +454,12 @@ var loadGmap = (function() {
 
   function setSlider(){
       var srcParamsEl = $('#search_params');
-      $( "#years_slider" ).slider({
-          range: true,
-          min: 1950,
-          max: 2012,
-          values: [ 1950, 2012 ],
+	  var currentYear = new Date().getFullYear();
+	  $( "#years_slider" ).slider({
+		  range: true,
+		  min: 1950,
+		  max: currentYear,
+		  values: [ 1950, currentYear ],
           slide: function( event, ui ) {
               $( "#years_range" ).html(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
 
@@ -479,7 +493,7 @@ var loadGmap = (function() {
       });
   }
 
-  function setcategoryNameListener() {
+  function setCategoryNameListener() {
       $('#search_form').on('submit', function(e){
           e.preventDefault();
           var searchParams = $('#search_params');
@@ -598,19 +612,19 @@ var loadGmap = (function() {
 
     // Main
     $(function () {
-      setSlider();
-      setHiringListener();
-      setEmployeeMenuListener();
-      setInvestmentMenuListener();
-      setCategoryMenuListener();
-      setcategoryNameListener();
-      setTagMenuListener();
-      setEventsBarListener();
 
       $('#tooltip').css("left", (document.body.offsetWidth / 2 - 344) + "px");
 
       return $('.gmap').each(function() {
-          return GMap.init(this);
+        setSlider();
+        setHiringListener();
+        setEmployeeMenuListener();
+        setInvestmentMenuListener();
+        setCategoryMenuListener();
+        setCategoryNameListener();
+        setTagMenuListener();
+        setEventsBarListener();
+        return GMap.init(this);
       });
     });
 

@@ -1,0 +1,2 @@
+= simple_form_for(@job, :validate => true, :html => {:class => 'form-horizontal' }) do |f|
+  = render :partial => 'form', :locals => {:f => f, :job => @job}
