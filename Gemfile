@@ -3,8 +3,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 gem 'pg', '0.14.0'
-#gem 'thin', '1.4.1'
-gem 'unicorn'
 
 # Use configatron to manage global settings
 gem 'configatron', '2.8.4'
@@ -52,6 +50,7 @@ group :assets do
   gem 'jquery-ui-rails', '0.5.0'
   gem 'modernizr-rails'
   gem 'bootstrap-sass', '2.0.4'
+  gem 'turbo-sprockets-rails3'
 end
 
 group :development do
@@ -59,6 +58,7 @@ group :development do
    gem 'capistrano'
    gem 'rvm-capistrano'
    gem 'therubyracer'
+   gem 'thin'
 end
 
 # REST
@@ -86,14 +86,15 @@ gem 'geokit-rails3'
 
 # Heroku deployment
 gem 'heroku'
-
 gem 'dalli'
 
 # Performance monitoring
 gem 'newrelic_rpm'
 
 # unicorn: Rack based HTTP server
-gem 'unicorn'
+group :staging, :production do
+  gem 'unicorn'
+end
 
 # rack mini profiler for analyzing page load time
 gem 'rack-mini-profiler'

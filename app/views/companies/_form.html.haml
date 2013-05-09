@@ -16,8 +16,6 @@
     .well.current-employees-count
       = f.association :employees_type, as: :radio_buttons, item_wrapper_class: 'inline', :label => "Current Employee"
   .span5
-    .well.hiring
-      = f.input :hiring, as: :radio_buttons, item_wrapper_class: 'inline', :label => "Hiring in the next 30 days"
     .well
       %span.header Images
       %span.btn.btn-primary.fileinput-button

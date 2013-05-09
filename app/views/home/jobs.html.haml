@@ -1,0 +1,113 @@
+= content_for :eventsbar do
+  = render partial: 'partial_templates/events_bar'
+
+= content_for :navbar_extras do
+  %form#search_form.navbar-search
+    %input#search_query.search-query.span3{:placeholder => "search for a job..."}
+
+.filters
+  .dropdown-menu-container.pull-right
+    .btn-group.btn-county-group
+      %ul.dropdown-ul
+        %li.dropdown.menu-item-container
+          %a.btn.btn-counties.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" }, :class => (params[:current_county_id] ? 'active' : '') }
+            County
+            %b.caret
+          %ul.dropdown-menu#county-filter-menu{:role => "menu" }
+            - @counties.each do |county|
+              %li{:class => (params[:current_county_id] == county.id.to_s ? 'active' : '')}
+                %a.btn-county{:href => "#", :data => { :county_id => county.id }}= county.name
+    .btn-group.btn-category-group
+      %ul.dropdown-ul
+        %li.dropdown.menu-item-container
+          %a.btn.btn-categories.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
+            Category
+            %b.caret
+          %ul.dropdown-menu#category-filter-menu{:role => "menu" }
+            - @categories.each do |category|
+              %li
+                %a.btn-category{:href => "#", :data => { :category_id => category.id }}= category.name
+    .btn-group.btn-employee-group
+      %ul.dropdown-ul
+        %li.dropdown.menu-item-container
+          %a.btn.btn-employees.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
+            Employees
+            %b.caret
+          %ul.dropdown-menu#employee-filter-menu{:role => "menu" }
+            - @employees_types.each do |employee|
+              %li
+                %a.btn-employee{:href => "#", :data => { :employee_id => employee.id }}=employee.name
+    .btn-group.btn-investment-group
+      %ul.dropdown-ul
+        %li.dropdown.menu-item-container
+          %a.btn.btn-investments.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
+            Investment
+            %b.caret
+          %ul.dropdown-menu#investment-filter-menu{:role => "menu" }
+            - @investments_types.each do |investment|
+              %li
+                %a.btn-investment{:href => "#", :data => { :investment_id => investment.id }}=investment.name
+    .btn-group.btn-skill-group
+      %ul.dropdown-ul
+        %li.dropdown.menu-item-container
+          %a.btn.btn-skills.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
+            Skills
+            %b.caret
+          %ul.dropdown-menu#skills-filter-menu{:role => "menu" }
+            - @skills.each do |skill|
+              %li
+                %a.btn-skill{:href => "#", :data => { :skill_name => skill.name }}= skill.name
+
+      %ul.dropdown-ul
+    .btn-group.btn-kind-group
+      %ul.dropdown-ul
+        %li.dropdown.menu-item-container
+          %a.btn.btn-kinds.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
+            Type
+            %b.caret
+          %ul.dropdown-menu#kind-filter-menu{:role => "menu" }
+            - @kinds.each do |kind|
+              %li
+                %a.btn-kind{:href => "#", :data => { :kind => kind }}= kind
+
+    .btn-group.btn-role-group
+      %ul.dropdown-ul
+        %li.dropdown.menu-item-container
+          %a.btn.btn-roles.dropdown-toggle{ :role => "button", :href => "#", :data => { :toggle => "dropdown" } }
+            Role
+            %b.caret
+          %ul.dropdown-menu.pull-right#role-filter-menu{:role => "menu" }
+            - @roles.each do |role|
+              %li
+                %a.btn-role{:href => "#", :data => { :role => role }}= role
+  #years_range
+  .slider-container
+    .slider
+      #years_slider
+
+%table#jobs_list.jobs-table{:data => gmap_data}
+  %thead
+    %tr
+      %td Job Title
+      %td Company
+      %td Compensation
+      %td Location
+      %td Contact
+      %td Date Posted
+
+  %tbody
+    - if @jobs.empty?
+      %tr
+        %td(colspan=5) Sorry, no matching listings found
+    - else
+      - @jobs.each do |job|
+        %tr
+          %td= link_to job.title, job.clickthrough, target: '_blank'
+          %td= job.company_name
+          %td= "#{job.formatted_salary_low} - #{job.formatted_salary_high}"
+          %td= job.city_name
+          %td= link_to job.email, "mailto:#{job.email}"
+          %td= job.posted_date
+
+#search_params{ :data => search_params_data }
+= render :partial => 'jquerytpl'

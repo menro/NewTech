@@ -17,6 +17,8 @@ database.yml
 
 # Ignore IDE configurations
 .idea
+atlassian-ide-plugin.xml
+*.iml
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
