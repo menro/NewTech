@@ -113,7 +113,7 @@ class Company < ActiveRecord::Base
         }
 
   def is_hiring?
-    jobs_count > 0
+    (self.jobs_count || 0) > 0
   end
 
   def number_of_employees
