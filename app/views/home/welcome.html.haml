@@ -40,6 +40,3 @@
   = javascript_include_tag("https://maps.googleapis.com/maps/api/js?sensor=false")
   = javascript_include_tag("http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.5/src/markerwithlabel.js")
 
-= content_for :inline_js do
-  :javascript
-    $(document).load(loadGmap.call(this))
