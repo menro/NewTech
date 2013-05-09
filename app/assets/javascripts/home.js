@@ -239,16 +239,14 @@
       companyOfficesMarkers = new Array();
       infoWindows = new Array();
       nOffices = 0;
-
       var companyList = $('#company-list');
       companyList.html("");
       $.each(data, function(i, company) {
-
+        company['hiring'] = '' // temporarly adding this hiring value.
         if(typeof(company["description"]) != "undefined" && company["description"] != null){
             company["description"] = company["description"].length < 160 ? company["description"]: company["description"].substring(0,157)+"..."
         }
         var content = $( "#gmap_info_window_tpl" ).tmpl( company ).html();
-        //console.log(content);
         var infowindow = new google.maps.InfoWindow({
           content: content
         });
