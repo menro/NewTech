@@ -11,6 +11,8 @@ end
 
 module Newtech
   class Application < Rails::Application
+    # http://tenderlovemaking.com/2012/06/18/removing-config-threadsafe.html
+    config.threadsafe!
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
