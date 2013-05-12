@@ -2,7 +2,7 @@ class CompanyDecorator < Draper::Base
   decorates :company
 
   def full_address
-    "#{company.address}, #{company.city.name}"
+    "#{self.address}, #{self.city.name}"
   end
 
   def image_url

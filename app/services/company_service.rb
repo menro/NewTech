@@ -84,7 +84,7 @@ class CompanyService
   end
 
   def self.search(params)
-    companies = Company.includes(:jobs)
+    companies = Company.includes(:jobs, :tags, :category, :employees_type, :investments_type, :city, :county)
     companies = companies.name_like params[:company_name] unless params[:company_name].blank?
     companies = companies.founded_from params[:from_year] unless params[:from_year].blank?
     companies = companies.founded_to params[:to_year] unless params[:to_year].blank?
