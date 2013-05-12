@@ -11,7 +11,7 @@ class TagService
     tags = tags.with_company_located_in_county params[:current_county_id] unless params[:current_county_id].blank?
     tags = tags.with_company_category(params[:category_id]) unless params[:category_id].blank?
     tags = tags.select("tags.id, tags.code, COUNT(companies.id) as count").group("tags.id").order("count DESC").limit(40)
-    tags
+    tags.sort_by(&:code)
   end
 
 end
