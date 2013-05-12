@@ -16,7 +16,6 @@ class HomeController < ApplicationController
   protected
 
   def populate_collections
-    @tags               = TagService.tags_for_cloud
     @skills             = Skill.all
     @categories         = CategoryService.all
     @employees_types    = EmployeesTypeService.all

@@ -41,9 +41,6 @@
             Tags
             %b.caret
           %ul.dropdown-menu#tags-filter-menu{:role => "menu" }
-            - @tags.each do |tag|
-              %li
-                %a.btn-tag{:href => "#", :data => { :tag_code => tag.code }}=tag.code
     .btn-group.btn-hiring-group.pull-right
       %ul.dropdown-ul
         %li.menu-item-container
