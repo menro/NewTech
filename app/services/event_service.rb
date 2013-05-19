@@ -1,7 +1,7 @@
 class EventService
 
   def self.all
-    events = Event.all
+    events = Event.where("start_at >= ?", Time.now).order('start_at ASC')
     EventDecorator::decorate(events)
   end
 

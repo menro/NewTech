@@ -1,0 +1,7 @@
+%li.event-item
+  %div.event-item-inner
+    %a{:href => event.preview, :target => "_blank"}
+      .main
+        .title=event.title
+        .text=event.start_at.to_time.strftime("%B %e %l.%M%p")
+      .status.rsvp
