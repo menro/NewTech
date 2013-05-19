@@ -8,6 +8,7 @@ module EventHelper
         group = []
       end
       group.push(event)
+      evnts.push(group) if events.size <= 3
     end
     evnts
   end
