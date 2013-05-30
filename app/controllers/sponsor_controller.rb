@@ -9,7 +9,8 @@ class SponsorController < ApplicationController
   end
 
   def load_service_data
-    @tags=TagService.tags_for_cloud
+#    @tags=TagService.tags_for_cloud
+    @tags = TagService::search(params)
     @categories=CategoryService.all
     @employees_types = EmployeesTypeService::all
     @investments_types = InvestmentsTypeService::all
