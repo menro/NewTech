@@ -635,6 +635,18 @@ table.summary-table td.summary-numbers {
 #pay-now{
     width:20em;padding-left:10px;padding-top:10px;padding-right:10px;padding-bottom:10px;
 }
-
-
+#caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: baseline;
+  border-top:   4px solid #9aafba;
+  border-right: 4px solid transparent;
+  border-left:  4px solid transparent;
+  content: "";
+  margin-right: -10px;
+}
+#more_menu{
+  min-width: 45px;
+}
 
