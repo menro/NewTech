@@ -88,13 +88,22 @@
 %table#jobs_list.jobs-table{:data => gmap_data}
   %thead
     %tr
-      %td Job Title
-      %td Company
-      %td Compensation
-      %td Location
-      %td Contact
-      %td Date Posted
-
+      %th.title{:sort => "string"}
+        Job Title
+        %b.caret
+      %th.company{:sort => "string"}
+        Company
+        %b.caret
+      %th.compensation
+        Compensation
+      %th.location{:sort => "string"}
+        Location
+        %b.caret
+      %th.contact
+        Contact
+      %th.date{:sort => "int"}
+        Date Posted
+        %b.caret
   %tbody
     - if @jobs.empty?
       %tr
@@ -107,7 +116,7 @@
           %td= "#{job.formatted_salary_low} - #{job.formatted_salary_high}"
           %td= job.city_name
           %td= link_to job.email, "mailto:#{job.email}"
-          %td= job.posted_date
+          %td{:date => job.posted_date_timestamp}= job.posted_date
 
 #search_params{ :data => search_params_data }
 = render :partial => 'jquerytpl'

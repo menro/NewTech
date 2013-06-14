@@ -208,6 +208,7 @@
 
     // Main
     $(function () {
+      $('.jobs-table').stupidtable();
       return $('.jobs-table').each(function() {
         setYearsSlider();
         setEmployeeMenuListener();
