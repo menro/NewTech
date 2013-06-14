@@ -15,7 +15,7 @@ class JobsController < ApplicationController
     if @job.persisted?
       redirect_to jobs_url, :notice => "Job added correctly."
     else
-      flash.now[:warning] = "Some errors are occured. fix it please!"
+      flash.now[:warning] = t(:some_errors_have_occured)
       render :new
     end
   end
