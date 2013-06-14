@@ -38,6 +38,10 @@ class JobDecorator < Draper::Base
     company.image.url(:thumbnail)
   end
 
+  def truncated_title
+    (title.length > 105) ? (title.slice(0, 105) + "...") : title
+  end
+
   def company_name
     company.name
   end
@@ -83,7 +87,11 @@ class JobDecorator < Draper::Base
   end
 
   def posted_date
-    created_at.to_date.to_s(:long)
+    created_at.to_date.to_s(:short)
+  end
+
+  def posted_date_timestamp
+    created_at.to_date.to_time.to_i
   end
 
   def expires_date

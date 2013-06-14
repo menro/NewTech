@@ -66,16 +66,17 @@
 
 %script{:id => "jobs-list-item_tpl", :type=>"text/x-jquery-tmpl" }
   %tr
-    %td= link_to '${title}','${clickthrough}', target: '_blank'
+    %td= link_to '${truncated_title}','${clickthrough}', target: '_blank'
     %td ${company_name}
     %td
       %dl
-        {{if salary_comp}}<dt>Salary:</dt><dd>${formatted_salary_low} - ${formatted_salary_high}</dd>{{/if}}
-        {{if equity_comp}}<dt>Equity:</dt><dd>${formatted_equity_low} - ${formatted_equity_high}</dd>{{/if}}
-        {{if hourly_comp}}<dt>Hourly:</dt><dd>${formatted_hourly_low} - ${formatted_hourly_high}</dd>{{/if}}
+        {{if salary_comp}}<dd><span title='Salary'>S:</span> ${formatted_salary_low} - ${formatted_salary_high}</dd>{{/if}}
+        {{if equity_comp}}<dd><span title='Equity'>E:</span> ${formatted_equity_low} - ${formatted_equity_high}</dd>{{/if}}
+        {{if hourly_comp}}<dd><span title='Hourly'>H:</span> ${formatted_hourly_low} - ${formatted_hourly_high}</dd>{{/if}}
     %td ${city_name}
     %td= link_to '${email}', 'mailto:${email}'
-    %td ${posted_date}
+    %td{:date => "${posted_date_timestamp}" }
+      ${posted_date}
 
 %script{:id => "jobs-list-empty_tpl", :type=>"text/x-jquery-tmpl" }
   %tr
