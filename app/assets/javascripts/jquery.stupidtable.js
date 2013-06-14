@@ -6,13 +6,9 @@
 
   $.fn.stupidtable = function(sortFns) {
     return this.each(function() {
+      var originalStored = false;
       var $table = $(this);
       sortFns = sortFns || {};
-
-      // Remember the natural row set:
-      $table.find("tr").each(function(index, tr) {
-        $(tr).attr("rel", index);
-      });
 
       // ==================================================== //
       //                  Utility functions                   //
@@ -102,6 +98,15 @@
 
       // Do sorting when THs are clicked
       $table.on("click", "th", function() {
+        if(!originalStored) {
+          // Remember the natural row set:
+          $table.find("tbody").find("tr").each(function(index, tr) {
+            $(tr).attr("rel", index);
+          });
+
+          originalStored = true;
+        }
+
         var trs = $table.children("tbody").children("tr");
         var $this = $(this);
         var th_index = 0;
@@ -142,10 +147,11 @@
 
           // Push either the value of the `data-order-by` attribute if specified
           // or just the text() value in this column to column[] for comparison.
+          var idDate = $this.hasClass("date");
           trs.each(function(index,tr) {
             var $e = $(tr).children().eq(th_index);
-            var sort_val = $e.data("sort-value");
-            var order_by = typeof(sort_val) !== "undefined" ? sort_val : $e.text();
+            var sort_val = idDate ? $e.attr("date") : null;
+            var order_by = sort_val || $e.text();
             column.push(order_by);
           });
 
