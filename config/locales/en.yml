@@ -2,6 +2,8 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  some_errors_have_occured: "Some errors have occurred. Please see the messages below and try again."
+  remember_to_upload_image: "Remember to upload the image before pressing submit."
   simple_navigation:
     admin:  "Administration"
     account:

@@ -34,7 +34,7 @@ class CompaniesController < ApplicationController
     if @company.persisted?
       redirect_to companies_url, :notice => "Company added correctly."
     else
-      flash.now[:warning] = "Some errors are occured. fix it please! Remember to upload the image before submit"
+      flash.now[:warning] = "#{t(:some_errors_have_occured)} #{t(:remember_to_upload_image)}"
       render :new
     end
   end
@@ -44,7 +44,7 @@ class CompaniesController < ApplicationController
     if @company
       redirect_to companies_url, :notice => "Image deleted correctly."
     else
-      flash.now[:warning] = "Some errors are occured. fix it please! Remember to upload the image before submit"
+      flash.now[:warning] = "#{t(:some_errors_have_occured)} #{t(:remember_to_upload_image)}"
       render :edit
     end
   end

@@ -23,6 +23,7 @@ atlassian-ide-plugin.xml
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+logfile
 
 # Ignore capistrano configuration files
 Capfile
