@@ -1,13 +1,16 @@
 (function() {
   var GMap;
+  var GGeocoder;
 
   var currentMap;
+  var currentRequests = [];
 
   var companyOfficesMarkers;
   var nOffices = 0;
   var infoWindows;
   var currentInfoWindow;
 
+  var counties;
   var countyCircles;
   var nCountyCircles = 0;
   var countyLabels;
@@ -82,7 +85,10 @@
       };
       currentMap = new google.maps.Map(container, defaultOptions);
       google.maps.event.addListener(currentMap, 'zoom_changed', function() {
-          refreshMap(container)
+          refreshMap(container);
+      });
+      google.maps.event.addListener(currentMap, 'dragend', function() {
+          setTimeout(function() { refreshForCurrentCounty(); }, 250);
       });
       drawCountyCircles(container);
       loadRecentBox(8);
@@ -100,16 +106,29 @@
 
   function refreshMap(container) {
     var zoomLevel = currentMap.getZoom();
+
+    for(var i = 0; i < currentRequests.length; i++) {
+      if(currentRequests[i])
+        currentRequests[i].abort();
+    }
+    currentRequests = [];
+
     loadRecentBox(zoomLevel);
+
     if (zoomLevel <= 8) {
       clearCompanyOffices();
       clearCountyCircles();
       drawCountyCircles(container);
+
+      var boxSummaryCounty = $('#box-summary-county');
+      boxSummaryCounty.data("current_county_id", null);
+      boxSummaryCounty.hide();
     } else {
       clearCountyCircles();
       clearCompanyOffices();
       drawCompanyOffices(container);
-      drawCountySummaryBox(container)
+      drawCountySummaryBox(container);
+      refreshForCurrentCounty();
     }
     //refreshTags(container);
     refreshFilterMenus(container);
@@ -152,7 +171,8 @@
 
   function refreshFilterMenus(container) {
     var srcParams = searchParams();
-    $.getJSON($(container).data("employees_types_url"), srcParams, function(data) {
+
+    currentRequests.push($.getJSON($(container).data("employees_types_url"), srcParams, function(data) {
       var rangeLinks = "";
       $.each(data, function(i, employeeRange) {
         rangeLinks += "<li";
@@ -162,8 +182,9 @@
       });
       $('#employee-filter-menu').html(rangeLinks);
       setEmployeeMenuListener();
-    });
-    $.getJSON($(container).data("investments_types_url"), srcParams, function(data) {
+    }));
+
+    currentRequests.push($.getJSON($(container).data("investments_types_url"), srcParams, function(data) {
       var investmentLinks = "";
       $.each(data, function(i, investmentRange) {
         investmentLinks += "<li";
@@ -173,8 +194,9 @@
       });
       $('#investment-filter-menu').html(investmentLinks);
       setInvestmentMenuListener();
-    });
-    $.getJSON($(container).data("categories_url"), srcParams, function(data) {
+    }));
+
+    currentRequests.push($.getJSON($(container).data("categories_url"), srcParams, function(data) {
         var categoryLinks = "";
         $.each(data, function(i, category) {
           categoryLinks += "<li";
@@ -184,9 +206,9 @@
         });
         $('#category-filter-menu').html(categoryLinks);
         setCategoryMenuListener();
-    });
+    }));
 
-    $.getJSON($(container).data("tags_url"), srcParams, function(data) {
+    currentRequests.push($.getJSON($(container).data("tags_url"), srcParams, function(data) {
         var tagLinks = "";
         $.each(data, function(i, tag) {
             tagLinks += "<li";
@@ -196,13 +218,13 @@
         });
         $('#tags-filter-menu').html(tagLinks);
         setTagMenuListener();
-    });
-
+    }));
   }
 
   function refreshTags(container) {
     var srcParams = searchParams();
-    $.getJSON($(container).data("tags_url"), srcParams, function(data) {
+
+    currentRequests.push($.getJSON($(container).data("tags_url"), srcParams, function(data) {
       var tagLinks = "";
       $.each(data, function(i, tag) {
         if (tag.code == srcParams.tag_code) {
@@ -213,19 +235,25 @@
       });
       $('#tag-cloud').html(tagLinks);
       configureTagCloud();
-    });
+    }));
   }
 
   function clearCompanyOffices() {
     for (var i=0; i<nOffices; i++) {
       companyOfficesMarkers[i].setMap(null);
     }
+
+    companyOfficesMarkers = new Array();
+    nOffices = 0;
   }
 
   function clearCountyCircles() {
     for (var i=0; i<nCountyCircles; i++) {
       countyCircles[i].setMap(null);
     }
+
+    countyCircles = new Array();
+    nCountyCircles = 0;
   }
 
   function closeCurrentInfoWindow() {
@@ -235,7 +263,7 @@
   }
 
   function drawCompanyOffices(container) {
-    $.getJSON($(container).data("offices_url"), searchParams(), function(data) {
+    currentRequests.push($.getJSON($(container).data("offices_url"), searchParams(), function(data) {
 
       companyOfficesMarkers = new Array();
       infoWindows = new Array();
@@ -281,7 +309,6 @@
       companyList.show();
       $('#companies-header').show();
 
-
       //open infowindow when company thumbnail is clicked
       $.each(companyOfficesMarkers, function(i, marker) {
         var thumb = $('#company'+(i+1));
@@ -294,8 +321,7 @@
           currentInfoWindow = infoWindows[i];
         });
       });
-    });
-
+    }));
   }
 
   function drawCountySummaryBox(container) {
@@ -303,9 +329,9 @@
       //console.log("current_county_id="+current_county_id);
       if(current_county_id != "") {
           setCountySummaryBoxStyle("bottom-left-1");
-          $.getJSON($(container).data("county_url"), searchParams(), function(data) {
+          currentRequests.push($.getJSON($(container).data("county_url"), searchParams(), function(data) {
             drawRetrievedCountySummaryBox(data.county);
-          });
+          }));
       }
   }
 
@@ -313,7 +339,8 @@
     //$('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
     $("#search_params").data("current_county_id", "");
     // County circles
-    $.getJSON($(container).data("counties_url"), searchParams(), function(data) {
+    counties = {};
+    currentRequests.push($.getJSON($(container).data("counties_url"), searchParams(), function(data) {
 
       //hide company list and flush companies results
       $('#company-list').hide();
@@ -332,6 +359,7 @@
       countyLabels = new Array();
       var totalCompanies = 0;
       $.each(data, function(i, county) {
+        counties[county.id] = county.name;
         if (county.companies_numbers == 0) return;
         totalCompanies += county.companies_numbers;
         var circlePosition = new google.maps.LatLng(county.companies_avg_latitude, county.companies_avg_longitude);
@@ -392,6 +420,58 @@
       boxSummaryTotal.html($('#total-box_tpl').tmpl({totalCompanies: totalCompanies}));
       boxSummaryTotal.addClass('well summary-box shadowed bottom-left-1');
       boxSummaryTotal.show();
+    }));
+  }
+
+  /**
+   * Hides county info box if current county != selected one.
+   */
+  function refreshForCurrentCounty() {
+    var zoomLevel = currentMap.getZoom();
+    if(zoomLevel <= 8)
+      return;
+
+    if(!counties)
+      return;
+
+    var currentCountyId = $("#box-summary-county").data("current_county_id");
+    if(!currentCountyId)
+      return;
+
+    var currentCounty = counties[currentCountyId];
+    if(!currentCounty)
+      return;
+
+    if(!GGeocoder)
+      GGeocoder = new google.maps.Geocoder();
+
+    var latlng = currentMap.getCenter();
+    GGeocoder.geocode({'latLng': latlng}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        for(var i = 0, iLimit = results.length; i < iLimit; i++) {
+          var result = results[i], types = result.types, iscounty = false;
+
+          for(var j = 0, jLimit = types.length; j < jLimit; j++) {
+            if(types[j] == "administrative_area_level_2") {
+              iscounty = true;
+              break;
+            }
+          }
+
+          if(iscounty) {
+            var boxSummaryCounty = $('#box-summary-county');
+
+            if(result.formatted_address.toLowerCase().indexOf(currentCounty.toLowerCase()) == -1) {
+              boxSummaryCounty.hide();
+            }
+            else {
+              boxSummaryCounty.show();
+            }
+
+            break;
+          }
+        }
+      }
     });
   }
 
