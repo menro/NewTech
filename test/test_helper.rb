@@ -11,3 +11,19 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+class ActionController::TestCase
+  include Devise::TestHelpers
+  
+  def setup_users
+    User.destroy_all
+    @authorized_user = User.create(username: 'authorized', email: 'authorized@example.com', password: 'password', password_confirmation: 'password')
+    @authorized_user.skip_confirmation!
+    @authorized_user.save!
+    # TODO: Set authorization roles for authorized user.
+    
+    @unauthorized_user = User.create(username: 'unauthorized', email: 'unauthorized@example.com', password: 'password', password_confirmation: 'password')
+    @unauthorized_user.skip_confirmation!
+    @unauthorized_user.save!
+  end # def
+end # class
