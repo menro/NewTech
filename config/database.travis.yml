@@ -1,0 +1,12 @@
+defaults: &defaults
+   adapter: postgresql
+   username: postgres
+   host: localhost
+
+development:
+   <<: *defaults
+   database: newtech_development
+
+test:
+   <<: *defaults
+   database: newtech_test
