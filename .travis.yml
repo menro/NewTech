@@ -1,0 +1,3 @@
+before_script:
+  - cp config/database.travis.yml config/database.yml
+  - psql -c 'create database newtech_test;' -U postgres
