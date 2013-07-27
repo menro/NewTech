@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130503030810) do
+ActiveRecord::Schema.define(:version => 20130727080522) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -76,10 +76,10 @@ ActiveRecord::Schema.define(:version => 20130503030810) do
     t.datetime "image_updated_at"
     t.string   "address"
     t.string   "zip_code"
-    t.decimal  "latitude"
-    t.decimal  "longitude"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.decimal  "latitude",            :precision => 10, :scale => 0
+    t.decimal  "longitude",           :precision => 10, :scale => 0
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
     t.integer  "jobs_count"
   end
 
@@ -128,6 +128,50 @@ ActiveRecord::Schema.define(:version => 20130503030810) do
 
   add_index "events", ["start_at"], :name => "index_events_on_start_at"
 
+  create_table "freelancers", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "jobTitle"
+    t.integer  "experience"
+    t.string   "status"
+    t.string   "github"
+    t.string   "personal_url"
+    t.string   "gravatar"
+    t.text     "bio"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "freelancers_languages", :force => true do |t|
+    t.integer  "freelancer_id"
+    t.integer  "language_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "freelancers_languages", ["freelancer_id"], :name => "index_freelancers_languages_on_freelancer_id"
+  add_index "freelancers_languages", ["language_id"], :name => "index_freelancers_languages_on_language_id"
+
+  create_table "freelancers_platforms", :force => true do |t|
+    t.integer  "freelancer_id"
+    t.integer  "platform_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "freelancers_platforms", ["freelancer_id"], :name => "index_freelancers_platforms_on_freelancer_id"
+  add_index "freelancers_platforms", ["platform_id"], :name => "index_freelancers_platforms_on_platform_id"
+
+  create_table "freelancers_tools", :force => true do |t|
+    t.integer  "freelancer_id"
+    t.integer  "tool_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "freelancers_tools", ["freelancer_id"], :name => "index_freelancers_tools_on_freelancer_id"
+  add_index "freelancers_tools", ["tool_id"], :name => "index_freelancers_tools_on_tool_id"
+
   create_table "investments_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -159,6 +203,18 @@ ActiveRecord::Schema.define(:version => 20130503030810) do
   create_table "jobs_skills", :id => false, :force => true do |t|
     t.integer "job_id"
     t.integer "skill_id"
+  end
+
+  create_table "languages", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "platforms", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "roles", :force => true do |t|
@@ -197,6 +253,12 @@ ActiveRecord::Schema.define(:version => 20130503030810) do
 
   add_index "tags", ["code"], :name => "index_tags_on_code"
   add_index "tags", ["name"], :name => "index_tags_on_name"
+
+  create_table "tools", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "username",               :default => "", :null => false

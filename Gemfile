@@ -97,4 +97,4 @@ group :staging, :production do
 end
 
 # rack mini profiler for analyzing page load time
-gem 'rack-mini-profiler'
+# gem 'rack-mini-profiler'
