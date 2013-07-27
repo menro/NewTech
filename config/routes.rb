@@ -30,6 +30,7 @@ Newtech::Application.routes.draw do
   resources :jobs
 
   devise_for :users, :controllers => { :registrations => :registrations }
+  devise_for :freelancers, :controllers => {:registrations => :freelancer_registrations}
   get "email_confirmation" => "home#email_confirmation", :as => "email_confirmation"
 
   # Profile Area
