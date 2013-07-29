@@ -6,6 +6,7 @@ class UserService
       u.email = user['email']
       u.password = user['password']
       u.password_confirmation = user['password_confirmation']
+      u.is_freelancer = user[:is_freelancer]
     end
   end
 end
