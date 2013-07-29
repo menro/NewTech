@@ -1,0 +1,44 @@
+.span2#basic_bio
+  = image_tag @freelancer.gravatar
+  %h2
+    = @freelancer.name.titleize
+
+  %br
+  %br
+  .github.info
+    = link_to "Github", @freelancer.github
+  %hr
+  .personal-url.info
+    = link_to "Personal URL", @freelancer.personal_url
+  %hr
+  .email.info
+    = link_to "Email", "mailto:#{@freelancer.email}"
+  %hr
+.span10#detail_bio
+  %hr
+  %h1
+    = @freelancer.status.upcase || "AVAILABALE"
+  %hr
+  %br
+  %h5 Job Title
+  %h2
+    = @freelancer.job_title.titleize
+  %h6
+    = "#{@freelancer.experience} years experience"
+  %br
+  %h5 Platforms
+  %h6
+    = @freelancer.platforms.collect(&:name).join(", ")
+
+  %br
+  %h5 Languages
+  %h6
+    = @freelancer.languages.collect(&:name).join(", ")
+
+  %br
+  %h5 Tools
+  %h6
+    = @freelancer.tools.collect(&:name).join(", ")
+  %hr
+
+

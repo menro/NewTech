@@ -15,6 +15,9 @@
     :javascript
       #{google_analytics_js}
   %body
+    - if freelancer_signed_in?
+      = "Welcome #{current_freelancer.name} !"
+      = link_to 'Sign out', destroy_freelancer_session_url, method: :delete
     %header.navbar
       %div#events_bar
         = yield(:eventsbar)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130727104157) do
+ActiveRecord::Schema.define(:version => 20130728091055) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(:version => 20130727104157) do
   create_table "freelancers", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.string   "jobTitle"
+    t.string   "job_title"
     t.integer  "experience"
     t.string   "status"
     t.string   "github"
@@ -153,6 +153,8 @@ ActiveRecord::Schema.define(:version => 20130727104157) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.string   "username"
+    t.integer  "vouch_count"
   end
 
   add_index "freelancers", ["email"], :name => "index_freelancers_on_email", :unique => true

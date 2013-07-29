@@ -1,0 +1,13 @@
+.span8.pull-left
+  = simple_form_for(resource, :validate => true, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'well form form-horizontal registration-box' }) do |f|
+    %h2 Sign In
+    .inputs
+      #experience-input
+        = f.input :email, :required => true, :placeholder => "Email", label: false, :input_html => { :required => true, :class => "text top"}
+        = f.input :password, :required => true, :placeholder => "Password", label: false, :input_html => { :required => true, :class => "text top"}
+    .form-actions
+      = f.submit "Sign in", :class => "btn btn-success"
+      %br
+      = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
+      = link_to "Forgot your password?", new_password_path(resource_name), :class => "btn"
+      %hr

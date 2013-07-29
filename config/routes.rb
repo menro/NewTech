@@ -29,9 +29,17 @@ Newtech::Application.routes.draw do
 
   resources :jobs
 
+
   devise_for :users, :controllers => { :registrations => :registrations }
   devise_for :freelancers, :controllers => {:registrations => :freelancer_registrations}
   get "email_confirmation" => "home#email_confirmation", :as => "email_confirmation"
+
+  resources :freelancer, only: [], path: 'freelancers', controller: 'freelancers' do
+    collection do
+      get '/:username' => "freelancers#show"
+      get '/' => 'freelancers#index'
+    end
+  end
 
   # Profile Area
   get "profile/account" => "profile#account"

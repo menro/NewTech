@@ -12,3 +12,25 @@
     width: 70px!important;
   }
 }
+.form-actions{
+}
+#basic_bio{
+  a{
+    color: inherit;
+    text-decoration: none;
+    font-weight: bold;
+  } 
+  hr{
+    margin: 14px 0;
+    border: 0;
+    border-top: 2px solid #000;
+    border-bottom: 1px solid white;
+  }
+}
+#detail_bio{
+  h1{
+    font-size: 110px;
+    line-height: 115px;
+    font-weight: normal;
+  }
+}

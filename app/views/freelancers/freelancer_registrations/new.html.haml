@@ -3,11 +3,13 @@
     %h2 Sign Up as a Freelancer
     .inputs
       #experience-input
-        = f.input :name, :required => true, :placeholder => "Name", label: false, :input_html => { :required => true, :class => "text top"}
+        = f.input :username, :required => true, :placeholder => "Username", label: false, :input_html => { :required => true, :class => "text top"}
+        = f.input :name, :required => true, :placeholder => "Full Name", label: false, :input_html => { :class => "text top"}
         = f.input :email, :required => true, :placeholder => "Email", label: false, :input_html => { :required => true, :class => "text top"}
         = f.input :password, :required => true, :placeholder => "Password", label: false, :input_html => { :required => true, :class => "text top"}
         = f.input :password_confirmation, :required => true, :placeholder => "Password Confirmation", label: false, :input_html => { :required => true, :class => "text top"}
       
+        = f.input :job_title, :required => true, :placeholder => "Job Title", label: false, :input_html => { :required => true, :class => "text top"}
         = f.input :experience, :required => true, :placeholder => "Experience (Years)", label: false, :input_html => { :required => true, :class => "text top"}
       %br
       #multi-input
