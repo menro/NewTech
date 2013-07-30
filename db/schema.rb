@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130729164521) do
+ActiveRecord::Schema.define(:version => 20130730185737) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -271,6 +271,12 @@ ActiveRecord::Schema.define(:version => 20130729164521) do
     t.integer  "vouch_count"
     t.integer  "job_type_id"
     t.boolean  "is_freelancer",          :default => false
+    t.string   "address"
+    t.string   "town"
+    t.string   "zip"
+    t.string   "remote_onsite"
+    t.boolean  "outside_colorado"
+    t.string   "rate"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
@@ -281,6 +287,26 @@ ActiveRecord::Schema.define(:version => 20130729164521) do
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
+  create_table "users_languages", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "language_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "users_languages", ["language_id"], :name => "index_users_languages_on_language_id"
+  add_index "users_languages", ["user_id"], :name => "index_users_languages_on_user_id"
+
+  create_table "users_platforms", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "platform_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "users_platforms", ["platform_id"], :name => "index_users_platforms_on_platform_id"
+  add_index "users_platforms", ["user_id"], :name => "index_users_platforms_on_user_id"
+
   create_table "users_roles", :id => false, :force => true do |t|
     t.integer "user_id"
     t.integer "role_id"
@@ -288,5 +314,15 @@ ActiveRecord::Schema.define(:version => 20130729164521) do
 
   add_index "users_roles", ["role_id"], :name => "index_users_roles_on_role_id"
   add_index "users_roles", ["user_id"], :name => "index_users_roles_on_user_id"
+
+  create_table "users_tools", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "tool_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "users_tools", ["tool_id"], :name => "index_users_tools_on_tool_id"
+  add_index "users_tools", ["user_id"], :name => "index_users_tools_on_user_id"
 
 end

@@ -1,0 +1,46 @@
+#fields{
+  .controls{
+    margin-left: 0px!important;
+  }
+  .control-group{
+    height: 40px;
+  }
+  height: 250px!important;
+}
+#is_freelancer{
+  .control-label{
+    text-align: left;
+    font-size: 14px;
+    line-height: 4px;
+  }
+  .controls{
+    margin-left: 120px!important;
+  }
+}
+
+#basic_bio{
+  a{
+    color: inherit;
+    text-decoration: none;
+    font-weight: bold;
+  } 
+  hr{
+    margin: 14px 0;
+    border: 0;
+    border-top: 2px solid #000;
+    border-bottom: 1px solid white;
+  }
+}
+#detail_bio{
+  h1{
+    font-size: 110px;
+    line-height: 115px;
+    font-weight: normal;
+  }
+  div#endorsings{
+    div.endorsement{
+      height: 150px;
+      background-color: green;
+    }
+  }
+}
