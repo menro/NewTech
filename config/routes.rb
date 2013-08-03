@@ -29,7 +29,7 @@ Newtech::Application.routes.draw do
 
   resources :jobs
 
-  devise_for :users, :controllers => { :registrations => :registrations }
+  devise_for :users, :controllers => { :registrations => :registrations, sessions: :sessions }
   get "email_confirmation" => "home#email_confirmation", :as => "email_confirmation"
   
   resources :users, only: [], path: 'freelancers', controller: 'users' do

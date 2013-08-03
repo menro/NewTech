@@ -63,7 +63,7 @@
       %br
       %br
       .romote-onsite
-        = f.input :remote_onsite, as: :check_boxes ,collection: User::ALLOWED_WORK_ONSITE_AS_OPTIONS, label: false , :item_wrapper_class => 'inline'
+        = f.input :remote_onsite, as: :radio_buttons ,collection: User::ALLOWED_WORK_ONSITE_AS_OPTIONS, label: false , :item_wrapper_class => 'inline'
         = f.input :outside_colorado, inline_label: 'I live outside Colorado - $99 a year for a listing.', label: false
       %hr
       %h5 Endorsing:

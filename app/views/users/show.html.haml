@@ -9,13 +9,13 @@
   %br
   .rate.info
     %h6
-      = "Rate: #{@freelancer.rate}$"
+      = "Rate: #{@freelancer.rate}"
   %hr
   .github.info
-    = link_to "Github", @freelancer.github
+    = link_to "Github", @freelancer.github, target: '_blank'
   %hr
   .personal-url.info
-    = link_to "Personal URL", @freelancer.personal_url
+    = link_to "Personal URL", @freelancer.personal_url, target: '_blank'
   %hr
   .email.info
     = link_to "Email", "mailto:#{@freelancer.email}"
@@ -26,19 +26,26 @@
       - name = 'You'
     - else 
       - name = @freelancer.name.titleize
-    .red-label
-      %h5
-        = "Requirement: #{name} need #{3 - @freelancer.recommendations.count} more endorsement to show up in search results"
-    .edit-link
-      = link_to 'Edit Profile', edit_profile_users_path
-
+    .span8
+      - unless viewing_own_profile?
+        .red-label
+          %h5
+            = "Endorsement requires an account - Login"
+      - else
+        %h5 
+          = "Edit your profile "
+    .span1
+      - if viewing_own_profile?
+        .edit-link
+          = link_to 'Edit', edit_profile_users_path, class: 'btn'
+    %br
   %hr
   %h2
     = @freelancer.name.titleize
   %h1
     = @freelancer.status.upcase || "AVAILABALE"
   %h5
-    = "#{show_freelancer_users_url(@freelancer)} (share)"
+    = "#{show_freelancer_users_url(@freelancer.username)} (share)"
   %hr
   - if @freelancer.recommendations.count < 3
     .red-label
