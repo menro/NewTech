@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130730185737) do
+ActiveRecord::Schema.define(:version => 20130801163004) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -179,6 +179,17 @@ ActiveRecord::Schema.define(:version => 20130730185737) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "recommendations", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "skill_type_id"
+    t.integer  "recommendi_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "recommendations", ["skill_type_id"], :name => "index_recommendations_on_skill_type_id"
+  add_index "recommendations", ["user_id"], :name => "index_recommendations_on_user_id"
+
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.integer  "resource_id"
@@ -193,6 +204,7 @@ ActiveRecord::Schema.define(:version => 20130730185737) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "stars"
   end
 
   create_table "skills", :force => true do |t|
@@ -277,6 +289,7 @@ ActiveRecord::Schema.define(:version => 20130730185737) do
     t.string   "remote_onsite"
     t.boolean  "outside_colorado"
     t.string   "rate"
+    t.string   "full_name"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

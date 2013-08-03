@@ -19,6 +19,37 @@
 }
 
 #basic_bio{
+  .github, .personal-url, .email{
+    input{
+      width: 70%!important;
+    }
+    label{
+      width: 30%!important;
+      text-align: left!important;
+      font-weight: bold;
+      font-size: 12px;
+    }
+    .controls{
+      width: 100%!important;
+      margin-left: 30px!important;
+    }
+  }
+  #user_rate_chzn{
+    width: 70%!important;
+    .chzn-drop{
+      width: 98%!important;
+      input{
+        width: 80%!important;
+      }
+    }
+  }
+  .select{
+    label{
+      width: 30%!important;
+      text-align: left!important;
+      font-weight: bold;
+    }
+  }
   a{
     color: inherit;
     text-decoration: none;
@@ -39,8 +70,45 @@
   }
   div#endorsings{
     div.endorsement{
-      height: 150px;
-      background-color: green;
+      // height: 120px;
+      // background-color: green;
+    }
+  }
+  div.red-label{
+    h5{
+      color: red;
+      font-weight: normal;
+      font-size: 10px;
+    }
+  }
+  div.endorsement{
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-left: 14px!important;
+    border: 2px solid gray;
+    // margin-left: 0px!important;
+    height: 120px;
+  }
+  div.recommendie-gravatar{
+    width: 43%;
+    height: 100%;
+    float: left;
+  }
+  div.rec-0{
+    margin-left: 0px!important;
+  }
+}
+
+.edit-profile{
+  .controls{
+    margin-left: 0px!important;
+  }
+  .address{
+    .span4{
+      margin-left: 0px!important;
+    }
+    input{
+      width: 100%;
     }
   }
 }

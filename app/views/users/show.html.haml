@@ -1,12 +1,15 @@
 .span2#basic_bio
-  = image_tag @freelancer.gravatar
+  %br
+  %br
+  = image_tag "#{@freelancer.gravatar}?s=180"
   %h2
     = @freelancer.name.titleize
 
   %br
   %br
   .rate.info
-    = link_to "Rate", @freelancer.rate
+    %h6
+      = "Rate: #{@freelancer.rate}$"
   %hr
   .github.info
     = link_to "Github", @freelancer.github
@@ -18,11 +21,36 @@
     = link_to "Email", "mailto:#{@freelancer.email}"
   %hr
 .span10#detail_bio
+  - if @freelancer.recommendations.count < 3
+    - if current_user && current_user.id = @freelancer.id
+      - name = 'You'
+    - else 
+      - name = @freelancer.name.titleize
+    .red-label
+      %h5
+        = "Requirement: #{name} need #{3 - @freelancer.recommendations.count} more endorsement to show up in search results"
+    .edit-link
+      = link_to 'Edit Profile', edit_profile_users_path
+
   %hr
+  %h2
+    = @freelancer.name.titleize
   %h1
     = @freelancer.status.upcase || "AVAILABALE"
+  %h5
+    = "#{show_freelancer_users_url(@freelancer)} (share)"
   %hr
+  - if @freelancer.recommendations.count < 3
+    .red-label
+      %h5
+        = "Endorsed: #{name} need #{3 - @freelancer.recommendations.count} more endorsement to show up in search results"
+  - else
+    %h5 Endorsements:
   %br
+  - @freelancer.recommendations.each_with_index do |recomd, index|
+    %h6
+      = "#{index+1 }. #{recomd.skill_type.name}"
+  %hr
   %h5 Job Title
   %h2
     = @freelancer.job_type.name.titleize
@@ -49,12 +77,21 @@
 
   %hr
   %h5 Endorsing:
+  %br
   #endorsings
-    .endorsement.span3
-
-    .endorsement.span3
-    .endorsement.span3
-
+    - @freelancer.recommendations.each_with_index do |recommendation, index|
+      - recommendie = recommendation.recommendi
+      .endorsement.span3{class: "rec-#{index}"}
+        .recommendie-gravatar
+          = image_tag "#{recommendie.gravatar}?s=100"
+        .recommendie-details
+          %h3
+            = recommendie.name.titleize
+          %h6 
+            = recommendie.job_type.name.titleize
+          %h6
+            = "Endorsed: #{recommendation.skill_type.name}"
+          %hr
 
   %br
   %br

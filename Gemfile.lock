@@ -74,10 +74,17 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
+    columnize (0.3.6)
     configatron (2.8.4)
       yamler (>= 0.1.0)
     daemons (1.1.9)
     dalli (2.0.2)
+    debugger (1.6.1)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.3)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.3)
     devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -279,6 +286,7 @@ DEPENDENCIES
   coffee-rails (= 3.2.2)
   configatron (= 2.8.4)
   dalli
+  debugger
   devise (>= 2.1.0)
   draper
   font-awesome-sass-rails

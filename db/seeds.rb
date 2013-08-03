@@ -28,9 +28,18 @@ Platform.create({name: 'REST APIs'})
 Platform.create({name: 'Linux'})
 
 #skills
-SkillType.create({name: 'design'})
-SkillType.create({name: 'coding'})
-SkillType.create({name: 'UI'})
+SkillType.create({name: 'design', stars: 2})
+SkillType.create({name: 'coding', stars: 3})
+SkillType.create({name: 'Database design', stars: 5})
+SkillType.create({name: 'API development', stars: 5})
+SkillType.create({name: 'UI', stars: 4})
+SkillType.create({name: 'Server Administration', stars: 3})
+SkillType.create({name: 'Enterpreneurial', stars: 5})
+SkillType.create({name: 'UX', stars: 5})
 
 #Job Type
 JobType.create({name: 'Software Engineer'})
+JobType.create({name: 'UI Designer'})
+JobType.create({name: 'Database Administrator'})
+JobType.create({name: 'Front end Developer'})
+

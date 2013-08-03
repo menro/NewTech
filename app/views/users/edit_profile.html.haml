@@ -1,0 +1,106 @@
+= simple_form_for(@freelancer, :validate => true, :as => 'user', :url => update_users_path, :html => {:class => 'well form form-horizontal registration-box' }) do |f|
+  .inputs.span11.edit-profile
+    %br
+    %br
+    .span2#basic_bio
+      %br
+      %br
+      = image_tag "#{@freelancer.gravatar}?s=180"
+      %h2
+        = "Endorsed"
+
+      %br
+      %br
+      .rate.info
+        = f.input :rate, as: :select, collection: User::ALLOWED_USER_RATES_AS_OPTIONS, default: '$', input_html: {style: 'width 70%'}
+      %hr
+      .github.info
+        = f.input :github, as: :string, placeholder: 'Github URL'
+      %hr
+      .personal-url.info
+        = f.input :personal_url, as: :string, label: 'Personal', placeholder: 'Personal URL'
+      %hr
+      .email.info
+        = f.input :email, as: :string, label: 'Email', placeholder: 'Email'
+      %hr
+    .span8#detail_bio
+
+      %br
+      = f.input :full_name, :required => true, placeholder: 'Full Name',label: false, :input_html => { :required => true, :class => "top", style: 'width: 100%;'}
+      %h1
+        = @freelancer.status.upcase
+
+      = f.input :status,:collection => User::ALLOWED_WORK_STATUS_AS_OPTIONS, :label => false, placeholder: 'Status', :default => @freelancer.status || 'Available', :input_html => { :required => true , :class => "text top"}  
+
+      %hr
+
+      %h5 Job Title
+      = f.association :job_type, :as => :select, :collection => User::ALLOWED_JOB_TITLE_AS_OPTIONS, label: false, :input_html => { :required => true , :class => "text top"} 
+      %h5 Experience (year)
+      = f.input :experience, as: :integer,collection: User::ALLOWED_EXP_YEARS,  label: false, :input_html => {:required => true}
+
+      %br
+      %h5 Platforms
+      = f.association :platforms, :as => :check_boxes, :collection => User::ALLOWED_PLATFORMS_AS_OPTIONS, label: false, :item_wrapper_class => 'inline'
+
+      %br
+      %h5 Languages
+      = f.association :languages, :as => :check_boxes, :collection => User::ALLOWED_LANGUAGES_AS_OPTIONS, label: false, :item_wrapper_class => 'inline'
+      %br
+      %h5 Tools
+      = f.association :tools, :as => :check_boxes, :collection => User::ALLOWED_TOOLS_AS_OPTIONS, label: false, :item_wrapper_class => 'inline'
+      %hr
+
+      .address
+        %h5 Location
+        .span4
+          = f.input :address, placeholder: 'Address',label: false, :input_html => { :required => true, :class => "top"}
+        .span2
+          = f.input :town, placeholder: 'Town',label: false,  input_html: {required: true}
+        .span1
+          = f.input :zip, placeholder: 'Zip', label: false, input_html: {required: true}
+      %br
+      %br
+      %br
+      .romote-onsite
+        = f.input :remote_onsite, as: :check_boxes ,collection: User::ALLOWED_WORK_ONSITE_AS_OPTIONS, label: false , :item_wrapper_class => 'inline'
+        = f.input :outside_colorado, inline_label: 'I live outside Colorado - $99 a year for a listing.', label: false
+      %hr
+      %h5 Endorsing:
+      %br
+      #endorsings
+        - @freelancer.recommendations.each_with_index do |recommendation, index|
+          - recommendie = recommendation.recommendi
+          .endorsement.span3{class: "rec-#{index}"}
+            .recommendie-gravatar
+              = image_tag "#{recommendie.gravatar}?s=100"
+            .recommendie-details
+              %h3
+                = recommendie.name.titleize
+              %h6 
+                = recommendie.job_type.name.titleize
+              %h6
+                = "Endorsed: #{recommendation.skill_type.name}"
+  .span1
+    = f.submit 'save', class: 'btn'
+
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br

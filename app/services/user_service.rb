@@ -9,4 +9,8 @@ class UserService
       u.is_freelancer = user[:is_freelancer]
     end
   end
+
+  def self.update_user(user, attributes = {})
+    user.update_attributes attributes
+  end
 end

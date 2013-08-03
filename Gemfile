@@ -59,6 +59,7 @@ group :development do
    gem 'rvm-capistrano'
    gem 'therubyracer'
    gem 'thin'
+   gem 'debugger'
 end
 
 # REST
