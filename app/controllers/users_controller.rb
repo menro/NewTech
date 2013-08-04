@@ -18,6 +18,7 @@ class UsersController < ApplicationController
 
   def update
     @freelancer = User.where(username: params[:username]).first
+    debugger
     if @freelancer.update_attributes(params[:user])
       redirect_to show_freelancer_users_path(@freelancer.username), notice: 'Your profile has been updated successfully'
     else
@@ -35,12 +36,12 @@ class UsersController < ApplicationController
     puts params
     @freelancer = User.where(username: params[:username]).first #recommendi => being endorsed
     skill_ids = params[:user][:user_skill_ids].reject {|id| id.empty?}
-    current_user.user_skill_ids << skill_ids
     skill_ids.each do |id|
       recomendation = Recommendation.new
       recomendation.skill_type_id = id
       recomendation.recommendi_id = @freelancer.id
       current_user.recommendations << recomendation
+      @freelancer.user_skills << SkillType.find(id)
     end
     if current_user.save
       redirect_to show_freelancer_users_path(@freelancer.username), notice: "Thanks for endorsing #{@freelancer.name}!"

@@ -2,13 +2,13 @@
   %br
   %br
   = image_tag "#{@freelancer.gravatar}?s=180"
-  - if viewing_own_profile?
+  - if viewing_own_profile? || ! user_signed_in?
     - title = 'You cannot endorse yourself'
     - title = 'You need to be login to endorse this user.' unless user_signed_in?
     = link_to "Endorse", 'javascript:void(0)', class: 'btn disabled', title: title
   - else
     = simple_form_for(current_user, :validate => true, :as => 'user', :url => endorse_users_path(@freelancer.username), :html => {:class => 'well form form-horizontal registration-box' }) do |f|
-      = f.association :user_skills, :collection =>  User::ALLOWED_SKILL_TYPES_AS_OPTIONS, :label => false
+      = f.association :user_skills, :collection =>  User::ALLOWED_SKILL_TYPES_AS_OPTIONS, :label => false, defualt: 'Select'
       = f.submit 'Endorse', class: 'btn'
 
   %br
@@ -37,10 +37,11 @@
         .red-label
           %h5
             = "Endorsement requires an account - Login"
-    .span1
-      - if viewing_own_profile?
-        .edit-link
-          = link_to 'Edit', edit_profile_users_path, class: 'btn'
+  
+  %div{style: "text-align: right;"}
+    - if viewing_own_profile?
+      .edit-link
+        = link_to 'Edit', edit_profile_users_path, class: 'btn'
     %br
   %hr
   %h2
@@ -62,13 +63,20 @@
   - else
     %h5 Endorsements:
   %br
-  - @freelancer.recommendations.each_with_index do |recomd, index|
-    %h6
-      = "#{index+1 }. #{recomd.skill_type.name}"
+  - @freelancer.user_skills.uniq.each_with_index do |skill, index|
+    .endorse-list
+      .endorse-title
+        %h6
+          = "#{index+1 }. #{skill.name}"
+      .endorse-people
+        - skill.user_recommendies(@freelancer.id).group(:user_id).each do |r|
+          - rc = r.recommendi
+          = link_to image_tag("#{rc.gravatar}?s=25"), show_freelancer_users_url(rc.username), target: '_blank'
+
   %hr
   %h5 Job Title
   %h2
-    = @freelancer.job_type.name.titleize
+    = @freelancer.try(:job_type).try(:name).try(:titleize)
   %h6
     = "#{@freelancer.experience} years experience"
   %br
@@ -88,13 +96,13 @@
   %hr
   %h5 Location
   %h6
-    = "Lives in #{@freelancer.town} and only works #{@freelancer.remote_onsite}"
+    = "Lives in #{@freelancer.town} and works #{@freelancer.work_locations.collect(&:name).join(' and ')}"
 
   %hr
   %h5 Endorsing:
   %br
-  #endorsings
-    - @freelancer.recommendations.each_with_index do |recommendation, index|
+  #endorsings.inline
+    - @freelancer.recommendies.group(:user_id).each_with_index do |recommendation, index|
       - recommendie = recommendation.recommendi
       .endorsement.span3{class: "rec-#{index}"}
         .recommendie-gravatar
@@ -103,10 +111,13 @@
           %h3
             = recommendie.name.titleize
           %h6 
-            = recommendie.job_type.name.titleize
+            = recommendie.try(:job_type).try(:name).try(:titleize)
           %h6
             = "Endorsed: #{recommendation.skill_type.name}"
           %hr
+          - recommendie.recommendies.group(:user_id).each_with_index do |r, i|
+            - rc = r.recommendi
+            = link_to image_tag("#{rc.gravatar}?s=20"), show_freelancer_users_url(rc.username), target: '_blank'
 
   %br
   %br

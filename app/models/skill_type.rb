@@ -5,4 +5,8 @@ class SkillType < ActiveRecord::Base
 
   has_many :skills_set, class_name: "UsersSkills"
   has_many :users, through: :skills_set
+
+  def user_recommendies(recommendi_id)
+    recommendations.where(recommendi_id: recommendi_id)  
+  end
 end

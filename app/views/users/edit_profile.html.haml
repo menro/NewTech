@@ -6,8 +6,8 @@
       %br
       %br
       = image_tag "#{@freelancer.gravatar}?s=180"
-      %h2
-        = "Endorsed"
+      - title = 'You cannot endorse yourself'
+      = link_to "Endorse", 'javascript:void(0)', class: 'btn disabled', title: title
 
       %br
       %br
@@ -46,9 +46,6 @@
       %br
       %h5 Languages
       = f.association :languages, :as => :check_boxes, :collection => User::ALLOWED_LANGUAGES_AS_OPTIONS, label: false, :item_wrapper_class => 'inline'
-      %br
-      %h5 Tools
-      = f.association :tools, :as => :check_boxes, :collection => User::ALLOWED_TOOLS_AS_OPTIONS, label: false, :item_wrapper_class => 'inline'
       %hr
 
       .address
@@ -63,13 +60,13 @@
       %br
       %br
       .romote-onsite
-        = f.input :remote_onsite, as: :radio_buttons ,collection: User::ALLOWED_WORK_ONSITE_AS_OPTIONS, label: false , :item_wrapper_class => 'inline'
+        = f.association :work_locations, as: :check_boxes ,collection: User::ALLOWED_WORK_ONSITE_AS_OPTIONS, label: false , :item_wrapper_class => 'inline'
         = f.input :outside_colorado, inline_label: 'I live outside Colorado - $99 a year for a listing.', label: false
       %hr
       %h5 Endorsing:
       %br
-      #endorsings
-        - @freelancer.recommendations.each_with_index do |recommendation, index|
+      #endorsings.inline
+        - @freelancer.recommendies.group(:user_id).each_with_index do |recommendation, index|
           - recommendie = recommendation.recommendi
           .endorsement.span3{class: "rec-#{index}"}
             .recommendie-gravatar
@@ -78,9 +75,13 @@
               %h3
                 = recommendie.name.titleize
               %h6 
-                = recommendie.job_type.name.titleize
+                = recommendie.try(:job_type).try(:name).try(:titleize)
               %h6
                 = "Endorsed: #{recommendation.skill_type.name}"
+              %hr
+              - recommendie.recommendies.group(:user_id).each_with_index do |r, i|
+                - rc = r.recommendi
+                = link_to image_tag("#{rc.gravatar}?s=20"), show_freelancer_users_url(rc.username), target: '_blank'
   .span1
     = f.submit 'save', class: 'btn'
 

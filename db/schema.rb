@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130804103752) do
+ActiveRecord::Schema.define(:version => 20130804172927) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -347,5 +347,21 @@ ActiveRecord::Schema.define(:version => 20130804103752) do
 
   add_index "users_tools", ["tool_id"], :name => "index_users_tools_on_tool_id"
   add_index "users_tools", ["user_id"], :name => "index_users_tools_on_user_id"
+
+  create_table "users_work_locations", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "work_location_type_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "users_work_locations", ["user_id"], :name => "index_users_work_locations_on_user_id"
+  add_index "users_work_locations", ["work_location_type_id"], :name => "index_users_work_locations_on_work_location_type_id"
+
+  create_table "work_location_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

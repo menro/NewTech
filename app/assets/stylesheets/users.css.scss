@@ -87,6 +87,19 @@
   }
 }
 #detail_bio{
+  .endorse-title{
+    width: 30%;
+    float: left;
+  }
+  .endorse-people{
+    width: 70%;
+    float: left;
+    text-align: right;
+  }
+  .endorse-list{
+    height: 30px;
+    width: 100%;
+  }
   h1{
     font-size: 110px;
     line-height: 115px;
@@ -100,6 +113,12 @@
     div.endorsement{
       // height: 120px;
       // background-color: green;
+    }
+    hr{
+      margin: 5px 0px;
+    }
+    h6{
+      font-size: 9px;
     }
   }
   div.red-label{

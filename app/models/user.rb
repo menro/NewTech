@@ -19,13 +19,13 @@ class User < ActiveRecord::Base
   ALLOWED_PLATFORMS_AS_OPTIONS = Platform.all.map {|t| [t.name.titleize, t.id]}
   ALLOWED_WORK_STATUS_AS_OPTIONS = WORK_STATUS.map {|t| [t.titleize, t]}
   ALLOWED_JOB_TITLE_AS_OPTIONS = JobType.all.map {|t| [t.name, t.id]}
-  ALLOWED_WORK_ONSITE_AS_OPTIONS = ONSITE_REMOTE.map { |t| [t.titleize, t]}
+  ALLOWED_WORK_ONSITE_AS_OPTIONS = WorkLocationType.all.map { |t| [t.name.titleize, t.id]}
   ALLOWED_USER_RATES_AS_OPTIONS = USER_RATES.map { |t| [t, t]}
   ALLOWED_SKILL_TYPES_AS_OPTIONS = SkillType.all.map {|t| [t.name.titleize, t.id]}
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me , :role_ids
-  attr_accessible :rate, :github, :personal_url, :full_name, :status, :job_type_id, :experience, :platform_ids, :language_ids, :tool_ids, :address, :town, :zip, :remote_onsite, :outside_colorado, :recommendation_ids
+  attr_accessible :rate, :github, :personal_url, :full_name, :status, :job_type_id, :experience, :platform_ids, :language_ids, :tool_ids, :address, :town, :zip, :remote_onsite, :outside_colorado, :recommendation_ids, :work_location_ids
 
   has_many :tool_sets, class_name: "UsersTools"
   has_many :tools, through: :tool_sets
@@ -35,6 +35,9 @@ class User < ActiveRecord::Base
 
   has_many :platform_sets, class_name: "UsersPlatforms"
   has_many :platforms, through: :platform_sets
+
+  has_many :work_location_types, class_name: "UsersWorkLocations"
+  has_many :work_locations, through: :work_location_types, source: :work_location_type
 
   has_many :recommendations
   has_many :recommendies, class_name: "Recommendation", foreign_key: "recommendi_id"
@@ -70,7 +73,7 @@ class User < ActiveRecord::Base
   end
 
   def set_username
-    self.username = self.username.downcase
+    self.username = self.username.downcase.gsub(/\s/,'')
   end
 
   def set_gravata
