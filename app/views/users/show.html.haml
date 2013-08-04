@@ -2,8 +2,14 @@
   %br
   %br
   = image_tag "#{@freelancer.gravatar}?s=180"
-  %h2
-    = @freelancer.name.titleize
+  - if viewing_own_profile?
+    - title = 'You cannot endorse yourself'
+    - title = 'You need to be login to endorse this user.' unless user_signed_in?
+    = link_to "Endorse", 'javascript:void(0)', class: 'btn disabled', title: title
+  - else
+    = simple_form_for(current_user, :validate => true, :as => 'user', :url => endorse_users_path(@freelancer.username), :html => {:class => 'well form form-horizontal registration-box' }) do |f|
+      = f.association :user_skills, :collection =>  User::ALLOWED_SKILL_TYPES_AS_OPTIONS, :label => false
+      = f.submit 'Endorse', class: 'btn'
 
   %br
   %br
@@ -22,18 +28,15 @@
   %hr
 .span10#detail_bio
   - if @freelancer.recommendations.count < 3
-    - if current_user && current_user.id = @freelancer.id
+    - if current_user && current_user.id == @freelancer.id
       - name = 'You'
     - else 
       - name = @freelancer.name.titleize
-    .span8
-      - unless viewing_own_profile?
+    .span8{style: 'width: 100%;'}
+      - unless user_signed_in?
         .red-label
           %h5
             = "Endorsement requires an account - Login"
-      - else
-        %h5 
-          = "Edit your profile "
     .span1
       - if viewing_own_profile?
         .edit-link
@@ -42,8 +45,13 @@
   %hr
   %h2
     = @freelancer.name.titleize
-  %h1
-    = @freelancer.status.upcase || "AVAILABALE"
+  - if user_signed_in? && viewing_own_profile?
+    %h1{id: 'freelancer_status_text'}
+      = @freelancer.status.upcase || "AVAILABALE"
+  - else
+    %h1
+      = @freelancer.status.upcase || "AVAILABALE"
+  = hidden_field_tag :freelancer_status, @freelancer.status.downcase
   %h5
     = "#{show_freelancer_users_url(@freelancer.username)} (share)"
   %hr

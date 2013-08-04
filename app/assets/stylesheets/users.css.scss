@@ -19,6 +19,30 @@
 }
 
 #basic_bio{
+  a.disabled{
+    width: 88%!important;
+    margin-top: 5%;
+  }
+  form{
+    padding: 0px!important;
+    margin-top: 5px;
+    // text-align: center;
+    .controls{
+      margin-left: 0px!important;
+    }
+    div.chzn-container{
+      width: 100%!important;
+      div.chzn-drop{
+        width: 99%!important;
+      }
+    }
+    div.control-group{
+      margin-bottom: 0px;
+    }
+    input.btn{
+      width: 100%!important;
+    }
+  }
   .github, .personal-url, .email{
     input{
       width: 70%!important;
@@ -67,6 +91,10 @@
     font-size: 110px;
     line-height: 115px;
     font-weight: normal;
+  }
+  #freelancer_status_text{
+    cursor: pointer;
+    width: 40%;
   }
   div#endorsings{
     div.endorsement{

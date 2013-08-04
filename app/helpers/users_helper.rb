@@ -3,7 +3,7 @@ module UsersHelper
     user = User.where(username: params[:username]).first
     if current_user.nil?
       return false
-    elsif user && current_user.id = user.id
+    elsif user && current_user.id == user.id
       return true
     end
     false

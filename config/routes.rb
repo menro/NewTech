@@ -38,6 +38,8 @@ Newtech::Application.routes.draw do
       get '/:username/edit' => 'users#edit_profile', as: 'edit_profile'
       get '/' => 'users#index'
       put '/:username' => 'users#update', as: 'update'
+      post '/change_status' => 'users#change_status'
+      put '/endorse/:username' => 'users#endorse', as: 'endorse'
     end
   end
   # Profile Area

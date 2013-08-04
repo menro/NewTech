@@ -21,10 +21,11 @@ class User < ActiveRecord::Base
   ALLOWED_JOB_TITLE_AS_OPTIONS = JobType.all.map {|t| [t.name, t.id]}
   ALLOWED_WORK_ONSITE_AS_OPTIONS = ONSITE_REMOTE.map { |t| [t.titleize, t]}
   ALLOWED_USER_RATES_AS_OPTIONS = USER_RATES.map { |t| [t, t]}
+  ALLOWED_SKILL_TYPES_AS_OPTIONS = SkillType.all.map {|t| [t.name.titleize, t.id]}
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me , :role_ids
-  attr_accessible :rate, :github, :personal_url, :full_name, :status, :job_type_id, :experience, :platform_ids, :language_ids, :tool_ids, :address, :town, :zip, :remote_onsite, :outside_colorado 
+  attr_accessible :rate, :github, :personal_url, :full_name, :status, :job_type_id, :experience, :platform_ids, :language_ids, :tool_ids, :address, :town, :zip, :remote_onsite, :outside_colorado, :recommendation_ids
 
   has_many :tool_sets, class_name: "UsersTools"
   has_many :tools, through: :tool_sets
@@ -38,6 +39,9 @@ class User < ActiveRecord::Base
   has_many :recommendations
   has_many :recommendies, class_name: "Recommendation", foreign_key: "recommendi_id"
 
+  has_many :skills_set, class_name: "UsersSkills"
+  has_many :user_skills, through: :skills_set, source: 'skill_type'
+
   belongs_to :job_type
   validates :username, presence: true, :allow_nil => false, :uniqueness => {:case_sensitive => false}
   validates :email, presence: true, :uniqueness => {:case_sensitive => false}, :allow_nil => false
@@ -45,6 +49,7 @@ class User < ActiveRecord::Base
 
   before_save :set_status, :set_username, :set_gravata
 
+  accepts_nested_attributes_for :recommendations
 
   def is_admin?
     has_role?(:admin)
@@ -61,7 +66,7 @@ class User < ActiveRecord::Base
   private
   
   def set_status
-    self.status = 'Available'
+    self.status = self.status || 'available'
   end
 
   def set_username
