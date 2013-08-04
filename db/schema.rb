@@ -76,10 +76,10 @@ ActiveRecord::Schema.define(:version => 20130804172927) do
     t.datetime "image_updated_at"
     t.string   "address"
     t.string   "zip_code"
-    t.decimal  "latitude",            :precision => 10, :scale => 0
-    t.decimal  "longitude",           :precision => 10, :scale => 0
-    t.datetime "created_at",                                         :null => false
-    t.datetime "updated_at",                                         :null => false
+    t.decimal  "latitude"
+    t.decimal  "longitude"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.integer  "jobs_count"
   end
 
