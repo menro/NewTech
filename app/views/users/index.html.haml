@@ -24,7 +24,7 @@
             %h6 
               = recommendie.try(:job_type).try(:name).try(:titleize)
             %h6
-              = "Endorsed: #{user.recommendies.first.skill_type.name}"
+              = "Endorsed: #{user.recommendies.try(:first).try(:skill_type).try(:name)}"
             %hr
             - recommendie.recommendies.group(:user_id).each_with_index do |r, i|
               - rc = r.recommendi
