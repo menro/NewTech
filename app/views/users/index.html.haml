@@ -13,19 +13,19 @@
     %hr
     #endorsings
       - User.where(status: status).all.each_with_index do |user, index|
-        - unless user.recommendies.group(:user_id).length < 0
-          - recommendie = user
-          .endorsement.span3{class: "rec-#{index}"}
-            .recommendie-gravatar
-              = image_tag "#{recommendie.gravatar}?s=100"
-            .recommendie-details
-              %h3
-                = recommendie.name.titleize
-              %h6 
-                = recommendie.try(:job_type).try(:name).try(:titleize)
-              %h6
-                = "Endorsed: #{user.recommendies.first.skill_type.name}"
-              %hr
-              - recommendie.recommendies.group(:user_id).each_with_index do |r, i|
-                - rc = r.recommendi
-                = link_to image_tag("#{rc.gravatar}?s=20"), show_freelancer_users_url(rc.username), target: '_blank'
+        -# unless user.recommendies.group(:user_id).length < 0
+        - recommendie = user
+        .endorsement.span3{class: "rec-#{index}"}
+          .recommendie-gravatar
+            = image_tag "#{recommendie.gravatar}?s=100"
+          .recommendie-details
+            %h3
+              = recommendie.name.titleize
+            %h6 
+              = recommendie.try(:job_type).try(:name).try(:titleize)
+            %h6
+              = "Endorsed: #{user.recommendies.first.skill_type.name}"
+            %hr
+            - recommendie.recommendies.group(:user_id).each_with_index do |r, i|
+              - rc = r.recommendi
+              = link_to image_tag("#{rc.gravatar}?s=20"), show_freelancer_users_url(rc.username), target: '_blank'
