@@ -21,7 +21,7 @@
         = f.input :personal_url, as: :string, label: 'Personal', placeholder: 'Personal URL'
       %hr
       .email.info
-        = f.input :email, as: :string, label: 'Email', placeholder: 'Email'
+        = link_to "Email", "mailto:#{@freelancer.email}"
       %hr
     .span8#detail_bio
 

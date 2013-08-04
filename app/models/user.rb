@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true, :uniqueness => {:case_sensitive => false}, :allow_nil => false
   validates :experience, numericality: true, :allow_nil => true, inclusion: ALLOWED_EXP_YEARS
 
-  before_save :set_status, :set_username, :set_gravata
+  before_save :set_status, :set_username, :set_gravata #, :reload_skills
 
   accepts_nested_attributes_for :recommendations
 
@@ -66,6 +66,9 @@ class User < ActiveRecord::Base
     job_type.try(:name) || ""
   end
 
+  def reload_skills
+    self.user_skills = User.find(self.id).user_skills
+  end
   private
   
   def set_status
@@ -79,4 +82,5 @@ class User < ActiveRecord::Base
   def set_gravata
     self.gravatar = "http://1.gravatar.com/avatar/#{Digest::MD5.hexdigest(self.email)}"
   end
+
 end
