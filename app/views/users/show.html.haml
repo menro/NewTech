@@ -1,124 +1,127 @@
-.span2#basic_bio
-  %br
-  %br
-  = image_tag "#{@freelancer.gravatar}?s=180"
-  - if viewing_own_profile? || ! user_signed_in?
-    - title = 'You cannot endorse yourself'
-    - title = 'You need to be login to endorse this user.' unless user_signed_in?
-    = link_to "Endorse", 'javascript:void(0)', class: 'btn disabled', title: title
-  - else
-    -# current_user.user_skills = []
-    = simple_form_for(current_user, :validate => true, :as => 'user', :url => endorse_users_path(@freelancer.username), :html => {:class => 'well form form-horizontal registration-box' }) do |f|
-      = f.association :user_skills, :collection =>  User::ALLOWED_SKILL_TYPES_AS_OPTIONS, :label => false, :selected => false
-      = f.submit 'Endorse', class: 'btn'
-  %br
-  %br
-  .rate.info
-    %h6
-      = "Rate: #{@freelancer.rate}"
-  %hr
-  .github.info
-    = link_to "Github", @freelancer.github, target: '_blank'
-  %hr
-  .personal-url.info
-    = link_to "Personal URL", @freelancer.personal_url, target: '_blank'
-  %hr
-  .email.info
-    = link_to "Email", "mailto:#{@freelancer.email}"
-  %hr
-.span10#detail_bio
-  - if @freelancer.recommendies.group(:user_id).length < 3
-    - if current_user && current_user.id == @freelancer.id
-      - name = 'You'
-    - else 
-      - name = @freelancer.name.titleize
-    .span8{style: 'width: 100%;'}
-      - unless user_signed_in?
-        .red-label
-          %h5
-            = "Endorsement requires an account - Login"
-  
-  %div{style: "text-align: right;"}
-    - if viewing_own_profile?
-      .edit-link
-        = link_to 'Edit', edit_profile_users_path, class: 'btn'
+- if @freelancer.present?
+  .span2#basic_bio
     %br
-  %hr
-  %h2
-    = @freelancer.name.titleize
-  - if user_signed_in? && viewing_own_profile?
-    %h1{id: 'freelancer_status_text'}
-      = @freelancer.status.upcase || "AVAILABALE"
-  - else
-    %h1
-      = @freelancer.status.upcase || "AVAILABALE"
-  = hidden_field_tag :freelancer_status, @freelancer.status.downcase
-  %h5
-    = "#{show_freelancer_users_url(@freelancer.username)} (share)"
-  %hr
-  - len = @freelancer.recommendies.group(:user_id).length 
-  - if len < 3
-    .red-label
-      %h5
-        = "Endorsed: #{name} need #{3 - len} more endorsement to show up in search results"
-  - else
-    %h5 Endorsements:
-  %br
-  - @freelancer.user_skills.uniq.each_with_index do |skill, index|
-    .endorse-list
-      .endorse-title
-        %h6
-          = "#{index+1 }. #{skill.name}"
-      .endorse-people
-        - skill.user_recommendies(@freelancer.id).group(:user_id).each do |r|
-          - rc = r.recommendi
-          = link_to image_tag("#{rc.gravatar}?s=25"), show_freelancer_users_url(rc.username), target: '_blank'
-
-  %hr
-  %h5 Job Title
-  %h2
-    = @freelancer.try(:job_type).try(:name).try(:titleize)
-  %h6
-    = "#{@freelancer.experience} years experience"
-  %br
-  %h5 Platforms
-  %h6
-    = @freelancer.platforms.collect(&:name).join(", ")
-
-  %br
-  %h5 Languages
-  %h6
-    = @freelancer.languages.collect(&:name).join(", ")
-
-  %br
-  %h5 Tools
-  %h6
-    = @freelancer.tools.collect(&:name).join(", ")
-  %hr
-  %h5 Location
-  %h6
-    = "Lives in #{@freelancer.town} and works #{@freelancer.work_locations.collect(&:name).join(' and ')}"
-
-  %hr
-  %h5 Endorsing:
-  %br
-  #endorsings.inline
-    - @freelancer.recommendies.group(:user_id).each_with_index do |recommendation, index|
-      - recommendie = recommendation.recommendi
-      .endorsement.span3{class: "rec-#{index}"}
-        .recommendie-gravatar
-          = image_tag "#{recommendie.gravatar}?s=100"
-        .recommendie-details
-          %h3
-            = recommendie.name.titleize
-          %h6 
-            = recommendie.try(:job_type).try(:name).try(:titleize)
+    %br
+    = image_tag "#{@freelancer.gravatar}?s=180"
+    - if viewing_own_profile? || ! user_signed_in?
+      - title = 'You cannot endorse yourself'
+      - title = 'You need to be login to endorse this user.' unless user_signed_in?
+      = link_to "Endorse", 'javascript:void(0)', class: 'btn disabled', title: title
+    - else
+      -# current_user.user_skills = []
+      = simple_form_for(current_user, :validate => true, :as => 'user', :url => endorse_users_path(@freelancer.username), :html => {:class => 'well form form-horizontal registration-box' }) do |f|
+        = f.association :user_skills, :collection =>  User::ALLOWED_SKILL_TYPES_AS_OPTIONS, :label => false, :selected => false
+        = f.submit 'Endorse', class: 'btn'
+    %br
+    %br
+    .rate.info
+      %h6
+        = "Rate: #{@freelancer.rate}"
+    %hr
+    .github.info
+      = link_to "Github", @freelancer.github, target: '_blank'
+    %hr
+    .personal-url.info
+      = link_to "Personal URL", @freelancer.personal_url, target: '_blank'
+    %hr
+    .email.info
+      = link_to "Email", "mailto:#{@freelancer.email}"
+    %hr
+  .span10#detail_bio
+    - if @freelancer.recommendies.group(:user_id).length < 3
+      - if current_user && current_user.id == @freelancer.id
+        - name = 'You'
+      - else 
+        - name = @freelancer.name.titleize
+      .span8{style: 'width: 100%;'}
+        - unless user_signed_in?
+          .red-label
+            %h5
+              = "Endorsement requires an account - Login"
+    
+    %div{style: "text-align: right;"}
+      - if viewing_own_profile?
+        .edit-link
+          = link_to 'Edit', edit_profile_users_path, class: 'btn'
+      %br
+    %hr
+    %h2
+      = @freelancer.name.titleize
+    - if user_signed_in? && viewing_own_profile?
+      %h1{id: 'freelancer_status_text'}
+        = @freelancer.status.upcase || "AVAILABALE"
+    - else
+      %h1
+        = @freelancer.status.upcase || "AVAILABALE"
+    = hidden_field_tag :freelancer_status, @freelancer.status.downcase
+    %h5
+      = "#{show_freelancer_users_url(@freelancer.username)} (share)"
+    %hr
+    - len = @freelancer.recommendies.group(:user_id).length 
+    - if len < 3
+      .red-label
+        %h5
+          = "Endorsed: #{name} need #{3 - len} more endorsement to show up in search results"
+    - else
+      %h5 Endorsements:
+    %br
+    - @freelancer.user_skills.uniq.each_with_index do |skill, index|
+      .endorse-list
+        .endorse-title
           %h6
-            = "Endorsed: #{recommendation.skill_type.name}"
-          %hr
-          - recommendie.recommendies.group(:user_id).each_with_index do |r, i|
+            = "#{index+1 }. #{skill.name}"
+        .endorse-people
+          - skill.user_recommendies(@freelancer.id).group(:user_id).each do |r|
             - rc = r.recommendi
-            = link_to image_tag("#{rc.gravatar}?s=20"), show_freelancer_users_url(rc.username), target: '_blank'
+            = link_to image_tag("#{rc.gravatar}?s=25"), show_freelancer_users_url(rc.username), target: '_blank'
+
+    %hr
+    %h5 Job Title
+    %h2
+      = @freelancer.try(:job_type).try(:name).try(:titleize)
+    %h6
+      = "#{@freelancer.experience} years experience"
+    %br
+    %h5 Platforms
+    %h6
+      = @freelancer.platforms.collect(&:name).join(", ")
+
+    %br
+    %h5 Languages
+    %h6
+      = @freelancer.languages.collect(&:name).join(", ")
+
+    %br
+    %h5 Tools
+    %h6
+      = @freelancer.tools.collect(&:name).join(", ")
+    %hr
+    %h5 Location
+    %h6
+      = "Lives in #{@freelancer.town} and works #{@freelancer.work_locations.collect(&:name).join(' and ')}"
+
+    %hr
+    %h5 Endorsing:
+    %br
+    #endorsings.inline
+      - @freelancer.recommendies.group(:user_id).each_with_index do |recommendation, index|
+        - recommendie = recommendation.recommendi
+        .endorsement.span3{class: "rec-#{index}"}
+          .recommendie-gravatar
+            = image_tag "#{recommendie.gravatar}?s=100"
+          .recommendie-details
+            %h3
+              = recommendie.name.titleize
+            %h6 
+              = recommendie.try(:job_type).try(:name).try(:titleize)
+            %h6
+              = "Endorsed: #{recommendation.skill_type.name}"
+            %hr
+            - recommendie.recommendies.group(:user_id).each_with_index do |r, i|
+              - rc = r.recommendi
+              = link_to image_tag("#{rc.gravatar}?s=20"), show_freelancer_users_url(rc.username), target: '_blank'
+- else
+  %h1 Sorry, freelancer with this username does not exists.
 
   %br
   %br
