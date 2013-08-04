@@ -111,8 +111,6 @@
   }
   div#endorsings{
     div.endorsement{
-      // height: 120px;
-      // background-color: green;
     }
     hr{
       margin: 5px 0px;
@@ -157,5 +155,41 @@
     input{
       width: 100%;
     }
+  }
+}
+#details-panel{
+  div#endorsings{
+    height: 150px;
+    hr{
+      margin: 5px 0px;
+    }
+    h6{
+      font-size: 9px;
+    }
+  }
+  div.user-status{
+    float: left;
+    width: 50%;
+    text-align: left;
+  }
+  div.more-link{
+    float: left;
+    text-align: right;
+    width: 50%;
+  }
+  div.endorsement {
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-left: 14px!important;
+    border: 2px solid gray;
+    height: 120px;
+  }
+  div.recommendie-gravatar{
+    width: 43%;
+    height: 100%;
+    float: left;
+  }
+  div.rec-0{
+    margin-left: 0px!important;
   }
 }
