@@ -8,7 +8,7 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :message_board, t(:'simple_navigation.message_board'), "http://www.meetup.com/bdnewtech/messages/boards/", :link => {:target => '_blank'}
     primary.item :jobs_board, t(:'simple_navigation.jobs'), hiring_path
     primary.item :sponsors, t(:'simple_navigation.sponsors'), sponsor_view_path, :link => {:target => '_blank'}
-    primary.item :freelancers, t(:'simple_navigation.freelancers'), '#'
+    primary.item :freelancers, t(:'simple_navigation.freelancers'), users_path
     primary.item :blogs, t(:'simple_navigation.blogs'), "http://www.meetup.com/bdnewtech/messages/boards/forum/1042687", :link => {:target => '_blank'}
     primary.dom_class = 'nav'
   end
