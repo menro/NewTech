@@ -28,7 +28,7 @@
       = link_to "Email", "mailto:#{@freelancer.email}"
     %hr
   .span10#detail_bio
-    - if @freelancer.recommendies.present? && @freelancer.recommendies.group(:user_id).length < 3
+    - if @freelancer.recommendies.present? && @freelancer.recommendies.group('user_id, recommendations.id').length < 3
       - if current_user && current_user.id == @freelancer.id
         - name = 'You'
       - else 
@@ -58,7 +58,7 @@
       = "#{show_freelancer_users_url(@freelancer.username)} (share)"
     %hr
     - len = 0
-    - len = @freelancer.recommendies.group(:user_id).length if @freelancer.recommendies.present?
+    - len = @freelancer.recommendies.group('user_id, recommendations.id').length if @freelancer.recommendies.present?
     - if len < 3
       .red-label
         %h5
@@ -72,7 +72,7 @@
           %h6
             = "#{index+1 }. #{skill.name}"
         .endorse-people
-          - skill.user_recommendies(@freelancer.id).group(:user_id).each do |r|
+          - skill.user_recommendies(@freelancer.id).group('user_id, recommendations.id').each do |r|
             - rc = r.recommendi
             = link_to image_tag("#{rc.gravatar}?s=25"), show_freelancer_users_url(rc.username), target: '_blank'
 
@@ -106,7 +106,7 @@
     %br
     #endorsings.inline
       - if @freelancer.recommendies.present?
-        - @freelancer.recommendies.group(:user_id).each_with_index do |recommendation, index|
+        - @freelancer.recommendies.group('user_id, recommendations.id').each_with_index do |recommendation, index|
           - recommendie = recommendation.recommendi
           .endorsement.span3{class: "rec-#{index}"}
             .recommendie-gravatar
@@ -119,7 +119,7 @@
               %h6
                 = "Endorsed: #{recommendation.skill_type.name}"
               %hr
-              - recommendie.recommendies.group(:user_id).each_with_index do |r, i|
+              - recommendie.recommendies.group('user_id, recommendations.id').each_with_index do |r, i|
                 - rc = r.recommendi
                 = link_to image_tag("#{rc.gravatar}?s=20"), show_freelancer_users_url(rc.username), target: '_blank'
 - else

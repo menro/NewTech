@@ -67,7 +67,7 @@
       %br
       #endorsings.inline
         - if @freelancer.recommendies.present?
-          - @freelancer.recommendies.group(:user_id).each_with_index do |recommendation, index|
+          - @freelancer.recommendies.group('user_id, recommendations.id').each_with_index do |recommendation, index|
             - recommendie = recommendation.recommendi
             .endorsement.span3{class: "rec-#{index}"}
               .recommendie-gravatar
@@ -80,7 +80,7 @@
                 %h6
                   = "Endorsed: #{recommendation.skill_type.name}"
                 %hr
-                - recommendie.recommendies.group(:user_id).each_with_index do |r, i|
+                - recommendie.recommendies.group('user_id, recommendations.id').each_with_index do |r, i|
                   - rc = r.recommendi
                   = link_to image_tag("#{rc.gravatar}?s=20"), show_freelancer_users_url(rc.username), target: '_blank'
   .span1
