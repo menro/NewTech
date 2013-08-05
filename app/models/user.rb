@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   end
 
   def name
-    self.full_name || self.username
+    self.full_name.blank? ? self.username : self.full_name
   end
 
   def job_title

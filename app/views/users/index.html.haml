@@ -17,7 +17,7 @@
         - unless user.recommendies.blank?
           .endorsement.span3{class: "rec-#{index}"}
             .recommendie-gravatar
-              = image_tag "#{recommendie.gravatar}?s=100"
+              = image_tag "#{user.gravatar}?s=100"
             .recommendie-details
               %h3
                 = user.name.titleize
@@ -26,6 +26,7 @@
               %h6
                 = "Endorsed: #{user.recommendies.try(:first).try(:skill_type).try(:name)}"
               %hr
-              - user.recommendies.group('user_id, recommendations.id').each_with_index do |r, i|
-                - rc = r.user
+              - user.recommendies.select(:user_id).uniq.each_with_index do |record, index|
+                - r = Recommendation.where(user_id: record.user_id).first
+                - rc = r.recommendi
                 = link_to image_tag("#{rc.gravatar}?s=20"), show_freelancer_users_url(rc.username), target: '_blank'

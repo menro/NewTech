@@ -1,3 +1,4 @@
+- recm_count = @freelancer.recommendies.select(:user_id).uniq.count
 = simple_form_for(@freelancer, :validate => true, :as => 'user', :url => update_users_path, :html => {:class => 'well form form-horizontal registration-box' }) do |f|
   .inputs.span11.edit-profile
     %br
@@ -67,7 +68,8 @@
       %br
       #endorsings.inline
         - if @freelancer.recommendies.present?
-          - @freelancer.recommendies.group('user_id, recommendations.id').each_with_index do |recommendation, index|
+          - @freelancer.recommendies.select(:user_id).uniq.each_with_index do |record, index|
+            - recommendation = Recommendation.where(user_id: record.user_id).first
             - recommendie = recommendation.recommendi
             .endorsement.span3{class: "rec-#{index}"}
               .recommendie-gravatar
@@ -80,7 +82,8 @@
                 %h6
                   = "Endorsed: #{recommendation.skill_type.name}"
                 %hr
-                - recommendie.recommendies.group('user_id, recommendations.id').each_with_index do |r, i|
+                - recommendie.recommendies.select(:user_id).uniq.each_with_index do |rcrd, i|
+                  - r = Recommendation.where(user_id: rcrd.user_id).first
                   - rc = r.recommendi
                   = link_to image_tag("#{rc.gravatar}?s=20"), show_freelancer_users_url(rc.username), target: '_blank'
   .span1
