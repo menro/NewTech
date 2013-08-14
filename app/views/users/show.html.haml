@@ -8,23 +8,31 @@
       - title = 'You need to be login to endorse this user.' unless user_signed_in?
       = link_to "Endorse", 'javascript:void(0)', class: 'btn disabled', title: title
     - else
-      -# current_user.user_skills = []
       = simple_form_for(current_user, :validate => true, :as => 'user', :url => endorse_users_path(@freelancer.username), :html => {:class => 'well form form-horizontal registration-box' }) do |f|
         = f.association :user_skills, :collection =>  User::ALLOWED_SKILL_TYPES_AS_OPTIONS, :label => false, :selected => false
         = f.submit 'Endorse', class: 'btn'
     %br
     %br
-    .rate.info
-      %h6
+    .rate
+      .icon
+        = image_tag 'money.png', title: 'Rate'
+      .info
         = "Rate: #{@freelancer.rate}"
     %hr
-    .github.info
-      = link_to "Github", @freelancer.github, target: '_blank'
+    .github
+      .icon
+        = image_tag 'github.png', title: 'Github'
+      .info
+        = link_to "Github", @freelancer.github, target: '_blank'
     %hr
     .personal-url.info
+      .icon
+        = image_tag 'URL.png', title: 'Personal URL'
       = link_to "Personal URL", @freelancer.personal_url, target: '_blank'
     %hr
     .email.info
+      .icon
+        = image_tag 'mail.png', title: 'Mail'
       = link_to "Email", "mailto:#{@freelancer.email}"
     %hr
   .span10#detail_bio
