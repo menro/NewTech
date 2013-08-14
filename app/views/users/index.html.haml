@@ -1,50 +1,21 @@
 .span2#search-panel
   %hr
   %h3 Developer
-
-  = form_for @search, url: users_path, html: { class: 'custom fullwidth-drops', onsubmit: "return false" } do |f|
+  = form_tag(users_path, class: 'custom fullwidth-drops', onsubmit: "return false" ) do |f|
     %hr
     %h4 Platforms
     %div#platforms
-      = f.collection_checks :platforms_in, Platform.all, :id, :name, class: 'checkboxy' do |checkbox|
-        = checkbox.box
-        = checkbox.label
+      - Platform.all.each do |p|
+        %label.checkbox.inline{name: 'platforms_in'}
+          = check_box_tag :platforms_in, p.id, false, class: 'check_boxes optional'
+          = p.name
     %hr
     %h4 Languages
     %div#languages
-      = f.collection_checks :languages_in, Language.all, :id, :name, class: 'checkboxy' do |checkbox|
-        = checkbox.box
-        = checkbox.label
+      - Language.all.each do |p|
+        %label.checkbox.inline{name: 'platforms_in'}
+          = check_box_tag :platforms_in, p.id, false, class: 'check_boxes optional'
+          = p.name
 
 .span10#details-panel
-  = render partial: 'filter_freelancers'
-
-:javascript
-  var filterFreelancers;
-
-  filterFreelancers = function() {
-    $.ajax({
-      type: "GET",
-      url: '/freelancers',
-      data: {search: {platforms_in: getPlatformIds(), languages_in: getLanguageIds()}},
-      dataType: "json",
-      success: function(data){
-        $('#details-panel').html(data);
-      },
-      complete: function(){
-      },
-      error: function(error){
-        $('#details-panel').html(error.responseText);
-      }
-    })
-  };
-  getPlatformIds = function(){
-    return $('#platforms input[type=checkbox]:checked').map(
-     function () {return this.value;}).get();
-  }
-  getLanguageIds = function(){
-    return $('#languages input[type=checkbox]:checked').map(
-     function () {return this.value;}).get();
-  }
-
-    
+  = render partial: 'filter_freelancers'   
