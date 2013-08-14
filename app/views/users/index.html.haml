@@ -7,16 +7,15 @@
     %div#platforms
       - Platform.all.each do |p|
         %label.checkbox.inline{name: 'platforms_in'}
-          = check_box_tag :platforms_in, p.id, false, class: 'check_boxes optional'
+          = check_box_tag :platforms_in, p.id, (params[:platform] == p.name), class: 'check_boxes optional'
           = p.name
     %hr
     %h4 Languages
     %div#languages
       - Language.all.each do |p|
         %label.checkbox.inline{name: 'platforms_in'}
-          = check_box_tag :platforms_in, p.id, false, class: 'check_boxes optional'
+          = check_box_tag :platforms_in, p.id, (params[:language] == p.name), class: 'check_boxes optional'
           = p.name
 
 .span10#details-panel
-  #loading
   = render partial: 'filter_freelancers'   

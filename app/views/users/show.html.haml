@@ -85,17 +85,17 @@
     %br
     %h5 Platforms
     %h6
-      = @freelancer.platforms.collect(&:name).join(", ")
+      - @freelancer.platforms.each_with_index do |p, i|
+        = ", " unless i == 0
+        = link_to p.name, users_path(platform: p.name)
+        
 
     %br
     %h5 Languages
     %h6
-      = @freelancer.languages.collect(&:name).join(", ")
-
-    %br
-    %h5 Tools
-    %h6
-      = @freelancer.tools.collect(&:name).join(", ")
+      - @freelancer.languages.each_with_index do |p, i|
+        = ", " unless i == 0
+        = link_to p.name, users_path(language: p.name)
     %hr
     %h5 Location
     %h6

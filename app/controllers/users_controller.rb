@@ -10,6 +10,12 @@ class UsersController < ApplicationController
       if params[:search].present?
         users = User.joins(:platforms).where('platform_id IN (?) and status=?', params[:search][:platforms_in], status).all
         users += User.joins(:languages).where('language_id IN (?) and status=?', params[:search][:languages_in], status).all
+      elsif params[:platform].present?
+        p = Platform.where(name: params[:platform]).first
+        users = User.joins(:platforms).where('platform_id =? and status=?', p.id, status).all
+      elsif params[:language].present?
+        l = Language.where(name: params[:language]).first
+        users = User.joins(:languages).where('language_id=? and status=?', l.id, status).all
       else
         users = User.where("status=? and is_freelancer=?", status, true).all
       end
