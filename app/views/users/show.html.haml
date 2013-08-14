@@ -25,15 +25,17 @@
       .info
         = link_to "Github", @freelancer.github, target: '_blank'
     %hr
-    .personal-url.info
+    .personal-url
       .icon
         = image_tag 'URL.png', title: 'Personal URL'
-      = link_to "Personal URL", @freelancer.personal_url, target: '_blank'
+      .info
+        = link_to "Personal URL", @freelancer.personal_url, target: '_blank'
     %hr
-    .email.info
+    .email
       .icon
         = image_tag 'mail.png', title: 'Mail'
-      = link_to "Email", "mailto:#{@freelancer.email}"
+      .info
+        = link_to "Email", "mailto:#{@freelancer.email}"
     %hr
   .span10#detail_bio
     - if @freelancer.recommendies.present? && @freelancer.recommendies.group('user_id, recommendations.id').length < 3
@@ -92,7 +94,7 @@
       = "#{@freelancer.experience} years experience"
     %br
     %h5 Platforms
-    %h6
+    %h6.links
       - @freelancer.platforms.each_with_index do |p, i|
         = ", " unless i == 0
         = link_to p.name, users_path(platform: p.name)
@@ -100,7 +102,7 @@
 
     %br
     %h5 Languages
-    %h6
+    %h6.links
       - @freelancer.languages.each_with_index do |p, i|
         = ", " unless i == 0
         = link_to p.name, users_path(language: p.name)

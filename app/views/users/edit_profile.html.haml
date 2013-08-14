@@ -12,16 +12,28 @@
 
       %br
       %br
-      .rate.info
-        = f.input :rate, as: :select, collection: User::ALLOWED_USER_RATES_AS_OPTIONS, default: '$', input_html: {style: 'width 70%'}
+      .rate
+        .icon-e
+          = image_tag 'money.png', title: 'Rate'
+        .info
+          = f.input :rate, as: :select, collection: User::ALLOWED_USER_RATES_AS_OPTIONS, default: '$', input_html: {style: 'width 70%'}, label: false
       %hr
-      .github.info
-        = f.input :github, as: :string, placeholder: 'Github URL'
+      .github
+        .icon-e
+          = image_tag 'github.png', title: 'Github'
+        .info
+          = f.input :github, as: :string, placeholder: 'Github URL', label: false
       %hr
-      .personal-url.info
-        = f.input :personal_url, as: :string, label: 'Personal', placeholder: 'Personal URL'
+      .personal-url
+        .icon-e
+          = image_tag 'URL.png', title: 'Personal URL'
+        .info
+          = f.input :personal_url, as: :string, label: false, placeholder: 'Personal URL'
       %hr
-      .email.info
+      .email
+        .icon
+          = image_tag 'mail.png', title: 'Mail'
+      .info
         = link_to "Email", "mailto:#{@freelancer.email}"
       %hr
     .span8#detail_bio

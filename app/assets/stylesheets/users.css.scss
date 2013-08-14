@@ -30,6 +30,12 @@
       margin-top: -2px;
     }
   }
+  .icon-e{
+    line-height: 26px;
+    text-align: center;
+    width: 20%;
+    float: left;
+  }
   a.disabled{
     width: 88%!important;
     margin-top: 5%;
@@ -98,7 +104,7 @@
   }
 }
 #detail_bio{
-  a{
+  .links a{
     color: #999!important;
     text-decoration: underline!important;
   }
