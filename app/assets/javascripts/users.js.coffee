@@ -33,11 +33,14 @@ filterFreelancers = ->
         platforms_in: getPlatformIds()
         languages_in: getLanguageIds()
     dataType: "json"
+    beforeSend: ->
+      $('#loading').css('display', 'block')
     success: (data) ->
       $("#details-panel").html data
     complete: ->
     error: (error) ->
       $("#details-panel").html error.responseText
+      $('#loading').css('display', 'none')
 
 getPlatformIds = ->
   $("#platforms input[type=checkbox]:checked").map(->
