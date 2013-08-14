@@ -24,3 +24,30 @@ change_status = ->
       $('#freelancer_status').val(status)
       $('#freelancer_status_text').text(status.toUpperCase())
 
+filterFreelancers = ->
+  $.ajax
+    type: "GET"
+    url: "/freelancers"
+    data:
+      search:
+        platforms_in: getPlatformIds()
+        languages_in: getLanguageIds()
+    dataType: "json"
+    success: (data) ->
+      $("#details-panel").html data
+    complete: ->
+    error: (error) ->
+      $("#details-panel").html error.responseText
+
+getPlatformIds = ->
+  $("#platforms input[type=checkbox]:checked").map(->
+    @value
+  ).get()
+
+getLanguageIds = ->
+  $("#languages input[type=checkbox]:checked").map(->
+    @value
+  ).get()
+
+$(":checkbox").click ->
+  filterFreelancers()

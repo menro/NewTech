@@ -1,32 +1,50 @@
 .span2#search-panel
-  %h3 Platforms
-.span10#details-panel
-  - User::WORK_STATUS.each do |status|
-    %br
-    .status-wrapper
-      .user-status
-        %h3
-          = status.titleize
-      .more-link
-        = link_to 'More...', '#'
-    %br
+  %hr
+  %h3 Developer
+
+  = form_for @search, url: users_path, html: { class: 'custom fullwidth-drops', onsubmit: "return false" } do |f|
     %hr
-    #endorsings
-      - User.where("status=? and is_freelancer=?", status, true).all.each_with_index do |user, index|
-        -# unless user.recommendies.group(:user_id).length < 0
-        - unless user.recommendies.blank?
-          .endorsement.span3{class: "rec-#{index}"}
-            .recommendie-gravatar
-              = image_tag "#{user.gravatar}?s=100"
-            .recommendie-details
-              %h3
-                = user.name.titleize
-              %h6 
-                = user.try(:job_type).try(:name).try(:titleize)
-              %h6
-                = "Endorsed: #{user.recommendies.try(:first).try(:skill_type).try(:name)}"
-              %hr
-              - user.recommendies.select(:user_id).uniq.each_with_index do |record, index|
-                - r = Recommendation.where(user_id: record.user_id).first
-                - rc = r.recommendi
-                = link_to image_tag("#{rc.gravatar}?s=20"), show_freelancer_users_url(rc.username), target: '_blank'
+    %h4 Platforms
+    %div#platforms
+      = f.collection_checks :platforms_in, Platform.all, :id, :name, class: 'checkboxy' do |checkbox|
+        = checkbox.box
+        = checkbox.label
+    %hr
+    %h4 Languages
+    %div#languages
+      = f.collection_checks :languages_in, Language.all, :id, :name, class: 'checkboxy' do |checkbox|
+        = checkbox.box
+        = checkbox.label
+
+.span10#details-panel
+  = render partial: 'filter_freelancers'
+
+:javascript
+  var filterFreelancers;
+
+  filterFreelancers = function() {
+    $.ajax({
+      type: "GET",
+      url: '/freelancers',
+      data: {search: {platforms_in: getPlatformIds(), languages_in: getLanguageIds()}},
+      dataType: "json",
+      success: function(data){
+        $('#details-panel').html(data);
+      },
+      complete: function(){
+      },
+      error: function(error){
+        $('#details-panel').html(error.responseText);
+      }
+    })
+  };
+  getPlatformIds = function(){
+    return $('#platforms input[type=checkbox]:checked').map(
+     function () {return this.value;}).get();
+  }
+  getLanguageIds = function(){
+    return $('#languages input[type=checkbox]:checked').map(
+     function () {return this.value;}).get();
+  }
+
+    

@@ -4,4 +4,6 @@ class Platform < ActiveRecord::Base
   has_many :platform_sets, class_name: "UsersPlatforms"
   has_many :users, through: :platform_sets
 
+
+  
 end

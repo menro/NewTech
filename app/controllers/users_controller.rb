@@ -1,8 +1,21 @@
 class UsersController < ApplicationController
-  
+  respond_to :json, :html
   before_filter :store_return_to
 
   def index
+    @search = User.search({})
+    @users_status = []
+    User::WORK_STATUS.each do |status|
+      users = []
+      if params[:search].present?
+        users = User.joins(:platforms).where('platform_id IN (?) and status=?', params[:search][:platforms_in], status).all
+        users += User.joins(:languages).where('language_id IN (?) and status=?', params[:search][:languages_in], status).all
+      else
+        users = User.where("status=? and is_freelancer=?", status, true).all
+      end
+      @users_status << [status, users.uniq]
+    end
+    respond_with(@users_status, :layout => !request.xhr? )
   end
 
   def show
@@ -32,7 +45,6 @@ class UsersController < ApplicationController
   end
 
   def endorse
-    puts params
     @freelancer = User.where(username: params[:username]).first #recommendi => being endorsed
     skill_ids = params[:user][:user_skill_ids].reject {|id| id.empty?}
     # current_user.user_skills = User.find(current_user.id).user_skills

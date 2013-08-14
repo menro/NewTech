@@ -83,4 +83,19 @@ class User < ActiveRecord::Base
     self.gravatar = "http://1.gravatar.com/avatar/#{Digest::MD5.hexdigest(self.email)}"
   end
 
+  def self.platforms_in(platforms)
+    # users = []
+    # platf = Platform.where("id in(?)", platforms)
+    # platf.each do |p|
+    #   users << p.users
+    # end
+    # users
+    Platform.where("id in(?)", platforms)
+  end
+  search_methods :platforms_in
+
+  def self.languages_in(language)
+    Language.where("id in(?)", language)
+  end
+  search_methods :languages_in
 end
