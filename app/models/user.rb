@@ -23,6 +23,27 @@ class User < ActiveRecord::Base
   ALLOWED_USER_RATES_AS_OPTIONS = USER_RATES.map { |t| [t, t]}
   ALLOWED_SKILL_TYPES_AS_OPTIONS = SkillType.all.map {|t| [t.name.titleize, t.id]}
 
+  attr_accessible :avatar
+  has_attached_file :avatar,
+                    :styles => {
+                        thumb: "100x100>",
+                        icon: "25x25>",
+                        regular: "180x180>"
+                    },
+                    :default_url => "http://b.dryicons.com/images/icon_sets/colorful_stickers_icons_set/png/256x256/help.png",
+                    :storage => :s3,
+                    :s3_protocol => 'https',
+                    :s3_permissions => :public_read,
+                    :bucket => configatron.s3.bucket,
+                    :s3_credentials => {
+                        :access_key_id => configatron.s3.credentials.access_key_id,
+                        :secret_access_key => configatron.s3.credentials.secret_access_key
+                    },
+                    :path => "/#{Rails.env}/:class/:id/:style.:extension"
+  
+  validates_attachment_size :avatar, :less_than => 1.megabyte
+  validates_attachment_content_type :avatar, :content_type => /image/
+
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me , :role_ids
   attr_accessible :rate, :github, :personal_url, :full_name, :status, :job_type_id, :experience, :platform_ids, :language_ids, :tool_ids, :address, :town, :zip, :remote_onsite, :outside_colorado, :recommendation_ids, :work_location_ids
