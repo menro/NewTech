@@ -14,7 +14,7 @@
       - unless user.recommendies.blank?
         .endorsement.span3{class: "rec-#{index}"}
           .recommendie-gravatar
-            = image_tag "#{user.gravatar}?s=100"
+            = link_to image_tag("#{user.gravatar}?s=100"), show_freelancer_users_url(user.username), target: '_blank'
           .recommendie-details
             %h3
               = user.name.titleize

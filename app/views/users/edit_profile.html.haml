@@ -85,7 +85,7 @@
             - recommendie = recommendation.recommendi
             .endorsement.span3{class: "rec-#{index}"}
               .recommendie-gravatar
-                = image_tag "#{recommendie.gravatar}?s=100"
+                = link_to image_tag("#{recommendie.gravatar}?s=100"), show_freelancer_users_url(recommendie.username), target: '_blank'
               .recommendie-details
                 %h3
                   = recommendie.name.titleize
