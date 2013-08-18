@@ -2,7 +2,6 @@
 $('#freelancer_status_text').click ->
   change_status()
 
-
 change_status = ->
   console.log('changing status...')
   status = $('#freelancer_status').val()
@@ -24,14 +23,15 @@ change_status = ->
       $('#freelancer_status').val(status)
       $('#freelancer_status_text').text(status.toUpperCase())
 
-filterFreelancers = ->
+filterFreelancers = (platforms_in, languages_in)->
   $.ajax
     type: "GET"
     url: "/freelancers"
     data:
       search:
-        platforms_in: getPlatformIds()
-        languages_in: getLanguageIds()
+        platforms_in: platforms_in
+        languages_in: languages_in
+        developer: $('#developer').val()
     dataType: "json"
     beforeSend: ->
       $('#loading').css('display', 'block')
@@ -42,15 +42,57 @@ filterFreelancers = ->
       $("#details-panel").html error.responseText
       $('#loading').css('display', 'none')
 
-getPlatformIds = ->
-  $("#platforms input[type=checkbox]:checked").map(->
+getIds = (div) ->
+  $(div + " input[type=checkbox]:checked").map(->
     @value
   ).get()
 
-getLanguageIds = ->
-  $("#languages input[type=checkbox]:checked").map(->
-    @value
-  ).get()
+$("#search-panel :checkbox").click ->
+  filterFreelancers(getIds('#platforms'), getIds('#languages'))
 
-$(":checkbox").click ->
-  filterFreelancers()
+filterFreelancersPopup = (div) ->
+  platforms_in = getIds('#platforms')
+  languages_in = getIds('#languages')
+  if div == '#dialogP'
+    platforms_in = getIds(div)
+  else
+    languages_in = getIds(div)
+  filterFreelancers(platforms_in, languages_in)
+
+window.onload = ->
+  $("#dialogP").dialog
+    resizable: false
+    height: 240
+    width: 400
+    modal: true
+    buttons:
+      Filter: ->
+        filterFreelancersPopup("#dialogP")
+        $(this).dialog "close"
+      Cancel: ->
+        $(this).dialog "close"
+  $("#dialogP").dialog "close"
+
+  $("#dialogL").dialog
+    resizable: false
+    height: 240
+    width: 400
+    modal: true
+    buttons:
+      Filter: ->
+        filterFreelancersPopup("#dialogL")
+        $(this).dialog "close"
+      Cancel: ->
+        $(this).dialog "close"
+  $("#dialogL").dialog "close"
+
+  $("#all-plat").click ->
+    $('#dialogP :checkbox').removeAttr('checked')
+    $("#dialogP").dialog "open"
+
+  $("#all-lang").click ->
+    $('#dialogL :checkbox').removeAttr('checked')
+    $("#dialogL").dialog "open"
+
+  $('#developer').change ->
+    filterFreelancers(getIds('#platforms'), getIds('#languages'))

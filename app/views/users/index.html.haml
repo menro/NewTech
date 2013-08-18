@@ -1,21 +1,49 @@
+- content_for :stylesheets do
+  = stylesheet_link_tag "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"
+#dialogP{style: 'display:none', title: 'Platforms'}
+  - Platform.all.each do |p|
+    .item
+      %label.checkbox.inline{name: 'platforms_in'}
+        = check_box_tag :platforms_in, p.id, false, class: 'check_boxes optional'
+        = p.name
+#dialogL{style: 'display:none', title: 'Languages'}
+  - Language.all.each do |p|
+    .item
+      %label.checkbox.inline{name: 'languages_in'}
+        = check_box_tag :languages_in, p.id, false, class: 'check_boxes optional'
+        = p.name
+
 .span2#search-panel
-  %hr
-  %h3 Developer
-  = form_tag(users_path, class: 'custom fullwidth-drops', onsubmit: "return false" ) do |f|
-    %hr
-    %h4 Platforms
+  %br
+  = form_tag(users_path, class: 'custom fullwidth-drops', onsubmit: "return false" ) do
+    = select_tag :developer, options_for_select([['Developer', 'all']] + User::ALLOWED_WORK_STATUS_AS_OPTIONS, 'all'),{ :include_blank => true, label: 'Developer'}
+
     %div#platforms
-      - Platform.all.each do |p|
-        %label.checkbox.inline{name: 'platforms_in'}
-          = check_box_tag :platforms_in, p.id, (params[:platform] == p.name), class: 'check_boxes optional'
-          = p.name
-    %hr
-    %h4 Languages
+      .top-row
+        .heading
+          %h4 Platforms
+        .more-link
+          = link_to 'More...', 'javascript:void(0)', id: 'all-plat'
+      %hr
+      - Platform.first(5).each do |p|
+        .item
+          %label.checkbox.inline{name: 'platforms_in'}
+            = check_box_tag :platforms_in, p.id, (params[:platform] == p.name), class: 'check_boxes optional'
+            = p.name
+
+    %br
     %div#languages
-      - Language.all.each do |p|
-        %label.checkbox.inline{name: 'platforms_in'}
-          = check_box_tag :platforms_in, p.id, (params[:language] == p.name), class: 'check_boxes optional'
-          = p.name
+      .top-row
+        .heading
+          %h4 Languages
+        .more-link
+          = link_to 'More...', 'javascript:void(0)', id: 'all-lang'
+      %hr
+      - Language.first(5).each do |p|
+        .item
+          %label.checkbox.inline{name: 'languages_in'}
+            = check_box_tag :languages_in, p.id, (params[:language] == p.name), class: 'check_boxes optional'
+            = p.name
 
 .span10#details-panel
-  = render partial: 'filter_freelancers'   
+  = render partial: 'filter_freelancers'

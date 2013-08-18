@@ -224,9 +224,44 @@
   }
 }
 #search-panel{
+  #developer, #developer_chzn{
+    width: 171px;
+    // height: 60px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    .chzn-drop{
+    }
+  }
   .checkbox{
     margin-left: 0px!important;
     margin-right: 10px!important;
+  }
+  #platforms, #languages{
+    height: 100px;
+    hr{
+      margin: 2px!important;
+    }
+    .heading{
+      float: left;
+      width: 50%;
+    }
+    .more-link{
+      text-align: right;
+    }
+  }
+  .item{
+    float: left;
+    width: 85px;
+    label{
+      font-size: 11px;
+    }
+  }
+}
+.item{
+  float: left;
+  width: 85px;
+  label{
+    font-size: 11px;
   }
 }
 .thumb{

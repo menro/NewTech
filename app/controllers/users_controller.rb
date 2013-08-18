@@ -5,9 +5,18 @@ class UsersController < ApplicationController
   def index
     @search = User.search({})
     @users_status = []
-    User::WORK_STATUS.each do |status|
+    if params && params[:search].present?
+      if params[:search][:developer] == 'all'
+        work_status = User::WORK_STATUS
+      else
+        work_status = [params[:search][:developer]]
+      end
+    else
+      work_status = User::WORK_STATUS
+    end
+    work_status.each do |status|
       users = []
-      if params[:search].present?
+      if params[:search].present? && (params[:search][:platforms_in].present? || params[:search][:languages_in].present?)
         users = User.joins(:platforms).where('platform_id IN (?) and status=?', params[:search][:platforms_in], status).all
         users += User.joins(:languages).where('language_id IN (?) and status=?', params[:search][:languages_in], status).all
       elsif params[:platform].present?
