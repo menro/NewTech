@@ -1,6 +1,8 @@
 #updates-header
   %h3 RECENT UPDATES
-- unless @recent_companies.blank?
-  - @recent_companies.each_with_index do |company,index|
-    = render :partial => 'company', :locals => {:company => company,:index => index+1}
-  
+#updates-company-list
+  - unless @recent_companies.blank?
+    :javascript
+      var companies_info = #{@recent_companies.to_json};
+    - @recent_companies.each_with_index do |company,index|
+      = render :partial => 'company', :locals => {:company => company,:index => index+1}
