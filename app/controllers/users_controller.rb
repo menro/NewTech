@@ -3,8 +3,12 @@ class UsersController < ApplicationController
   before_filter :store_return_to
 
   def index
-    @search = User.search({})
     @users_status = []
+    @platforms_on_page = Platform.where(on_page: true)
+    @platforms_popup = Platform.where(on_page: false)
+    @languages_on_page = Language.where(on_page: true)
+    @languages_popup = Language.where(on_page: false)
+    
     if params && params[:search].present?
       if params[:search][:developer] == 'all'
         work_status = User::WORK_STATUS

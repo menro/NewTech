@@ -251,17 +251,17 @@
   }
   .item{
     float: left;
-    width: 85px;
+    width: 85px!important;
     label{
-      font-size: 11px;
+      font-size: 11px!important;
     }
   }
 }
 .item{
   float: left;
-  width: 85px;
+  width: 120px;
   label{
-    font-size: 11px;
+    font-size: 10px;
   }
 }
 .thumb{

@@ -43,6 +43,15 @@ filterFreelancers = (platforms_in, languages_in)->
       $('#loading').css('display', 'none')
 
 getIds = (div) ->
+  if div == '#dialogP' || div == '#platforms'
+    div1 = '#dialogP'
+    div2 = '#platforms'
+  else
+    div1 = '#dialogL'
+    div2 = '#languages'
+  ids(div1).concat(ids(div2))
+
+ids = (div) ->
   $(div + " input[type=checkbox]:checked").map(->
     @value
   ).get()
@@ -53,17 +62,13 @@ $("#search-panel :checkbox").click ->
 filterFreelancersPopup = (div) ->
   platforms_in = getIds('#platforms')
   languages_in = getIds('#languages')
-  if div == '#dialogP'
-    platforms_in = getIds(div)
-  else
-    languages_in = getIds(div)
   filterFreelancers(platforms_in, languages_in)
 
 window.onload = ->
   $("#dialogP").dialog
     resizable: false
     height: 240
-    width: 400
+    width: 600
     modal: true
     buttons:
       Filter: ->
@@ -76,7 +81,7 @@ window.onload = ->
   $("#dialogL").dialog
     resizable: false
     height: 240
-    width: 400
+    width: 600
     modal: true
     buttons:
       Filter: ->
@@ -87,11 +92,11 @@ window.onload = ->
   $("#dialogL").dialog "close"
 
   $("#all-plat").click ->
-    $('#dialogP :checkbox').removeAttr('checked')
+    # $('#dialogP :checkbox').removeAttr('checked')
     $("#dialogP").dialog "open"
 
   $("#all-lang").click ->
-    $('#dialogL :checkbox').removeAttr('checked')
+    # $('#dialogL :checkbox').removeAttr('checked')
     $("#dialogL").dialog "open"
 
   $('#developer').change ->

@@ -1,13 +1,13 @@
 - content_for :stylesheets do
   = stylesheet_link_tag "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"
 #dialogP{style: 'display:none', title: 'Platforms'}
-  - Platform.all.each do |p|
+  - @platforms_popup.each do |p|
     .item
       %label.checkbox.inline{name: 'platforms_in'}
         = check_box_tag :platforms_in, p.id, false, class: 'check_boxes optional'
         = p.name
 #dialogL{style: 'display:none', title: 'Languages'}
-  - Language.all.each do |p|
+  - @languages_popup.each do |p|
     .item
       %label.checkbox.inline{name: 'languages_in'}
         = check_box_tag :languages_in, p.id, false, class: 'check_boxes optional'
@@ -25,12 +25,13 @@
         .more-link
           = link_to 'More...', 'javascript:void(0)', id: 'all-plat'
       %hr
-      - Platform.first(5).each do |p|
+      - @platforms_on_page.each do |p|
         .item
           %label.checkbox.inline{name: 'platforms_in'}
             = check_box_tag :platforms_in, p.id, (params[:platform] == p.name), class: 'check_boxes optional'
             = p.name
 
+    %br
     %br
     %div#languages
       .top-row
@@ -39,7 +40,7 @@
         .more-link
           = link_to 'More...', 'javascript:void(0)', id: 'all-lang'
       %hr
-      - Language.first(5).each do |p|
+      - @languages_on_page.each do |p|
         .item
           %label.checkbox.inline{name: 'languages_in'}
             = check_box_tag :languages_in, p.id, (params[:language] == p.name), class: 'check_boxes optional'
