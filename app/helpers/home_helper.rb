@@ -15,7 +15,7 @@ module HomeHelper
         :job_role => ""
     }
   end
-
+  
   def gmap_data
     {
         :offices_url => "#{companies_api_v1_url(:json)}",

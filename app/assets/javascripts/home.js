@@ -91,6 +91,7 @@
           setTimeout(function() { refreshForCurrentCounty(); }, 250);
       });
       drawCountyCircles(container);
+      //drawRecentOffices();
       loadRecentBox(8);
       refreshFilterMenus(container)
     }
@@ -106,6 +107,7 @@
 
   function refreshMap(container) {
     var zoomLevel = currentMap.getZoom();
+    //console.log(zoomLevel);
 
     for(var i = 0; i < currentRequests.length; i++) {
       if(currentRequests[i])
@@ -119,6 +121,7 @@
       clearCompanyOffices();
       clearCountyCircles();
       drawCountyCircles(container);
+      drawRecentOffices();      
 
       var boxSummaryCounty = $('#box-summary-county');
       boxSummaryCounty.data("current_county_id", null);
@@ -126,9 +129,9 @@
     } else {
       clearCountyCircles();
       clearCompanyOffices();
-      drawCompanyOffices(container);
+      drawCompanyOffices(container);      
       drawCountySummaryBox(container);
-      refreshForCurrentCounty();
+      refreshForCurrentCounty();      
     }
     //refreshTags(container);
     refreshFilterMenus(container);
@@ -260,11 +263,52 @@
     if (currentInfoWindow) {
       currentInfoWindow.close();
     }
-  }
-
+  }  
+  
+  $('.company-item').click(function(container){
+  	var company_index = $(this).attr('id');  	
+  	company_index = company_index.substr(company_index.length - 1);
+  	var srcParamsEl = companies_info[company_index - 1];
+  	var current_company;
+  	var current_marker_number;  	
+  	
+  	search_params = {
+        from_year: "",
+        to_year: "",
+        tag_code: "",
+        current_county_id: srcParamsEl.county_id,
+        hiring: "" ,
+        employee_id: "",
+        investment_id: "",
+        category_id: srcParamsEl.category_id,
+        company_name: srcParamsEl.name
+    }
+    // $("#search_params").data("current_county_id", srcParamsEl.county_id);    
+  		
+	$.getJSON("/api/v1/counties.json", search_params, function(data1) {
+  		county = data1[0];
+  		// $.each(data1, function(i, county) {
+  			if(bounceToCounty(county.id)) return false;
+  			var circlePosition = new google.maps.LatLng(county.companies_avg_latitude, county.companies_avg_longitude);
+  			onCountySelected(county, circlePosition);
+  		// });	  		
+  		
+  		$.getJSON("/api/v1/companies.json", search_params, function(data2) {	  			
+	  		$.each(data2, function(i, company) {		  				
+	  			if (company.name == srcParamsEl.name){
+	  				current_marker_number = i + 1;		  					  					  				
+	  			}
+	  			i++;	  				  				
+	  		});		  		
+	  		setTimeout(function(){$('#company' + current_marker_number).trigger('click')},500);		  		
+	  	});	
+  	});  	 	
+  });
+  
   function drawCompanyOffices(container) {
+    //console.log($(container).data("offices_url"));
     currentRequests.push($.getJSON($(container).data("offices_url"), searchParams(), function(data) {
-
+      
       companyOfficesMarkers = new Array();
       infoWindows = new Array();
       nOffices = 0;
@@ -276,6 +320,7 @@
         if(typeof(company["description"]) != "undefined" && company["description"] != null){
             company["description"] = company["description"].length < 160 ? company["description"]: company["description"].substring(0,157)+"..."
         }
+        
         var content = $( "#gmap_info_window_tpl" ).tmpl( company ).html();
         var infowindow = new google.maps.InfoWindow({
           content: content
@@ -316,6 +361,7 @@
           $('#company-list div').removeClass('company-row-selected');
           $(this).addClass('company-row-selected');
           //console.log(i);
+
           closeCurrentInfoWindow();
           infoWindows[i].open(currentMap,marker);
           currentInfoWindow = infoWindows[i];
@@ -337,6 +383,7 @@
 
   function drawCountyCircles(container) {
     //$('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
+    
     $("#search_params").data("current_county_id", "");
     // County circles
     counties = {};
@@ -359,6 +406,7 @@
       countyLabels = new Array();
       var totalCompanies = 0;
       $.each(data, function(i, county) {
+      	// console.log(county);
         counties[county.id] = county.name;
         if (county.companies_numbers == 0) return;
         totalCompanies += county.companies_numbers;

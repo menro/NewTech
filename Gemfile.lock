@@ -220,6 +220,7 @@ GEM
       mime-types (>= 1.16)
     rmagick (2.13.2)
     rolify (3.1.0)
+    ruby-json (1.1.2)
     rubyzip (0.9.9)
     rvm-capistrano (1.2.7)
       capistrano (>= 2.0.0)
@@ -308,6 +309,7 @@ DEPENDENCIES
   responders
   rmagick
   rolify (= 3.1.0)
+  ruby-json
   rvm-capistrano
   sass-rails (= 3.2.5)
   seed-fu (~> 2.2.0)

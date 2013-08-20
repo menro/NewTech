@@ -4,7 +4,7 @@ ruby "1.9.3"
 
 gem 'rails', '3.2.13'
 gem 'pg', '0.14.0'
-
+gem 'ruby-json'
 # Use configatron to manage global settings
 gem 'configatron', '2.8.4'
 
