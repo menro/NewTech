@@ -5,6 +5,8 @@ class Company < ActiveRecord::Base
                   :founded_year,
                   :description,
                   :homepage_url,
+		  :kickstarter_url,
+		  :kickstarter_end_date,
                   :twitter,
                   :facebook,
                   :jobs_url,
@@ -88,6 +90,10 @@ class Company < ActiveRecord::Base
           joins(:tags).where("tags.code = ?", tag_code)
         }
 
+  scope :with_active_kickstarter,
+        Company.select("companies.*")
+  	       .from("companies")
+	       .where('companies.kickstarter_url is not null AND companies.kickstarter_end_date >= ?', DateTime.now)
 
   scope :are_hiring,
         where('companies.jobs_count > 0')

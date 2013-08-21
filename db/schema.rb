@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130503030810) do
+ActiveRecord::Schema.define(:version => 20130819173455) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -78,9 +78,11 @@ ActiveRecord::Schema.define(:version => 20130503030810) do
     t.string   "zip_code"
     t.decimal  "latitude"
     t.decimal  "longitude"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.integer  "jobs_count"
+    t.string   "kickstarter_url"
+    t.datetime "kickstarter_end_date"
   end
 
   add_index "companies", ["city_id"], :name => "index_companies_on_city_id"
@@ -136,6 +138,12 @@ ActiveRecord::Schema.define(:version => 20130503030810) do
 
   add_index "investments_types", ["name"], :name => "index_investments_types_on_name"
 
+  create_table "job_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "jobs", :force => true do |t|
     t.string   "title"
     t.string   "kind"
@@ -161,6 +169,29 @@ ActiveRecord::Schema.define(:version => 20130503030810) do
     t.integer "skill_id"
   end
 
+  create_table "languages", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "platforms", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "recommendations", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "skill_type_id"
+    t.integer  "recommendi_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "recommendations", ["skill_type_id"], :name => "index_recommendations_on_skill_type_id"
+  add_index "recommendations", ["user_id"], :name => "index_recommendations_on_user_id"
+
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.integer  "resource_id"
@@ -171,11 +202,30 @@ ActiveRecord::Schema.define(:version => 20130503030810) do
 
   add_index "roles", ["name"], :name => "index_roles_on_name"
 
+  create_table "skill_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "stars"
+  end
+
   create_table "skills", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "skills_endorsements", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "job_type_id"
+    t.string   "rate"
+    t.string   "ratings"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "skills_endorsements", ["job_type_id"], :name => "index_skills_endorsements_on_job_type_id"
+  add_index "skills_endorsements", ["user_id"], :name => "index_skills_endorsements_on_user_id"
 
   create_table "sponsors", :force => true do |t|
     t.string   "name"
@@ -198,10 +248,16 @@ ActiveRecord::Schema.define(:version => 20130503030810) do
   add_index "tags", ["code"], :name => "index_tags_on_code"
   add_index "tags", ["name"], :name => "index_tags_on_name"
 
+  create_table "tools", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "users", :force => true do |t|
-    t.string   "username",               :default => "", :null => false
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "username",               :default => "",    :null => false
+    t.string   "email",                  :default => "",    :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -218,16 +274,53 @@ ActiveRecord::Schema.define(:version => 20130503030810) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.integer  "experience"
+    t.string   "status"
+    t.string   "github"
+    t.string   "personal_url"
+    t.string   "gravatar"
+    t.text     "bio"
+    t.integer  "vouch_count"
+    t.integer  "job_type_id"
+    t.boolean  "is_freelancer",          :default => false
+    t.string   "address"
+    t.string   "town"
+    t.string   "zip"
+    t.string   "remote_onsite"
+    t.boolean  "outside_colorado"
+    t.string   "rate"
+    t.string   "full_name"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["job_type_id"], :name => "index_users_on_job_type_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
+
+  create_table "users_languages", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "language_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "users_languages", ["language_id"], :name => "index_users_languages_on_language_id"
+  add_index "users_languages", ["user_id"], :name => "index_users_languages_on_user_id"
+
+  create_table "users_platforms", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "platform_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "users_platforms", ["platform_id"], :name => "index_users_platforms_on_platform_id"
+  add_index "users_platforms", ["user_id"], :name => "index_users_platforms_on_user_id"
 
   create_table "users_roles", :id => false, :force => true do |t|
     t.integer "user_id"
@@ -236,5 +329,41 @@ ActiveRecord::Schema.define(:version => 20130503030810) do
 
   add_index "users_roles", ["role_id"], :name => "index_users_roles_on_role_id"
   add_index "users_roles", ["user_id"], :name => "index_users_roles_on_user_id"
+
+  create_table "users_skills", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "skill_type_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "users_skills", ["skill_type_id"], :name => "index_users_skills_on_skill_type_id"
+  add_index "users_skills", ["user_id"], :name => "index_users_skills_on_user_id"
+
+  create_table "users_tools", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "tool_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "users_tools", ["tool_id"], :name => "index_users_tools_on_tool_id"
+  add_index "users_tools", ["user_id"], :name => "index_users_tools_on_user_id"
+
+  create_table "users_work_locations", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "work_location_type_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "users_work_locations", ["user_id"], :name => "index_users_work_locations_on_user_id"
+  add_index "users_work_locations", ["work_location_type_id"], :name => "index_users_work_locations_on_work_location_type_id"
+
+  create_table "work_location_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end
