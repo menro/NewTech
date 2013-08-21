@@ -6,6 +6,14 @@
       %a{:href => "${homepage_url}", :target => "_blank" }
         ${homepage_url}
       %br
+      {{if kickstarter_url != null && kickstarter_url != ""}}
+      %span.label_marked Kickstarter Campaign:
+      %a{:href => "${kickstarter_url}", :target => "_blank" }
+        ${kickstarter_url}
+      %br
+      (ends ${kickstarter_end_date})
+      %br
+      {{/if}}
       %p.description ${description}
       %br
       %span.label_marked Year Founded:
