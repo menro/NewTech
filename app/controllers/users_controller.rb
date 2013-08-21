@@ -16,9 +16,10 @@ class UsersController < ApplicationController
 
     User::WORK_STATUS.each do |status|
       users = []
-      if params[:search].present? && (params[:search][:platforms_in].present? || params[:search][:languages_in].present? || params[:search][:developer])
+      if params[:search].present? && (params[:search][:platforms_in].present? || params[:search][:languages_in].present? || params[:search][:developer].present?)
         users = User.joins(:platforms).where('platform_id IN (?) and status=? and users.discipline_id=?', params[:search][:platforms_in], status, discipline_id).all
         users += User.joins(:languages).where('language_id IN (?) and status=? and users.discipline_id=?', params[:search][:languages_in], status, discipline_id).all
+        users += User.where("status=? and is_freelancer=? and discipline_id=?", status, true, discipline_id).all unless (params[:search][:platforms_in].present? || params[:search][:languages_in].present?)
       elsif params[:platform].present?
         p = Platform.where(name: params[:platform]).first
         users = User.joins(:platforms).where('platform_id =? and status=? and users.discipline_id=?', p.id, status, discipline_id).all

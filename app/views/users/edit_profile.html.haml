@@ -48,6 +48,10 @@
 
       %h5 Job Title
       = f.association :job_type, :as => :select, :collection => User::ALLOWED_JOB_TITLE_AS_OPTIONS, label: false, :input_html => { :required => true , :class => "text top"} 
+      
+      %h5 Discipline
+      = f.input :discipline, :collection => User::ALLOWED_DISCIPLINES_AS_OPTIONS, :label => false, placeholder: 'Discipline', :default => @freelancer.discipline || 'Developer', :input_html => { :required => true , :class => "text top"}
+
       %h5 Experience (year)
       = f.input :experience, as: :integer,collection: User::ALLOWED_EXP_YEARS,  label: false, :input_html => {:required => true}
 

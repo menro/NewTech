@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130821172334) do
+ActiveRecord::Schema.define(:version => 20130821181356) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -309,6 +309,7 @@ ActiveRecord::Schema.define(:version => 20130821172334) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.integer  "discipline_id"
+    t.string   "job_type"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

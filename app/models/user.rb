@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   WORK_STATUS = ['available', 'shortly', 'working']
   USER_RATES = ['$', '$$', '$$$', '$$$$']
 
-  if defined?(Discipline)
+  if Discipline.table_exists?
     ALLOWED_TOOLS_AS_OPTIONS = Tool.all.map {|t| [t.name.titleize, t.id]}
     ALLOWED_LANGUAGES_AS_OPTIONS = Language.all.map {|t| [t.name.titleize, t.id]}
     ALLOWED_PLATFORMS_AS_OPTIONS = Platform.all.map {|t| [t.name.titleize, t.id]}
@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me , :role_ids
-  attr_accessible :rate, :github, :personal_url, :full_name, :status, :job_type_id, :experience, :platform_ids, :language_ids, :tool_ids, :address, :town, :zip, :remote_onsite, :outside_colorado, :recommendation_ids, :work_location_ids
+  attr_accessible :rate, :github, :personal_url, :full_name, :status, :job_type_id, :experience, :platform_ids, :language_ids, :tool_ids, :address, :town, :zip, :remote_onsite, :outside_colorado, :recommendation_ids, :work_location_ids, :discipline_id
 
   has_many :tool_sets, class_name: "UsersTools"
   has_many :tools, through: :tool_sets
@@ -88,9 +88,9 @@ class User < ActiveRecord::Base
     self.full_name.blank? ? self.username : self.full_name
   end
 
-  def job_title
-    job_type.try(:name) || ""
-  end
+  # def job_title
+  #   self.job_title || ""
+  # end
 
   def reload_skills
     self.user_skills = User.find(self.id).user_skills
