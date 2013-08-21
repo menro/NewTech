@@ -16,7 +16,7 @@
 .span2#search-panel
   %br
   = form_tag(users_path, class: 'custom fullwidth-drops', onsubmit: "return false" ) do
-    = select_tag :developer, options_for_select([['Developer', 'all']] + User::ALLOWED_WORK_STATUS_AS_OPTIONS, 'all'),{ :include_blank => true, label: 'Developer'}
+    = select_tag :developer, options_for_select(User::ALLOWED_DISCIPLINES_AS_OPTIONS)
 
     %div#platforms
       .top-row

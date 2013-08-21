@@ -14,15 +14,18 @@ class User < ActiveRecord::Base
   WORK_STATUS = ['available', 'shortly', 'working']
   USER_RATES = ['$', '$$', '$$$', '$$$$']
 
-  ALLOWED_TOOLS_AS_OPTIONS = Tool.all.map {|t| [t.name.titleize, t.id]}
-  ALLOWED_LANGUAGES_AS_OPTIONS = Language.all.map {|t| [t.name.titleize, t.id]}
-  ALLOWED_PLATFORMS_AS_OPTIONS = Platform.all.map {|t| [t.name.titleize, t.id]}
-  ALLOWED_WORK_STATUS_AS_OPTIONS = WORK_STATUS.map {|t| [t.titleize, t]}
-  ALLOWED_JOB_TITLE_AS_OPTIONS = JobType.all.map {|t| [t.name, t.id]}
-  ALLOWED_WORK_ONSITE_AS_OPTIONS = WorkLocationType.all.map { |t| [t.name.titleize, t.id]}
-  ALLOWED_USER_RATES_AS_OPTIONS = USER_RATES.map { |t| [t, t]}
-  ALLOWED_SKILL_TYPES_AS_OPTIONS = SkillType.all.map {|t| [t.name.titleize, t.id]}
-
+  if defined?(Discipline)
+    ALLOWED_TOOLS_AS_OPTIONS = Tool.all.map {|t| [t.name.titleize, t.id]}
+    ALLOWED_LANGUAGES_AS_OPTIONS = Language.all.map {|t| [t.name.titleize, t.id]}
+    ALLOWED_PLATFORMS_AS_OPTIONS = Platform.all.map {|t| [t.name.titleize, t.id]}
+    ALLOWED_WORK_STATUS_AS_OPTIONS = WORK_STATUS.map {|t| [t.titleize, t]}
+    ALLOWED_JOB_TITLE_AS_OPTIONS = JobType.all.map {|t| [t.name, t.id]}
+    ALLOWED_WORK_ONSITE_AS_OPTIONS = WorkLocationType.all.map { |t| [t.name.titleize, t.id]}
+    ALLOWED_USER_RATES_AS_OPTIONS = USER_RATES.map { |t| [t, t]}
+    ALLOWED_SKILL_TYPES_AS_OPTIONS = SkillType.all.map {|t| [t.name.titleize, t.id]}
+    ALLOWED_DISCIPLINES_AS_OPTIONS = Discipline.all.map { |d| [d.name.titleize, d.id]}  
+  end
+  
   attr_accessible :avatar
   has_attached_file :avatar,
                     :styles => {
@@ -67,6 +70,8 @@ class User < ActiveRecord::Base
   has_many :user_skills, through: :skills_set, source: 'skill_type'
 
   belongs_to :job_type
+  belongs_to :discipline
+
   validates :username, presence: true, :allow_nil => false, :uniqueness => {:case_sensitive => false}
   validates :email, presence: true, :uniqueness => {:case_sensitive => false}, :allow_nil => false
   validates :experience, numericality: true, :allow_nil => true, inclusion: ALLOWED_EXP_YEARS

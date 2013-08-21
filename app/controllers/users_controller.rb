@@ -4,33 +4,29 @@ class UsersController < ApplicationController
 
   def index
     @users_status = []
-    @platforms_on_page = Platform.where(on_page: true)
-    @platforms_popup = Platform.where(on_page: false)
-    @languages_on_page = Language.where(on_page: true)
-    @languages_popup = Language.where(on_page: false)
-    
     if params && params[:search].present?
-      if params[:search][:developer] == 'all'
-        work_status = User::WORK_STATUS
-      else
-        work_status = [params[:search][:developer]]
-      end
+      discipline_id = params[:search][:developer]
     else
-      work_status = User::WORK_STATUS
+      discipline_id = Discipline.where(name: 'Developer').first.id
     end
-    work_status.each do |status|
+    @platforms_on_page = Platform.where("on_page=? and discipline_id=?", true, discipline_id)
+    @platforms_popup = Platform.where("on_page=? and discipline_id=?", false, discipline_id)
+    @languages_on_page = Language.where("on_page=? and discipline_id=?", true, discipline_id)
+    @languages_popup = Language.where("on_page=? and discipline_id=?", false, discipline_id)
+
+    User::WORK_STATUS.each do |status|
       users = []
-      if params[:search].present? && (params[:search][:platforms_in].present? || params[:search][:languages_in].present?)
-        users = User.joins(:platforms).where('platform_id IN (?) and status=?', params[:search][:platforms_in], status).all
-        users += User.joins(:languages).where('language_id IN (?) and status=?', params[:search][:languages_in], status).all
+      if params[:search].present? && (params[:search][:platforms_in].present? || params[:search][:languages_in].present? || params[:search][:developer])
+        users = User.joins(:platforms).where('platform_id IN (?) and status=? and users.discipline_id=?', params[:search][:platforms_in], status, discipline_id).all
+        users += User.joins(:languages).where('language_id IN (?) and status=? and users.discipline_id=?', params[:search][:languages_in], status, discipline_id).all
       elsif params[:platform].present?
         p = Platform.where(name: params[:platform]).first
-        users = User.joins(:platforms).where('platform_id =? and status=?', p.id, status).all
+        users = User.joins(:platforms).where('platform_id =? and status=? and users.discipline_id=?', p.id, status, discipline_id).all
       elsif params[:language].present?
         l = Language.where(name: params[:language]).first
-        users = User.joins(:languages).where('language_id=? and status=?', l.id, status).all
+        users = User.joins(:languages).where('language_id=? and status=? and users.discipline_id=?', l.id, status, discipline_id).all
       else
-        users = User.where("status=? and is_freelancer=?", status, true).all
+        users = User.where("status=? and is_freelancer=? and discipline_id=?", status, true, discipline_id).all
       end
       @users_status << [status, users.uniq]
     end
