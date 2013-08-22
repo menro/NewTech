@@ -43,6 +43,10 @@ class UsersController < ApplicationController
     unless current_user || (current_user && current_user.id == @freelancer.id)
       redirect_to show_freelancer_users_path(@freelancer.username)
     end
+    discipline = Discipline.where(name: 'Developer').first
+    @disciplines = Discipline.all
+    @discipline_platforms = discipline.platforms.map {|d| [d.name.titleize, d.id]}
+    @discipline_languages = discipline.languages.map {|d| [d.name.titleize, d.id]}
   end
 
   def update
@@ -52,6 +56,12 @@ class UsersController < ApplicationController
     else
       render 'edit_profile'
     end
+  end
+  
+  def fetch_discipline
+    puts "233333"
+    debugger
+    puts params
   end
 
   def change_status

@@ -19,7 +19,7 @@
             %h3
               = link_to user.name.titleize, show_freelancer_users_url(user.username)
             %h6 
-              = user.try(:job_type).try(:name).try(:titleize)
+              = user.try(:job_title).try(:titleize)
             %h6
               = "Endorsed: #{user.recommendies.try(:first).try(:skill_type).try(:name)}"
             %hr

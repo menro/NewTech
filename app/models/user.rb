@@ -48,8 +48,8 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => /image/
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :username, :email, :password, :password_confirmation, :remember_me , :role_ids
-  attr_accessible :rate, :github, :personal_url, :full_name, :status, :job_type_id, :experience, :platform_ids, :language_ids, :tool_ids, :address, :town, :zip, :remote_onsite, :outside_colorado, :recommendation_ids, :work_location_ids, :discipline_id
+  attr_accessible :username, :email, :password, :password_confirmation, :remember_me , :role_ids, :job_title
+  attr_accessible :rate, :github, :personal_url, :full_name, :status, :experience, :platform_ids, :language_ids, :tool_ids, :address, :town, :zip, :remote_onsite, :outside_colorado, :recommendation_ids, :work_location_ids, :discipline_id
 
   has_many :tool_sets, class_name: "UsersTools"
   has_many :tools, through: :tool_sets
@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
   has_many :skills_set, class_name: "UsersSkills"
   has_many :user_skills, through: :skills_set, source: 'skill_type'
 
-  belongs_to :job_type
+  # belongs_to :job_type
   belongs_to :discipline
 
   validates :username, presence: true, :allow_nil => false, :uniqueness => {:case_sensitive => false}

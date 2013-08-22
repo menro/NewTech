@@ -17,7 +17,7 @@ change_status = ->
     type: 'POST'
     url: 'change_status'
     data: {user:{status: status}}
-    dataTyoe: 'JSON'
+    # dataType: 'JSON'
     async: false
     success: (data)->
       $('#freelancer_status').val(status)

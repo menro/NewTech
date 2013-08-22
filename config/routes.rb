@@ -40,6 +40,7 @@ Newtech::Application.routes.draw do
       put '/:username' => 'users#update', as: 'update'
       post '/change_status' => 'users#change_status'
       put '/endorse/:username' => 'users#endorse', as: 'endorse'
+      get '/fetch_discipline' => 'users#fetch_discipline'
     end
   end
   # Profile Area

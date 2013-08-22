@@ -309,7 +309,7 @@ ActiveRecord::Schema.define(:version => 20130821181356) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.integer  "discipline_id"
-    t.string   "job_type"
+    t.string   "job_title"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

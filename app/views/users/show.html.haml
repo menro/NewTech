@@ -53,7 +53,6 @@
       - if viewing_own_profile?
         .edit-link
           = link_to 'Edit', edit_profile_users_path, class: 'btn'
-      %br
     %hr
     %h2
       = @freelancer.name.titleize
@@ -84,12 +83,12 @@
         .endorse-people
           - skill.user_recommendies(@freelancer.id).group('user_id, recommendations.id').each do |r|
             - rc = r.recommendi
-            = link_to image_tag("#{rc.avatar.url(:icon)}", class: 'icon'), show_freelancer_users_url(rc.username), target: '_blank'
+            = link_to image_tag("#{rc.avatar.url(:icon)}", class: 'icon'), show_freelancer_users_url(rc.username)
 
     %hr
     %h5 Job Title
     %h2
-      = @freelancer.try(:job_type).try(:name).try(:titleize)
+      = @freelancer.try(:job_title).try(:titleize)
     %h6
       = "#{@freelancer.experience} years experience"
     %br
@@ -127,14 +126,14 @@
               %h3
                 = link_to recommendie.name.titleize, show_freelancer_users_url(recommendie.username)
               %h6 
-                = recommendie.try(:job_type).try(:name).try(:titleize)
+                = recommendie.try(:job_title).try(:titleize)
               %h6
                 = "Endorsed: #{recommendation.skill_type.name}"
               %hr
               - recommendie.recommendies.select(:user_id).uniq.each_with_index do |rcrd, i|
                 - r = Recommendation.where(user_id: rcrd.user_id).first
                 - rc = r.recommendi
-                = link_to image_tag("#{rc.avatar.url(:icon)}", class: 'icon'), show_freelancer_users_url(rc.username), target: '_blank'
+                = link_to image_tag("#{rc.avatar.url(:icon)}", class: 'icon'), show_freelancer_users_url(rc.username)
 - else
   %h1 Sorry, freelancer with this username does not exists.
 
