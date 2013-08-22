@@ -32,6 +32,7 @@ Newtech::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => :registrations, sessions: :sessions }
   get "email_confirmation" => "home#email_confirmation", :as => "email_confirmation"
   
+
   resources :users, only: [], path: 'freelancers', controller: 'users' do
     collection do
       get '/:username' => "users#show", as: 'show_freelancer'
@@ -43,6 +44,7 @@ Newtech::Application.routes.draw do
       get '/fetch_discipline' => 'users#fetch_discipline'
     end
   end
+
   # Profile Area
   get "profile/account" => "profile#account"
   put "profile/password" => "profile#password_update"

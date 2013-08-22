@@ -2,6 +2,8 @@ collection @companies, :object_root => false
 
 attributes  :name,
             :homepage_url,
+	    :kickstarter_url,
+            :kickstarter_end_date,
             :description,
             :jobs_url,
             :facebook,
