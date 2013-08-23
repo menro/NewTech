@@ -40,9 +40,9 @@ gem 'responders'
 # Use clien side validation
 gem 'client_side_validations', '3.1.4'
 gem 'cocaine', '0.3.2'
-
+gem 'sass-rails', '3.2.5'
 group :assets do
-  gem 'sass-rails', '3.2.5'
+  
   gem 'coffee-rails', '3.2.2'
   gem 'uglifier', '1.0.3'
   #gem 'therubyracer' our use nodejs
