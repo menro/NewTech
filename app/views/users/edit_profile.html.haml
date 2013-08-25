@@ -48,9 +48,6 @@
 
       %h5 Discipline
       = f.association :discipline, :collection => User::ALLOWED_DISCIPLINES_AS_OPTIONS, :label => false, placeholder: 'Discipline', :default => @freelancer.discipline || 'Developer', :input_html => { :required => true , :class => "text top", :onchange => "updateCheckboxes();"}
-
-      %h5 Experience (year)
-      = f.input :experience, as: :integer,collection: User::ALLOWED_EXP_YEARS,  label: false, :input_html => {:required => true}
       
       %br
       - @disciplines.each_with_index do |dis, index|

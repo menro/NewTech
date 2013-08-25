@@ -31,7 +31,8 @@ class User < ActiveRecord::Base
                     :styles => {
                         thumb: "100x100>",
                         icon: "25x25>",
-                        regular: "180x180>"
+                        regular: "180x180>",
+                        small: "35x35>"
                     },
                     :default_url => "http://b.dryicons.com/images/icon_sets/colorful_stickers_icons_set/png/256x256/help.png",
                     :storage => :s3,
@@ -76,7 +77,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true, :uniqueness => {:case_sensitive => false}, :allow_nil => false
   validates :experience, numericality: true, :allow_nil => true, inclusion: ALLOWED_EXP_YEARS
 
-  before_save :set_status, :set_username, :set_gravata #, :reload_skills
+  before_create :set_defualts
 
   accepts_nested_attributes_for :recommendations
 
@@ -88,25 +89,35 @@ class User < ActiveRecord::Base
     self.full_name.blank? ? self.username : self.full_name
   end
 
-  # def job_title
-  #   self.job_title || ""
-  # end
-
   def reload_skills
     self.user_skills = User.find(self.id).user_skills
   end
+
+  def top_endorsers
+    recoms = recommendies.select(:user_id).group(:user_id).order('count("recommendi_id") DESC').limit(3)
+    users = []
+    recoms.each do |r|
+      users << User.find(r.user_id)
+    end
+    users
+  end
+
+  def ordered_user_skills
+    recoms = recommendies.select(:skill_type_id).group(:skill_type_id).order("COUNT('skill_type_id') DESC")
+    skills = []
+    recoms.each do |r|
+      skills << SkillType.find(r.skill_type_id)
+    end
+    skills
+  end
+
   private
-  
-  def set_status
+
+  def set_defualts
     self.status = self.status || 'available'
-  end
-
-  def set_username
-    self.username = self.username.downcase.gsub(/\s/,'')
-  end
-
-  def set_gravata
+    self.experience = self.experience || 0
     self.gravatar = "http://1.gravatar.com/avatar/#{Digest::MD5.hexdigest(self.email)}"
+    self.username = self.username.downcase.gsub(/\s/,'')
   end
 
   def self.platforms_in(platforms)

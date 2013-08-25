@@ -8,7 +8,7 @@ class Recommendation < ActiveRecord::Base
   belongs_to :user, class_name: "User", foreign_key: "recommendi_id"
   attr_accessible :recommendi_id
 
-  scope :recommendies, ->{ select('DISTINCT recommendi_id') }
+  # scope :recommendies, ->{ select('DISTINCT recommendi_id') }
   def recommendi
     User.find(user_id)
   end

@@ -279,3 +279,142 @@
 a{
   color: black;
 }
+#show-wrapper{
+  .row{
+    margin-left: 0!important;
+  }
+  .section1{
+    hr{
+      margin: 7px 0;
+      border: 0;
+      border-top: 2px solid #eeeeee;
+      border-bottom: 1px solid white;
+    }    
+    .name{
+      h2{
+        font-size: 20px;
+        line-height: 45px;
+      }
+    }
+    .status{
+      .span1{
+        margin-left: 0!important;
+      }
+      .span9{
+        margin-left: 0!important;
+        h3{
+          font-size: 20px;
+          line-height: 18px;
+          font-weight: 200;
+          text-align: center;
+        }
+        .btn-large{
+          width: 140px!important;
+        }
+        .status-btn{
+          width: 130px;
+          height: 37px;
+          background-color: red;
+          text-align: center;
+          border-radius: 7px;
+        }
+      }
+    }
+    .details{
+      img{
+        margin-right: 5px;
+      }
+      .span2{
+        margin-left: 0!important;
+        width: 100px!important;
+        margin-right: 25px;
+      }
+      .location{
+        width: auto!important;
+        min-width: 105px!important;
+        margin-right: 15px;
+      }
+      .experience{
+        min-width: 100px;
+        width: auto!important;
+        margin-right:  15px; 
+      }
+    }
+    .urls{
+      .span1{
+        width: 100px!important;
+        margin-left: 0!important;
+
+      }
+    }
+  }
+  .section2{
+    height: 100px;
+    .span12{
+      background-color: #F7F9F9;
+      .endorse-text{
+        margin-left: 0!important;
+        text-align: center;
+        line-height: 102px;
+        font-size: 16px;
+        color: #527A7A;
+      }
+      .recommendi-box{
+        padding-top: 15px;
+        .recommendie-details{
+        }
+        .recommendie-gravatar{
+          width: 43%;
+          height: 100%;
+          float: left;
+          img{
+            width: 70px;
+            height: 70px;
+          }
+        }
+      }
+    }
+  }
+  .remaining-endorsement{
+    line-height: 44px;
+    margin-left: 44px;
+    img{
+      margin: 10px;
+    }
+  }
+  .section3{
+    .item{
+      width: 100%!important;
+      .span3{
+        height: 52px;
+        // width: 200px;
+        margin-left: 0;
+        border-top: 0.1em solid #B2CCCC;
+        border-right: 0.1em solid #B2CCCC;
+        line-height: 52px;
+        padding-left: 22px;
+      }
+      .like{
+        text-align: right;
+        margin-right: 10px; 
+      }
+      .skill{
+        width: auto;
+        float: left;
+      }
+      .span9{
+        height: 52px;
+        border-top: 0.1em solid #B2CCCC;
+        margin-left: 0!important;
+        img{
+          margin: 10px;
+          margin-right: 0px;
+        }
+      }
+      .small{
+        width: 35px;
+        height: 35px;
+      }
+    }
+  }
+}
