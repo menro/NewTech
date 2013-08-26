@@ -21,7 +21,7 @@
             %h6 
               = user.try(:job_title).try(:titleize)
             %h6
-              = "Endorsed: #{user.recommendies.try(:first).try(:skill_type).try(:name)}"
+              = "Endorsed: #{user.recommendies.try(:first).try(:discipline).try(:name)}"
             %hr
             - user.recommendies.select(:user_id).uniq.each_with_index do |record, index|
               - r = Recommendation.where(user_id: record.user_id).first

@@ -55,9 +55,9 @@
           = render partial: 'recommendation_box', locals: {user: user}
     .row
       .span12.remaining-endorsement
-        = image_tag "freelance/starbadge.png"
         - top_endorsers_count = @freelancer.top_endorsers.count
-        - if top_endorsers_count < 3
+        - if top_endorsers_count < 3    
+          = image_tag "freelance/starbadge.png"
           = "#{@freelancer.name} needs #{3 - top_endorsers_count} endorsements to show up on search results page (endorse him by clicking the thumbs up next to a skill)"
 
     .row.section3
