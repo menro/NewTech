@@ -57,12 +57,6 @@ class UsersController < ApplicationController
       render 'edit_profile'
     end
   end
-  
-  def fetch_discipline
-    puts "233333"
-    debugger
-    puts params
-  end
 
   def change_status
     puts params
@@ -71,19 +65,15 @@ class UsersController < ApplicationController
   end
 
   def endorse
-    @freelancer = User.where(username: params[:username]).first #recommendi => being endorsed
-    skill_ids = params[:user][:user_skill_ids].reject {|id| id.empty?}
-    # current_user.user_skills = User.find(current_user.id).user_skills
-    skill_ids.each do |id|
-      recomendation = Recommendation.new
-      recomendation.skill_type_id = id
-      recomendation.recommendi_id = @freelancer.id
-      current_user.recommendations << recomendation
-      @freelancer.user_skills << SkillType.find(id)
-    end
-    if current_user.save
-      redirect_to show_freelancer_users_path(@freelancer.username), notice: "Thanks for endorsing #{@freelancer.name}!"
-    end
+    @freelancer = User.where(username: params[:username]).first
+    skill_id = params[:skill_id]
+    skill_type = params[:skill_type]      
+    recomendation = Recommendation.new
+    recomendation.skillable_id = skill_id
+    recomendation.skillable_type = skill_type.classify
+    recomendation.recommendi_id = @freelancer.id
+    current_user.recommendations << recomendation
+    current_user.save
   end
 
   private

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130821181356) do
+ActiveRecord::Schema.define(:version => 20130825201511) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -197,13 +197,14 @@ ActiveRecord::Schema.define(:version => 20130821181356) do
 
   create_table "recommendations", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "skill_type_id"
     t.integer  "recommendi_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "skillable_id"
+    t.string   "skillable_type"
   end
 
-  add_index "recommendations", ["skill_type_id"], :name => "index_recommendations_on_skill_type_id"
+  add_index "recommendations", ["skillable_id"], :name => "index_recommendations_on_skillable_id"
   add_index "recommendations", ["user_id"], :name => "index_recommendations_on_user_id"
 
   create_table "roles", :force => true do |t|

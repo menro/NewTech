@@ -80,26 +80,7 @@
       %hr
       %h5 Endorsing:
       %br
-      #endorsings.inline
-        - if @freelancer.recommendies.present?
-          - @freelancer.recommendies.select(:user_id).uniq.each_with_index do |record, index|
-            - recommendation = Recommendation.where(user_id: record.user_id).first
-            - recommendie = recommendation.recommendi
-            .endorsement.span3{class: "rec-#{index}"}
-              .recommendie-gravatar
-                = link_to image_tag("#{recommendie.avatar.url(:thumb)}", class: 'thumb'), show_freelancer_users_url(recommendie.username)
-              .recommendie-details
-                %h3
-                  = link_to recommendie.name.titleize, show_freelancer_users_url(recommendie.username)
-                %h6 
-                  = recommendie.try(:job_title).try(:titleize)
-                %h6
-                  = "Endorsed: #{recommendation.skill_type.name}"
-                %hr
-                - recommendie.recommendies.select(:user_id).uniq.each_with_index do |rcrd, i|
-                  - r = Recommendation.where(user_id: rcrd.user_id).first
-                  - rc = r.recommendi
-                  = link_to image_tag("#{rc.avatar.url(:icon)}", class: 'icon'), show_freelancer_users_url(rc.username)
+      
   .span1
     = f.submit 'save', class: 'btn'
 

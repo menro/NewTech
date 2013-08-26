@@ -40,7 +40,8 @@ Newtech::Application.routes.draw do
       get '/' => 'users#index'
       put '/:username' => 'users#update', as: 'update'
       post '/change_status' => 'users#change_status'
-      put '/endorse/:username' => 'users#endorse', as: 'endorse'
+      # put '/endorse/:username' => 'users#endorse', as: 'endorse'
+      put '/endorse/skill' => 'users#endorse', as: 'endorse_skill'
       get '/fetch_discipline' => 'users#fetch_discipline'
     end
   end

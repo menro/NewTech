@@ -23,6 +23,24 @@ change_status = ->
       $('#freelancer_status').val(status)
       $('#freelancer_status_text').text(status.toUpperCase())
 
+endorseUser = (skill_type, skill_id)->
+  $.ajax
+    type: 'PUT'
+    url: '/freelancers/endorse/skill'
+    data:
+      skill_type: skill_type
+      skill_id: skill_id
+      username: $('#freelancer').val()
+    success: (data) ->
+    error: (data) ->
+      id = "#recommender_"+ skill_type + "_" + skill_id
+      $(id).append(data.responseText)
+
+$('.likebtn').click ->
+  console.log(this.id)
+  endorseUser(this.id.split(/_/)[0], this.id.split(/_/)[1])
+
+
 filterFreelancers = (platforms_in, languages_in)->
   $.ajax
     type: "GET"

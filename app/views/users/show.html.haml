@@ -61,21 +61,37 @@
           = "#{@freelancer.name} needs #{3 - top_endorsers_count} endorsements to show up on search results page (endorse him by clicking the thumbs up next to a skill)"
 
     .row.section3
+      = hidden_field_tag :freelancer, @freelancer.username
       .span12
-        - @freelancer.ordered_user_skills.each do |skill|
-          - recommenders = skill.user_recommendies(@freelancer.id)
+        - @freelancer.ordered_user_platforms.each do |skill|
+          - recommenders = skill.user_endorsements(@freelancer.id)
           .row.item
             .span3
               .skill
                 = "[#{recommenders.count}]  "
                 = skill.name.titleize
-              .like
-                = image_tag "freelance/likebutton.png"
-            .span9
+              - unless viewing_own_profile?
+                .like
+                  = image_tag "freelance/likebutton.png", class: 'click likebtn', id: "platform_#{skill.id}"
+            .span9{id: "recommender_platform_#{skill.id}"}
               - recommenders.each do |r|
                 - recommendi = r.recommendi
                 = link_to (image_tag recommendi.avatar.url(:small), class: 'small'),show_freelancer_users_url(recommendi.username)
-                =# image_tag r.recommendi.avatar.url(:icon), class: 'icon'
+
+        - @freelancer.ordered_user_languages.each do |skill|
+          - recommenders = skill.user_endorsements(@freelancer.id)
+          .row.item
+            .span3
+              .skill
+                = "[#{recommenders.count}]  "
+                = skill.name.titleize
+              - unless viewing_own_profile?
+                .like
+                  = image_tag "freelance/likebutton.png", class: 'click likebtn', id: "language_#{skill.id}"
+            .span9{id: "recommender_language_#{skill.id}"}
+              - recommenders.each do |r|
+                - recommendi = r.recommendi
+                = link_to (image_tag recommendi.avatar.url(:small), class: 'small'),show_freelancer_users_url(recommendi.username)
 
 - else
   %h1 Sorry, freelancer with this username does not exists.

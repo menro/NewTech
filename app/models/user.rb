@@ -102,13 +102,27 @@ class User < ActiveRecord::Base
     users
   end
 
-  def ordered_user_skills
-    recoms = recommendies.select(:skill_type_id).group(:skill_type_id).order("COUNT('skill_type_id') DESC")
+  def ordered_user_platforms
+    # such a messy situation.
     skills = []
-    recoms.each do |r|
-      skills << SkillType.find(r.skill_type_id)
+    platform_recom = recommendies.where("skillable_type=?", 'Platform').select(:skillable_id).group(:skillable_id).order("COUNT('skillable_id') DESC")
+    p_ids = platform_recom.blank? ? [0] : platform_recom.collect(&:skillable_id) || [0]
+    platforms = self.platforms.where('platforms.id NOT IN(?)', p_ids)
+    platform_recom.each do |r|
+      skills << Platform.find(r.skillable_id)
     end
-    skills
+    skills + platforms
+  end
+
+  def ordered_user_languages
+    skills = []
+    language_recom = recommendies.where("skillable_type=?", 'Language').select(:skillable_id).group(:skillable_id).order("COUNT('skillable_id') DESC")
+    l_ids = language_recom.blank? ? [0] : language_recom.collect(&:skillable_id)
+    languages = self.languages.where('languages.id NOT IN(?)', l_ids)
+    language_recom.each do |r|
+      skills << Language.find(r.skillable_id)
+    end
+    skills + languages
   end
 
   private
