@@ -9,4 +9,9 @@ class Language < ActiveRecord::Base
   def user_endorsements(recommendi_id)
     endorsements.where(recommendi_id: recommendi_id)
   end
+
+  def endorsed_by_current_user?(user)
+    rec = current_user.recommendies.where("skillable_id=? and user_id=? and skillable_type=?", self.id, user.id, self.class.name)
+    rec.present?
+  end
 end

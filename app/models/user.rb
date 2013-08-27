@@ -125,6 +125,11 @@ class User < ActiveRecord::Base
     skills + languages
   end
 
+  def endorsed_this?(skill, freelancer)
+    rec = self.recommendations.where("skillable_id=? and recommendi_id=? and skillable_type=?", skill.id, freelancer.id, skill.class.name)
+    rec.present?
+  end
+
   private
 
   def set_defualts
