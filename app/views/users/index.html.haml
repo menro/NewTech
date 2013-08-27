@@ -1,32 +1,50 @@
+- content_for :stylesheets do
+  = stylesheet_link_tag "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"
+#dialogP{style: 'display:none', title: 'Platforms'}
+  - @platforms_popup.each do |p|
+    .item
+      %label.checkbox.inline{name: 'platforms_in'}
+        = check_box_tag :platforms_in, p.id, false, class: 'check_boxes optional'
+        = p.name
+#dialogL{style: 'display:none', title: 'Languages'}
+  - @languages_popup.each do |p|
+    .item
+      %label.checkbox.inline{name: 'languages_in'}
+        = check_box_tag :languages_in, p.id, false, class: 'check_boxes optional'
+        = p.name
+
 .span2#search-panel
-  %h3 Platforms
+  %br
+  = form_tag(users_path, class: 'custom fullwidth-drops', onsubmit: "return false" ) do
+    = select_tag :developer, options_for_select(User::ALLOWED_DISCIPLINES_AS_OPTIONS)
+
+    %div#platforms
+      .top-row
+        .heading
+          %h4 Platforms
+        .more-link
+          = link_to 'More...', 'javascript:void(0)', id: 'all-plat'
+      %hr
+      - @platforms_on_page.each do |p|
+        .item
+          %label.checkbox.inline{name: 'platforms_in'}
+            = check_box_tag :platforms_in, p.id, (params[:platform] == p.name), class: 'check_boxes optional'
+            = p.name
+
+    %br
+    %br
+    %div#languages
+      .top-row
+        .heading
+          %h4 Languages
+        .more-link
+          = link_to 'More...', 'javascript:void(0)', id: 'all-lang'
+      %hr
+      - @languages_on_page.each do |p|
+        .item
+          %label.checkbox.inline{name: 'languages_in'}
+            = check_box_tag :languages_in, p.id, (params[:language] == p.name), class: 'check_boxes optional'
+            = p.name
+
 .span10#details-panel
-  - User::WORK_STATUS.each do |status|
-    %br
-    .status-wrapper
-      .user-status
-        %h3
-          = status.titleize
-      .more-link
-        = link_to 'More...', '#'
-    %br
-    %hr
-    #endorsings
-      - User.where("status=? and is_freelancer=?", status, true).all.each_with_index do |user, index|
-        -# unless user.recommendies.group(:user_id).length < 0
-        - unless user.recommendies.blank?
-          .endorsement.span3{class: "rec-#{index}"}
-            .recommendie-gravatar
-              = image_tag "#{user.gravatar}?s=100"
-            .recommendie-details
-              %h3
-                = user.name.titleize
-              %h6 
-                = user.try(:job_type).try(:name).try(:titleize)
-              %h6
-                = "Endorsed: #{user.recommendies.try(:first).try(:skill_type).try(:name)}"
-              %hr
-              - user.recommendies.select(:user_id).uniq.each_with_index do |record, index|
-                - r = Recommendation.where(user_id: record.user_id).first
-                - rc = r.recommendi
-                = link_to image_tag("#{rc.gravatar}?s=20"), show_freelancer_users_url(rc.username), target: '_blank'
+  = render partial: 'filter_freelancers'

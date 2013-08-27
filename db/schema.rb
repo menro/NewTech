@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130819173455) do
+ActiveRecord::Schema.define(:version => 20130825201511) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -112,6 +112,12 @@ ActiveRecord::Schema.define(:version => 20130819173455) do
 
   add_index "counties", ["name"], :name => "index_counties_on_name"
 
+  create_table "disciplines", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "employees_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -171,25 +177,34 @@ ActiveRecord::Schema.define(:version => 20130819173455) do
 
   create_table "languages", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.boolean  "on_page",       :default => false
+    t.integer  "discipline_id"
   end
+
+  add_index "languages", ["discipline_id"], :name => "index_languages_on_discipline_id"
 
   create_table "platforms", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.boolean  "on_page",       :default => false
+    t.integer  "discipline_id"
   end
+
+  add_index "platforms", ["discipline_id"], :name => "index_platforms_on_discipline_id"
 
   create_table "recommendations", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "skill_type_id"
     t.integer  "recommendi_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "skillable_id"
+    t.string   "skillable_type"
   end
 
-  add_index "recommendations", ["skill_type_id"], :name => "index_recommendations_on_skill_type_id"
+  add_index "recommendations", ["skillable_id"], :name => "index_recommendations_on_skillable_id"
   add_index "recommendations", ["user_id"], :name => "index_recommendations_on_user_id"
 
   create_table "roles", :force => true do |t|
@@ -292,10 +307,17 @@ ActiveRecord::Schema.define(:version => 20130819173455) do
     t.boolean  "outside_colorado"
     t.string   "rate"
     t.string   "full_name"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.integer  "discipline_id"
+    t.string   "job_title"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
+  add_index "users", ["discipline_id"], :name => "index_users_on_discipline_id"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["job_type_id"], :name => "index_users_on_job_type_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true

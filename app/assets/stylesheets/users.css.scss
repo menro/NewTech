@@ -19,6 +19,23 @@
 }
 
 #basic_bio{
+  color: inherit;
+  text-decoration: none;
+  font-weight: bold;
+  .icon{
+    text-align: center;
+    width: 20%;
+    float: left;
+    img{
+      margin-top: -2px;
+    }
+  }
+  .icon-e{
+    line-height: 26px;
+    text-align: center;
+    width: 20%;
+    float: left;
+  }
   a.disabled{
     width: 88%!important;
     margin-top: 5%;
@@ -87,6 +104,10 @@
   }
 }
 #detail_bio{
+  .links a{
+    color: #999!important;
+    text-decoration: underline!important;
+  }
   .endorse-title{
     width: 30%;
     float: left;
@@ -158,10 +179,35 @@
   }
 }
 #details-panel{
+  div#loading{
+    opacity: 0.6;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    position: absolute;
+    display: none;
+    min-height: 500px;
+  }
   div#endorsings{
     height: 150px;
+    .span3{
+      border: 2px solid #F7F9F9;
+      padding-left: 15px;
+      margin-left: 0px;
+      padding-top: 10px;
+      height: 120px;
+      .small{
+        width: 35px;
+        height: 35px;
+      }
+      .recommenders{
+        text-align: right;
+        padding-right: 10px;
+      }
+    }
     hr{
       margin: 5px 0px;
+      width: 143px;
     }
     h6{
       font-size: 9px;
@@ -191,5 +237,207 @@
   }
   div.rec-0{
     margin-left: 0px!important;
+  }
+}
+#search-panel{
+  #developer, #developer_chzn{
+    width: 171px;
+    // height: 60px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    .chzn-drop{
+    }
+  }
+  .checkbox{
+    margin-left: 0px!important;
+    margin-right: 10px!important;
+  }
+  #platforms, #languages{
+    height: 100px;
+    hr{
+      margin: 2px!important;
+    }
+    .heading{
+      float: left;
+      width: 50%;
+    }
+    .more-link{
+      text-align: right;
+    }
+  }
+  .item{
+    float: left;
+    width: 85px!important;
+    label{
+      font-size: 11px!important;
+    }
+  }
+}
+.item{
+  float: left;
+  width: 120px;
+  label{
+    font-size: 10px;
+  }
+}
+.thumb{
+  width: 100px;
+  height: 100px;
+}
+.icon{
+  width: 25px;
+  height: 25px;
+}
+.regular{
+  width: 180px;
+  height: 180px;
+}
+a{
+  color: black;
+}
+#show-wrapper{
+  .row{
+    margin-left: 0!important;
+  }
+  .section1{
+    hr{
+      margin: 7px 0;
+      border: 0;
+      border-top: 2px solid #eeeeee;
+      border-bottom: 1px solid white;
+    }    
+    .name{
+      h2{
+        font-size: 20px;
+        line-height: 45px;
+      }
+    }
+    .status{
+      #reelancer_status_text{
+        cursor: pointer;
+      }
+      .span1{
+        margin-left: 0!important;
+      }
+      .span9{
+        margin-left: 0!important;
+        h3{
+          font-size: 20px;
+          line-height: 18px;
+          font-weight: 200;
+          text-align: center;
+        }
+        .btn-large{
+          width: 140px!important;
+        }
+        .status-btn{
+          width: 130px;
+          height: 37px;
+          background-color: red;
+          text-align: center;
+          border-radius: 7px;
+        }
+      }
+    }
+    .details{
+      img{
+        margin-right: 5px;
+      }
+      .span2{
+        margin-left: 0!important;
+        width: 100px!important;
+        margin-right: 25px;
+      }
+      .location{
+        width: auto!important;
+        min-width: 105px!important;
+        margin-right: 15px;
+      }
+      .experience{
+        min-width: 100px;
+        width: auto!important;
+        margin-right:  15px; 
+      }
+    }
+    .urls{
+      .span1{
+        width: 100px!important;
+        margin-left: 0!important;
+
+      }
+    }
+  }
+  .section2{
+    height: 100px;
+    .span12{
+      background-color: #F7F9F9;
+      .endorse-text{
+        margin-left: 0!important;
+        text-align: center;
+        line-height: 102px;
+        font-size: 16px;
+        color: #527A7A;
+      }
+      .recommendi-box{
+        padding-top: 15px;
+        width: 200px!important;
+        .recommendie-details{
+        }
+        .recommendie-gravatar{
+          width: 43%;
+          height: 100%;
+          float: left;
+          img{
+            width: 70px;
+            height: 70px;
+          }
+        }
+      }
+    }
+  }
+  .remaining-endorsement{
+    line-height: 44px;
+    margin-left: 44px;
+    img{
+      margin: 10px;
+    }
+  }
+  .section3{
+    .item{
+      width: 100%!important;
+      .span3{
+        height: 52px;
+        // width: 200px;
+        margin-left: 0;
+        border-top: 0.1em solid #B2CCCC;
+        border-right: 0.1em solid #B2CCCC;
+        line-height: 52px;
+        padding-left: 22px;
+      }
+      .like{
+        text-align: right;
+        margin-right: 10px; 
+      }
+      .skill{
+        width: auto;
+        float: left;
+      }
+      .span9{
+        height: 52px;
+        border-top: 0.1em solid #B2CCCC;
+        margin-left: 0!important;
+        img{
+          margin: 10px;
+          margin-right: 0px;
+        }
+      }
+      .small{
+        width: 35px;
+        height: 35px;
+      }
+      .click{
+        cursor: pointer;
+      }
+    }
   }
 }

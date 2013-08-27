@@ -15,8 +15,8 @@ SimpleNavigation::Configuration.run do |navigation|
       primary.item :account, content_tag(:i, nil, :class => 'icon-user') << current_user.username, "#" do |account|
         account.item  :account_profile,
                       content_tag(:i, nil, :class => 'icon-user icon-large') << t(:'simple_navigation.account.profile'),
-                      profile_path
-                      # current_user.is_freelancer? ? show_freelancer_users_path(current_user.username) : profile_path
+                      # profile_path
+                      current_user.is_freelancer? ? show_freelancer_users_path(current_user.username) : profile_path
 
         account.item  :companies,
                       content_tag(:i, nil, :class => 'icon-folder-open icon-large') << t(:'simple_navigation.account.companies'),

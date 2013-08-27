@@ -5,48 +5,62 @@
     %br
     .span2#basic_bio
       %br
-      %br
-      = image_tag "#{@freelancer.gravatar}?s=180"
+      = image_tag "#{@freelancer.avatar.url(:regular)}", class: 'regular', title: 'Change your pic'
       - title = 'You cannot endorse yourself'
-      = link_to "Endorse", 'javascript:void(0)', class: 'btn disabled', title: title
-
+      = f.input :avatar, as: :file
       %br
       %br
-      .rate.info
-        = f.input :rate, as: :select, collection: User::ALLOWED_USER_RATES_AS_OPTIONS, default: '$', input_html: {style: 'width 70%'}
+      .rate
+        .icon-e
+          = image_tag 'money.png', title: 'Rate'
+        .info
+          = f.input :rate, as: :select, collection: User::ALLOWED_USER_RATES_AS_OPTIONS, default: '$', input_html: {style: 'width 70%'}, label: false
       %hr
-      .github.info
-        = f.input :github, as: :string, placeholder: 'Github URL'
+      .github
+        .icon-e
+          = image_tag 'github.png', title: 'Github'
+        .info
+          = f.input :github, as: :string, placeholder: 'Github URL', label: false
       %hr
-      .personal-url.info
-        = f.input :personal_url, as: :string, label: 'Personal', placeholder: 'Personal URL'
+      .personal-url
+        .icon-e
+          = image_tag 'URL.png', title: 'Personal URL'
+        .info
+          = f.input :personal_url, as: :string, label: false, placeholder: 'Personal URL'
       %hr
-      .email.info
+      .email
+        .icon
+          = image_tag 'mail.png', title: 'Mail'
+      .info
         = link_to "Email", "mailto:#{@freelancer.email}"
       %hr
     .span8#detail_bio
-
       %br
-      = f.input :full_name, :required => true, placeholder: 'Full Name',label: false, :input_html => { :required => true, :class => "top", style: 'width: 100%;'}
-      %h1
-        = @freelancer.status.upcase
+      = f.input :full_name, :required => true, placeholder: 'Full Name *',label: false, :input_html => { :required => true, :class => "top", style: 'width: 100%;'}
 
-      = f.input :status,:collection => User::ALLOWED_WORK_STATUS_AS_OPTIONS, :label => false, placeholder: 'Status', :default => @freelancer.status || 'Available', :input_html => { :required => true , :class => "text top"}  
-
-      %hr
-
-      %h5 Job Title
-      = f.association :job_type, :as => :select, :collection => User::ALLOWED_JOB_TITLE_AS_OPTIONS, label: false, :input_html => { :required => true , :class => "text top"} 
+      = f.input :job_title, label: false, :input_html => {placeholder: 'Job Title *', :required => true , :class => "top", style: 'width: 100%;'} 
+      
       %h5 Experience (year)
       = f.input :experience, as: :integer,collection: User::ALLOWED_EXP_YEARS,  label: false, :input_html => {:required => true}
 
-      %br
-      %h5 Platforms
-      = f.association :platforms, :as => :check_boxes, :collection => User::ALLOWED_PLATFORMS_AS_OPTIONS, label: false, :item_wrapper_class => 'inline'
+      %hr
 
+
+      %h5 Discipline
+      = f.association :discipline, :collection => User::ALLOWED_DISCIPLINES_AS_OPTIONS, :label => false, placeholder: 'Discipline', :default => @freelancer.discipline || 'Developer', :input_html => { :required => true , :class => "text top", :onchange => "updateCheckboxes();"}
+      
       %br
-      %h5 Languages
-      = f.association :languages, :as => :check_boxes, :collection => User::ALLOWED_LANGUAGES_AS_OPTIONS, label: false, :item_wrapper_class => 'inline'
+      - @disciplines.each_with_index do |dis, index|
+        - display = 'none'
+        - display = 'block' if dis.id == current_user.discipline_id
+        %div.display_items{id: "dis-#{dis.id}", style: "display: #{display}"}
+
+          %h5 Platforms
+          = f.association :platforms, :as => :check_boxes, :collection => dis.platforms, label: false, :item_wrapper_class => 'inline'
+
+          %br
+          %h5 Languages
+          = f.association :languages, :as => :check_boxes, :collection => dis.languages, label: false, :item_wrapper_class => 'inline'
       %hr
 
       .address
@@ -66,41 +80,19 @@
       %hr
       %h5 Endorsing:
       %br
-      #endorsings.inline
-        - if @freelancer.recommendies.present?
-          - @freelancer.recommendies.select(:user_id).uniq.each_with_index do |record, index|
-            - recommendation = Recommendation.where(user_id: record.user_id).first
-            - recommendie = recommendation.recommendi
-            .endorsement.span3{class: "rec-#{index}"}
-              .recommendie-gravatar
-                = image_tag "#{recommendie.gravatar}?s=100"
-              .recommendie-details
-                %h3
-                  = recommendie.name.titleize
-                %h6 
-                  = recommendie.try(:job_type).try(:name).try(:titleize)
-                %h6
-                  = "Endorsed: #{recommendation.skill_type.name}"
-                %hr
-                - recommendie.recommendies.select(:user_id).uniq.each_with_index do |rcrd, i|
-                  - r = Recommendation.where(user_id: rcrd.user_id).first
-                  - rc = r.recommendi
-                  = link_to image_tag("#{rc.gravatar}?s=20"), show_freelancer_users_url(rc.username), target: '_blank'
+      
   .span1
     = f.submit 'save', class: 'btn'
 
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
+:javascript
+  updateCheckboxes = function() {
+    $('.display_items').css('display', 'none')
+    $('.display_items :checked').removeAttr('checked')
+    id = "#dis-"+$('#user_discipline_id').val()
+    $('.display_items').css('display', 'none')
+    $(id).css('display','block')
+  }
+
 %br
 %br
 %br
