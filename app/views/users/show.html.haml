@@ -6,12 +6,13 @@
       .span10.columns
         .row.status
           .span9
-            .btn-large.btn-danger
-              %h3 Available
-          .span1
             - if viewing_own_profile?
-              .edit-link
-                = link_to 'Edit', edit_profile_users_path, class: 'btn'
+              #freelancer_status_text
+                = link_to image_tag("freelance/#{@freelancer.status}.png"), 'javascript:void(0)'
+            - else
+              .span1
+                .edit-link
+                  = link_to 'Edit', edit_profile_users_path, class: 'btn'
         .row.name
           %h2
             = @freelancer.name.titleize
@@ -62,6 +63,7 @@
 
     .row.section3
       = hidden_field_tag :freelancer, @freelancer.username
+      = hidden_field_tag :freelancer_status, @freelancer.status.downcase
       .span12
         - @freelancer.ordered_user_platforms.each do |skill|
           - recommenders = skill.user_endorsements(@freelancer.id)
@@ -70,7 +72,7 @@
               .skill
                 = "[#{recommenders.count}]  "
                 = skill.name.titleize
-              - unless viewing_own_profile?
+              - if !viewing_own_profile? && user_signed_in?
                 .like
                   = image_tag "freelance/likebutton.png", class: 'click likebtn', id: "platform_#{skill.id}"
             .span9{id: "recommender_platform_#{skill.id}"}
@@ -85,7 +87,7 @@
               .skill
                 = "[#{recommenders.count}]  "
                 = skill.name.titleize
-              - unless viewing_own_profile?
+              - if !viewing_own_profile? && user_signed_in?
                 .like
                   = image_tag "freelance/likebutton.png", class: 'click likebtn', id: "language_#{skill.id}"
             .span9{id: "recommender_language_#{skill.id}"}

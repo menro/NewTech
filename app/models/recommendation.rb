@@ -8,8 +8,6 @@ class Recommendation < ActiveRecord::Base
 
   belongs_to :skillable, polymorphic: true
   
-  # scope :recommendies, ->{ select('DISTINCT recommendi_id') }
-
   def recommender
     user
   end

@@ -1,9 +1,8 @@
 # $('#freelancer_status').val('aadafasdfadsf')
-$('#freelancer_status_text').click ->
+$('#freelancer_status_text img').click ->
   change_status()
 
 change_status = ->
-  console.log('changing status...')
   status = $('#freelancer_status').val()
   if status == 'available'
     status = 'shortly'
@@ -11,17 +10,15 @@ change_status = ->
     status = 'working'
   else
     status = 'available'
-  $('#freelancer_status').val(status)
 
   $.ajax
     type: 'POST'
     url: 'change_status'
     data: {user:{status: status}}
-    # dataType: 'JSON'
     async: false
     success: (data)->
       $('#freelancer_status').val(status)
-      $('#freelancer_status_text').text(status.toUpperCase())
+      $('#freelancer_status_text a img').attr('src', "/assets/freelance/#{status}.png")
 
 endorseUser = (skill_type, skill_id)->
   $.ajax
@@ -37,7 +34,6 @@ endorseUser = (skill_type, skill_id)->
       $(id).append(data.responseText)
 
 $('.likebtn').click ->
-  console.log(this.id)
   endorseUser(this.id.split(/_/)[0], this.id.split(/_/)[1])
 
 
