@@ -11,12 +11,15 @@
   %hr
   #endorsings
     - row[1].each_with_index do |user, index|
-      - unless user.recommendies.blank?
-        .endorsement.span3{class: "rec-#{index}"}
-          .recommendie-gravatar
-            = link_to image_tag("#{user.avatar.url(:thumb)}", class: 'thumb'), show_freelancer_users_url(user.username)
-          .recommendie-details
-            %h3
-              = link_to user.name.titleize, show_freelancer_users_url(user.username)
-            %h6 
-              = user.try(:discipline).try(:name).try(:titleize)
+      .span3.recommendi-box
+        .recommendie-gravatar
+          = link_to image_tag(user.avatar.url(:thumb), class: 'thumb'), show_freelancer_users_url(user.username)
+        .recommendie-details
+          %h3
+            = link_to user.try(:name).try(:titleize), show_freelancer_users_url(user.username)
+          %h6 
+            = user.discipline.try(:name).try(:titleize)
+        %hr
+        .recommenders
+          - user.top_endorsers.each do |u|
+            = link_to (image_tag u.avatar.url(:small), class: 'small'), show_freelancer_users_url(u.username)

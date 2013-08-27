@@ -190,8 +190,24 @@
   }
   div#endorsings{
     height: 150px;
+    .span3{
+      border: 2px solid #F7F9F9;
+      padding-left: 15px;
+      margin-left: 0px;
+      padding-top: 10px;
+      height: 120px;
+      .small{
+        width: 35px;
+        height: 35px;
+      }
+      .recommenders{
+        text-align: right;
+        padding-right: 10px;
+      }
+    }
     hr{
       margin: 5px 0px;
+      width: 143px;
     }
     h6{
       font-size: 9px;
@@ -364,6 +380,7 @@ a{
       }
       .recommendi-box{
         padding-top: 15px;
+        width: 200px!important;
         .recommendie-details{
         }
         .recommendie-gravatar{
