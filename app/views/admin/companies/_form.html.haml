@@ -5,7 +5,6 @@
         .form-inputs.row
           = f.association :user
           = f.input :enabled, as: :radio_buttons, item_wrapper_class: 'inline'
-          = f.input :hiring, as: :radio_buttons, item_wrapper_class: 'inline', :label => "Hiring in the next 30 days"
           = f.input :presented, as: :radio_buttons, item_wrapper_class: 'inline'
           = f.input :presentation_date, as: :string, :input_html => { :class => 'datepicker' }
         .form-inputs.row
