@@ -44,7 +44,7 @@
         = f.input :facebook, :as => :string, :hint => "E.g.,newtech"
         = f.input :jobs_url, :as => :string, :hint => "E.g.,http://www.blogurl.example"
         = f.input :kickstarter_url, :as => :string, :hint => "E.g.,http://bit.ly/14W7REF"
-        = f.input :kickstarter_end_date, :as => :datetime
+        = f.input :kickstarter_end_date, :as => :datetime, :include_blank => true
   %br
   .control-group
     .controls
