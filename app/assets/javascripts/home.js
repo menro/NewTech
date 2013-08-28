@@ -91,7 +91,7 @@
           setTimeout(function() { refreshForCurrentCounty(); }, 250);
       });
       drawCountyCircles(container);
-      drawRecentOffices();
+      // drawRecentOffices();
       loadRecentBox(8);
       refreshFilterMenus(container)
     }
@@ -121,7 +121,7 @@
       clearCompanyOffices();
       clearCountyCircles();
       drawCountyCircles(container);
-      drawRecentOffices();      
+      // drawRecentOffices();      
 
       var boxSummaryCounty = $('#box-summary-county');
       boxSummaryCounty.data("current_county_id", null);
@@ -326,7 +326,7 @@
 
       });
       //open infowindow when company thumbnail is clicked
-      $.each(companyOfficesMarkers, function(i, marker) {
+      /*$.each(companyOfficesMarkers, function(i, marker) {
         var thumb = $('#recent-company-'+(i+1));
         thumb.click(function() {
           $('#updates-company-list div').removeClass('company-row-selected');
@@ -336,7 +336,7 @@
           infoWindows[i].open(currentMap,marker);
           currentInfoWindow = infoWindows[i];
         });
-      });
+      });*/
     }));
 	}
   }
