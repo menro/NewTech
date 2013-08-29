@@ -450,6 +450,17 @@
   color: #ffffff;
 }
 
+.company-row-selected .company-row {
+  background-color: #0a3642;
+  color: #ffffff;
+}
+
+.company-row-selected{
+  background-color: #0a3642;
+  div, h4, h6{    
+    color: #ffffff!important;
+  }
+}
 // STYLES FOR SUMMARY BOXES
 
 .shadowed {
