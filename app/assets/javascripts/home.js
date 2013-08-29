@@ -91,7 +91,6 @@
           setTimeout(function() { refreshForCurrentCounty(); }, 250);
       });
       drawCountyCircles(container);
-      // drawRecentOffices();
       loadRecentBox(8);
       refreshFilterMenus(container)
     }
@@ -121,7 +120,6 @@
       clearCompanyOffices();
       clearCountyCircles();
       drawCountyCircles(container);
-      // drawRecentOffices();      
 
       var boxSummaryCounty = $('#box-summary-county');
       boxSummaryCounty.data("current_county_id", null);
@@ -265,81 +263,6 @@
     }
   }
   
-  function drawRecentOffices(company_index) {
-	var recent_companies = companies_info;
-	
-	companyOfficesMarkers = new Array();
-    infoWindows = new Array();
-    nOffices = 0;
-      
-	for (var company_index = 0; company_index < recent_companies.length; company_index++){
-	var srcParamsEl = recent_companies[company_index];
-	//console.log(srcParamsEl);
-    search_params = {
-        from_year: "",
-        to_year: "",
-        tag_code: "",
-        current_county_id: srcParamsEl.county_id,
-        hiring: "" ,
-        employee_id: "",
-        investment_id: "",
-        category_id: srcParamsEl.category_id,
-        company_name: srcParamsEl.name
-    }
-    
-    currentRequests.push($.getJSON("/api/v1/companies.json", search_params, function(data) {
-	    
-      $.each(data, function(i, company) {
-
-        if(typeof(company["description"]) != "undefined" && company["description"] != null){
-            company["description"] = company["description"].length < 160 ? company["description"]: company["description"].substring(0,157)+"..."
-        }
-        
-        var content = $( "#gmap_info_window_tpl" ).tmpl( company ).html();
-        
-        var infowindow = new google.maps.InfoWindow({
-          content: content
-        });
-
-        var imageUrl = '/assets/'+company.category_marker_image;
-        var markerImage = new google.maps.MarkerImage(
-          imageUrl, new google.maps.Size(31, 42));
-
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(company.latitude, company.longitude),
-          //draggable: false,
-          title: company.name,
-          icon: markerImage,
-          map: currentMap
-        });
-
-        google.maps.event.addListener(marker, 'click', function() {
-          closeCurrentInfoWindow();
-          infowindow.open(currentMap,marker);
-          currentInfoWindow = infowindow;
-        });
-
-        companyOfficesMarkers[nOffices] = marker;
-        infoWindows[nOffices] = infowindow;
-        nOffices++;
-        company.marker_number = company_index+1;
-
-      });
-      //open infowindow when company thumbnail is clicked
-      /*$.each(companyOfficesMarkers, function(i, marker) {
-        var thumb = $('#recent-company-'+(i+1));
-        thumb.click(function() {
-          $('#updates-company-list div').removeClass('company-row-selected');
-          $(this).addClass('company-row-selected');
-          //console.log(i);
-          closeCurrentInfoWindow();
-          infoWindows[i].open(currentMap,marker);
-          currentInfoWindow = infoWindows[i];
-        });
-      });*/
-    }));
-	}
-  }
   
   function drawCompanyOffices(container) {   
     //console.log($(container).data("offices_url"));
