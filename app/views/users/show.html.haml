@@ -5,14 +5,17 @@
         = image_tag "#{@freelancer.avatar.url(:regular)}", class: 'regular'
       .span10.columns
         .row.status
-          .span9
-            - if viewing_own_profile?
+          - if viewing_own_profile?
+            .span9
               #freelancer_status_text
                 = link_to image_tag("freelance/#{@freelancer.status}.png"), 'javascript:void(0)'
-            - else
-              .span1
-                .edit-link
-                  = link_to 'Edit', edit_profile_users_path, class: 'btn'
+            .span1
+              .edit-link
+                = link_to 'Edit', edit_profile_users_path, class: 'btn'
+          - else
+            #freelancer_status
+              = image_tag("freelance/#{@freelancer.status}.png")
+              
         .row.name
           %h2
             = @freelancer.name.titleize

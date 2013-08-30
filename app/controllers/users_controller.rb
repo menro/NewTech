@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 
   def edit_profile
     @freelancer = User.where(username: params[:username].downcase).first
-    unless current_user || (current_user && current_user.id == @freelancer.id)
+    if current_user.nil? || (current_user.id != @freelancer.id)
       redirect_to show_freelancer_users_path(@freelancer.username)
     end
     discipline = Discipline.where(name: 'Developer').first
