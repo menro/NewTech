@@ -78,7 +78,7 @@
               - if !viewing_own_profile? && user_signed_in?
                 - if current_user.endorsed_this?(skill, @freelancer)
                   .like-disable
-                    = image_tag "freelance/likebuttonGrey.jpg"
+                    = image_tag "freelance/liked.png"
                 - else
                   .like
                     = image_tag "freelance/likebutton.png", class: 'click likebtn', id: "platform_#{skill.id}"
