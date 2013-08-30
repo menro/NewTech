@@ -262,13 +262,7 @@
       currentInfoWindow.close();
     }
   }
-  
-  function drawRecentOffices(company_index) {
-	var recent_companies = companies_info;
-	
-	companyOfficesMarkers = new Array();
-    infoWindows = new Array();
-    nOffices = 0;
+  }
   
   function drawCompanyOffices(container) {   
     //console.log($(container).data("offices_url"));
