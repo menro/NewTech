@@ -262,7 +262,6 @@
       currentInfoWindow.close();
     }
   }
-  }
   
   function drawCompanyOffices(container) {   
     //console.log($(container).data("offices_url"));
