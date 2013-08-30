@@ -240,7 +240,7 @@
   }
 }
 #search-panel{
-  #developer, #developer_chzn{
+  #discipline, #discipline_chzn{
     width: 171px;
     // height: 60px;
     margin-top: 15px;
@@ -253,7 +253,9 @@
     margin-right: 10px!important;
   }
   #platforms, #languages{
-    height: 100px;
+    min-height: 100px;
+    height: auto;
+    margin-bottom: 20px;
     hr{
       margin: 2px!important;
     }

@@ -9,10 +9,7 @@ class UsersController < ApplicationController
     else
       discipline_id = Discipline.where(name: 'Developer').first.id
     end
-    @platforms_on_page = Platform.where("on_page=? and discipline_id=?", true, discipline_id)
-    @platforms_popup = Platform.where("on_page=? and discipline_id=?", false, discipline_id)
-    @languages_on_page = Language.where("on_page=? and discipline_id=?", true, discipline_id)
-    @languages_popup = Language.where("on_page=? and discipline_id=?", false, discipline_id)
+    @disciplines = Discipline.all
 
     User::WORK_STATUS.each do |status|
       users = []

@@ -50,7 +50,7 @@ filterFreelancers = (platforms_in, languages_in)->
       search:
         platforms_in: platforms_in
         languages_in: languages_in
-        developer: $('#developer').val()
+        developer: $('#discipline').val()
     dataType: "json"
     beforeSend: ->
       $('#loading').css('display', 'block')
@@ -84,39 +84,54 @@ filterFreelancersPopup = (div) ->
   filterFreelancers(platforms_in, languages_in)
 
 window.onload = ->
-  $("#dialogP").dialog
-    resizable: false
-    height: 240
-    width: 600
-    modal: true
-    buttons:
-      Filter: ->
-        filterFreelancersPopup("#dialogP")
-        $(this).dialog "close"
-      Cancel: ->
-        $(this).dialog "close"
-  $("#dialogP").dialog "close"
+  $(".dialogP").each ->
+    id = "##{$(this).attr('id')}"
+    $(id).dialog
+      resizable: false
+      height: 240
+      width: 600
+      modal: true
+      buttons:
+        Filter: ->
+          filterFreelancersPopup("#dialogP")
+          $(this).dialog "close"
+        Cancel: ->
+          $(this).dialog "close"
+    $(id).dialog "close"
 
-  $("#dialogL").dialog
-    resizable: false
-    height: 240
-    width: 600
-    modal: true
-    buttons:
-      Filter: ->
-        filterFreelancersPopup("#dialogL")
-        $(this).dialog "close"
-      Cancel: ->
-        $(this).dialog "close"
-  $("#dialogL").dialog "close"
+  $(".dialogL").each ->
+    id = "##{$(this).attr('id')}"
+    $(id).dialog
+      resizable: false
+      height: 240
+      width: 600
+      modal: true
+      buttons:
+        Filter: ->
+          filterFreelancersPopup("#dialogL")
+          $(this).dialog "close"
+        Cancel: ->
+          $(this).dialog "close"
+
+    $(id).dialog "close"
 
   $("#all-plat").click ->
-    # $('#dialogP :checkbox').removeAttr('checked')
-    $("#dialogP").dialog "open"
+    id = "#dialogP-#{$('#discipline').val()}"
+    $(id).dialog "open"
 
   $("#all-lang").click ->
-    # $('#dialogL :checkbox').removeAttr('checked')
-    $("#dialogL").dialog "open"
+    id = "#dialogL-#{$('#discipline').val()}"
+    $(id).dialog "open"
 
-  $('#developer').change ->
-    filterFreelancers(getIds('#platforms'), getIds('#languages'))
+  $('#discipline').change ->
+    refresh_checkboxes()
+    filterFreelancers([], [])
+
+  refresh_checkboxes = ->
+    $('.display_items').css('display', 'none')
+    $('.display_items :checked').removeAttr('checked')
+    id = "#disp-"+$('#discipline').val()
+    $(id).css('display','block')
+    $(id).css('display','block')
+    id = "#disl-"+$('#discipline').val()
+    $(id).css('display','block')

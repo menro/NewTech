@@ -6,6 +6,9 @@ class Language < ActiveRecord::Base
 
   has_many :endorsements, as: :skillable, class_name: 'Recommendation'
 
+  scope :on_page, where(on_page: true)
+  scope :on_popup, where(on_page: false)
+
   def user_endorsements(recommendi_id)
     endorsements.where(recommendi_id: recommendi_id)
   end
