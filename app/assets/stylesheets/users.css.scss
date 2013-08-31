@@ -102,6 +102,26 @@
     border-top: 2px solid #000;
     border-bottom: 1px solid white;
   }
+  #add-more{
+    font-weight: normal;
+    font-size: 10px;
+  }
+  #add-more-links{
+    text-align: right;
+    display: none;
+    #user_link{
+      width: 110px;
+    }
+    .icon-e{
+      margin-right: 10px;
+      h5{
+        line-height: 25px;
+        font-weight: bold;
+        font-size: 13px;
+        color: gray;
+      }
+    }
+  }
 }
 #detail_bio{
   .links a{
@@ -166,6 +186,7 @@
 }
 
 .edit-profile{
+  margin-bottom: 50px;
   .controls{
     margin-left: 0px!important;
   }
@@ -298,6 +319,7 @@ a{
   color: black;
 }
 #show-wrapper{
+  margin-bottom: 50px;
   .row{
     margin-left: 0!important;
   }

@@ -70,6 +70,7 @@ class User < ActiveRecord::Base
   has_many :skills_set, class_name: "UsersSkills"
   has_many :user_skills, through: :skills_set, source: 'skill_type'
 
+  has_many :users_links
   # belongs_to :job_type
   belongs_to :discipline
 

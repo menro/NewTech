@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130825201511) do
+ActiveRecord::Schema.define(:version => 20130831083319) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -333,6 +333,16 @@ ActiveRecord::Schema.define(:version => 20130825201511) do
 
   add_index "users_languages", ["language_id"], :name => "index_users_languages_on_language_id"
   add_index "users_languages", ["user_id"], :name => "index_users_languages_on_user_id"
+
+  create_table "users_links", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "link_url"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "users_links", ["user_id"], :name => "index_users_links_on_user_id"
 
   create_table "users_platforms", :force => true do |t|
     t.integer  "user_id"

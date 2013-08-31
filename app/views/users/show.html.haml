@@ -35,17 +35,16 @@
             = "Rate: #{@freelancer.rate}"
         %hr
         .row.urls
-          .span1
-            %h5 personal url
-          .span1
-            %h5 contact
-          .span1
-            %h5 github
-          .span1
-            %h5 stackexchange
-          .span1
-            %h5 linkedin
-          .span2
+          - if @freelancer.personal_url.present?
+            .span1
+              =link_to absolute_url(@freelancer.personal_url) do 
+                %h5 Personal url
+          - @freelancer.users_links.limit(8).each do |ul|
+            -next if ul.name.blank?
+            .span1
+              =link_to absolute_url(ul.link_url) do 
+                %h5 
+                  = ul.name
         %hr
         .row.profile-link
           = image_tag "freelance/link.png"
@@ -108,24 +107,3 @@
 
 - else
   %h1 Sorry, freelancer with this username does not exists.
-
-  %br
-  %br
-  %br
-  %br
-  %br
-  %br
-  %br
-  %br
-  %br
-  %br
-  %br
-  %br
-  %br
-  %br
-  %br
-  %br
-  %br
-  %br
-  %br
-  %br

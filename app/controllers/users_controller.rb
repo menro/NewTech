@@ -73,6 +73,14 @@ class UsersController < ApplicationController
     current_user.save
   end
 
+  def add_user_link
+    link = params[:user_link]
+    link = link.gsub('http://', '').gsub('https://', '').gsub('www.', '')
+    name = link.split('.').first
+    current_user.users_links << UsersLink.create({name: name.titleize, link_url: params[:user_link]})
+    render json: current_user.users_links.last.to_json
+  end
+
   private
 
   def store_return_to

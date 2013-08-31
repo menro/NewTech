@@ -10,30 +10,37 @@
       = f.input :avatar, as: :file
       %br
       %br
-      .rate
+      .links
+        .rate
+          .icon-e
+            = image_tag 'money.png', title: 'Rate'
+          .info
+            = f.input :rate, as: :select, collection: User::ALLOWED_USER_RATES_AS_OPTIONS, default: '$', input_html: {style: 'width 70%'}, label: false
+        %hr
+        .personal-url
+          .icon-e
+            = image_tag 'URL.png', title: 'Personal URL'
+          .info
+            = f.input :personal_url, as: :string, label: false, placeholder: 'Personal URL'
+        %hr
+        - current_user.users_links.each do |ul|
+          - next if ul.name.blank?
+          .personal-url
+            .info
+              =link_to absolute_url(ul.link_url) do 
+                %h5 
+                  = ul.name
+          %hr
+      = link_to 'Click to add any site e.g linkedin', 'javascript:void(0)', class: 'btn', id: 'add-more'
+      #add-more-links
+        %br
         .icon-e
-          = image_tag 'money.png', title: 'Rate'
+          %h5 http://
         .info
-          = f.input :rate, as: :select, collection: User::ALLOWED_USER_RATES_AS_OPTIONS, default: '$', input_html: {style: 'width 70%'}, label: false
-      %hr
-      .github
-        .icon-e
-          = image_tag 'github.png', title: 'Github'
-        .info
-          = f.input :github, as: :string, placeholder: 'Github URL', label: false
-      %hr
-      .personal-url
-        .icon-e
-          = image_tag 'URL.png', title: 'Personal URL'
-        .info
-          = f.input :personal_url, as: :string, label: false, placeholder: 'Personal URL'
-      %hr
-      .email
-        .icon
-          = image_tag 'mail.png', title: 'Mail'
-      .info
-        = link_to "Email", "mailto:#{@freelancer.email}"
-      %hr
+          = text_field_tag :user_link
+        %br
+        = link_to 'Add', 'javascript:void(0)', class: 'btn', id: 'add'
+        = link_to 'Cancel', 'javascript:void(0)', class: 'btn btn-danger', id: 'cancel'
     .span8#detail_bio
       %br
       = f.input :full_name, :required => true, placeholder: 'Full Name *',label: false, :input_html => { :required => true, :class => "top", style: 'width: 100%;'}
@@ -92,12 +99,3 @@
     $('.display_items').css('display', 'none')
     $(id).css('display','block')
   }
-
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br

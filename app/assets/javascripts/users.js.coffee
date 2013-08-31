@@ -135,3 +135,31 @@ window.onload = ->
     $(id).css('display','block')
     id = "#disl-"+$('#discipline').val()
     $(id).css('display','block')
+
+
+  $('#add-more').click ->
+    $('#add-more-links').toggle()
+    $(this).css('display', 'none')
+  $('#cancel').click ->
+    $('#add-more-links').toggle()
+    $('#add-more').css('display', 'block')
+    $('#user_link').val('')
+
+  $('#add').click ->
+    $.ajax
+      type: 'PUT'
+      url: '/freelancers/add/user_link'
+      data:
+        user_link: $('#user_link').val()
+      success: (data) ->
+        html = "<div class='personal-url'><div class='info'><h5><a href='#{data.link_url}'>#{data.name}</a></h5></div></div><hr>"
+        $('.links').append(html)
+        $('#add-more-links').toggle()
+        $('#add-more').css('display', 'block')
+        $('#user_link').val('')
+        console.log('success')
+        console.log(data)
+        console.log(data.link_url)
+      error: (data) ->
+        console.log('error')
+        console.log(data)
