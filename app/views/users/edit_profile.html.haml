@@ -25,12 +25,15 @@
         %hr
         - current_user.users_links.each do |ul|
           - next if ul.name.blank?
-          .personal-url
+          .personal-url{id: "user-link-#{ul.id}"}
             .info
-              =link_to absolute_url(ul.link_url) do 
-                %h5 
-                  = ul.name
-          %hr
+              .name
+                =link_to absolute_url(ul.link_url) do 
+                  %h5 
+                    = ul.name
+              .delete
+                = link_to 'remove', 'javascript:void(0)', onclick: "remove_link(#{ul.id})", method: 'delete', id: 'remove-link'
+            %hr
       = link_to 'Click to add any site e.g linkedin', 'javascript:void(0)', class: 'btn', id: 'add-more'
       #add-more-links
         %br
@@ -98,4 +101,16 @@
     id = "#dis-"+$('#user_discipline_id').val()
     $('.display_items').css('display', 'none')
     $(id).css('display','block')
+  }
+  remove_link = function(id) {
+    return $.ajax({
+      type: 'DELETE',
+      url: '/freelancers/remove/user_link',
+      data: {
+        id: id
+      },
+      success: function(data) {
+        return $("#user-link-" + id).remove();
+      }
+    });
   }

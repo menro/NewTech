@@ -152,14 +152,10 @@ window.onload = ->
       data:
         user_link: $('#user_link').val()
       success: (data) ->
-        html = "<div class='personal-url'><div class='info'><h5><a href='#{data.link_url}'>#{data.name}</a></h5></div></div><hr>"
+        html = "<div class='personal-url' id='user-link-#{data.id}'><div class='info'><div class='name'><h5><a href='#{data.link_url}'>#{data.name}</a></h5></div><div class='delete'><a href='javascript:void(0)' data-method='delete' onclick='remove_link(#{data.id})'>remove</a></div></div><hr></div>"
         $('.links').append(html)
         $('#add-more-links').toggle()
         $('#add-more').css('display', 'block')
         $('#user_link').val('')
-        console.log('success')
-        console.log(data)
-        console.log(data.link_url)
       error: (data) ->
         console.log('error')
-        console.log(data)

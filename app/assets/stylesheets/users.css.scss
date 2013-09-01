@@ -74,6 +74,15 @@
       width: 100%!important;
       margin-left: 30px!important;
     }
+    .info{
+      .name{
+        width: 50%;
+        float: left;
+      }
+      .delete{
+        text-align: right;
+      }
+    }
   }
   #user_rate_chzn{
     width: 70%!important;

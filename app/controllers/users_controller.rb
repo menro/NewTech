@@ -81,6 +81,12 @@ class UsersController < ApplicationController
     render json: current_user.users_links.last.to_json
   end
 
+  def remove_user_link
+    user_link = UsersLink.find(params[:id])
+    user_link.delete
+    render text: :ok
+  end
+
   private
 
   def store_return_to
