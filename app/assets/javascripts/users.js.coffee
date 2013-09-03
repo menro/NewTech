@@ -33,10 +33,11 @@ endorseUser = (skill_type, skill_id)->
       id = "#recommender_"+ skill_type + "_" + skill_id
       img_id = "##{skill_type}_#{skill_id}"
       $(id).append(data.responseText)
-      $(img_id).attr('src', '/assets/freelance/likebuttonGrey.jpg')
+      $(img_id).attr('src', '/assets/freelance/liked.png')
       $(img_id).parent().addClass('like-disable')
       $(img_id).parent().removeClass('like')
       $(img_id).removeClass()
+      $(img_id).unbind('click')
 
 $('.likebtn').click ->
   endorseUser(this.id.split(/_/)[0], this.id.split(/_/)[1])
