@@ -51,6 +51,10 @@ class UsersController < ApplicationController
     if @freelancer.update_attributes(params[:user])
       redirect_to show_freelancer_users_path(@freelancer.username), notice: 'Your profile has been updated successfully'
     else
+      discipline = Discipline.where(name: 'Developer').first
+      @disciplines = Discipline.all
+      @discipline_platforms = discipline.platforms.map {|d| [d.name.titleize, d.id]}
+      @discipline_languages = discipline.languages.map {|d| [d.name.titleize, d.id]}
       render 'edit_profile'
     end
   end
