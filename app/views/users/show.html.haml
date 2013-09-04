@@ -35,11 +35,14 @@
             = "Rate: #{@freelancer.rate}"
         %hr
         .row.urls
+          .span1
+            =link_to "mailto:#{@freelancer.email}" do 
+              %h5 Contact
           - if @freelancer.personal_url.present?
             .span1
               =link_to absolute_url(@freelancer.personal_url) do 
                 %h5 Personal url
-          - @freelancer.users_links.limit(8).each do |ul|
+          - @freelancer.users_links.limit(7).each do |ul|
             -next if ul.name.blank?
             .span1
               =link_to absolute_url(ul.link_url) do 
