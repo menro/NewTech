@@ -208,100 +208,119 @@
     }
   }
 }
-#details-panel{
-  div#loading{
-    opacity: 0.6;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    position: absolute;
-    display: none;
-    min-height: 500px;
-  }
-  div#endorsings{
-    height: 150px;
-    .span3{
-      border: 2px solid #F7F9F9;
-      padding-left: 15px;
-      margin-left: 0px;
-      padding-top: 10px;
-      height: 120px;
-      .small{
-        width: 35px;
-        height: 35px;
+div.search{
+  min-width: 960px;
+  #details-panel{
+    min-width: 700px;
+    width: 75%;
+    div#loading{
+      opacity: 0.6;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      position: absolute;
+      display: none;
+      min-height: 500px;
+    }
+    div#endorsings{
+      height: 150px;
+      .span3{
+        border: 2px solid #F7F9F9;
+        padding-left: 15px;
+        margin-left: 0px;
+        padding-top: 10px;
+        height: 120px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        width: 29%;
+        .small{
+          width: 30px;
+          height: 30px;
+        }
+        .recommenders{
+          text-align: right;
+          padding-right: 10px;
+        }
       }
-      .recommenders{
-        text-align: right;
-        padding-right: 10px;
+      hr{
+        margin: 5px 0px;
+        width: 93%;
+      }
+      h6{
+        font-size: 9px;
       }
     }
-    hr{
-      margin: 5px 0px;
-      width: 143px;
-    }
-    h6{
-      font-size: 9px;
-    }
-  }
-  div.user-status{
-    float: left;
-    width: 50%;
-    text-align: left;
-  }
-  div.more-link{
-    float: left;
-    text-align: right;
-    width: 50%;
-  }
-  div.endorsement {
-    padding-left: 10px;
-    padding-top: 10px;
-    padding-left: 14px!important;
-    border: 2px solid gray;
-    height: 120px;
-  }
-  div.recommendie-gravatar{
-    width: 43%;
-    height: 100%;
-    float: left;
-  }
-  div.rec-0{
-    margin-left: 0px!important;
-  }
-}
-#search-panel{
-  #discipline, #discipline_chzn{
-    width: 171px;
-    // height: 60px;
-    margin-top: 15px;
-    margin-bottom: 20px;
-    .chzn-drop{
-    }
-  }
-  .checkbox{
-    margin-left: 0px!important;
-    margin-right: 10px!important;
-  }
-  #platforms, #languages{
-    min-height: 100px;
-    height: auto;
-    margin-bottom: 20px;
-    hr{
-      margin: 2px!important;
-    }
-    .heading{
+    div.user-status{
       float: left;
       width: 50%;
+      text-align: left;
     }
-    .more-link{
+    div.more-link{
+      float: left;
       text-align: right;
+      width: 50%;
+    }
+    div.endorsement {
+      padding-left: 10px;
+      padding-top: 10px;
+      padding-left: 14px!important;
+      border: 2px solid gray;
+      height: 120px;
+
+    }
+    div.recommendie-gravatar{
+      width: 43%;
+      height: 100%;
+      float: left;
+      a img{
+        width: 80%;
+        height: 80%;
+      }
+    }
+    div.recommendie-details{
+      padding-left: 10px;
+    }
+    div.rec-0{
+      margin-left: 0px!important;
     }
   }
-  .item{
-    float: left;
-    width: 85px!important;
-    label{
-      font-size: 11px!important;
+  #search-panel{
+    min-width: 170px;
+    width: 17%!important;
+    margin-left: 30px;
+    #discipline, #discipline_chzn{
+      width: 171px;
+      // height: 60px;
+      margin-top: 15px;
+      margin-bottom: 20px;
+      .chzn-drop{
+      }
+    }
+    .checkbox{
+      margin-left: 0px!important;
+      margin-right: 10px!important;
+    }
+    #platforms, #languages{
+      min-height: 100px;
+      height: auto;
+      margin-bottom: 20px;
+      hr{
+        margin: 2px!important;
+      }
+      .heading{
+        float: left;
+        width: 50%;
+      }
+      .more-link{
+        text-align: right;
+      }
+    }
+    .item{
+      float: left;
+      width: 85px!important;
+      label{
+        font-size: 11px!important;
+      }
     }
   }
 }
@@ -413,8 +432,11 @@ a{
       }
       .recommendi-box{
         padding-top: 15px;
+        margin-right: 10px;
+        margin-bottom: 10px;
         width: 200px!important;
         .recommendie-details{
+          padding-left: 10px;
         }
         .recommendie-gravatar{
           width: 43%;
@@ -469,8 +491,8 @@ a{
         }
       }
       .small{
-        width: 35px;
-        height: 35px;
+        width: 30px;
+        height: 30px;
       }
       .click{
         cursor: pointer;

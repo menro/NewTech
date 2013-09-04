@@ -1,65 +1,66 @@
 - content_for :stylesheets do
   = stylesheet_link_tag "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"
 
-- @disciplines.each_with_index do |dis, index|
-  - display = 'none'
-  - display = 'block' if index == 0
-  - id = "dialogP-#{dis.id}"
-  %div.dialogP{id: id, style: 'display:none', title: 'Platforms'}
-    - dis.platforms.on_popup.each do |p|
-      .item
-        %label.checkbox.inline{name: 'platforms_in'}
-          = check_box_tag :platforms_in, p.id, false, class: 'check_boxes optional'
-          = p.name
-  - id = "dialogL-#{dis.id}"
-  %div.dialogL{id: id, style: 'display:none', title: 'Languages'}
-    - dis.languages.on_popup.each do |p|
-      .item
-        %label.checkbox.inline{name: 'languages_in'}
-          = check_box_tag :languages_in, p.id, false, class: 'check_boxes optional'
-          = p.name
+.row.search
+  - @disciplines.each_with_index do |dis, index|
+    - display = 'none'
+    - display = 'block' if index == 0
+    - id = "dialogP-#{dis.id}"
+    %div.dialogP{id: id, style: 'display:none', title: 'Platforms'}
+      - dis.platforms.on_popup.each do |p|
+        .item
+          %label.checkbox.inline{name: 'platforms_in'}
+            = check_box_tag :platforms_in, p.id, false, class: 'check_boxes optional'
+            = p.name
+    - id = "dialogL-#{dis.id}"
+    %div.dialogL{id: id, style: 'display:none', title: 'Languages'}
+      - dis.languages.on_popup.each do |p|
+        .item
+          %label.checkbox.inline{name: 'languages_in'}
+            = check_box_tag :languages_in, p.id, false, class: 'check_boxes optional'
+            = p.name
 
-.span2#search-panel
-  %br
-  = form_tag(users_path, class: 'custom fullwidth-drops', onsubmit: "return false" ) do
-    =# select_tag :developer, options_for_select(User::ALLOWED_DISCIPLINES_AS_OPTIONS)
-    = select_tag :discipline, options_for_select(User::ALLOWED_DISCIPLINES_AS_OPTIONS), :label => false, placeholder: 'Discipline', :input_html => { :required => true , :class => "text top", :onchange => "updateCheckboxes();"}
-
-    %div#platforms
-      .top-row
-        .heading
-          %h4 Platforms
-        .more-link
-          = link_to 'More...', 'javascript:void(0)', id: 'all-plat'
-      %hr
-      - @disciplines.each_with_index do |dis, index|
-        - display = 'none'
-        - display = 'block' if index == 0
-        .display_items{id: "disp-#{dis.id}", style: "display: #{display}"}
-          - dis.platforms.on_page.each do |p|
-            .item
-              %label.checkbox.inline{name: 'platforms_in'}
-                = check_box_tag :platforms_in, p.id, (params[:platform] == p.name), class: 'check_boxes optional'
-                = p.name
-
+  .span2#search-panel
     %br
-    %br
-    %div#languages
-      .top-row
-        .heading
-          %h4 Languages
-        .more-link
-          = link_to 'More...', 'javascript:void(0)', id: 'all-lang'
-      %hr
-      - @disciplines.each_with_index do |dis, index|
-        - display = 'none'
-        - display = 'block' if index == 0
-        .display_items{id: "disl-#{dis.id}", style: "display: #{display}"}
-          - dis.languages.on_page.each do |p|
-            .item
-              %label.checkbox.inline{name: 'languages_in'}
-                = check_box_tag :languages_in, p.id, (params[:language] == p.name), class: 'check_boxes optional'
-                = p.name
+    = form_tag(users_path, class: 'custom fullwidth-drops', onsubmit: "return false" ) do
+      =# select_tag :developer, options_for_select(User::ALLOWED_DISCIPLINES_AS_OPTIONS)
+      = select_tag :discipline, options_for_select(User::ALLOWED_DISCIPLINES_AS_OPTIONS), :label => false, placeholder: 'Discipline', :input_html => { :required => true , :class => "text top", :onchange => "updateCheckboxes();"}
 
-.span10#details-panel
-  = render partial: 'filter_freelancers'
+      %div#platforms
+        .top-row
+          .heading
+            %h4 Platforms
+          .more-link
+            = link_to 'More...', 'javascript:void(0)', id: 'all-plat'
+        %hr
+        - @disciplines.each_with_index do |dis, index|
+          - display = 'none'
+          - display = 'block' if index == 0
+          .display_items{id: "disp-#{dis.id}", style: "display: #{display}"}
+            - dis.platforms.on_page.each do |p|
+              .item
+                %label.checkbox.inline{name: 'platforms_in'}
+                  = check_box_tag :platforms_in, p.id, (params[:platform] == p.name), class: 'check_boxes optional'
+                  = p.name
+
+      %br
+      %br
+      %div#languages
+        .top-row
+          .heading
+            %h4 Languages
+          .more-link
+            = link_to 'More...', 'javascript:void(0)', id: 'all-lang'
+        %hr
+        - @disciplines.each_with_index do |dis, index|
+          - display = 'none'
+          - display = 'block' if index == 0
+          .display_items{id: "disl-#{dis.id}", style: "display: #{display}"}
+            - dis.languages.on_page.each do |p|
+              .item
+                %label.checkbox.inline{name: 'languages_in'}
+                  = check_box_tag :languages_in, p.id, (params[:language] == p.name), class: 'check_boxes optional'
+                  = p.name
+
+  .span10#details-panel{style: "float:left;"}
+    = render partial: 'filter_freelancers'

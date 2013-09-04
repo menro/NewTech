@@ -1,120 +1,121 @@
-- if @freelancer.present?
-  #show-wrapper
-    .row.section1
-      .span2.columns
-        = image_tag "#{@freelancer.avatar.url(:regular)}", class: 'regular'
-      .span10.columns
-        .row.status
-          - if viewing_own_profile?
-            .span9
-              #freelancer_status_text
-                = link_to image_tag("freelance/#{@freelancer.status}.png"), 'javascript:void(0)'
+.row.profile
+  - if @freelancer.present?
+    #show-wrapper
+      .row.section1
+        .span2.columns
+          = image_tag "#{@freelancer.avatar.url(:regular)}", class: 'regular'
+        .span10.columns
+          .row.status
+            - if viewing_own_profile?
+              .span9
+                #freelancer_status_text
+                  = link_to image_tag("freelance/#{@freelancer.status}.png"), 'javascript:void(0)'
+              .span1
+                .edit-link
+                  = link_to 'Edit', edit_profile_users_path, class: 'btn'
+            - else
+              #freelancer_status
+                = image_tag("freelance/#{@freelancer.status}.png")
+                
+          .row.name
+            %h2
+              = @freelancer.name.titleize
+          .row.details
+            .span2.discipline
+              - if @freelancer.discipline
+                = image_tag "freelance/#{@freelancer.discipline.try(:name).downcase}.png"
+                = @freelancer.discipline.name
+            .span2.experience
+              = image_tag "freelance/experience.png"
+              = @freelancer.experience == 0 ? "Fresh" : "#{@freelancer.experience}yrs experience"
+            .span2.location
+              = image_tag "freelance/locationpin.png"
+              = @freelancer.town.blank? ? "Not Specified" : "#{@freelancer.town} (Works #{ @freelancer.work_locations.collect(&:name).join(' and ')})"
+            .span2.rate
+              = image_tag "freelance/rate.png"
+              = "Rate: #{@freelancer.rate}"
+          %hr
+          .row.urls
             .span1
-              .edit-link
-                = link_to 'Edit', edit_profile_users_path, class: 'btn'
+              =link_to "mailto:#{@freelancer.email}" do 
+                %h5 Contact
+            - if @freelancer.personal_url.present?
+              .span1
+                =link_to absolute_url(@freelancer.personal_url) do 
+                  %h5 Personal url
+            - @freelancer.users_links.limit(7).each do |ul|
+              -next if ul.name.blank?
+              .span1
+                =link_to absolute_url(ul.link_url) do 
+                  %h5 
+                    = ul.name
+          %hr
+          .row.profile-link
+            = image_tag "freelance/link.png"
+            = "#{show_freelancer_users_url(@freelancer.username)} (share)"
+      .row.section2
+        .span12
+          .span2.endorse-text
+            = image_tag "freelance/endorsedicon.png"
+            Top Endorsers
+          - @freelancer.top_endorsers.each do |user|
+            = render partial: 'recommendation_box', locals: {user: user}
+      .row
+        .span12.remaining-endorsement
+          = image_tag "freelance/starbadge.png"
+          - top_endorsers_count = @freelancer.top_endorsers.count
+          - if viewing_own_profile? 
+            - if top_endorsers_count < 3
+              = "You needs #{3 - top_endorsers_count} endorsements to show up on search results page (email your bdnt #{link_to 'URL', show_freelancer_users_url(@freelancer.username)} to people who will endorse you)"
+            - else
+              = "Search results: your position is based on the rank of the people who endosre you and the frequency that you update your availability."
           - else
-            #freelancer_status
-              = image_tag("freelance/#{@freelancer.status}.png")
-              
-        .row.name
-          %h2
-            = @freelancer.name.titleize
-        .row.details
-          .span2.discipline
-            - if @freelancer.discipline
-              = image_tag "freelance/#{@freelancer.discipline.try(:name).downcase}.png"
-              = @freelancer.discipline.name
-          .span2.experience
-            = image_tag "freelance/experience.png"
-            = @freelancer.experience == 0 ? "Fresh" : "#{@freelancer.experience}yrs experience"
-          .span2.location
-            = image_tag "freelance/locationpin.png"
-            = @freelancer.town.blank? ? "Not Specified" : "#{@freelancer.town} (Works #{ @freelancer.work_locations.collect(&:name).join(' and ')})"
-          .span2.rate
-            = image_tag "freelance/rate.png"
-            = "Rate: #{@freelancer.rate}"
-        %hr
-        .row.urls
-          .span1
-            =link_to "mailto:#{@freelancer.email}" do 
-              %h5 Contact
-          - if @freelancer.personal_url.present?
-            .span1
-              =link_to absolute_url(@freelancer.personal_url) do 
-                %h5 Personal url
-          - @freelancer.users_links.limit(7).each do |ul|
-            -next if ul.name.blank?
-            .span1
-              =link_to absolute_url(ul.link_url) do 
-                %h5 
-                  = ul.name
-        %hr
-        .row.profile-link
-          = image_tag "freelance/link.png"
-          = "#{show_freelancer_users_url(@freelancer.username)} (share)"
-    .row.section2
-      .span12
-        .span2.endorse-text
-          = image_tag "freelance/endorsedicon.png"
-          Top Endorsers
-        - @freelancer.top_endorsers.each do |user|
-          = render partial: 'recommendation_box', locals: {user: user}
-    .row
-      .span12.remaining-endorsement
-        = image_tag "freelance/starbadge.png"
-        - top_endorsers_count = @freelancer.top_endorsers.count
-        - if viewing_own_profile? 
-          - if top_endorsers_count < 3
-            = "You needs #{3 - top_endorsers_count} endorsements to show up on search results page (email your bdnt #{link_to 'URL', show_freelancer_users_url(@freelancer.username)} to people who will endorse you)"
-          - else
-            = "Search results: your position is based on the rank of the people who endosre you and the frequency that you update your availability."
-        - else
-          - if top_endorsers_count < 3
-            = "#{@freelancer.name} needs #{3 - top_endorsers_count} endorsements to show up on search results page (endorse him by clicking the thumbs up next to a skill)"
-          - else
-            = "If you know #{@freelancer.username} endorse his skills and experience "
+            - if top_endorsers_count < 3
+              = "#{@freelancer.name} needs #{3 - top_endorsers_count} endorsements to show up on search results page (endorse him by clicking the thumbs up next to a skill)"
+            - else
+              = "If you know #{@freelancer.username} endorse his skills and experience "
 
-    .row.section3
-      = hidden_field_tag :freelancer, @freelancer.username
-      = hidden_field_tag :freelancer_status, @freelancer.status.downcase
-      .span12
-        - @freelancer.ordered_user_platforms.each do |skill|
-          - recommenders = skill.user_endorsements(@freelancer.id)
-          .row.item
-            .span3
-              .skill
-                = "[#{recommenders.count}]  "
-                = skill.name.titleize
-              - if !viewing_own_profile? && user_signed_in?
-                - if current_user.endorsed_this?(skill, @freelancer)
-                  .like-disable
-                    = image_tag "freelance/liked.png"
-                - else
-                  .like
-                    = image_tag "freelance/likebutton.png", class: 'click likebtn', id: "platform_#{skill.id}"
-            .span9{id: "recommender_platform_#{skill.id}"}
-              - recommenders.each do |r|
-                - recommendi = r.recommendi
-                = link_to (image_tag recommendi.avatar.url(:small), class: 'small'),show_freelancer_users_url(recommendi.username)
+      .row.section3
+        = hidden_field_tag :freelancer, @freelancer.username
+        = hidden_field_tag :freelancer_status, @freelancer.status.downcase
+        .span12
+          - @freelancer.ordered_user_platforms.each do |skill|
+            - recommenders = skill.user_endorsements(@freelancer.id)
+            .row.item
+              .span3
+                .skill
+                  = "[#{recommenders.count}]  "
+                  = skill.name.titleize
+                - if !viewing_own_profile? && user_signed_in?
+                  - if current_user.endorsed_this?(skill, @freelancer)
+                    .like-disable
+                      = image_tag "freelance/liked.png"
+                  - else
+                    .like
+                      = image_tag "freelance/likebutton.png", class: 'click likebtn', id: "platform_#{skill.id}"
+              .span9{id: "recommender_platform_#{skill.id}"}
+                - recommenders.each do |r|
+                  - recommendi = r.recommendi
+                  = link_to (image_tag recommendi.avatar.url(:small), class: 'small'),show_freelancer_users_url(recommendi.username)
 
-        - @freelancer.ordered_user_languages.each do |skill|
-          - recommenders = skill.user_endorsements(@freelancer.id)
-          .row.item
-            .span3
-              .skill
-                = "[#{recommenders.count}]  "
-                = skill.name.titleize
-              - if !viewing_own_profile? && user_signed_in?
-                - if current_user.endorsed_this?(skill, @freelancer)
-                  .like-disable
-                    = image_tag "freelance/liked.png"
-                - else
-                  .like
-                    = image_tag "freelance/likebutton.png", class: 'click likebtn', id: "language_#{skill.id}"
-            .span9{id: "recommender_language_#{skill.id}"}
-              - recommenders.each do |r|
-                - recommendi = r.recommendi
-                = link_to (image_tag recommendi.avatar.url(:small), class: 'small'),show_freelancer_users_url(recommendi.username)
+          - @freelancer.ordered_user_languages.each do |skill|
+            - recommenders = skill.user_endorsements(@freelancer.id)
+            .row.item
+              .span3
+                .skill
+                  = "[#{recommenders.count}]  "
+                  = skill.name.titleize
+                - if !viewing_own_profile? && user_signed_in?
+                  - if current_user.endorsed_this?(skill, @freelancer)
+                    .like-disable
+                      = image_tag "freelance/liked.png"
+                  - else
+                    .like
+                      = image_tag "freelance/likebutton.png", class: 'click likebtn', id: "language_#{skill.id}"
+              .span9{id: "recommender_language_#{skill.id}"}
+                - recommenders.each do |r|
+                  - recommendi = r.recommendi
+                  = link_to (image_tag recommendi.avatar.url(:small), class: 'small'),show_freelancer_users_url(recommendi.username)
 
-- else
-  %h1 Sorry, freelancer with this username does not exists.
+  - else
+    %h1 Sorry, freelancer with this username does not exists.
