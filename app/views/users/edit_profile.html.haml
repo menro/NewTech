@@ -1,98 +1,99 @@
-- recm_count = @freelancer.recommendies.select(:user_id).uniq.count
-= simple_form_for(@freelancer, :validate => true, :as => 'user', :url => update_users_path, :html => {:class => 'well form form-horizontal registration-box' }) do |f|
-  .inputs.span11.edit-profile
-    %br
-    %br
-    .span2#basic_bio
-      %br
-      = image_tag "#{@freelancer.avatar.url(:regular)}", class: 'regular', title: 'Change your pic'
-      - title = 'You cannot endorse yourself'
-      = f.input :avatar, as: :file
+.row.edit
+  - recm_count = @freelancer.recommendies.select(:user_id).uniq.count
+  = simple_form_for(@freelancer, :validate => true, :as => 'user', :url => update_users_path, :html => {:class => 'well form form-horizontal registration-box' }) do |f|
+    .inputs.span11.edit-profile
       %br
       %br
-      .links
-        .rate
-          .icon-e
-            = image_tag 'money.png', title: 'Rate'
-          .info
-            = f.input :rate, as: :select, collection: User::ALLOWED_USER_RATES_AS_OPTIONS, default: '$', input_html: {style: 'width 70%'}, label: false
-        %hr
-        .personal-url
-          .icon-e
-            = image_tag 'URL.png', title: 'Personal URL'
-          .info
-            = f.input :personal_url, as: :string, label: false, placeholder: 'Personal URL'
-        %hr
-        - current_user.users_links.each do |ul|
-          - next if ul.name.blank?
-          .personal-url{id: "user-link-#{ul.id}"}
+      .span2#basic_bio
+        %br
+        = image_tag "#{@freelancer.avatar.url(:regular)}", class: 'regular', title: 'Change your pic'
+        - title = 'You cannot endorse yourself'
+        = f.input :avatar, as: :file
+        %br
+        %br
+        .links
+          .rate
+            .icon-e
+              = image_tag 'money.png', title: 'Rate'
             .info
-              .name
-                =link_to absolute_url(ul.link_url) do 
-                  %h5 
-                    = ul.name
-              .delete
-                = link_to 'remove', 'javascript:void(0)', onclick: "remove_link(#{ul.id})", method: 'delete', id: 'remove-link'
-            %hr
-      = link_to 'Click to add any site e.g linkedin', 'javascript:void(0)', class: 'btn', id: 'add-more'
-      #add-more-links
-        %br
-        .icon-e
-          %h5 http://
-        .info
-          = text_field_tag :user_link
-        %br
-        = link_to 'Add', 'javascript:void(0)', class: 'btn', id: 'add'
-        = link_to 'Cancel', 'javascript:void(0)', class: 'btn btn-danger', id: 'cancel'
-    .span8#detail_bio
-      %br
-      = f.input :full_name, :required => true, placeholder: 'Full Name *',label: false, :input_html => { :required => true, :class => "top", style: 'width: 100%;'}
-
-      = f.input :job_title, label: false, :input_html => {placeholder: 'Job Title *', :required => true , :class => "top", style: 'width: 100%;'} 
-      
-      %h5 Experience (year)
-      = f.input :experience, as: :integer,collection: User::ALLOWED_EXP_YEARS,  label: false, :input_html => {:required => true}
-
-      %hr
-
-
-      %h5 Discipline
-      = f.association :discipline, :collection => User::ALLOWED_DISCIPLINES_AS_OPTIONS, :label => false, placeholder: 'Discipline', :default => @freelancer.discipline || 'Developer', :input_html => { :required => true , :class => "text top", :onchange => "updateCheckboxes();"}
-      
-      %br
-      - @disciplines.each_with_index do |dis, index|
-        - display = 'none'
-        - display = 'block' if dis.id == current_user.discipline_id
-        %div.display_items{id: "dis-#{dis.id}", style: "display: #{display}"}
-
-          %h5 Platforms
-          = f.association :platforms, :as => :check_boxes, :collection => dis.platforms, label: false, :item_wrapper_class => 'inline'
-
+              = f.input :rate, as: :select, collection: User::ALLOWED_USER_RATES_AS_OPTIONS, default: '$', input_html: {style: 'width 70%'}, label: false
+          %hr
+          .personal-url
+            .icon-e
+              = image_tag 'URL.png', title: 'Personal URL'
+            .info
+              = f.input :personal_url, as: :string, label: false, placeholder: 'Personal URL'
+          %hr
+          - current_user.users_links.each do |ul|
+            - next if ul.name.blank?
+            .personal-url{id: "user-link-#{ul.id}"}
+              .info
+                .name
+                  =link_to absolute_url(ul.link_url) do 
+                    %h5 
+                      = ul.name
+                .delete
+                  = link_to 'remove', 'javascript:void(0)', onclick: "remove_link(#{ul.id})", method: 'delete', id: 'remove-link'
+              %hr
+        = link_to 'Click to add any site e.g linkedin', 'javascript:void(0)', class: 'btn', id: 'add-more'
+        #add-more-links
           %br
-          %h5 Languages
-          = f.association :languages, :as => :check_boxes, :collection => dis.languages, label: false, :item_wrapper_class => 'inline'
-      %hr
+          .icon-e
+            %h5 http://
+          .info
+            = text_field_tag :user_link
+          %br
+          = link_to 'Add', 'javascript:void(0)', class: 'btn', id: 'add'
+          = link_to 'Cancel', 'javascript:void(0)', class: 'btn btn-danger', id: 'cancel'
+      .span8#detail_bio
+        %br
+        = f.input :full_name, :required => true, placeholder: 'Full Name *',label: false, :input_html => { :required => true, :class => "top", style: 'width: 100%;'}
 
-      .address
-        %h5 Location
-        .span4
-          = f.input :address, placeholder: 'Address',label: false, :input_html => { :required => true, :class => "top"}
-        .span2
-          = f.input :town, placeholder: 'Town',label: false,  input_html: {required: true}
-        .span1
-          = f.input :zip, placeholder: 'Zip', label: false, input_html: {required: true}
-      %br
-      %br
-      %br
-      .romote-onsite
-        = f.association :work_locations, as: :check_boxes ,collection: User::ALLOWED_WORK_ONSITE_AS_OPTIONS, label: false , :item_wrapper_class => 'inline'
-        = f.input :outside_colorado, inline_label: 'I live outside Colorado - $99 a year for a listing.', label: false
-      %hr
-      %h5 Endorsing:
-      %br
-      
-  .span1
-    = f.submit 'save', class: 'btn'
+        = f.input :job_title, label: false, :input_html => {placeholder: 'Job Title *', :required => true , :class => "top", style: 'width: 100%;'} 
+        
+        %h5 Experience (year)
+        = f.input :experience, as: :integer,collection: User::ALLOWED_EXP_YEARS,  label: false, :input_html => {:required => true}
+
+        %hr
+
+
+        %h5 Discipline
+        = f.association :discipline, :collection => User::ALLOWED_DISCIPLINES_AS_OPTIONS, :label => false, placeholder: 'Discipline', :default => @freelancer.discipline || 'Developer', :input_html => { :required => true , :class => "text top", :onchange => "updateCheckboxes();"}
+        
+        %br
+        - @disciplines.each_with_index do |dis, index|
+          - display = 'none'
+          - display = 'block' if dis.id == current_user.discipline_id
+          %div.display_items{id: "dis-#{dis.id}", style: "display: #{display}"}
+
+            %h5 Platforms
+            = f.association :platforms, :as => :check_boxes, :collection => dis.platforms, label: false, :item_wrapper_class => 'inline'
+
+            %br
+            %h5 Languages
+            = f.association :languages, :as => :check_boxes, :collection => dis.languages, label: false, :item_wrapper_class => 'inline'
+        %hr
+
+        .address
+          %h5 Location
+          .span4
+            = f.input :address, placeholder: 'Address',label: false, :input_html => { :required => true, :class => "top"}
+          .span2
+            = f.input :town, placeholder: 'Town',label: false,  input_html: {required: true}
+          .span1
+            = f.input :zip, placeholder: 'Zip', label: false, input_html: {required: true}
+        %br
+        %br
+        %br
+        .romote-onsite
+          = f.association :work_locations, as: :check_boxes ,collection: User::ALLOWED_WORK_ONSITE_AS_OPTIONS, label: false , :item_wrapper_class => 'inline'
+          = f.input :outside_colorado, inline_label: 'I live outside Colorado - $99 a year for a listing.', label: false
+        %hr
+        %h5 Endorsing:
+        %br
+        
+    .span1
+      = f.submit 'save', class: 'btn'
 
 :javascript
   updateCheckboxes = function() {

@@ -2,14 +2,14 @@
   - if @freelancer.present?
     #show-wrapper
       .row.section1
-        .span2.columns
+        .span2.columns.pic
           = image_tag "#{@freelancer.avatar.url(:regular)}", class: 'regular'
         .span10.columns
           .row.status
             - if viewing_own_profile?
               .span9
                 #freelancer_status_text
-                  = link_to image_tag("freelance/#{@freelancer.status}.png"), 'javascript:void(0)'
+                  = link_to image_tag("freelance/#{@freelancer.status}.png"), 'javascript:void(0)', title: 'tap to set your availability'
               .span1
                 .edit-link
                   = link_to 'Edit', edit_profile_users_path, class: 'btn'
@@ -27,7 +27,7 @@
                 = @freelancer.discipline.name
             .span2.experience
               = image_tag "freelance/experience.png"
-              = @freelancer.experience == 0 ? "Fresh" : "#{@freelancer.experience}yrs experience"
+              = @freelancer.experience == 0 ? "Fresh" : "#{@freelancer.experience} yrs"
             .span2.location
               = image_tag "freelance/locationpin.png"
               = @freelancer.town.blank? ? "Not Specified" : "#{@freelancer.town} (Works #{ @freelancer.work_locations.collect(&:name).join(' and ')})"
@@ -43,7 +43,7 @@
               .span1
                 =link_to absolute_url(@freelancer.personal_url) do 
                   %h5 Personal url
-            - @freelancer.users_links.limit(7).each do |ul|
+            - @freelancer.users_links.limit(5).each do |ul|
               -next if ul.name.blank?
               .span1
                 =link_to absolute_url(ul.link_url) do 
