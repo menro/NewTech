@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true, :uniqueness => {:case_sensitive => false}, :allow_nil => false
   validates :experience, numericality: true, :allow_nil => true, inclusion: ALLOWED_EXP_YEARS
 
-  before_save :set_status, :set_username, :set_gravata #, :reload_skills
+  before_create :set_status, :set_username, :set_gravata #, :reload_skills
 
   accepts_nested_attributes_for :recommendations
 
@@ -82,5 +82,6 @@ class User < ActiveRecord::Base
   def set_gravata
     self.gravatar = "http://1.gravatar.com/avatar/#{Digest::MD5.hexdigest(self.email)}"
   end
+
 
 end
