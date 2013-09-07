@@ -41,7 +41,7 @@
           %hr
           .row.urls
             .span1
-              =link_to "mailto:#{@freelancer.email}" do 
+              =link_to "mailto:#{@freelancer.email}?subject=Please endorse me on BDNT.org&body=New Tech has a new freelancer search engine, to get listed i have to get 3 people to endorse my skills. When you have a minute can you endorse one of my skills. Profile link( #{show_freelancer_users_url(@freelancer.username)} )" do 
                 %h5 Contact
             - if @freelancer.personal_url.present?
               .span1
