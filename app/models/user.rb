@@ -108,9 +108,10 @@ class User < ActiveRecord::Base
     skills = []
     platform_recom = recommendies.where("skillable_type=?", 'Platform').select(:skillable_id).group(:skillable_id).order("COUNT('skillable_id') DESC")
     p_ids = platform_recom.blank? ? [0] : platform_recom.collect(&:skillable_id) || [0]
-    platforms = self.platforms.where('platforms.id NOT IN(?)', p_ids)
+    platforms = self.platforms.where('platforms.id NOT IN(?) and discipline_id=?', p_ids, self.discipline_id)
     platform_recom.each do |r|
-      skills << Platform.find(r.skillable_id)
+      p = Platform.where("id IN(?) and discipline_id=?", r.skillable_id, self.discipline_id).first
+      skills << p unless p.blank?
     end
     skills + platforms
   end
@@ -119,9 +120,10 @@ class User < ActiveRecord::Base
     skills = []
     language_recom = recommendies.where("skillable_type=?", 'Language').select(:skillable_id).group(:skillable_id).order("COUNT('skillable_id') DESC")
     l_ids = language_recom.blank? ? [0] : language_recom.collect(&:skillable_id)
-    languages = self.languages.where('languages.id NOT IN(?)', l_ids)
+    languages = self.languages.where('languages.id NOT IN(?) and discipline_id=?', l_ids, self.discipline_id)
     language_recom.each do |r|
-      skills << Language.find(r.skillable_id)
+      l = Language.where("id IN(?) and discipline_id=?", r.skillable_id, self.discipline_id).first
+      skills << l unless l.blank?
     end
     skills + languages
   end
