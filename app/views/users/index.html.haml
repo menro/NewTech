@@ -6,24 +6,25 @@
     - display = 'none'
     - display = 'block' if index == 0
     - id = "dialogP-#{dis.id}"
-    %div.dialogP{id: id, style: 'display:none', title: 'Platforms'}
-      - dis.platforms.on_popup.each do |p|
-        .item
-          %label.checkbox.inline{name: 'platforms_in'}
-            = check_box_tag :platforms_in, p.id, false, class: 'check_boxes optional'
-            = p.name
+    - unless dis.platforms.on_popup.blank?
+      %div.dialogP{id: id, style: 'display:none', title: 'Platforms'}
+        - dis.platforms.on_popup.each do |p|
+          .item
+            %label.checkbox.inline{name: 'platforms_in'}
+              = check_box_tag :platforms_in, p.id, false, class: 'check_boxes optional'
+              = p.name
     - id = "dialogL-#{dis.id}"
-    %div.dialogL{id: id, style: 'display:none', title: 'Languages'}
-      - dis.languages.on_popup.each do |p|
-        .item
-          %label.checkbox.inline{name: 'languages_in'}
-            = check_box_tag :languages_in, p.id, false, class: 'check_boxes optional'
-            = p.name
+    - unless dis.languages.on_popup.blank?
+      %div.dialogL{id: id, style: 'display:none', title: 'Languages'}
+        - dis.languages.on_popup.each do |p|
+          .item
+            %label.checkbox.inline{name: 'languages_in'}
+              = check_box_tag :languages_in, p.id, false, class: 'check_boxes optional'
+              = p.name
 
   .span2#search-panel
     %br
     = form_tag(users_path, class: 'custom fullwidth-drops', onsubmit: "return false" ) do
-      =# select_tag :developer, options_for_select(User::ALLOWED_DISCIPLINES_AS_OPTIONS)
       = select_tag :discipline, options_for_select(User::ALLOWED_DISCIPLINES_AS_OPTIONS, params[:discipline_id]), :label => false, placeholder: 'Discipline', :input_html => { :required => true , :class => "text top", :onchange => "updateCheckboxes();"}
 
       %div#platforms
@@ -32,6 +33,7 @@
             %h4 Platforms
           .more-link
             = link_to 'More...', 'javascript:void(0)', id: 'all-plat'
+        .clear
         %hr
         - @disciplines.each_with_index do |dis, index|
           - display = 'none'
@@ -55,6 +57,7 @@
             %h4 Languages
           .more-link
             = link_to 'More...', 'javascript:void(0)', id: 'all-lang'
+        .clear
         %hr
         - @disciplines.each_with_index do |dis, index|
           - display = 'none'

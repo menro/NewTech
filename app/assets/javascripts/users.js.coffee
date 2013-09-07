@@ -136,7 +136,17 @@ window.onload = ->
     $(id).css('display','block')
     id = "#disl-"+$('#discipline').val()
     $(id).css('display','block')
+    id = "#dialogL-#{$('#discipline').val()}"
+    if $(id).length > 0
+      $("#all-lang").css('display', 'block')
+    else
+      $("#all-lang").css('display', 'none')
 
+    id = "#dialogP-#{$('#discipline').val()}"
+    if $(id).length > 0
+      $("#all-plat").css('display', 'block')
+    else
+      $("#all-plat").css('display', 'none')
 
   $('#add-more').click ->
     $('#add-more-links').toggle()

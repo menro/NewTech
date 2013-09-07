@@ -211,9 +211,17 @@
 }
 div.search{
   min-width: 960px;
+  width: 960px;
+  .clear{
+    clear: both;
+  }
   #details-panel{
     min-width: 700px;
     width: 75%;
+    margin-top: 17px;
+    hr{
+      margin-top: 14px;
+    }
     div#loading{
       opacity: 0.6;
       width: 100%;
@@ -260,6 +268,10 @@ div.search{
       float: left;
       text-align: right;
       width: 50%;
+      a{
+        color: #7895A4;
+        line-height: 30px;
+      }
     }
     div.endorsement {
       padding-left: 10px;
@@ -314,6 +326,9 @@ div.search{
       }
       .more-link{
         text-align: right;
+        a{
+          color: #7895A4;
+        }
       }
     }
     .item{
