@@ -14,6 +14,7 @@ module UsersHelper
   end
 
   def user_profile_url(user)
-    user.is_freelancer? ? show_freelancer_users_path(user.username) : profile_path
+    # user.is_freelancer? ? show_freelancer_users_path(user.username) : profile_path(user)
+    show_freelancer_users_path(user.username)
   end
 end
