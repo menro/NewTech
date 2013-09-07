@@ -1,5 +1,9 @@
+- content_for :stylesheets do
+  = stylesheet_link_tag "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"
 .row.profile
   - if @freelancer.present?
+    #require-login{style: 'display:block;', title: 'Alert'}
+      %p You need to login to endorse this freelancer
     #show-wrapper
       .row.section1
         .span2.columns.pic
@@ -93,6 +97,10 @@
                   - else
                     .like
                       = image_tag "freelance/likebutton.png", class: 'click likebtn', id: "platform_#{skill.id}"
+                - elsif !user_signed_in?
+                  .like-disable.liked#like-disabled
+                    = image_tag "freelance/likebutton.png", style: 'cursor: pointer;'
+
               .span9{id: "recommender_platform_#{skill.id}"}
                 - recommenders.each do |r|
                   - recommendi = r.recommendi
@@ -112,6 +120,10 @@
                   - else
                     .like
                       = image_tag "freelance/likebutton.png", class: 'click likebtn', id: "language_#{skill.id}"
+                - elsif !user_signed_in?
+                  .like-disable.liked#like-disabled
+                    = image_tag "freelance/likebutton.png", style: 'cursor: pointer;'
+
               .span9{id: "recommender_language_#{skill.id}"}
                 - recommenders.each do |r|
                   - recommendi = r.recommendi

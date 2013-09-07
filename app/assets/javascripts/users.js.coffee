@@ -160,3 +160,17 @@ window.onload = ->
         $('#user_link').val('')
       error: (data) ->
         console.log('error')
+
+  $('#require-login').dialog
+      height: 200
+      width: 350
+      modal: true
+      buttons:
+        Ok: ->
+          $(this).dialog('close')
+  $('#require-login').dialog('close')
+
+  $('.liked img').click ->
+    $('#require-login').dialog('open')
+    
+
