@@ -56,7 +56,7 @@
 
         %hr
 
-
+        %h5{style: "font-size: 11px;color: red;font-style: italic;font-weight: normal;"} (Changing discipline will reset your current selection of Platforms and Languages)
         %h5 Discipline
         = f.association :discipline, :collection => User::ALLOWED_DISCIPLINES_AS_OPTIONS, :label => false, placeholder: 'Discipline', :default => @freelancer.discipline || 'Developer', :input_html => { :required => true , :class => "text top", :onchange => "updateCheckboxes();"}
         
