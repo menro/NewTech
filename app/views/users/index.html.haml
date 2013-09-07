@@ -24,7 +24,7 @@
     %br
     = form_tag(users_path, class: 'custom fullwidth-drops', onsubmit: "return false" ) do
       =# select_tag :developer, options_for_select(User::ALLOWED_DISCIPLINES_AS_OPTIONS)
-      = select_tag :discipline, options_for_select(User::ALLOWED_DISCIPLINES_AS_OPTIONS), :label => false, placeholder: 'Discipline', :input_html => { :required => true , :class => "text top", :onchange => "updateCheckboxes();"}
+      = select_tag :discipline, options_for_select(User::ALLOWED_DISCIPLINES_AS_OPTIONS, params[:discipline_id]), :label => false, placeholder: 'Discipline', :input_html => { :required => true , :class => "text top", :onchange => "updateCheckboxes();"}
 
       %div#platforms
         .top-row
@@ -35,7 +35,11 @@
         %hr
         - @disciplines.each_with_index do |dis, index|
           - display = 'none'
-          - display = 'block' if index == 0
+          - if params[:discipline_id].present?
+            - display = 'block' if params[:discipline_id].to_i == dis.id
+          - elsif index == 0
+            - display = 'block'
+
           .display_items{id: "disp-#{dis.id}", style: "display: #{display}"}
             - dis.platforms.on_page.each do |p|
               .item
@@ -54,7 +58,10 @@
         %hr
         - @disciplines.each_with_index do |dis, index|
           - display = 'none'
-          - display = 'block' if index == 0
+          - if params[:discipline_id].present?
+            - display = 'block' if params[:discipline_id].to_i == dis.id
+          - elsif index == 0
+            - display = 'block'
           .display_items{id: "disl-#{dis.id}", style: "display: #{display}"}
             - dis.languages.on_page.each do |p|
               .item

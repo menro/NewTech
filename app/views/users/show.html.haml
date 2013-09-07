@@ -89,7 +89,7 @@
               .span3
                 .skill
                   = "[#{recommenders.count}]  "
-                  = skill.name.titleize
+                  = link_to skill.name.titleize, users_path({platform: skill.name, discipline_id: @freelancer.discipline_id})
                 - if !viewing_own_profile? && user_signed_in?
                   - if current_user.endorsed_this?(skill, @freelancer)
                     .like-disable
@@ -112,7 +112,7 @@
               .span3
                 .skill
                   = "[#{recommenders.count}]  "
-                  = skill.name.titleize
+                  = link_to skill.name.titleize, users_path({language: skill.name, discipline_id: @freelancer.discipline_id})
                 - if !viewing_own_profile? && user_signed_in?
                   - if current_user.endorsed_this?(skill, @freelancer)
                     .like-disable

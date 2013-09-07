@@ -6,6 +6,8 @@ class UsersController < ApplicationController
     @users_status = []
     if params && params[:search].present?
       discipline_id = params[:search][:developer]
+    elsif params && params[:discipline_id].present?
+      discipline_id = params[:discipline_id]
     else
       discipline_id = Discipline.where(name: 'Developer').first.id
     end
