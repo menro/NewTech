@@ -542,3 +542,36 @@ a{
     }
   }
 }
+div.edit{
+  margin-bottom: 40px;
+  div.remove-endorsements{
+    width: 960px;
+    .span2{
+      width: 171px;height: 100px;margin-left: 80px;
+    }
+    .span10{
+      width: 620px;
+      div.remove{
+        height: 40px;
+        border-top: 0.1em solid #B2CCCC;
+        div.name{
+          width: 30%;
+          float: left;
+          padding: 10px;
+        }
+        div.skill{
+          float: left;
+          width: 20%;
+          h6{
+            line-height: 37px;
+          }
+        }
+        div.delete{
+          width: 40%;
+          padding: 10px;
+          float: left;
+        }
+      }
+    }
+  }
+}

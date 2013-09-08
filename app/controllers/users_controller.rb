@@ -113,6 +113,12 @@ class UsersController < ApplicationController
     render text: :ok
   end
 
+  def remove_recommendation
+    recomendation = Recommendation.find(params[:id])
+    recomendation.delete
+    render text: :ok
+  end
+
   private
 
   def store_return_to

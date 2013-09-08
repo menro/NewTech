@@ -89,11 +89,42 @@
           = f.association :work_locations, as: :check_boxes ,collection: User::ALLOWED_WORK_ONSITE_AS_OPTIONS, label: false , :item_wrapper_class => 'inline'
           = f.input :outside_colorado, inline_label: 'I live outside Colorado - $99 a year for a listing.', label: false
         %hr
-        %h5 Endorsing:
-        %br
         
     .span1
       = f.submit 'save', class: 'btn'
+
+  .row.remove-endorsements
+    .span2{style: ''}
+    .span10
+      %div
+        %h4 People I endorsed
+      %div
+        - @freelancer.recommendations.each do |r|
+          - recommendi = r.recommender
+          - next if recommendi.nil?
+          .remove{id: "recommendation-#{r.id}"}
+            .name
+              = link_to recommendi.username, show_freelancer_users_url(recommendi.username)
+            .skill
+              %h6 
+                = r.skillable.name
+            .delete
+              = link_to 'Remove', 'javascript:void(0)', onclick: "remove_recommendation(#{r.id}, 'recommendation')", method: 'delete', id: 'remove-recommendation'
+      %hr
+      %div
+        %h4 People who endorsed me
+      %div
+        - @freelancer.recommendies.each do |r|
+          - recommendi = r.recommendi
+          - next if recommendi.nil?
+          .remove{id: "endorsers-#{r.id}"}
+            .name
+              = link_to recommendi.username, show_freelancer_users_url(recommendi.username)
+            .skill
+              %h6 
+                = r.skillable.name
+            .delete
+              = link_to 'Remove', 'javascript:void(0)', onclick: "remove_recommendation(#{r.id}, 'endorsers')", method: 'delete', id: 'remove-recommendation'
 
 :javascript
   updateCheckboxes = function() {
@@ -112,6 +143,18 @@
       },
       success: function(data) {
         return $("#user-link-" + id).remove();
+      }
+    });
+  }
+  remove_recommendation = function(id, div){
+    return $.ajax({
+      type: 'DELETE',
+      url: '/freelancers/remove/recommendation',
+      data: {
+        id: id
+      },
+      success: function(data) {
+        return $("#"+ div +"-" + id).remove();
       }
     });
   }

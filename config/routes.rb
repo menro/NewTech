@@ -44,6 +44,7 @@ Newtech::Application.routes.draw do
       put '/add/user_link' => 'users#add_user_link', as: 'add_user_link'
       delete '/remove/user_link' => 'users#remove_user_link', as: 'remove_user_link'
       get '/fetch/more' => 'users#fetch_more'
+      delete '/remove/recommendation' => 'users#remove_recommendation', as: 'remove_recommendation'
     end
   end
 
