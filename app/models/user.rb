@@ -110,7 +110,8 @@ class User < ActiveRecord::Base
     p_ids = platform_recom.blank? ? [0] : platform_recom.collect(&:skillable_id) || [0]
     platforms = self.platforms.where('platforms.id NOT IN(?) and discipline_id=?', p_ids, self.discipline_id)
     platform_recom.each do |r|
-      p = Platform.where("id IN(?) and discipline_id=?", r.skillable_id, self.discipline_id).first
+      # p = Platform.where("id IN(?) and discipline_id=?", r.skillable_id, self.discipline_id).first
+      p = Platform.where(id: r.skillable_id).first
       skills << p unless p.blank?
     end
     skills + platforms
@@ -122,7 +123,8 @@ class User < ActiveRecord::Base
     l_ids = language_recom.blank? ? [0] : language_recom.collect(&:skillable_id)
     languages = self.languages.where('languages.id NOT IN(?) and discipline_id=?', l_ids, self.discipline_id)
     language_recom.each do |r|
-      l = Language.where("id IN(?) and discipline_id=?", r.skillable_id, self.discipline_id).first
+      # l = Language.where("id IN(?) and discipline_id=?", r.skillable_id, self.discipline_id).first
+      l = Language.where(id: r.skillable_id).first
       skills << l unless l.blank?
     end
     skills + languages
@@ -141,17 +143,6 @@ class User < ActiveRecord::Base
     self.gravatar = "http://1.gravatar.com/avatar/#{Digest::MD5.hexdigest(self.email)}"
     self.username = self.username.downcase.gsub(/\s/,'')
   end
-
-  def self.platforms_in(platforms)
-    # users = []
-    # platf = Platform.where("id in(?)", platforms)
-    # platf.each do |p|
-    #   users << p.users
-    # end
-    # users
-    Platform.where("id in(?)", platforms)
-  end
-  search_methods :platforms_in
 
   def self.languages_in(language)
     Language.where("id in(?)", language)
