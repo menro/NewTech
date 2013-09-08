@@ -184,3 +184,23 @@ window.onload = ->
     $('#require-login').dialog('open')
     
 
+  $('.more-freelancers').click ->
+    id = "#{$(this).attr('id')}"
+    $.ajax
+      type: "GET"
+      url: "/freelancers/fetch/more"
+      data:
+        platforms_in: getIds('#platforms')
+        languages_in: getIds('#languages')
+        discipline_id: $('#discipline').val()
+        status: id
+      dataType: "json"
+      beforeSend: ->
+        $(".#{id} #error-div").remove()
+      success: (data) ->
+        $(".#{id} #endorsings").append data
+      complete: ->
+      error: (data) ->
+        $(".#{id} #endorsings").append data.responseText
+
+
