@@ -14,6 +14,7 @@
             = link_to user.try(:name).try(:titleize), show_freelancer_users_url(user.username)
           %h6 
             = user.discipline.try(:name).try(:titleize)
+          %h6 Endorsed:
         %hr
         .recommenders
           - user.top_endorsers.each do |u|
