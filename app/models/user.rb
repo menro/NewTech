@@ -31,8 +31,9 @@ class User < ActiveRecord::Base
                     :styles => {
                         thumb: "100x100>",
                         icon: "25x25>",
-                        regular: "180x180>",
-                        small: "35x35>"
+                        regular: "175x175>",
+                        small: "35x35>",
+                        thumb_large: "75x75"
                     },
                     :default_url => "http://b.dryicons.com/images/icon_sets/colorful_stickers_icons_set/png/256x256/help.png",
                     :storage => :s3,

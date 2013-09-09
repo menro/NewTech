@@ -1,8 +1,8 @@
 .span3.recommendi-box
   .recommendie-gravatar
-    = link_to image_tag(user.avatar.url(:thumb), class: 'thumb'), show_freelancer_users_url(user.username)
+    = link_to image_tag(user.avatar.url(:thumb_small), class: 'thumb_small'), show_freelancer_users_url(user.username)
   .recommendie-details
     %h3
       = link_to user.try(:name).try(:titleize), show_freelancer_users_url(user.username)
-    %h6 
+    %h5
       = user.discipline.try(:name).try(:titleize)
