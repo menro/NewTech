@@ -19,6 +19,24 @@
 }
 
 #basic_bio{
+  color: inherit;
+  text-decoration: none;
+  font-weight: bold;
+  min-width: 170px;
+  .icon{
+    text-align: center;
+    width: 20%;
+    float: left;
+    img{
+      margin-top: -2px;
+    }
+  }
+  .icon-e{
+    line-height: 26px;
+    text-align: center;
+    width: 20%;
+    float: left;
+  }
   a.disabled{
     width: 88%!important;
     margin-top: 5%;
@@ -57,6 +75,15 @@
       width: 100%!important;
       margin-left: 30px!important;
     }
+    .info{
+      .name{
+        width: 50%;
+        float: left;
+      }
+      .delete{
+        text-align: right;
+      }
+    }
   }
   #user_rate_chzn{
     width: 70%!important;
@@ -85,8 +112,42 @@
     border-top: 2px solid #000;
     border-bottom: 1px solid white;
   }
+  #add-more{
+    font-weight: normal;
+    font-size: 10px;
+  }
+  #add-more-links{
+    text-align: right;
+    display: none;
+    #user_link{
+      width: 110px;
+    }
+    .icon-e{
+      margin-right: 10px;
+      h5{
+        line-height: 25px;
+        font-weight: bold;
+        font-size: 13px;
+        color: gray;
+      }
+    }
+  }
 }
 #detail_bio{
+  div.display_items{
+    width: 610px;
+    text-align: justify;
+    label.checkbox.inline{
+      margin-left: 10px;
+      min-width: 90px;
+      font-size: 10px;
+      font-family: Helvetica;
+    }
+  }
+  .links a{
+    color: #999!important;
+    text-decoration: underline!important;
+  }
   .endorse-title{
     width: 30%;
     float: left;
@@ -145,6 +206,7 @@
 }
 
 .edit-profile{
+  margin-bottom: 50px;
   .controls{
     margin-left: 0px!important;
   }
@@ -157,39 +219,450 @@
     }
   }
 }
-#details-panel{
-  div#endorsings{
-    height: 150px;
+div.search{
+  min-width: 960px;
+  width: 960px;
+  .clear{
+    clear: both;
+  }
+  #details-panel{
+    min-width: 700px;
+    width: 75%;
+    margin-top: 8px;
     hr{
-      margin: 5px 0px;
+      margin-top: 14px;
     }
-    h6{
-      font-size: 9px;
+    div#loading{
+      opacity: 0.6;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      position: absolute;
+      display: none;
+      min-height: 500px;
+    }
+    div#endorsings{
+      height: 150px;
+      .span3{
+        border: 2px solid #F7F9F9;
+        padding-left: 15px;
+        margin-left: 0px;
+        padding-top: 10px;
+        height: 95px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        width: 29%;
+        .small{
+          width: 30px;
+          height: 30px;
+        }
+        div.recommendie-details{
+          h3{
+            font-size: 14px;
+            font-weight: bold;
+            font-family: Helvetica;
+            color: #7895A4;
+            line-height: 15px;
+          }
+          h6{
+            text-transform: capitalize;
+            font-size: 10px;
+            color: #7895A4;
+            font-weight: normal;
+            line-height: 14px;
+          }
+        }
+        .recommenders{
+          text-align: right;
+          padding-right: 10px;
+        }
+      }
+      hr{
+        margin: 5px 0;
+        margin-left: 11px;
+        margin-top: 0px;
+        width: 83%;
+      }
+      h6{
+        font-size: 9px;
+      }
+    }
+    div.user-status{
+      float: left;
+      width: 50%;
+      text-align: left;
+      h3{
+        font-family: Helvetica;
+        font-size: 12px;
+        color: #7895A4;
+        font-weight: normal;
+        line-height: 32px;
+      }
+    }
+    div.more-link{
+      float: left;
+      text-align: right;
+      width: 50%;
+      a{
+        color: #7895A4;
+        line-height: 30px;
+        font-family: Helvetica;
+        font-size: 12px;
+      }
+    }
+    div.endorsement {
+      padding-left: 10px;
+      padding-top: 10px;
+      padding-left: 14px!important;
+      border: 2px solid gray;
+      height: 120px;
+
+    }
+    div.recommendie-gravatar{
+      width: 43%;
+      height: 100%;
+      float: left;
+      a img{
+        width: 75px;
+        height: 75px;
+      }
+    }
+    div.recommendie-details{
+      padding-left: 10px;
+    }
+    div.rec-0{
+      margin-left: 0px!important;
     }
   }
-  div.user-status{
-    float: left;
-    width: 50%;
-    text-align: left;
+  #search-panel{
+    min-width: 170px;
+    width: 17%!important;
+    margin-left: 30px;
+    #discipline, #discipline_chzn{
+      width: 171px;
+      // height: 60px;
+      margin-top: 15px;
+      margin-bottom: 20px;
+      .chzn-drop{
+      }
+    }
+    .checkbox{
+      margin-left: 0px!important;
+      margin-right: 10px!important;
+    }
+    #platforms, #languages{
+      min-height: 140px;
+      height: auto;
+      margin-bottom: 20px;
+      font-size: 12px;
+      font-family: Helvetica;
+      div.display_items{
+        margin-top: 8px;
+      }
+      hr{
+        margin: 2px!important;
+      }
+      .heading{
+        float: left;
+        width: 50%;
+        h4{
+          font-size: 12px;
+          font-family: Helvetica;
+          font-weight: normal;
+        }
+      }
+      .more-link{
+        text-align: right;
+        a{
+          color: #7895A4;
+          font-family: Helvetica;
+          font-size: 12px;
+        }
+      }
+    }
+    .item{
+      float: left;
+      width: 85px!important;
+      label{
+        font-size: 11px!important;
+      }
+    }
   }
-  div.more-link{
-    float: left;
-    text-align: right;
-    width: 50%;
+}
+.item{
+  float: left;
+  width: 120px;
+  label{
+    font-size: 10px;
   }
-  div.endorsement {
-    padding-left: 10px;
-    padding-top: 10px;
-    padding-left: 14px!important;
-    border: 2px solid gray;
-    height: 120px;
+}
+.thumb{
+  width: 100px;
+  height: 100px;
+}
+.thumb_large{
+  width: 75px;
+  height: 75px;
+}
+.thumb_small{
+  width: 55px;
+  height: 55px;
+}
+.icon{
+  width: 25px;
+  height: 25px;
+}
+.regular{
+  width: 175px;
+  height: 175px;
+}
+a{
+  color: black;
+}
+#show-wrapper{
+  margin-bottom: 50px;
+  margin-left: 30px;
+  margin-top: 10px;
+  min-width: 960px;
+  .row{
+    margin-left: 0!important;
   }
-  div.recommendie-gravatar{
-    width: 43%;
-    height: 100%;
-    float: left;
+  .section1{
+    .pic{ 
+      min-width: 170px;
+      img{
+        width: 175px;
+        height: 175px;
+      }
+    }
+    .span10{
+      width: 750px;
+      min-width: 750px;
+    }
+    hr{
+      margin: 7px 0;
+      border: 0;
+      border-top: 2px solid #eeeeee;
+      border-bottom: 1px solid white;
+      width: 102.5%;
+    }    
+    .name{
+      h2{
+        line-height: 45px;
+        font-size: 21px;
+        font-weight: bold;
+        font-family: Helvetica;
+      }
+    }
+    .status{
+      #reelancer_status_text{
+        cursor: pointer;
+      }
+      .span1{
+        margin-left: 0!important;
+        text-align: right;
+      }
+      .span9{
+        margin-left: 0!important;
+        width: 690px;
+        h3{
+          font-size: 20px;
+          line-height: 18px;
+          font-weight: 200;
+          text-align: center;
+        }
+        .btn-large{
+          width: 140px!important;
+        }
+        .status-btn{
+          width: 130px;
+          height: 37px;
+          background-color: red;
+          text-align: center;
+          border-radius: 7px;
+        }
+      }
+    }
+    .details{
+      font-family: Helvetica;
+      font-size: 12px;
+      img{
+        margin-right: 5px;
+      }
+      .span2{
+        margin-left: 0!important;
+        margin-right: 25px;
+        width: auto!important;
+      }
+      .location{
+        width: auto!important;
+        min-width: 105px!important;
+        margin-right: 15px;
+      }
+      .experience{
+        min-width: 100px;
+        width: auto!important;
+        margin-right:  15px; 
+      }
+    }
+    .urls{
+      .span1{
+        width: 100px!important;
+        margin-left: 0!important;
+        h5{
+          color: #7895A4;
+          font-family: Helvetica;
+          font-size: 12px;font-weight: normal;
+        }
+      }
+    }
   }
-  div.rec-0{
-    margin-left: 0px!important;
+  .section2{
+    height: 100px;
+    min-width: 960px;
+    .span12{
+      background-color: #F7F9F9;
+      min-width: 960px;
+      .endorse-text{
+        margin-left: 0!important;
+        text-align: center;
+        line-height: 102px;
+        font-size: 16px;
+        color: #7895A4;
+        width: 170px;
+        font-size: 18px;
+        font-family: Helvetica;
+        font-weight: normal;
+      }
+      .recommendi-box{
+        padding-top: 15px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        width: 200px!important;
+        .recommendie-details{
+          padding-left: 10px;
+          h3{
+            font-family: Helvetica;
+            font-size: 12px;
+          }
+          h5{
+            font-family: Helvetica;
+            font-size: 12px; 
+            color: #7895A4;
+          }
+        }
+        .recommendie-gravatar{
+          width: 70px;
+          height: 100%;
+          float: left;
+          img{
+            width: 55px;
+            height: 55px;
+          }
+        }
+      }
+    }
+  }
+  .remaining-endorsement{
+    line-height: 44px;
+    margin-left: 44px;
+    font-family: Helvetica;
+    font-size: 10px;
+    color: #828282;
+    img{
+      margin: 10px;
+    }
+  }
+  .section3{
+    min-width: 960px;
+    .span12{
+      min-width: 960px;
+    }
+    .item{
+      width: 100%!important;
+      .span3{
+        height: 52px;
+        // width: 200px;
+        margin-left: 0;
+        border-top: 0.1em solid #B2CCCC;
+        border-right: 0.1em solid #B2CCCC;
+        line-height: 52px;
+        padding-left: 22px;
+      }
+      .like{
+        text-align: right;
+        margin-right: 10px; 
+      }
+      .like-disable{
+        text-align: right;
+        margin-right: 10px; 
+      }
+      .skill{
+        width: auto;
+        float: left;
+        font-size: 12px;
+        font-family: Helvetica;
+        color: #7895A4;
+        a{
+          font-size: 12px;
+          font-family: Helvetica;
+          color: #7895A4;
+        }
+      }
+      .span9{
+        height: 52px;
+        border-top: 0.1em solid #B2CCCC;
+        margin-left: 0!important;
+        width: 706px;
+        min-width: 706px;
+        padding-left: 10px;
+        img{
+          margin: 7px 0;
+          margin-right: 2px;
+          width: 35px;
+          height: 35px;
+        }
+      }
+      .small{
+        width: 30px;
+        height: 30px;
+      }
+      .click{
+        cursor: pointer;
+      }
+    }
+  }
+}
+div.edit{
+  margin-bottom: 40px;
+  div.remove-endorsements{
+    width: 960px;
+    .span2{
+      width: 171px;height: 100px;margin-left: 80px;
+    }
+    .span10{
+      width: 620px;
+      div.remove{
+        height: 40px;
+        border-top: 0.1em solid #B2CCCC;
+        div.name{
+          width: 30%;
+          float: left;
+          padding: 10px;
+        }
+        div.skill{
+          float: left;
+          width: 20%;
+          h6{
+            line-height: 37px;
+          }
+        }
+        div.delete{
+          width: 40%;
+          padding: 10px;
+          float: left;
+        }
+      }
+    }
   }
 }

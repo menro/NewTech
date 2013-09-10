@@ -1,32 +1,76 @@
-.span2#search-panel
-  %h3 Platforms
-.span10#details-panel
-  - User::WORK_STATUS.each do |status|
+- content_for :stylesheets do
+  = stylesheet_link_tag "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"
+
+.row.search
+  - @disciplines.each_with_index do |dis, index|
+    - display = 'none'
+    - display = 'block' if index == 0
+    - id = "dialogP-#{dis.id}"
+    - unless dis.platforms.on_popup.blank?
+      %div.dialogP{id: id, style: 'display:none', title: 'Platforms'}
+        - dis.platforms.on_popup.each do |p|
+          .item
+            %label.checkbox.inline{name: 'platforms_in'}
+              = check_box_tag :platforms_in, p.id, false, class: 'check_boxes optional'
+              = p.name
+    - id = "dialogL-#{dis.id}"
+    - unless dis.languages.on_popup.blank?
+      %div.dialogL{id: id, style: 'display:none', title: 'Languages'}
+        - dis.languages.on_popup.each do |p|
+          .item
+            %label.checkbox.inline{name: 'languages_in'}
+              = check_box_tag :languages_in, p.id, false, class: 'check_boxes optional'
+              = p.name
+
+  .span2#search-panel
     %br
-    .status-wrapper
-      .user-status
-        %h3
-          = status.titleize
-      .more-link
-        = link_to 'More...', '#'
-    %br
-    %hr
-    #endorsings
-      - User.where("status=? and is_freelancer=?", status, true).all.each_with_index do |user, index|
-        -# unless user.recommendies.group(:user_id).length < 0
-        - unless user.recommendies.blank?
-          .endorsement.span3{class: "rec-#{index}"}
-            .recommendie-gravatar
-              = image_tag "#{user.gravatar}?s=100"
-            .recommendie-details
-              %h3
-                = user.name.titleize
-              %h6 
-                = user.try(:job_type).try(:name).try(:titleize)
-              %h6
-                = "Endorsed: #{user.recommendies.try(:first).try(:skill_type).try(:name)}"
-              %hr
-              - user.recommendies.select(:user_id).uniq.each_with_index do |record, index|
-                - r = Recommendation.where(user_id: record.user_id).first
-                - rc = r.recommendi
-                = link_to image_tag("#{rc.gravatar}?s=20"), show_freelancer_users_url(rc.username), target: '_blank'
+    = form_tag(users_path, class: 'custom fullwidth-drops', onsubmit: "return false" ) do
+      = select_tag :discipline, options_for_select(User::ALLOWED_DISCIPLINES_AS_OPTIONS, params[:discipline_id]), :label => false, placeholder: 'Discipline', :input_html => { :required => true , :class => "text top", :onchange => "updateCheckboxes();"}
+
+      %div#platforms
+        .top-row
+          .heading
+            %h4 Platforms
+          .more-link
+            = link_to 'More...', 'javascript:void(0)', id: 'all-plat'
+        .clear
+        %hr
+        - @disciplines.each_with_index do |dis, index|
+          - display = 'none'
+          - if params[:discipline_id].present?
+            - display = 'block' if params[:discipline_id].to_i == dis.id
+          - elsif index == 0
+            - display = 'block'
+
+          .display_items{id: "disp-#{dis.id}", style: "display: #{display}"}
+            - dis.platforms.on_page.each do |p|
+              .item
+                %label.checkbox.inline{name: 'platforms_in'}
+                  = check_box_tag :platforms_in, p.id, (params[:platform] == p.name), class: 'check_boxes optional'
+                  = p.name
+
+      %br
+      %br
+      %div#languages
+        .top-row
+          .heading
+            %h4 Languages
+          .more-link
+            = link_to 'More...', 'javascript:void(0)', id: 'all-lang'
+        .clear
+        %hr
+        - @disciplines.each_with_index do |dis, index|
+          - display = 'none'
+          - if params[:discipline_id].present?
+            - display = 'block' if params[:discipline_id].to_i == dis.id
+          - elsif index == 0
+            - display = 'block'
+          .display_items{id: "disl-#{dis.id}", style: "display: #{display}"}
+            - dis.languages.on_page.each do |p|
+              .item
+                %label.checkbox.inline{name: 'languages_in'}
+                  = check_box_tag :languages_in, p.id, (params[:language] == p.name), class: 'check_boxes optional'
+                  = p.name
+
+  .span10#details-panel{style: "float:left;"}
+    = render partial: 'filter_freelancers'

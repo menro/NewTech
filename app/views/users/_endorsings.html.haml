@@ -1,0 +1,21 @@
+- if row.blank?
+  .clear
+  .row#error-div{style: 'margin-left: 5px;'}
+    %h5{style: 'color: red'} Sorry! No freelancers available.
+-else
+  - row.each_with_index do |user, index|
+    - next if user.top_endorsers.count < 3
+    .span3.recommendi-box
+      .recommendie-gravatar
+        = link_to image_tag(user.avatar.url(:thumb_large), class: 'thumb_large'), show_freelancer_users_url(user.username)
+      .row{style: "width: 60%; float: left;"}
+        .recommendie-details
+          %h3
+            = link_to user.try(:name).try(:titleize), show_freelancer_users_url(user.username)
+          %h6 
+            = user.discipline.try(:name).try(:titleize)
+          %h6{style: 'font-size: 10px;'} Top Endorsers:
+        %hr
+        .recommenders
+          - user.top_endorsers.each do |u|
+            = link_to (image_tag u.avatar.url(:icon), class: 'icon'), show_freelancer_users_url(u.username)

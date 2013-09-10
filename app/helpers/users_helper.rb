@@ -8,4 +8,13 @@ module UsersHelper
     end
     false
   end
+
+  def thumbnail_url(user, size)
+    user.is_freelancer? ? user.avatar.url(size) : (user.companies.present? ? user.companies.first.image.url(size) : user.avatar.url(size))
+  end
+
+  def user_profile_url(user)
+    # user.is_freelancer? ? show_freelancer_users_path(user.username) : profile_path(user)
+    show_freelancer_users_path(user.username)
+  end
 end

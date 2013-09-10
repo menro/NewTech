@@ -1,111 +1,160 @@
-- recm_count = @freelancer.recommendies.select(:user_id).uniq.count
-= simple_form_for(@freelancer, :validate => true, :as => 'user', :url => update_users_path, :html => {:class => 'well form form-horizontal registration-box' }) do |f|
-  .inputs.span11.edit-profile
-    %br
-    %br
-    .span2#basic_bio
+.row.edit
+  - recm_count = @freelancer.recommendies.select(:user_id).uniq.count
+  = simple_form_for(@freelancer, :validate => true, :as => 'user', :url => update_users_path, :html => {:class => 'well form form-horizontal registration-box' }) do |f|
+    .inputs.span11.edit-profile
       %br
       %br
-      = image_tag "#{@freelancer.gravatar}?s=180"
-      - title = 'You cannot endorse yourself'
-      = link_to "Endorse", 'javascript:void(0)', class: 'btn disabled', title: title
+      .span2#basic_bio
+        %br
+        = image_tag "#{@freelancer.avatar.url(:regular)}", class: 'regular', title: 'Change your pic'
+        - title = 'You cannot endorse yourself'
+        = f.input :avatar, as: :file
+        %br
+        %br
+        .links
+          .rate
+            .icon-e
+              = image_tag 'money.png', title: 'Rate'
+            .info
+              = f.input :rate, as: :select, collection: User::ALLOWED_USER_RATES_AS_OPTIONS, default: '$', input_html: {style: 'width 70%'}, label: false
+          %hr
+          .personal-url
+            .icon-e
+              = image_tag 'URL.png', title: 'Personal URL'
+            .info
+              = f.input :personal_url, as: :string, label: false, placeholder: 'Personal URL'
+          %hr
+          - current_user.users_links.each do |ul|
+            - next if ul.name.blank?
+            .personal-url{id: "user-link-#{ul.id}"}
+              .info
+                .name
+                  =link_to absolute_url(ul.link_url) do 
+                    %h5 
+                      = ul.name
+                .delete
+                  = link_to 'remove', 'javascript:void(0)', onclick: "remove_link(#{ul.id})", method: 'delete', id: 'remove-link'
+              %hr
+        = link_to 'Click to add any site e.g linkedin', 'javascript:void(0)', class: 'btn', id: 'add-more'
+        #add-more-links
+          %br
+          .icon-e
+            %h5 http://
+          .info
+            = text_field_tag :user_link
+          %br
+          = link_to 'Add', 'javascript:void(0)', class: 'btn', id: 'add'
+          = link_to 'Cancel', 'javascript:void(0)', class: 'btn btn-danger', id: 'cancel'
+      .span8#detail_bio
+        %br
+        = f.input :full_name, :required => true, placeholder: 'Full Name *',label: false, :input_html => { :required => true, :class => "top", style: 'width: 100%;'}
 
-      %br
-      %br
-      .rate.info
-        = f.input :rate, as: :select, collection: User::ALLOWED_USER_RATES_AS_OPTIONS, default: '$', input_html: {style: 'width 70%'}
+        = f.input :job_title, label: false, :input_html => {placeholder: 'Job Title *', :required => true , :class => "top", style: 'width: 100%;'} 
+        
+        %h5 Experience (year)
+        = f.input :experience, as: :integer,collection: User::ALLOWED_EXP_YEARS,  label: false, :input_html => {:required => true}
+
+        %hr
+
+        %h5{style: "font-size: 11px;color: red;font-style: italic;font-weight: normal;"} (Changing discipline will reset your current selection of Platforms and Languages)
+        %h5 Discipline
+        = f.association :discipline, :collection => User::ALLOWED_DISCIPLINES_AS_OPTIONS, :label => false, placeholder: 'Discipline', :default => @freelancer.discipline || 'Developer', :input_html => { :required => true , :class => "text top", :onchange => "updateCheckboxes();"}
+        
+        %br
+        - @disciplines.each_with_index do |dis, index|
+          - display = 'none'
+          - display = 'block' if dis.id == current_user.discipline_id
+          %div.display_items{id: "dis-#{dis.id}", style: "display: #{display}"}
+
+            %h5 Platforms
+            = f.association :platforms, :as => :check_boxes, :collection => dis.platforms, label: false, :item_wrapper_class => 'inline'
+
+            %br
+            %h5 Languages
+            = f.association :languages, :as => :check_boxes, :collection => dis.languages, label: false, :item_wrapper_class => 'inline'
+        %hr
+
+        .address
+          %h5 Location
+          .span4
+            = f.input :address, placeholder: 'Address',label: false, :input_html => { :required => true, :class => "top"}
+          .span2
+            = f.input :town, placeholder: 'Town',label: false,  input_html: {required: true}
+          .span1
+            = f.input :zip, placeholder: 'Zip', label: false, input_html: {required: true}
+        %br
+        %br
+        %br
+        .romote-onsite
+          = f.association :work_locations, as: :check_boxes ,collection: User::ALLOWED_WORK_ONSITE_AS_OPTIONS, label: false , :item_wrapper_class => 'inline'
+          = f.input :outside_colorado, inline_label: 'I live outside Colorado - $99 a year for a listing.', label: false
+        %hr
+        
+    .span1
+      = f.submit 'save', class: 'btn'
+
+  .row.remove-endorsements
+    .span2{style: ''}
+    .span10
+      %div
+        %h4 People I endorsed
+      %div
+        - @freelancer.recommendations.each do |r|
+          - recommendi = r.recommender
+          - next if recommendi.nil?
+          .remove{id: "recommendation-#{r.id}"}
+            .name
+              = link_to recommendi.username, show_freelancer_users_url(recommendi.username)
+            .skill
+              %h6 
+                = r.skillable.name
+            .delete
+              = link_to 'Remove', 'javascript:void(0)', onclick: "remove_recommendation(#{r.id}, 'recommendation')", method: 'delete', id: 'remove-recommendation'
       %hr
-      .github.info
-        = f.input :github, as: :string, placeholder: 'Github URL'
-      %hr
-      .personal-url.info
-        = f.input :personal_url, as: :string, label: 'Personal', placeholder: 'Personal URL'
-      %hr
-      .email.info
-        = link_to "Email", "mailto:#{@freelancer.email}"
-      %hr
-    .span8#detail_bio
+      %div
+        %h4 People who endorsed me
+      %div
+        - @freelancer.recommendies.each do |r|
+          - recommendi = r.recommendi
+          - next if recommendi.nil?
+          .remove{id: "endorsers-#{r.id}"}
+            .name
+              = link_to recommendi.username, show_freelancer_users_url(recommendi.username)
+            .skill
+              %h6 
+                = r.skillable.name
+            .delete
+              = link_to 'Remove', 'javascript:void(0)', onclick: "remove_recommendation(#{r.id}, 'endorsers')", method: 'delete', id: 'remove-recommendation'
 
-      %br
-      = f.input :full_name, :required => true, placeholder: 'Full Name',label: false, :input_html => { :required => true, :class => "top", style: 'width: 100%;'}
-      %h1
-        = @freelancer.status.upcase
-
-      = f.input :status,:collection => User::ALLOWED_WORK_STATUS_AS_OPTIONS, :label => false, placeholder: 'Status', :default => @freelancer.status || 'Available', :input_html => { :required => true , :class => "text top"}  
-
-      %hr
-
-      %h5 Job Title
-      = f.association :job_type, :as => :select, :collection => User::ALLOWED_JOB_TITLE_AS_OPTIONS, label: false, :input_html => { :required => true , :class => "text top"} 
-      %h5 Experience (year)
-      = f.input :experience, as: :integer,collection: User::ALLOWED_EXP_YEARS,  label: false, :input_html => {:required => true}
-
-      %br
-      %h5 Platforms
-      = f.association :platforms, :as => :check_boxes, :collection => User::ALLOWED_PLATFORMS_AS_OPTIONS, label: false, :item_wrapper_class => 'inline'
-
-      %br
-      %h5 Languages
-      = f.association :languages, :as => :check_boxes, :collection => User::ALLOWED_LANGUAGES_AS_OPTIONS, label: false, :item_wrapper_class => 'inline'
-      %hr
-
-      .address
-        %h5 Location
-        .span4
-          = f.input :address, placeholder: 'Address',label: false, :input_html => { :required => true, :class => "top"}
-        .span2
-          = f.input :town, placeholder: 'Town',label: false,  input_html: {required: true}
-        .span1
-          = f.input :zip, placeholder: 'Zip', label: false, input_html: {required: true}
-      %br
-      %br
-      %br
-      .romote-onsite
-        = f.association :work_locations, as: :check_boxes ,collection: User::ALLOWED_WORK_ONSITE_AS_OPTIONS, label: false , :item_wrapper_class => 'inline'
-        = f.input :outside_colorado, inline_label: 'I live outside Colorado - $99 a year for a listing.', label: false
-      %hr
-      %h5 Endorsing:
-      %br
-      #endorsings.inline
-        - if @freelancer.recommendies.present?
-          - @freelancer.recommendies.select(:user_id).uniq.each_with_index do |record, index|
-            - recommendation = Recommendation.where(user_id: record.user_id).first
-            - recommendie = recommendation.recommendi
-            .endorsement.span3{class: "rec-#{index}"}
-              .recommendie-gravatar
-                = image_tag "#{recommendie.gravatar}?s=100"
-              .recommendie-details
-                %h3
-                  = recommendie.name.titleize
-                %h6 
-                  = recommendie.try(:job_type).try(:name).try(:titleize)
-                %h6
-                  = "Endorsed: #{recommendation.skill_type.name}"
-                %hr
-                - recommendie.recommendies.select(:user_id).uniq.each_with_index do |rcrd, i|
-                  - r = Recommendation.where(user_id: rcrd.user_id).first
-                  - rc = r.recommendi
-                  = link_to image_tag("#{rc.gravatar}?s=20"), show_freelancer_users_url(rc.username), target: '_blank'
-  .span1
-    = f.submit 'save', class: 'btn'
-
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
-%br
+:javascript
+  updateCheckboxes = function() {
+    $('.display_items').css('display', 'none')
+    $('.display_items :checked').removeAttr('checked')
+    id = "#dis-"+$('#user_discipline_id').val()
+    $('.display_items').css('display', 'none')
+    $(id).css('display','block')
+  }
+  remove_link = function(id) {
+    return $.ajax({
+      type: 'DELETE',
+      url: '/freelancers/remove/user_link',
+      data: {
+        id: id
+      },
+      success: function(data) {
+        return $("#user-link-" + id).remove();
+      }
+    });
+  }
+  remove_recommendation = function(id, div){
+    return $.ajax({
+      type: 'DELETE',
+      url: '/freelancers/remove/recommendation',
+      data: {
+        id: id
+      },
+      success: function(data) {
+        return $("#"+ div +"-" + id).remove();
+      }
+    });
+  }

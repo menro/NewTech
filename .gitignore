@@ -41,3 +41,5 @@ mysql2psql.yml
 # mac's files
 .DS_Store
 
+# application.yml
+config/application.yml

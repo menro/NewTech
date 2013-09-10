@@ -1,0 +1,15 @@
+#loading
+- @users_status.each do |row|
+  %br
+  .row{style: "margin-left: 0px;", class: row[0]}
+    .status-wrapper
+      .user-status
+        %h3
+          = row[0].titleize
+      .more-link.more-freelancers{id: row[0]}
+        = link_to 'More...', 'javascript:void(0)'
+    %br
+    %hr
+    - count = 0
+    #endorsings
+      = render partial: 'endorsings', locals: {row: row[1]}, :formats=>[:html]
