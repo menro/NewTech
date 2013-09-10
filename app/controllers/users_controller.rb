@@ -55,6 +55,9 @@ class UsersController < ApplicationController
 
   def show
     @freelancer = User.where(username: params[:username].downcase).first
+    if @freelancer.present? && !@freelancer.is_freelancer?
+      redirect_to profile_path
+    end
   end
 
   def edit_profile
