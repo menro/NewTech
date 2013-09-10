@@ -20,8 +20,8 @@
 Platform.delete_all
 Language.delete_all
 # Recommendation.delete_all
-UsersPlatforms.delete_all
-UsersLanguages.delete_all
+# UsersPlatforms.delete_all
+# UsersLanguages.delete_all
 Discipline.delete_all
 
 
