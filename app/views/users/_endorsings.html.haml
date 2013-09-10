@@ -14,7 +14,7 @@
             = link_to user.try(:name).try(:titleize), show_freelancer_users_url(user.username)
           %h6 
             = user.discipline.try(:name).try(:titleize)
-          %h6{style: 'font-size: 12px;'} Top Endorsers:
+          %h6{style: 'font-size: 10px;'} Top Endorsers:
         %hr
         .recommenders
           - user.top_endorsers.each do |u|

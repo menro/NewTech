@@ -134,6 +134,16 @@
   }
 }
 #detail_bio{
+  div.display_items{
+    width: 610px;
+    text-align: justify;
+    label.checkbox.inline{
+      margin-left: 10px;
+      min-width: 90px;
+      font-size: 10px;
+      font-family: Helvetica;
+    }
+  }
   .links a{
     color: #999!important;
     text-decoration: underline!important;
@@ -341,11 +351,14 @@ div.search{
       margin-right: 10px!important;
     }
     #platforms, #languages{
-      min-height: 100px;
+      min-height: 140px;
       height: auto;
       margin-bottom: 20px;
       font-size: 12px;
       font-family: Helvetica;
+      div.display_items{
+        margin-top: 8px;
+      }
       hr{
         margin: 2px!important;
       }
