@@ -262,11 +262,6 @@
       currentInfoWindow.close();
     }
   }
-<<<<<<< HEAD
-
-=======
-  
->>>>>>> features/freelance-rewamp
   function drawCompanyOffices(container) {   
     //console.log($(container).data("offices_url"));
     currentRequests.push($.getJSON($(container).data("offices_url"), searchParams(), function(data) {
