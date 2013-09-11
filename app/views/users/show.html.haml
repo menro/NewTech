@@ -108,8 +108,8 @@
                     = link_to (image_tag thumbnail_url(recommendi, :small), class: 'small'),  user_profile_url(recommendi)
                   - else
                     - company = recommendi.companies.first
-                    = link_to (image_tag thumbnail_url(recommendi, :small)), 'javascript:void(0)',class: 'company', id: "company-#{company.id}"
-                    .companies{id: "companies-#{company.id}", style: "display: none;"}
+                    = link_to (image_tag thumbnail_url(recommendi, :small)), 'javascript:void(0)',class: 'company', id: "company-#{company.id}-#{skill.id}-platform"
+                    .companies{id: "companies-#{company.id}-#{skill.id}-platform", style: "display: none;"}
                       %h3
                         = company.name
                       %h4
@@ -140,8 +140,8 @@
                     = link_to (image_tag thumbnail_url(recommendi, :small), class: 'small'),  user_profile_url(recommendi)
                   - else
                     - company = recommendi.companies.first
-                    = link_to (image_tag thumbnail_url(recommendi, :small)), 'javascript:void(0)',class: 'company', id: "company-#{company.id}"
-                    .companies{id: "companies-#{company.id}", style: "display: none;"}
+                    = link_to (image_tag thumbnail_url(recommendi, :small)), 'javascript:void(0)',class: 'company', id: "company-#{company.id}-#{skill.id}-language"
+                    .companies{id: "companies-#{company.id}-#{skill.id}-language", style: "display: none;"}
                       %h3
                         = company.name
                       %h4

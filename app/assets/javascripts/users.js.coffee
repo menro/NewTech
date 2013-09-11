@@ -221,6 +221,6 @@ window.onload = ->
   $('.company').click ->
     console.log('open dialog...')
     id = "#{$(this).attr('id')}"
-    id = id.split('-')[1]
-    id = "#companies-#{id}"
+    # id = id.split('-')[1]
+    id = id.replace('company', 'companies')
     $(id).dialog 'open'
