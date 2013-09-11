@@ -130,7 +130,7 @@
                   - if recommendi.is_freelancer?
                     = link_to (image_tag thumbnail_url(recommendi, :small), class: 'small'),  user_profile_url(recommendi)
                   - else
-                    - company = @freelacer.companies.first
+                    - company = recommendi.companies.first
                     = link_to (image_tag thumbnail_url(recommendi, :small)), 'javascript:void(0)',class: 'company', id: "company-#{company.id}"
                     .companies{id: "companies-#{company.id}", style: "display: none;"}
                       %h3
