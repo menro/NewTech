@@ -213,10 +213,13 @@ window.onload = ->
       buttons:
         Ok: ->
           $(this).dialog('close')
+    console.log('closing...'+id)
+
     $(id).dialog "close"
 
 
   $('.company').click ->
+    console.log('open dialog...')
     id = "#{$(this).attr('id')}"
     id = id.split('-')[1]
     id = "#companies-#{id}"
