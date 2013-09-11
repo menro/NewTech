@@ -104,7 +104,16 @@
               .span9{id: "recommender_platform_#{skill.id}"}
                 - recommenders.each do |r|
                   - recommendi = r.recommendi
-                  = link_to (image_tag recommendi.avatar.url(:small), class: 'small'),show_freelancer_users_url(recommendi.username)
+                  - if recommendi.is_freelancer?
+                    = link_to (image_tag thumbnail_url(recommendi, :small), class: 'small'),  user_profile_url(recommendi)
+                  - else
+                    - company = recommendi.companies.first
+                    = link_to (image_tag thumbnail_url(recommendi, :small)), 'javascript:void(0)',class: 'company', id: "company-#{company.id}"
+                    .companies{id: "companies-#{company.id}", style: "display: none;"}
+                      %h3
+                        = company.name
+                      %h4
+                        = company.address
 
           - @freelancer.ordered_user_languages.each do |skill|
             - recommenders = skill.user_endorsements(@freelancer.id)
@@ -134,8 +143,8 @@
                     = link_to (image_tag thumbnail_url(recommendi, :small)), 'javascript:void(0)',class: 'company', id: "company-#{company.id}"
                     .companies{id: "companies-#{company.id}", style: "display: none;"}
                       %h3
-                        company.name
+                        = company.name
                       %h4
-                        company.address
+                        = company.address
   - else
     %h1 Sorry, freelancer with this username does not exists.
