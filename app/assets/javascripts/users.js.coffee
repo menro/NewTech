@@ -203,4 +203,21 @@ window.onload = ->
       error: (data) ->
         $(".#{id} #endorsings").append data.responseText
 
+  $(".companies").each ->
+    id = "##{$(this).attr('id')}"
+    $(id).dialog
+      resizable: false
+      height: 200
+      width: 350
+      modal: true
+      buttons:
+        Ok: ->
+          $(this).dialog('close')
+    $(id).dialog "close"
 
+
+  $('.company').click ->
+    id = "#{$(this).attr('id')}"
+    id = id.split('-')[1]
+    id = "#companies-#{id}"
+    $(id).dialog 'open'
