@@ -223,5 +223,6 @@ window.onload = ->
     id = "#{$(this).attr('id')}"
     # id = id.split('-')[1]
     id = id.replace('company', 'companies')
+    id = "##{id}"
     console.log(id)
     $(id).dialog 'open'
