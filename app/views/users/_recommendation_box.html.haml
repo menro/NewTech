@@ -11,7 +11,14 @@
 - else
   - company = user.companies.first
   - unless company.blank?
-    = link_to (image_tag company.image.url(:thumb_small)), 'javascript:void(0)', class: 'company', id: "company-#{company.id}"
+    .span3.recommendi-box
+      .recommendie-gravatar
+        = link_to (image_tag company.image.url(:thumb_small)), 'javascript:void(0)', class: 'company', id: "company-#{company.id}"
+      .recommendie-details
+        %h3
+          = company.name  
+        %h4
+          = company.address
     .companies{id: "companies-#{company.id}", style: "display: none;"}
       %h3
         = company.name
