@@ -49,8 +49,12 @@ class Company < ActiveRecord::Base
   has_attached_file :image,
                     :styles => {
                         :thumbnail => "160x120>",
+                        thumb: "100x100>",
                         icon: "25x25>",
-                        small: "35x35>"
+                        regular: "175x175>",
+                        small: "35x35>",
+                        thumb_large: "75x75>",
+                        thumb_small: "55x55>"
                     },
                     :default_url => "http://b.dryicons.com/images/icon_sets/colorful_stickers_icons_set/png/256x256/help.png",
                     :storage => :s3,

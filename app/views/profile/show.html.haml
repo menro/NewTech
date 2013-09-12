@@ -18,6 +18,10 @@
           .controls
             = f.text_field :email, class: "input-xlarge"
             %span.help-block We also use email for avatar detection.
+        .control-group
+          = f.label :is_freelancer, class: 'control-label'
+          .controls
+            = f.check_box :is_freelancer
 
     .form-actions
       = f.submit 'Update Profile', class: "btn save-btn"

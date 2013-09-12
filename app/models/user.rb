@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me , :role_ids, :job_title
-  attr_accessible :rate, :github, :personal_url, :full_name, :status, :experience, :platform_ids, :language_ids, :address, :town, :zip, :remote_onsite, :outside_colorado, :recommendation_ids, :work_location_ids, :discipline_id
+  attr_accessible :rate, :github, :personal_url, :full_name, :status, :experience, :platform_ids, :language_ids, :address, :town, :zip, :remote_onsite, :outside_colorado, :recommendation_ids, :work_location_ids, :discipline_id, :is_freelancer
 
   has_many :language_sets, class_name: "UsersLanguages"
   has_many :languages, through: :language_sets
