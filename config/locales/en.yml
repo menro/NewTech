@@ -9,6 +9,7 @@ en:
     account:
       companies: "Companies"
       profile: "Profile"
+      freelancer: "Freelancer Profile"
       jobs: "Jobs"
       logout: "Logout"
     home: "newtech"
