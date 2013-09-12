@@ -17,9 +17,9 @@
       .recommendie-details
         %h3
           = company.name  
-        %h4
+        %h5
           = company.address
-    .companies{id: "companies-#{company.id}", style: "display: none;"}
+    .companies{id: "companies-#{company.id}", style: "display: none;", title: 'Company'}
       %h3
         = company.name
       %h4
