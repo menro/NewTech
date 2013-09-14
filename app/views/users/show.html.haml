@@ -3,7 +3,10 @@
 .row.profile
   - if @freelancer.present?
     #require-login{style: 'display:block;', title: 'Alert'}
-      %p You need to login to endorse this freelancer
+      - if user_signed_in? && current_user.companies.count == 0
+        %p You need to create a freelancer profile or add a company to you profile to endorse this user.
+      - else
+        %p You need to login to endorse this freelancer
     #show-wrapper
       .row.section1
         .span2.columns.pic
@@ -90,14 +93,14 @@
                 .skill
                   = "[#{recommenders.count}]  "
                   = link_to skill.name.titleize, users_path({platform: skill.name, discipline_id: @freelancer.discipline_id})
-                - if !viewing_own_profile? && user_signed_in?
+                - if !viewing_own_profile? && user_signed_in? && (current_user.is_freelancer? || current_user.companies.count >= 0)
                   - if current_user.endorsed_this?(skill, @freelancer)
                     .like-disable
                       = image_tag "freelance/liked.png"
                   - else
                     .like
                       = image_tag "freelance/likebutton.png", class: 'click likebtn', id: "platform_#{skill.id}"
-                - elsif !user_signed_in?
+                - elsif !user_signed_in? || (user_signed_in? && !current_user.is_freelancer? && current_user.companies.count > 0 )
                   .like-disable.liked#like-disabled
                     = image_tag "freelance/likebutton.png", style: 'cursor: pointer;'
 
@@ -123,14 +126,15 @@
                 .skill
                   = "[#{recommenders.count}]  "
                   = link_to skill.name.titleize, users_path({language: skill.name, discipline_id: @freelancer.discipline_id})
-                - if !viewing_own_profile? && user_signed_in?
+
+                - if !viewing_own_profile? && user_signed_in? && (current_user.is_freelancer? || current_user.companies.count > 0)
                   - if current_user.endorsed_this?(skill, @freelancer)
                     .like-disable
                       = image_tag "freelance/liked.png"
                   - else
                     .like
                       = image_tag "freelance/likebutton.png", class: 'click likebtn', id: "language_#{skill.id}"
-                - elsif !user_signed_in?
+                - elsif !user_signed_in? || (user_signed_in? && !current_user.is_freelancer? && current_user.companies.count == 0 )
                   .like-disable.liked#like-disabled
                     = image_tag "freelance/likebutton.png", style: 'cursor: pointer;'
 
