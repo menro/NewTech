@@ -206,6 +206,7 @@ window.onload = ->
         rebindEvent()
 
   rebindEvent= ->
+    console.log('rebinding event...')
     $(".companies").each ->
       id = "##{$(this).attr('id')}"
       $(id).dialog
@@ -217,7 +218,6 @@ window.onload = ->
           Ok: ->
             $(this).dialog('close')
       console.log('closing...'+id)
-
       $(id).dialog "close"
 
 
