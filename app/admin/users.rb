@@ -4,12 +4,14 @@ ActiveAdmin.register User do
   filter :last_name
   filter :nickname
   filter :email
+  filter :is_freelancer
 
   index do
     column :id
     column :created_at
     column :username
     column :email
+    column :is_freelancer
     default_actions
   end
 
@@ -18,6 +20,7 @@ ActiveAdmin.register User do
       attributes_table_for user do
         row :username
         row :email
+        row :is_freelancer
       end
     end
   end

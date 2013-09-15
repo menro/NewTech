@@ -1,10 +1,9 @@
 <%= semantic_form_for [:admin, @user] do |f| %>
     <%= f.inputs :name => "User Info" do %>
         <%= f.input :roles, :as => :check_boxes, :collection => Role.all, :selected => @user.roles %>
+        <%= f.input :is_freelancer, as: :boolean%>
         <%= f.input :username %>
         <%= f.input :email %>
-        <%= f.input :password %>
-        <%= f.input :password_confirmation %>
     <% end %>
     <%= f.actions %>
 <% end %>
