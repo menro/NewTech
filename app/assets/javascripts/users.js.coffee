@@ -56,9 +56,12 @@ filterFreelancers = (platforms_in, languages_in)->
     beforeSend: ->
       $('#loading').css('display', 'block')
     success: (data) ->
+      console.log('success...')
       $("#details-panel").html data
+      rebindEvent()
     complete: ->
     error: (error) ->
+      console.log('error...')
       $("#details-panel").html error.responseText
       $('#loading').css('display', 'none')
       rebindEvent()
