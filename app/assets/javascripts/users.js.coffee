@@ -208,7 +208,7 @@ window.onload = ->
         $(".#{id} #endorsings").append data.responseText
         rebindEvent()
 
-  rebindEvent= ->
+  window.rebindEvent = ->
     console.log('rebinding event...')
     $(".companies").each ->
       id = "##{$(this).attr('id')}"
