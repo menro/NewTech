@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/menro/newtech.png?label=ready)](https://waffle.io/menro/newtech)  
 =======
 New Tech
 ====
