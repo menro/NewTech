@@ -61,6 +61,7 @@ filterFreelancers = (platforms_in, languages_in)->
     error: (error) ->
       $("#details-panel").html error.responseText
       $('#loading').css('display', 'none')
+      rebindEvent()
 
 getIds = (div) ->
   if div == '#dialogP' || div == '#platforms'
@@ -202,27 +203,31 @@ window.onload = ->
       complete: ->
       error: (data) ->
         $(".#{id} #endorsings").append data.responseText
+        rebindEvent()
 
-  $(".companies").each ->
-    id = "##{$(this).attr('id')}"
-    $(id).dialog
-      resizable: false
-      height: 200
-      width: 350
-      modal: true
-      buttons:
-        Ok: ->
-          $(this).dialog('close')
-    console.log('closing...'+id)
+  rebindEvent= ->
+    $(".companies").each ->
+      id = "##{$(this).attr('id')}"
+      $(id).dialog
+        resizable: false
+        height: 200
+        width: 350
+        modal: true
+        buttons:
+          Ok: ->
+            $(this).dialog('close')
+      console.log('closing...'+id)
 
-    $(id).dialog "close"
+      $(id).dialog "close"
 
 
-  $('.company').click ->
-    console.log('open dialog...')
-    id = "#{$(this).attr('id')}"
-    # id = id.split('-')[1]
-    id = id.replace('company', 'companies')
-    id = "##{id}"
-    console.log(id)
-    $(id).dialog 'open'
+    $('.company').click ->
+      console.log('open dialog...')
+      id = "#{$(this).attr('id')}"
+      # id = id.split('-')[1]
+      id = id.replace('company', 'companies')
+      id = "##{id}"
+      console.log(id)
+      $(id).dialog 'open'
+
+  rebindEvent()
