@@ -1,7 +1,9 @@
-[![Stories in Ready](https://badge.waffle.io/menro/newtech.png?label=ready)](https://waffle.io/menro/newtech)  
 =======
 New Tech
 ====
+Travis Status: [![Build Status](https://travis-ci.org/menro/NewTech.png)](https://travis-ci.org/menro/NewTech)
+
+Waffle.io Progress: [![Stories in Ready](https://badge.waffle.io/menro/newtech.png?label=ready)](https://waffle.io/menro/newtech)  
 
 Developed for new tech colorado. (http://bdnt.org)
 
