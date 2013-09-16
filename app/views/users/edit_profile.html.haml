@@ -63,7 +63,7 @@
         %br
         - @disciplines.each_with_index do |dis, index|
           - display = 'none'
-          - display = 'block' if dis.id == current_user.discipline_id
+          - display = 'block' if dis.id == current_user.discipline_id || (current_user.discipline_id.nil? && index == 0)
           %div.display_items{id: "dis-#{dis.id}", style: "display: #{display}"}
 
             %h5 Platforms
