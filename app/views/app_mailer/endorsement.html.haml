@@ -1,0 +1,16 @@
+%p
+  = "Hi #{@recommendi.username}!"
+
+%p
+  = "#{@recommender.username} has endorsed you for" 
+  %strong 
+    = @skill.name
+  =" at bdnt. Checkout your profile."
+
+%p
+  = link_to 'My Profile', show_freelancer_users_url(@recommendi.username)
+
+
+%p Best Regards,
+%p
+New Tech

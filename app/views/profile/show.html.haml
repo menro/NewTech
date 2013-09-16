@@ -23,6 +23,11 @@
           .controls
             = f.check_box :is_freelancer
 
+        .control-group
+          = f.label :receive_notification, class: 'control-label'
+          .controls
+            = f.check_box :receive_notification
+
     .form-actions
       = f.submit 'Update Profile', class: "btn save-btn"
 

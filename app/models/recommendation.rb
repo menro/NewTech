@@ -7,13 +7,20 @@ class Recommendation < ActiveRecord::Base
   attr_accessible :recommendi_id, :skillable_id, :skillable_type
 
   belongs_to :skillable, polymorphic: true
-  
+  after_create :send_email
+
   def recommender
+    # who gets recommended
     user
   end
 
   def recommendi
+    #who recommends someone
     User.find(user_id)
+  end
+
+  def send_email
+    AppMailer.endorsement(recommender, recommendi, skillable).deliver if recommender.receive_notification?
   end
 
 end

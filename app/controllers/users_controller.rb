@@ -93,13 +93,16 @@ class UsersController < ApplicationController
   def endorse
     @freelancer = User.where(username: params[:username]).first
     skill_id = params[:skill_id]
-    skill_type = params[:skill_type]      
-    recomendation = Recommendation.new
-    recomendation.skillable_id = skill_id
-    recomendation.skillable_type = skill_type.classify
-    recomendation.recommendi_id = @freelancer.id
-    current_user.recommendations << recomendation
-    current_user.save
+    skill_type = params[:skill_type]
+    rec = Recommendation.where("skillable_id=? and skillable_type=? and recommendi_id=? and user_id =?", skill_id, skill_type, @freelancer.id, current_user.id).first
+    if rec.blank?
+      recomendation = Recommendation.new
+      recomendation.skillable_id = skill_id
+      recomendation.skillable_type = skill_type.classify
+      recomendation.recommendi_id = @freelancer.id
+      current_user.recommendations << recomendation
+      current_user.save
+    end
   end
 
   def add_user_link
