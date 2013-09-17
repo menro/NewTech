@@ -55,6 +55,7 @@ window.onload = ->
           platforms_in: platforms_in
           languages_in: languages_in
           developer: $('#discipline').val()
+          browse_all: $('#browse_all').is(":checked").toString()
       dataType: "json"
       beforeSend: ->
         $('#loading').css('display', 'block')

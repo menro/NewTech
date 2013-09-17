@@ -133,6 +133,16 @@ class User < ActiveRecord::Base
     rec.present?
   end
 
+  def self.browse_all
+    users_status = []
+    User::WORK_STATUS.each do |status|
+      users = []
+      users = User.where('is_freelancer=? and status =? ', true, status)
+      users_status << [status, users.uniq]
+    end
+    users_status
+  end
+
   private
 
   def set_defualts

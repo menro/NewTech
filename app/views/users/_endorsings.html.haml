@@ -4,7 +4,7 @@
     %h5{style: 'color: red'} Sorry! No freelancers available.
 -else
   - row.each_with_index do |user, index|
-    - next if user.top_endorsers.count < 3
+    - next if user.top_endorsers.count < 3 && (params[:search].nil? || params[:search] && params[:search][:browse_all] == 'false')
     .span3.recommendi-box
       .recommendie-gravatar
         = link_to image_tag(user.avatar.url(:thumb_large), class: 'thumb_large'), show_freelancer_users_url(user.username)
