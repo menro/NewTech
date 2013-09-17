@@ -1,94 +1,97 @@
-# $('#freelancer_status').val('aadafasdfadsf')
-$('#freelancer_status_text img').click ->
-  change_status()
-
-change_status = ->
-  status = $('#freelancer_status').val()
-  if status == 'available'
-    status = 'shortly'
-  else if status == 'shortly'
-    status = 'working'
-  else
-    status = 'available'
-
-  $.ajax
-    type: 'POST'
-    url: 'change_status'
-    data: {user:{status: status}}
-    async: false
-    success: (data)->
-      $('#freelancer_status').val(status)
-      $('#freelancer_status_text a img').attr('src', "/assets/freelance/#{status}.png")
-
-endorseUser = (skill_type, skill_id)->
-  $.ajax
-    type: 'PUT'
-    url: '/freelancers/endorse/skill'
-    data:
-      skill_type: skill_type
-      skill_id: skill_id
-      username: $('#freelancer').val()
-    success: (data) ->
-    error: (data) ->
-      id = "#recommender_"+ skill_type + "_" + skill_id
-      img_id = "##{skill_type}_#{skill_id}"
-      $(id).append(data.responseText)
-      $(img_id).attr('src', '/assets/freelance/liked.png')
-      $(img_id).parent().addClass('like-disable')
-      $(img_id).parent().removeClass('like')
-      $(img_id).removeClass()
-      $(img_id).unbind('click')
-
-$('.likebtn').click ->
-  endorseUser(this.id.split(/_/)[0], this.id.split(/_/)[1])
-
-
-filterFreelancers = (platforms_in, languages_in)->
-  $.ajax
-    type: "GET"
-    url: "/freelancers"
-    data:
-      search:
-        platforms_in: platforms_in
-        languages_in: languages_in
-        developer: $('#discipline').val()
-    dataType: "json"
-    beforeSend: ->
-      $('#loading').css('display', 'block')
-    success: (data) ->
-      console.log('success...')
-      $("#details-panel").html data
-      rebindEvent()
-    complete: ->
-    error: (error) ->
-      console.log('error...')
-      $("#details-panel").html error.responseText
-      $('#loading').css('display', 'none')
-      rebindEvent()
-
-getIds = (div) ->
-  if div == '#dialogP' || div == '#platforms'
-    div1 = '#dialogP'
-    div2 = '#platforms'
-  else
-    div1 = '#dialogL'
-    div2 = '#languages'
-  ids(div1).concat(ids(div2))
-
-ids = (div) ->
-  $(div + " input[type=checkbox]:checked").map(->
-    @value
-  ).get()
-
-$("#search-panel :checkbox").click ->
-  filterFreelancers(getIds('#platforms'), getIds('#languages'))
-
-filterFreelancersPopup = (div) ->
-  platforms_in = getIds('#platforms')
-  languages_in = getIds('#languages')
-  filterFreelancers(platforms_in, languages_in)
-
+  # $('#freelancer_status').val('aadafasdfadsf')
 window.onload = ->
+  $('#freelancer_status_text img').click ->
+    change_status()
+
+  change_status = ->
+    status = $('#freelancer_status').val()
+    if status == 'available'
+      status = 'shortly'
+    else if status == 'shortly'
+      status = 'working'
+    else
+      status = 'available'
+
+    $.ajax
+      type: 'POST'
+      url: 'change_status'
+      data: {user:{status: status}}
+      async: false
+      success: (data)->
+        $('#freelancer_status').val(status)
+        $('#freelancer_status_text a img').attr('src', "/assets/freelance/#{status}.png")
+
+  endorseUser = (skill_type, skill_id)->
+    $.ajax
+      type: 'PUT'
+      url: '/freelancers/endorse/skill'
+      data:
+        skill_type: skill_type
+        skill_id: skill_id
+        username: $('#freelancer').val()
+      success: (data) ->
+      error: (data) ->
+        id = "#recommender_"+ skill_type + "_" + skill_id
+        img_id = "##{skill_type}_#{skill_id}"
+        $(id).append(data.responseText)
+        $(img_id).attr('src', '/assets/freelance/liked.png')
+        $(img_id).parent().addClass('like-disable')
+        $(img_id).parent().removeClass('like')
+        $(img_id).removeClass()
+        $(img_id).unbind('click')
+
+
+  $('.likebtn').click ->
+    endorseUser(this.id.split(/_/)[0], this.id.split(/_/)[1])
+    $(this).unbind('click')
+
+
+  filterFreelancers = (platforms_in, languages_in)->
+    $.ajax
+      type: "GET"
+      url: "/freelancers"
+      data:
+        search:
+          platforms_in: platforms_in
+          languages_in: languages_in
+          developer: $('#discipline').val()
+      dataType: "json"
+      beforeSend: ->
+        $('#loading').css('display', 'block')
+      success: (data) ->
+        console.log('success...')
+        $("#details-panel").html data
+        rebindEvent()
+      complete: ->
+      error: (error) ->
+        console.log('error...')
+        $("#details-panel").html error.responseText
+        $('#loading').css('display', 'none')
+        rebindEvent()
+
+  getIds = (div) ->
+    if div == '#dialogP' || div == '#platforms'
+      div1 = '#dialogP'
+      div2 = '#platforms'
+    else
+      div1 = '#dialogL'
+      div2 = '#languages'
+    ids(div1).concat(ids(div2))
+
+  ids = (div) ->
+    $(div + " input[type=checkbox]:checked").map(->
+      @value
+    ).get()
+
+  $("#search-panel :checkbox").click ->
+    filterFreelancers(getIds('#platforms'), getIds('#languages'))
+
+  filterFreelancersPopup = (div) ->
+    platforms_in = getIds('#platforms')
+    languages_in = getIds('#languages')
+    filterFreelancers(platforms_in, languages_in)
+
+
   $(".dialogP").each ->
     id = "##{$(this).attr('id')}"
     $(id).dialog

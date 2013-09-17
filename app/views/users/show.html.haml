@@ -93,14 +93,14 @@
                 .skill
                   = "[#{recommenders.count}]  "
                   = link_to skill.name.titleize, users_path({platform: skill.name, discipline_id: @freelancer.discipline_id})
-                - if !viewing_own_profile? && user_signed_in? && (current_user.is_freelancer? || current_user.companies.count >= 0)
+                - if !viewing_own_profile? && user_signed_in? && (current_user.is_freelancer? || current_user.companies.count > 0)
                   - if current_user.endorsed_this?(skill, @freelancer)
                     .like-disable
                       = image_tag "freelance/liked.png"
                   - else
                     .like
                       = image_tag "freelance/likebutton.png", class: 'click likebtn', id: "platform_#{skill.id}"
-                - elsif !user_signed_in? || (user_signed_in? && !current_user.is_freelancer? && current_user.companies.count > 0 )
+                - elsif !user_signed_in? || (user_signed_in? && !current_user.is_freelancer? && current_user.companies.count == 0 )
                   .like-disable.liked#like-disabled
                     = image_tag "freelance/likebutton.png", style: 'cursor: pointer;'
 
