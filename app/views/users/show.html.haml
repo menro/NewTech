@@ -84,7 +84,7 @@
 
       .row.section3
         = hidden_field_tag :freelancer, @freelancer.username
-        = hidden_field_tag :freelancer_status, @freelancer.status.downcase
+        = hidden_field_tag :freelancer_status, @freelancer.status.try(:downcase)
         .span12
           - @freelancer.ordered_user_platforms.each do |skill|
             - recommenders = skill.user_endorsements(@freelancer.id)
