@@ -226,7 +226,7 @@ window.onload = ->
             $(this).dialog('close')
       console.log('closing...'+id)
       $(id).dialog "close"
-
+    $(".ui-dialog-content").dialog("close");
 
     $('.company').click ->
       console.log('open dialog...')
