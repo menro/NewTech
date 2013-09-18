@@ -22,18 +22,18 @@ class UsersController < ApplicationController
         users = []
         if params[:search].present? && params[:search][:developer].present?
           if (params[:search][:platforms_in].present? || params[:search][:languages_in].present?)
-            users = User.joins(:platforms).joins(:languages).where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=?',params[:search][:platforms_in],  params[:search][:languages_in], status, discipline_id, is_freelancer).limit(limit)
+            users = User.joins(:platforms).joins(:languages).where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= 3',params[:search][:platforms_in],  params[:search][:languages_in], status, discipline_id, is_freelancer).limit(limit)
           else
-            users += User.where("status=? and is_freelancer=? and discipline_id=?", status, true, discipline_id).limit(limit)
+            users += User.where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >= 3 ", status, true, discipline_id).limit(limit)
           end
         elsif params[:platform].present?
           p = Platform.where(name: params[:platform]).first
-          users = User.joins(:platforms).where('platform_id =? and status=? and users.discipline_id=? and is_freelancer=?', p.id, status, discipline_id, is_freelancer).limit(limit)
+          users = User.joins(:platforms).where('platform_id =? and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= 3', p.id, status, discipline_id, is_freelancer).limit(limit)
         elsif params[:language].present?
           l = Language.where(name: params[:language]).first
-          users = User.joins(:languages).where('language_id=? and status=? and users.discipline_id=? and is_freelancer=?', l.id, status, discipline_id, is_freelancer).limit(limit)
+          users = User.joins(:languages).where('language_id=? and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= 3', l.id, status, discipline_id, is_freelancer).limit(limit)
         else
-          users = User.where("status=? and is_freelancer=? and discipline_id=?", status, true, discipline_id).limit(limit)
+          users = User.where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >= 3", status, true, discipline_id).limit(limit)
         end
         @users_status << [status, users.uniq]
       end
@@ -50,9 +50,12 @@ class UsersController < ApplicationController
     users = []
     offset = 6
     if (platforms_in.present? || languages_in.present?)
-      users = User.joins(:platforms).joins(:languages).where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=?', platforms_in, languages_in, status, discipline_id, is_freelancer).offset(offset)
+      # queries can be refactor here
+      exclude_users = User.joins(:platforms).joins(:languages).select('users.id').where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= 3', platforms_in, languages_in, status, discipline_id, is_freelancer).limit(6)
+      users = User.joins(:platforms).joins(:languages).where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and users.id NOT IN(?)', platforms_in, languages_in, status, discipline_id, is_freelancer, exclude_users.collect(&:id))
     else
-      users = User.where("status=? and is_freelancer=? and discipline_id=?", status, true, discipline_id).offset(offset)
+      exclude_users = User.select('id').where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >= 3", status, true, discipline_id).limit(6)
+      users = User.where("status=? and is_freelancer=? and discipline_id=? and id NOT IN(?)", status, true, discipline_id, exclude_users.collect(&:id))
     end
     @user_status = users.uniq
     respond_with(@user_status, :layout => !request.xhr? )
@@ -106,6 +109,7 @@ class UsersController < ApplicationController
       recomendation.skillable_type = skill_type.classify
       recomendation.recommendi_id = @freelancer.id
       current_user.recommendations << recomendation
+      current_user.endorsers_count = current_user.top_endorsers_count
       current_user.save
     end
   end
@@ -127,6 +131,8 @@ class UsersController < ApplicationController
   def remove_recommendation
     recomendation = Recommendation.find(params[:id])
     recomendation.delete
+    current_user.endorsers_count = current_user.top_endorsers_count
+    current_user.save
     render text: :ok
   end
 

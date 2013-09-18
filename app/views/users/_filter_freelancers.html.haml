@@ -12,4 +12,4 @@
     %hr
     - count = 0
     #endorsings
-      = render partial: 'endorsings', locals: {row: row[1]}, :formats=>[:html]
+      = render partial: 'endorsings.html.haml', locals: {row: row[1]}#, :formats=>[:html]

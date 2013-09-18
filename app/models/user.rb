@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
   end
 
   def top_endorsers_count
-    recommendies.select(:user_id).group(:user_id).order('count("recommendi_id") DESC').count
+    recommendies.select(:user_id).group(:user_id).order('count("recommendi_id") DESC').count.count
   end
 
   def top_endorsers

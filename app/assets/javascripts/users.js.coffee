@@ -69,6 +69,7 @@ window.onload = ->
         $("#details-panel").html error.responseText
         $('#loading').css('display', 'none')
         rebindEvent()
+        rebindMoreLinks()
 
   getIds = (div) ->
     if div == '#dialogP' || div == '#platforms'
@@ -191,9 +192,7 @@ window.onload = ->
   $('.liked img').click ->
     $('#require-login').dialog('open')
     
-
-  $('.more-freelancers').click ->
-    id = "#{$(this).attr('id')}"
+  window.fetch_more = (id)->
     $.ajax
       type: "GET"
       url: "/freelancers/fetch/more"
@@ -204,6 +203,9 @@ window.onload = ->
         status: id
       dataType: "json"
       beforeSend: ->
+        console.log(id)
+        console.log(".#{id} #error-div")
+        console.log('----')
         $(".#{id} #error-div").remove()
       success: (data) ->
         $(".#{id} #endorsings").append data
@@ -212,8 +214,15 @@ window.onload = ->
         $(".#{id} #endorsings").append data.responseText
         rebindEvent()
 
-  window.rebindEvent = ->
+  window.rebindMoreLinks = ->
     console.log('rebinding event...')
+    $('.more-freelancers a').click ->
+      id = "#{$(this).parent().attr('id')}"
+      fetch_more(id)
+      $(this).unbind('click')
+      
+  window.rebindEvent = ->
+
     $(".companies").each ->
       id = "##{$(this).attr('id')}"
       $(id).dialog
@@ -238,3 +247,4 @@ window.onload = ->
       $(id).dialog 'open'
 
   rebindEvent()
+  rebindMoreLinks()
