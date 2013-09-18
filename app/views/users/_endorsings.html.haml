@@ -25,9 +25,11 @@
               - unless company.blank?
                 = link_to (image_tag thumbnail_url(recommendi, :icon), class: 'icon', style: 'width: 25px;'), 'javascript:void(0)',class: 'company', id: "company-#{company.id}"
                 .companies{id: "companies-#{company.id}", style: "display: none;", title: 'Company'}
-                  %p Company Name:
+                  %p 
+                    Company Name:
                     %strong
                       = company.name
-                  %p Address
+                  %p 
+                    Address:
                     %strong
                       = company.address
