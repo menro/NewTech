@@ -92,6 +92,10 @@ class User < ActiveRecord::Base
     self.user_skills = User.find(self.id).user_skills
   end
 
+  def top_endorsers_count
+    recommendies.select(:user_id).group(:user_id).order('count("recommendi_id") DESC').count
+  end
+
   def top_endorsers
     recoms = recommendies.select(:user_id).group(:user_id).order('count("recommendi_id") DESC').limit(3)
     users = []
