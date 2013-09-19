@@ -26,10 +26,10 @@
     %br
     = form_tag(users_path, class: 'custom fullwidth-drops', onsubmit: "return false" ) do
       = select_tag :discipline, options_for_select(User::ALLOWED_DISCIPLINES_AS_OPTIONS, params[:discipline_id]), :label => false, placeholder: 'Discipline', :input_html => { :required => true , :class => "text top", :onchange => "updateCheckboxes();"}
-      #select-all{style: 'margin-bottom: 10px;'}
-        = label_tag :browse_all, 'Show all freelancers', style: "width: 155px; float:left;"
-        = check_box_tag :browse_all
-        %hr{style: "margin-top: 8px;"}
+      -#select-all{style: 'margin-bottom: 10px;'}
+        -# label_tag :browse_all, 'Show all freelancers', style: "width: 155px; float:left;"
+        -# check_box_tag :browse_all
+        -# %hr{style: "margin-top: 8px;"}
 
       %div#platforms
         .top-row
