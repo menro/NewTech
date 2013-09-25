@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     is_freelancer = true
     limit = 6
     fconifgs = FreelancerConfig.first
-    endorse_count, bump = fconifgs.endorse_count, fconifgs.bump
+    endorse_count = fconifgs.endorse_count
     if params[:search] && params[:search][:browse_all] == 'true'
        @users_status = User.browse_all
      else
@@ -24,18 +24,18 @@ class UsersController < ApplicationController
         users = []
         if params[:search].present? && params[:search][:developer].present?
           if (params[:search][:platforms_in].present? || params[:search][:languages_in].present?)
-            users = User.joins(:platforms).joins(:languages).where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= ? and bump >=?',params[:search][:platforms_in],  params[:search][:languages_in], status, discipline_id, is_freelancer, endorse_count, bump).limit(limit)
+            users = User.joins(:platforms).joins(:languages).where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= ? ',params[:search][:platforms_in],  params[:search][:languages_in], status, discipline_id, is_freelancer, endorse_count).order('endorsers_count').limit(limit)
           else
             users += User.where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >= 3 ", status, true, discipline_id).limit(limit)
           end
         elsif params[:platform].present?
           p = Platform.where(name: params[:platform]).first
-          users = User.joins(:platforms).where('platform_id =? and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= ? and bump >=? ', p.id, status, discipline_id, is_freelancer, endorse_count, bump).limit(limit)
+          users = User.joins(:platforms).where('platform_id =? and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= ? ', p.id, status, discipline_id, is_freelancer, endorse_count).order('endorsers_count').limit(limit)
         elsif params[:language].present?
           l = Language.where(name: params[:language]).first
-          users = User.joins(:languages).where('language_id=? and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= ? and bump >=?', l.id, status, discipline_id, is_freelancer, endorse_count, bump).limit(limit)
+          users = User.joins(:languages).where('language_id=? and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= ? ', l.id, status, discipline_id, is_freelancer, endorse_count).order('endorsers_count').limit(limit)
         else
-          users = User.where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >= ? and bump >=?", status, true, discipline_id, endorse_count, bump).limit(limit)
+          users = User.where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >= ?", status, true, discipline_id, endorse_count).order('endorsers_count').limit(limit)
         end
         @users_status << [status, users.uniq]
       end
@@ -54,10 +54,10 @@ class UsersController < ApplicationController
     if (platforms_in.present? || languages_in.present?)
       # queries can be refactor here
       exclude_users = User.joins(:platforms).joins(:languages).select('users.id').where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= 3', platforms_in, languages_in, status, discipline_id, is_freelancer).limit(6)
-      users = User.joins(:platforms).joins(:languages).where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and users.id NOT IN(?)', platforms_in, languages_in, status, discipline_id, is_freelancer, exclude_users.collect(&:id))
+      users = User.joins(:platforms).joins(:languages).where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and users.id NOT IN(?)', platforms_in, languages_in, status, discipline_id, is_freelancer, exclude_users.collect(&:id)).order('endorsers_count')
     else
       exclude_users = User.select('id').where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >= 3", status, true, discipline_id).limit(6)
-      users = User.where("status=? and is_freelancer=? and discipline_id=? and id NOT IN(?)", status, true, discipline_id, exclude_users.collect(&:id))
+      users = User.where("status=? and is_freelancer=? and discipline_id=? and id NOT IN(?)", status, true, discipline_id, exclude_users.collect(&:id)).order('endorsers_count')
     end
     @user_status = users.uniq
     respond_with(@user_status, :layout => !request.xhr? )
