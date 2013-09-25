@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130918191319) do
+ActiveRecord::Schema.define(:version => 20130925033844) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -135,6 +135,13 @@ ActiveRecord::Schema.define(:version => 20130918191319) do
   end
 
   add_index "events", ["start_at"], :name => "index_events_on_start_at"
+
+  create_table "freelancer_configs", :force => true do |t|
+    t.integer  "bump"
+    t.integer  "endorse_count"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "investments_types", :force => true do |t|
     t.string   "name"
@@ -316,6 +323,7 @@ ActiveRecord::Schema.define(:version => 20130918191319) do
     t.boolean  "is_company",             :default => true
     t.boolean  "receive_notification",   :default => true
     t.integer  "endorsers_count",        :default => 0
+    t.integer  "bump",                   :default => 0
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
