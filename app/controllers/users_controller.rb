@@ -26,7 +26,7 @@ class UsersController < ApplicationController
           if (params[:search][:platforms_in].present? || params[:search][:languages_in].present?)
             users = User.joins(:platforms).joins(:languages).where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= ? ',params[:search][:platforms_in],  params[:search][:languages_in], status, discipline_id, is_freelancer, endorse_count).order('endorsers_count DESC').limit(limit)
           else
-            users += User.where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >=? ", status, true, discipline_id, endorse_count).limit(limit)
+            users += User.where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >=? ", status, true, discipline_id, endorse_count).order('endorsers_count DESC').limit(limit)
           end
         elsif params[:platform].present?
           p = Platform.where(name: params[:platform]).first
