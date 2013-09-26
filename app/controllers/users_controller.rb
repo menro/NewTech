@@ -71,14 +71,15 @@ class UsersController < ApplicationController
     limit = 6
     @total_count = 0
     @status = params[:status]
+    endorse_count = FreelancerConfig.first.endorse_count
     if (platforms_in.present? || languages_in.present?)
       # queries can be refactor here
-      exclude_users = User.joins(:platforms).joins(:languages).select('users.id').where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= 3', platforms_in, languages_in, status, discipline_id, is_freelancer).order('endorsers_count DESC').limit(limit)
-      users = User.joins(:platforms).joins(:languages).where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and users.id NOT IN(?)', platforms_in, languages_in, status, discipline_id, is_freelancer, exclude_users.collect(&:id)).order('endorsers_count DESC')
+      exclude_users = User.joins(:platforms).joins(:languages).select('users.id').where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= ?', platforms_in, languages_in, status, discipline_id, is_freelancer, endorse_count).order('endorsers_count DESC').limit(limit)
+      users = User.joins(:platforms).joins(:languages).where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and users.id NOT IN(?) and endorsers_count >= ?', platforms_in, languages_in, status, discipline_id, is_freelancer, exclude_users.collect(&:id), endorse_count).order('endorsers_count DESC')
       @total_count = exclude_users.count + users.count
     else
-      exclude_users = User.select('id').where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >= 3", status, true, discipline_id).order('endorsers_count DESC').limit(limit)
-      users = User.where("status=? and is_freelancer=? and discipline_id=? and id NOT IN(?)", status, true, discipline_id, exclude_users.collect(&:id)).order('endorsers_count DESC')
+      exclude_users = User.select('id').where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >= ?", status, true, discipline_id, endorse_count).order('endorsers_count DESC').limit(limit)
+      users = User.where("status=? and is_freelancer=? and discipline_id=? and id NOT IN(?) and endorsers_count >= ?", status, true, discipline_id, exclude_users.collect(&:id), endorse_count).order('endorsers_count DESC')
       @total_count = exclude_users.count + users.count
     end
     @user_status = users.uniq
