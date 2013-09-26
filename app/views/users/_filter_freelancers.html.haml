@@ -7,7 +7,9 @@
         %h3
           = row[0].titleize
       .more-link.more-freelancers{id: row[0]}
-        = link_to 'More...', 'javascript:void(0)'
+        %p{style: "margin: 0px;color: #7895A4;line-height: 30px;font-family: Helvetica;font-size: 12px;"}
+          = "(#{row[2]}/#{row[3]})"
+          = link_to "  More...", 'javascript:void(0)'
     %br
     %hr
     - count = 0

@@ -1,7 +1,7 @@
 - if row.blank?
   .clear
   .row#error-div{style: 'margin-left: 5px;'}
-    %h5{style: 'color: red'} Sorry! No freelancers available.
+    %h5{style: 'color: red'} Sorry! No more freelancers available.
 -else
   - row.each_with_index do |user, index|
     -# next if user.top_endorsers_count < 3 && (params[:search].nil? || params[:search] && params[:search][:browse_all] == 'false')

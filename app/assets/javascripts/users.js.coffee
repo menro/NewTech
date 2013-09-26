@@ -60,7 +60,6 @@ window.onload = ->
       beforeSend: ->
         $('#loading').css('display', 'block')
       success: (data) ->
-        console.log('success...')
         $("#details-panel").html data
         rebindEvent()
       complete: ->
@@ -203,21 +202,21 @@ window.onload = ->
         status: id
       dataType: "json"
       beforeSend: ->
-        console.log(id)
-        console.log(".#{id} #error-div")
-        console.log('----')
         $(".#{id} #error-div").remove()
       success: (data) ->
         $(".#{id} #endorsings").append data
       complete: ->
       error: (data) ->
         $(".#{id} #endorsings").append data.responseText
+        count = $('#total_count_'+id).val()
+        $('#available p').html("("+count+"/"+count+") <a href='javascript:void(0)'>  More...</a>")
         rebindEvent()
+        # rebindMoreLinks()
 
   window.rebindMoreLinks = ->
     console.log('rebinding event...')
     $('.more-freelancers a').click ->
-      id = "#{$(this).parent().attr('id')}"
+      id = "#{$(this).parent().parent().attr('id')}"
       fetch_more(id)
       $(this).unbind('click')
       
@@ -233,17 +232,14 @@ window.onload = ->
         buttons:
           Ok: ->
             $(this).dialog('close')
-      console.log('closing...'+id)
       $(id).dialog "close"
     $(".ui-dialog-content").dialog("close");
 
     $('.company').click ->
-      console.log('open dialog...')
       id = "#{$(this).attr('id')}"
       # id = id.split('-')[1]
       id = id.replace('company', 'companies')
       id = "##{id}"
-      console.log(id)
       $(id).dialog 'open'
 
   rebindEvent()
