@@ -15,8 +15,8 @@ class UsersController < ApplicationController
     @disciplines = Discipline.all
     is_freelancer = true
     limit = 6
-    fconifgs = FreelancerConfig.first
-    endorse_count = fconifgs.endorse_count
+    endorse_count = FreelancerConfig.first.endorse_count
+
     if params[:search] && params[:search][:browse_all] == 'true'
        @users_status = User.browse_all
      else
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
           if (params[:search][:platforms_in].present? || params[:search][:languages_in].present?)
             users = User.joins(:platforms).joins(:languages).where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= ? ',params[:search][:platforms_in],  params[:search][:languages_in], status, discipline_id, is_freelancer, endorse_count).order('endorsers_count DESC').limit(limit)
           else
-            users += User.where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >= 3 ", status, true, discipline_id).limit(limit)
+            users += User.where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >=? ", status, true, discipline_id, endorse_count).limit(limit)
           end
         elsif params[:platform].present?
           p = Platform.where(name: params[:platform]).first
