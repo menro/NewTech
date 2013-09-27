@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
     @disciplines = Discipline.all
     is_freelancer = true
-    limit = 6
+    limit = 1
     endorse_count = FreelancerConfig.first.endorse_count
 
     if params[:search] && params[:search][:browse_all] == 'true'
@@ -72,7 +72,7 @@ class UsersController < ApplicationController
     is_freelancer = true
     users = []
     offset = 6
-    limit = 6
+    limit = 1
     @total_count = 0
     @status = params[:status]
     endorse_count = FreelancerConfig.first.endorse_count
@@ -141,6 +141,8 @@ class UsersController < ApplicationController
       recomendation.skillable_type = skill_type.classify
       recomendation.recommendi_id = @freelancer.id
       current_user.recommendations << recomendation
+      current_user.endorsers_count = current_user.top_endorsers_count
+      current_user.save
       current_user.endorsers_count = current_user.top_endorsers_count
       current_user.save
     end
