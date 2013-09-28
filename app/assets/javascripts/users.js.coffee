@@ -209,7 +209,7 @@ window.onload = ->
       error: (data) ->
         $(".#{id} #endorsings").html data.responseText
         count = $('#total_count_'+id).val()
-        $('#available p').html("("+count+"/"+count+") <a href='javascript:void(0)'>  More...</a>")
+        $("##{id} p").html("("+count+"/"+count+") <a href='javascript:void(0)'>  More...</a>")
         rebindEvent()
         # rebindMoreLinks()
 
