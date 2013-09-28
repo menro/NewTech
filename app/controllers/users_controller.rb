@@ -33,32 +33,32 @@ class UsersController < ApplicationController
             users = User.joins(:platforms).joins(:languages).where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= ? ',platforms,  languages, status, discipline_id, is_freelancer, endorse_count).order('endorsers_count DESC')
             total_count = users.uniq.count
             u = users.limit(limit)
-            selected_count = u.count
+            selected_count = u.uniq.count
           else
             users = User.where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >=? ", status, true, discipline_id, endorse_count).order('endorsers_count DESC')
             total_count = users.uniq.count
             u = users.limit(limit)
-          selected_count = u.count
+          selected_count = u.uniq.count
           end
         elsif params[:platform].present?
           p = Platform.where(name: params[:platform]).first
           users = User.joins(:platforms).where('platform_id =? and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= ? ', p.id, status, discipline_id, is_freelancer, endorse_count).order('endorsers_count DESC')
           total_count = users.uniq.count
           u = users.limit(limit)
-          selected_count = u.count
+          selected_count = u.uniq.count
         elsif params[:language].present?
           l = Language.where(name: params[:language]).first
           users = User.joins(:languages).where('language_id=? and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= ? ', l.id, status, discipline_id, is_freelancer, endorse_count).order('endorsers_count DESC')
           total_count = users.uniq.count
           u = users.limit(limit)
-          selected_count = u.count
+          selected_count = u.uniq.count
         else
           users = User.where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >= ?", status, true, discipline_id, endorse_count).order('endorsers_count DESC')
           total_count = users.uniq.count
           u = users.limit(limit)
-          selected_count = u.count
+          selected_count = u.uniq.count
         end
-        @users_status << [status, u, selected_count, total_count]
+        @users_status << [status, u.uniq, selected_count, total_count]
       end
     end
     respond_with(@users_status, :layout => !request.xhr? )
