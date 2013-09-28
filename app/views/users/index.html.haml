@@ -40,6 +40,7 @@
         .clear
         %hr
         - @disciplines.each_with_index do |dis, index|
+          = hidden_field_tag :platforms_name, dis.platforms_name, id: "#{dis.id}-platforms-name"
           - display = 'none'
           - if params[:discipline_id].present?
             - display = 'block' if params[:discipline_id].to_i == dis.id
@@ -64,6 +65,7 @@
         .clear
         %hr
         - @disciplines.each_with_index do |dis, index|
+          = hidden_field_tag :languages_name, dis.languages_name, id: "#{dis.id}-languages-name"
           - display = 'none'
           - if params[:discipline_id].present?
             - display = 'block' if params[:discipline_id].to_i == dis.id

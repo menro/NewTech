@@ -139,18 +139,25 @@ window.onload = ->
   refresh_checkboxes = ->
     $('.display_items').css('display', 'none')
     $('.display_items :checked').removeAttr('checked')
-    id = "#disp-"+$('#discipline').val()
+    discipline = $('#discipline').val()
+
+    # changing titles of platforms and languages.
+    $('#languages .top-row h4').text($("##{discipline}-languages-name").val())
+    $('#platforms .top-row h4').text($("##{discipline}-platforms-name").val())
+
+    # rest of the logic
+    id = "#disp-"+discipline
     $(id).css('display','block')
     $(id).css('display','block')
-    id = "#disl-"+$('#discipline').val()
+    id = "#disl-"+discipline
     $(id).css('display','block')
-    id = "#dialogL-#{$('#discipline').val()}"
+    id = "#dialogL-#{discipline}"
     if $(id).length > 0
       $("#all-lang").css('display', 'block')
     else
       $("#all-lang").css('display', 'none')
 
-    id = "#dialogP-#{$('#discipline').val()}"
+    id = "#dialogP-#{discipline}"
     if $(id).length > 0
       $("#all-plat").css('display', 'block')
     else

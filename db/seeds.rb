@@ -413,6 +413,35 @@ des.languages << Language.create({name: 'Forcasting', on_page: false})
 des.languages << Language.create({name: 'Technical', on_page: false})
 des.languages << Language.create({name: 'Design', on_page: false})
 
+discipline = Discipline.find_by_name('Developer')
+discipline.languages_name = 'Languages'
+discipline.platforms_name = 'Platforms'
+discipline.save
+
+discipline = Discipline.find_by_name('Designer')
+discipline.languages_name = 'Tools'
+discipline.platforms_name = 'Specialites'
+discipline.save
+
+discipline = Discipline.find_by_name('Operations')
+discipline.languages_name = 'Skills'
+discipline.platforms_name = 'Platforms'
+discipline.save
+
+discipline = Discipline.find_by_name('Business Development')
+discipline.languages_name = 'Skills'
+discipline.platforms_name = 'Expertise'
+discipline.save
+
+discipline = Discipline.find_by_name('Marketing')
+discipline.languages_name = 'Experience'
+discipline.platforms_name = 'Skills'
+discipline.save
+
+discipline = Discipline.find_by_name('Mentor')
+discipline.languages_name = 'Skills'
+discipline.platforms_name = 'Expertise'
+discipline.save
 
 # languages
 # platforms
