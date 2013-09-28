@@ -82,13 +82,13 @@ class UsersController < ApplicationController
       # queries can be refactor here
       platforms_in = platforms_in || [0]
       languages_in = languages_in || [0]
-      exclude_users = User.joins(:platforms).joins(:languages).select('users.id').where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= ?', platforms_in, languages_in, status, discipline_id, is_freelancer, endorse_count).order('endorsers_count DESC').limit(limit)
-      users = User.joins(:platforms).joins(:languages).where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and users.id NOT IN(?) and endorsers_count >= ?', platforms_in, languages_in, status, discipline_id, is_freelancer, exclude_users.collect(&:id), endorse_count).order('endorsers_count DESC')
-      @total_count = exclude_users.uniq.count + users.uniq.count
+      # exclude_users = User.joins(:platforms).joins(:languages).select('users.id').where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= ?', platforms_in, languages_in, status, discipline_id, is_freelancer, endorse_count).order('endorsers_count DESC').limit(limit)
+      users = User.joins(:platforms).joins(:languages).where('(platform_id IN (?) or language_id IN (?)) and status=? and users.discipline_id=? and is_freelancer=? and endorsers_count >= ?', platforms_in, languages_in, status, discipline_id, is_freelancer, endorse_count).order('endorsers_count DESC')
+      @total_count = users.uniq.count
     else
-      exclude_users = User.select('id').where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >= ?", status, true, discipline_id, endorse_count).order('endorsers_count DESC').limit(limit)
-      users = User.where("status=? and is_freelancer=? and discipline_id=? and id NOT IN(?) and endorsers_count >= ?", status, true, discipline_id, exclude_users.collect(&:id), endorse_count).order('endorsers_count DESC')
-      @total_count = exclude_users.uniq.count + users.uniq.count
+      # exclude_users = User.select('id').where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >= ?", status, true, discipline_id, endorse_count).order('endorsers_count DESC').limit(limit)
+      users = User.where("status=? and is_freelancer=? and discipline_id=? and endorsers_count >= ?", status, true, discipline_id, endorse_count).order('endorsers_count DESC')
+      @total_count = users.uniq.count
     end
     @user_status = users.uniq
     respond_with(@user_status, @total_count, @status, :layout => !request.xhr? )

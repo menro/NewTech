@@ -207,7 +207,7 @@ window.onload = ->
         $(".#{id} #endorsings").append data
       complete: ->
       error: (data) ->
-        $(".#{id} #endorsings").append data.responseText
+        $(".#{id} #endorsings").html data.responseText
         count = $('#total_count_'+id).val()
         $('#available p').html("("+count+"/"+count+") <a href='javascript:void(0)'>  More...</a>")
         rebindEvent()
