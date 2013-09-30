@@ -143,10 +143,8 @@ class UsersController < ApplicationController
       recomendation.skillable_type = skill_type.classify
       recomendation.recommendi_id = @freelancer.id
       current_user.recommendations << recomendation
-      current_user.endorsers_count = current_user.top_endorsers_count
-      current_user.save
-      current_user.endorsers_count = current_user.top_endorsers_count
-      current_user.save
+      @freelancer.endorsers_count = @freelancer.top_endorsers_count
+      @freelancer.save
     end
   end
 
