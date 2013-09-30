@@ -13,15 +13,6 @@ class User < ActiveRecord::Base
   ONSITE_REMOTE = ['remote', 'onsite']
   WORK_STATUS = ['available', 'shortly', 'working']
   USER_RATES = ['$', '$$', '$$$', '$$$$']
-
-  if Discipline.table_exists?
-    ALLOWED_LANGUAGES_AS_OPTIONS = Language.all.map {|t| [t.name.titleize, t.id]}
-    ALLOWED_PLATFORMS_AS_OPTIONS = Platform.all.map {|t| [t.name.titleize, t.id]}
-    ALLOWED_WORK_STATUS_AS_OPTIONS = WORK_STATUS.map {|t| [t.titleize, t]}
-    ALLOWED_WORK_ONSITE_AS_OPTIONS = WorkLocationType.all.map { |t| [t.name.titleize, t.id]}
-    ALLOWED_USER_RATES_AS_OPTIONS = USER_RATES.map { |t| [t, t]}
-    ALLOWED_DISCIPLINES_AS_OPTIONS = Discipline.all.map { |d| [d.name.titleize, d.id]}  
-  end
   
   attr_accessible :avatar
   has_attached_file :avatar,
@@ -146,6 +137,31 @@ class User < ActiveRecord::Base
     end
     users_status
   end
+
+  def self.allowed_languages_as_options 
+    Language.all.map {|t| [t.name.titleize, t.id]}
+  end
+  
+  def self.allowed_platforms_as_options
+    Platform.all.map {|t| [t.name.titleize, t.id]}
+  end
+  
+  def self.allowed_work_status_as_options
+    WORK_STATUS.map {|t| [t.titleize, t]}
+  end
+  
+  def self.allowed_work_onsite_as_options
+    WorkLocationType.all.map { |t| [t.name.titleize, t.id]}
+  end
+  
+  def self.allowed_user_rates_as_options
+    USER_RATES.map { |t| [t, t]}
+  end
+
+  def self.allowed_disciplines_as_options
+    Discipline.all.map { |d| [d.name.titleize, d.id]}      
+  end
+
 
   private
 

@@ -16,7 +16,7 @@
             .icon-e
               = image_tag 'money.png', title: 'Rate'
             .info
-              = f.input :rate, as: :select, collection: User::ALLOWED_USER_RATES_AS_OPTIONS, default: '$', input_html: {style: 'width 70%'}, label: false
+              = f.input :rate, as: :select, collection: User.allowed_user_rates_as_options, default: '$', input_html: {style: 'width 70%'}, label: false
           %hr
           .personal-url
             .icon-e
@@ -58,7 +58,7 @@
 
         %h5{style: "font-size: 11px;color: red;font-style: italic;font-weight: normal;"} (Changing discipline will reset your current selection of Platforms and Languages)
         %h5 Discipline
-        = f.association :discipline, :collection => User::ALLOWED_DISCIPLINES_AS_OPTIONS, :label => false, placeholder: 'Discipline', :default => @freelancer.discipline || 'Developer', :input_html => { :required => true , :class => "text top", :onchange => "updateCheckboxes();"}
+        = f.association :discipline, :collection => User.allowed_disciplines_as_options, :label => false, placeholder: 'Discipline', :default => @freelancer.discipline || 'Developer', :input_html => { :required => true , :class => "text top", :onchange => "updateCheckboxes();"}
         
         %br
         - @disciplines.each_with_index do |dis, index|
@@ -86,7 +86,7 @@
         %br
         %br
         .romote-onsite
-          = f.association :work_locations, as: :check_boxes ,collection: User::ALLOWED_WORK_ONSITE_AS_OPTIONS, label: false , :item_wrapper_class => 'inline'
+          = f.association :work_locations, as: :check_boxes ,collection: User.allowed_work_onsite_as_options, label: false , :item_wrapper_class => 'inline'
           = f.input :outside_colorado, inline_label: 'I live outside Colorado - $99 a year for a listing.', label: false
         %hr
         
