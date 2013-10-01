@@ -5,7 +5,8 @@ class Platform < ActiveRecord::Base
   has_many :users, through: :platform_sets
 
   has_many :endorsements, as: :skillable, class_name: 'Recommendation'
-  
+  belongs_to :discipline
+
   scope :on_page, where(on_page: true)
   scope :on_popup, where(on_page: false)
 
