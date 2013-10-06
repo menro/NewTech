@@ -30,7 +30,7 @@
           .row.details
             .span2.discipline
               - if @freelancer.discipline
-                = image_tag "freelance/#{@freelancer.discipline.try(:name).downcase.gsub(' ', '_')}.png"
+                = image_tag @freelancer.discipline.icon(:small), width: '24px', height: '18px'
                 = @freelancer.discipline.name
             .span2.experience
               = image_tag "freelance/experience.png"
