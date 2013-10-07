@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131006205443) do
+ActiveRecord::Schema.define(:version => 20131007183216) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(:version => 20131006205443) do
     t.string   "icon_content_type"
     t.integer  "icon_file_size"
     t.datetime "icon_updated_at"
+    t.boolean  "is_price_required", :default => true
   end
 
   create_table "employees_types", :force => true do |t|

@@ -289,7 +289,7 @@ div.search{
     }
     div.user-status{
       float: left;
-      width: 50%;
+      width: 70%;
       text-align: left;
       h3{
         font-family: Helvetica;
@@ -299,10 +299,18 @@ div.search{
         line-height: 32px;
       }
     }
+    div.create-profile-btn{
+      float: left;
+      width: 18%;
+      text-align: right;
+      a{
+        line-height: 25px;
+      }
+    }
     div.more-link{
       float: left;
       text-align: right;
-      width: 50%;
+      width: 12%;
       a{
         color: #7895A4;
         line-height: 30px;

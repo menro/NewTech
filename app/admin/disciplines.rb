@@ -4,6 +4,7 @@ ActiveAdmin.register Discipline do
       f.input :name
       f.input :languages_name
       f.input :platforms_name
+      f.input :is_price_required, as: :boolean
       f.input :icon, :multipart => true
     end
     f.buttons
@@ -14,6 +15,7 @@ ActiveAdmin.register Discipline do
     column :name
     column :languages_name
     column :platforms_name
+    column :is_price_required
     column :created_at
     column :updated_at
     default_actions

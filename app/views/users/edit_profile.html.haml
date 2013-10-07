@@ -12,11 +12,12 @@
         %br
         %br
         .links
-          .rate
-            .icon-e
-              = image_tag 'money.png', title: 'Rate'
-            .info
-              = f.input :rate, as: :select, collection: User.allowed_user_rates_as_options, default: '$', input_html: {style: 'width 70%'}, label: false
+          - if current_user.discipline.is_price_required?
+            .rate
+              .icon-e
+                = image_tag 'money.png', title: 'Rate'
+              .info
+                = f.input :rate, as: :select, collection: User.allowed_user_rates_as_options, default: '$', input_html: {style: 'width 70%'}, label: false
           %hr
           .personal-url
             .icon-e

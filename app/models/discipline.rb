@@ -1,5 +1,5 @@
 class Discipline < ActiveRecord::Base
-  attr_accessible :name, :platforms_name, :languages_name, :icon
+  attr_accessible :name, :platforms_name, :languages_name, :icon, :is_price_required
 
   has_many :languages
   has_many :platforms
