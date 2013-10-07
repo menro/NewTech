@@ -1,4 +1,7 @@
 class Discipline < ActiveRecord::Base
+
+  default_scope order("name ASC")
+
   attr_accessible :name, :platforms_name, :languages_name, :icon, :is_price_required
 
   has_many :languages
