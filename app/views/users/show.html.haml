@@ -38,9 +38,10 @@
             .span2.location
               = image_tag "freelance/locationpin.png"
               = @freelancer.town.blank? ? "Not Specified" : "#{@freelancer.town} (Works #{ @freelancer.work_locations.collect(&:name).join(' and ')})"
-            .span2.rate
-              = image_tag "freelance/rate.png"
-              = "Rate: #{@freelancer.rate}"
+            - if current_user.discipline.is_price_required?
+              .span2.rate
+                = image_tag "freelance/rate.png"
+                = "Rate: #{@freelancer.rate}"
           %hr
           .row.urls
             .span1
