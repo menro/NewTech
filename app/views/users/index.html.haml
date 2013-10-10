@@ -4,7 +4,7 @@
 .row.search
   - @disciplines.each_with_index do |dis, index|
     - display = 'none'
-    - display = 'block' if index == @discipline.id
+    - display = 'block' if dis.id == @discipline.id
     - id = "dialogP-#{dis.id}"
     - unless dis.platforms.on_popup.blank?
       %div.dialogP{id: id, style: 'display:none', title: 'Platforms'}
@@ -44,7 +44,7 @@
           - display = 'none'
           - if params[:discipline_id].present?
             - display = 'block' if params[:discipline_id].to_i == dis.id
-          - elsif index == 0
+          - elsif dis.id == @discipline.id
             - display = 'block'
 
           .display_items{id: "disp-#{dis.id}", style: "display: #{display}"}
@@ -61,7 +61,7 @@
           .heading
             %h4 Languages
           .more-link
-            = link_to 'More...', 'javascript:void(0)', id: 'all-lang'
+            = link_to "More...", 'javascript:void(0)', id: 'all-lang'
         .clear
         %hr
         - @disciplines.each_with_index do |dis, index|
@@ -69,7 +69,7 @@
           - display = 'none'
           - if params[:discipline_id].present?
             - display = 'block' if params[:discipline_id].to_i == dis.id
-          - elsif index == 0
+          - elsif dis.id == @discipline.id
             - display = 'block'
           .display_items{id: "disl-#{dis.id}", style: "display: #{display}"}
             - dis.languages.on_page.each do |p|
