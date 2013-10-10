@@ -9,9 +9,10 @@ class UsersController < ApplicationController
     elsif params && params[:discipline_id].present?
       discipline_id = params[:discipline_id]
     else
-      discipline_id = Discipline.first.id
+      discipline_id = Discipline.where(name: 'Developer').first.id
     end
-
+    @discipline = Discipline.find(discipline_id)
+    
     @disciplines = Discipline.all
     is_freelancer = true
     limit = 6

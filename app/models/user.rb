@@ -159,7 +159,8 @@ class User < ActiveRecord::Base
   end
 
   def self.allowed_disciplines_as_options
-    Discipline.all.map { |d| [d.name.titleize, d.id]}      
+    discipline = Discipline.where(name: 'Developer').first
+    [[discipline.name.titleize, discipline.id]] + Discipline.where("id !=?", discipline.id).all.map { |d| [d.name.titleize, d.id]}
   end
 
 

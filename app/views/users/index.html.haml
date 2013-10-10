@@ -4,7 +4,7 @@
 .row.search
   - @disciplines.each_with_index do |dis, index|
     - display = 'none'
-    - display = 'block' if index == 0
+    - display = 'block' if index == @discipline.id
     - id = "dialogP-#{dis.id}"
     - unless dis.platforms.on_popup.blank?
       %div.dialogP{id: id, style: 'display:none', title: 'Platforms'}

@@ -9,8 +9,8 @@ SimpleNavigation::Configuration.run do |navigation|
 
     primary.dom_class = 'nav pull-right'
 
-    primary.item :add_a_job, content_tag(:i, nil, :class => 'icon-plus') << t(:'simple_navigation.post_a_job'), new_job_url
-    primary.item :add_you_company, content_tag(:i, nil, :class => 'icon-plus') << t(:'simple_navigation.add_you_company'), new_company_url
+    # primary.item :add_a_job, content_tag(:i, nil, :class => 'icon-plus') << t(:'simple_navigation.post_a_job'), new_job_url
+    # primary.item :add_you_company, content_tag(:i, nil, :class => 'icon-plus') << t(:'simple_navigation.add_you_company'), new_company_url
     if user_signed_in?
       primary.item :account, content_tag(:i, nil, :class => 'icon-user') << current_user.username, "#" do |account|
         if current_user.is_freelancer?
@@ -33,6 +33,14 @@ SimpleNavigation::Configuration.run do |navigation|
         if current_user.is_admin?
           account.item :admin, content_tag(:i, nil, :class => 'icon-cogs') << t(:'simple_navigation.admin'), admin_dashboard_path
         end
+
+        account.item :add_a_job, 
+                      content_tag(:i, nil, :class => 'icon-plus') << t(:'simple_navigation.post_a_job'), 
+                      new_job_url
+                      
+        account.item :add_you_company, 
+                      content_tag(:i, nil, :class => 'icon-plus') << t(:'simple_navigation.add_you_company'), 
+                      new_company_url
 
         account.item :account_logout, content_tag(:i, nil, :class => 'icon-off') << t(:'simple_navigation.account.logout'),
                      destroy_user_session_path, :method => 'delete'
