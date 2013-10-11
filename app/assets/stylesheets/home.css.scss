@@ -554,6 +554,17 @@ table.summary-table td.summary-numbers {
     //padding-left: 15px;
     display: none;
 }
+#add-your-company{
+    background-color: white;
+    opacity: 0.8;
+    box-shadow: 4px 4px 2px #999;
+    width: 95%;
+    border: 2px solid #7895A4;
+    margin-bottom: 10px;
+    h3{
+      font-size: 15px!important;
+    }
+}
 #event-box {
     background-color: white;
     opacity: 0.8;
