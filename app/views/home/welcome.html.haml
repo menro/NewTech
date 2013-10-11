@@ -26,6 +26,8 @@
 #box-summary-total
 = render :partial => 'jquerytpl'
 #box-events-list
+  #add-your-company
+    = link_to image_tag('add-your-company.png'), new_company_url
   #event-box
     = render :partial => 'company_list'
   #sponsor-box
