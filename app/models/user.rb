@@ -171,6 +171,7 @@ class User < ActiveRecord::Base
     self.experience = self.experience || 0
     self.gravatar = "http://1.gravatar.com/avatar/#{Digest::MD5.hexdigest(self.email)}"
     self.username = self.username.downcase.gsub(/\s/,'')
+    self.discipline = Discipline.where(name: 'Developer').first
   end
 
   def self.languages_in(language)
