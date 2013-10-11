@@ -6,8 +6,8 @@
       .user-status
         %h3 
           = row[0].titleize
-      - if row[0] == 'available'
-        .create-profile-btn
+      .create-profile-btn
+        - if row[0] == 'available'
           - if !user_signed_in? 
             = link_to image_tag('freelance/claim-your-page.png'), new_user_session_path
           - elsif user_signed_in? && current_user.is_freelancer?
