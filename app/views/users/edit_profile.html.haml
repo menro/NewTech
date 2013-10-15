@@ -88,11 +88,19 @@
         %br
         .romote-onsite
           = f.association :work_locations, as: :check_boxes ,collection: User.allowed_work_onsite_as_options, label: false , :item_wrapper_class => 'inline'
-          = f.input :outside_colorado, inline_label: 'I live outside Colorado - $99 a year for a listing.', label: false
+          %div
+            .living-outside
+              = f.input :outside_colorado, inline_label: 'I live outside Colorado - $99 a year for a listing.', label: false
+            .amazon-btn
+              %a{href: 'javascript:void(0);'}
+                %img{src: "http://g-ecx.images-amazon.com/images/G/01/asp/beige_small_paynow_withlogo_whitebg.gif", border:"0", style:"width:100px;", onclick: "$('#amazon-form').submit()"}
         %hr
         
     .span1
       = f.submit 'save', class: 'btn'
+
+  .amazon-btn1
+    = render 'amazon_payment_btn'
 
   .row.remove-endorsements
     .span2{style: ''}
