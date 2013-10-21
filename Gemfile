@@ -88,6 +88,7 @@ gem 'geokit-rails3'
 
 # Heroku deployment
 gem 'heroku'
+gem 'memcachier'
 gem 'dalli'
 
 # Performance monitoring
