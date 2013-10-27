@@ -10,7 +10,8 @@ class CompanyDecorator < Draper::Base
   end
 
   def category_marker_image
-    category.marker_image
+    # category.marker_image
+    category.marker_icon(:icon)
   end
 
 end

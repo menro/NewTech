@@ -283,7 +283,8 @@
           content: content
         });
 
-        var imageUrl = '/assets/'+company.category_marker_image;
+        // var imageUrl = '/assets/'+company.category_marker_image;
+        var imageUrl = company.category_marker_image;
         var markerImage = new google.maps.MarkerImage(
           imageUrl, new google.maps.Size(31, 42));
 

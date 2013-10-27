@@ -1,5 +1,5 @@
 class Category < ActiveRecord::Base
-  attr_accessible :id, :name, :marker_image, :description
+  attr_accessible :id, :name, :marker_image, :description, :marker_icon
 
   has_many :companies
 
@@ -52,7 +52,23 @@ class Category < ActiveRecord::Base
             .group("categories.name")
           }
 
-
+  has_attached_file :marker_icon,
+                    :styles => {
+                        thumb: "100x100>",
+                        icon: "25x25>",
+                        regular: "175x175>",
+                        small: "35x35>"
+                    },
+                    :default_url => "http://b.dryicons.com/images/icon_sets/colorful_stickers_icons_set/png/256x256/help.png",
+                    :storage => :s3,
+                    :s3_protocol => 'https',
+                    :s3_permissions => :public_read,
+                    :bucket => configatron.s3.bucket,
+                    :s3_credentials => {
+                        :access_key_id => configatron.s3.credentials.access_key_id,
+                        :secret_access_key => configatron.s3.credentials.secret_access_key
+                    },
+                    :path => "/:class/:id/:style.:extension"
 
 
 end
