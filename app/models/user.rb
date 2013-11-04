@@ -163,6 +163,9 @@ class User < ActiveRecord::Base
     [[discipline.name.titleize, discipline.id]] + Discipline.where("id !=?", discipline.id).all.map { |d| [d.name.titleize, d.id]}
   end
 
+  def self.available_freelancers(limit = 5)
+    User.where("is_freelancer=true and status = 'available'").order('RANDOM()').limit(limit)
+  end
 
   private
 

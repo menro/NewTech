@@ -1,12 +1,12 @@
 
 = content_for :navbar_extras do
   %form#search_form.navbar-search
-    %input#search_query.search-query.span3{:placeholder => "search for a company..."}
+    %input#search_query.search-query.span3{:placeholder => "Search For A Company, Jobs, Freelancers, Events..."}
 
-= content_for :eventsbar do
-  = render partial: 'partial_templates/events_bar'
+=# content_for :eventsbar do
+=# render partial: 'partial_templates/events_bar'
 
-= render :partial => 'filters'
+=# render :partial => 'filters'
 
 #tooltip-centerer
   #tooltip.alert.alert-info
@@ -35,6 +35,16 @@
     = render :partial => 'company_list'
   #sponsor-box
     = render :partial => 'sponsor_box'
+.bottom-list-boxes
+  .job-board-list
+    = render 'job-board-list'
+  .freelancers-list
+    = render 'freelancers-list'
+  .events-list
+    = render 'events-list'
+  .trending-news-list
+    = render 'trending-news-list'
+
 
 = content_for :javascripts do
   = javascript_include_tag("https://maps.googleapis.com/maps/api/js?sensor=false")

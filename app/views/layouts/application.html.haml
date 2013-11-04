@@ -16,14 +16,12 @@
       #{google_analytics_js}
   %body
     %header.navbar
-      %div#events_bar
-        = yield(:eventsbar)
       %nav.navbar-inner
         .container-fluid
           .pull-left
             = link_to "", root_path, :class => "brand newtech"
             = render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap
-            = render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap, :context => :user
+            =# render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap, :context => :user
             = yield(:navbar_extras)
     #main{:role => "main"}
       = render :partial => 'layouts/messages'

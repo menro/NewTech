@@ -2,13 +2,19 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#main{
+  // top: 30px;
+}
+.navbar{
+  margin-bottom: 0px;
+}
 
 .gmap_wrapper {
   position: fixed;
-  top: 138px;
+  // top: 45px;
   left: 0px;
   width:100%;
-  height:100%;
+  height:55%;
   z-index: -999;
 }
 
@@ -414,7 +420,7 @@
   overflow: auto;
   overflow-x: hidden;
   display: none;
-  top: 138px;
+  top: 45px;
   bottom: 2px;
 }
 
@@ -480,7 +486,8 @@
 }
 
 .bottom-left-1 {
-  bottom: 10px;
+  // bottom: 10px;
+  bottom: 40%;
 }
 
 .bottom-left-2 {
@@ -540,11 +547,12 @@ table.summary-table td.summary-numbers {
     height: auto;
     float: right;
     margin-right: 10px;
-    bottom: 10px;
+    // bottom: 10px;
+    bottom: 40%;
     text-align: center;
     position: fixed;
     display: block;
-    vertical-align: bottom;
+    // vertical-align: bottom;
     right: -5px;
     //border-width: 4px;
     //border-color: maroon    ;
@@ -652,9 +660,61 @@ table.summary-table td.summary-numbers {
         color: #7895A4;
     }
 }
-#pay-now{
-    width:20em;padding-left:10px;padding-top:10px;padding-right:10px;padding-bottom:10px;
+
+#pay-now{width:20em;padding-left:10px;padding-top:10px;padding-right:10px;padding-bottom:10px;}
+
+.bottom-list-boxes{width: 100%;height: 40%;background-color: #EEE;position: fixed;top: 62%;}
+
+.freelancers-list, .events-list, .trending-news-list, .job-board-list{width: 24.5%;height: 100%;float: left;border: 1px solid white;}
+
+.job-board-list{
+  .job-list-header{float: left;background-color: green;
+  }
+}
+.freelancers-list{
+  .freelancers-list-header{float: left;background-color: gray;}
+  .freelancers-list-contents{
+    .freelancer-box{
+      float: left;
+      width: 25%;
+      // border: 1px solid white;
+      min-width: 65px;
+      img{width: 100%;}
+      .freelancer-discipline{background-color: gray;text-align: center;border-right: 1px solid white;
+        h6{color: white;font-size: 11px;font-weight: normal;text-transform: none;}}
+    }
+  }
+}
+.events-list{
+  overflow: scroll;
+  .events-list-header{float: left;background-color: red;position: fixed;width: 24.5%;z-index: 100;}
+  .events-list-contents{margin-top: 30px;}
+}
+.trending-news-list{
+  .trending-news-list-header{
+    float: left;
+    background-color: #507282;
+  }
+}
+.list-header{height: 30px;width: 100%;text-align: center;
+  h4{color: white;line-height: 30px;}
 }
 
+#events_list li.event-item {list-style-image: none;display: inline-block;width: 90%;min-width: 200px;text-align: left;margin-top: 15px;border-bottom: 1px solid white;}
 
+#events_list li.event-item .event-item-inner {text-align: left;display: inline-block;}
+
+#events_list li.event-item .event-item-inner a {color: #063640;text-decoration: none;}
+
+#events_list li.event-item .event-item-inner .main {display: inline-block;}
+
+#events_list li.event-item .event-item-inner .title {font-size: 1.2em;font-weight: bold;}
+
+#events_list li.event-item .event-item-inner .text {white-space: nowrap;}
+
+#events_list li.event-item .event-item-inner .status {display: inline-block;border-radius: 5px;padding: 6px 10px;font-weight: bold;position: relative;top: -10px;left: 2px;}
+
+#events_list li.event-item .event-item-inner .status.rsvp {background-color: #0A3545;color: white;}
+
+#events_list li.event-item .event-item-inner .status.rsvp:before {content: "RSVP";}
 

@@ -1,0 +1,12 @@
+.events-list-header.list-header
+  %h4 Upcoming Events
+.events-list-contents#events_list
+  %ul.event-list
+    - @events.each do |event|
+      %li.event-item
+        %div.event-item-inner
+          %a{:href => event.preview || 'javascript:void(0)', :target => "_blank"}
+            .main
+              .title=event.title
+              .text=event.start_at.to_time.strftime("%B %e %l.%M%p")
+            .status.rsvp

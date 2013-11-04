@@ -81,7 +81,7 @@
                     "featureType": "administrative.country"
                 }
                 ],
-        center: new google.maps.LatLng(39.232253, -105.08606)
+        center: new google.maps.LatLng(39.7392, -104.9847)
       };
       currentMap = new google.maps.Map(container, defaultOptions);
       google.maps.event.addListener(currentMap, 'zoom_changed', function() {
@@ -149,15 +149,15 @@
 
   function updateRecentBox(){
       if(currentMap.getZoom() <= 8){
-          if($(window).height() < 594){
-              $('#box-events-list').hide("fast");
-          }
-          else{
-              $('#company-list').hide();
-              $('#companies-header').hide();
-              $('#box-events-list').fadeIn(500);
-          }
-      }
+      //     if($(window).height() < 594){
+      //         $('#box-events-list').hide("fast");
+      //     }
+      //     else{
+      //         $('#company-list').hide();
+      //         $('#companies-header').hide();
+      //         $('#box-events-list').fadeIn(500);
+      //     }
+       }
       else{
           $('#box-events-list').hide("fast");
       }
@@ -765,20 +765,20 @@
       accordion.css({height: height + "px"});
       eventList.css({height: height + "px"});
 
-      $('.gmap_wrapper, #company-list').css({top: (138 + height) + "px"});
+      // $('.gmap_wrapper, #company-list').css({top: (45 + height) + "px"});
 
       $('#events_bar .bar_title .title, #events_bar #events_switch').click(function(e){
         e.preventDefault();
         $('#box-events-list').hide("fast");
         if(!accordion.height()) {
-          accordion.animate({height: height + "px"}, 250);
-          $('.gmap_wrapper, #company-list').animate({top: (138 + height) + "px"}, 250);
+          // accordion.animate({height: height + "px"}, 250);
+          // $('.gmap_wrapper, #company-list').animate({top: (45 + height) + "px"}, 250);
 
           $("#events_bar #events_switch img").attr("src", "assets/close.png");
         }
         else {
           accordion.animate({height: "0px"}, 250);
-          $('.gmap_wrapper, #company-list').animate({top: 138 + "px"}, 250);
+          // $('.gmap_wrapper, #company-list').animate({top: 45 + "px"}, 250);
 
           $("#events_bar #events_switch img").attr("src", "assets/open.png");
         }
@@ -792,7 +792,7 @@
 
       return $('.gmap').each(function() {
         setSlider();
-	setKickstarterListener();
+	      setKickstarterListener();
         setHiringListener();
         setEmployeeMenuListener();
         setInvestmentMenuListener();

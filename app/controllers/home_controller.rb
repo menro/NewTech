@@ -23,6 +23,7 @@ class HomeController < ApplicationController
     @events             = EventService.all
     @recent_companies   = Company.get_recent_companies
     @sponsor            = Sponsor.get_randomly
+    @freelancers        = User.available_freelancers(7)
   end
 
   def email_confirmation
