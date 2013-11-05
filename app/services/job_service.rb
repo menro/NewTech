@@ -77,4 +77,8 @@ class JobService
     skills
   end
 
+  def self.most_recent(limit)
+    JobDecorator.decorate(Job.order("expires_on DESC").limit(5))
+  end
+
 end

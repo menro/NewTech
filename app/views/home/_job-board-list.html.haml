@@ -1,3 +1,15 @@
 .job-list-header.list-header
-  %h4 Job Board
+  %a{href: '/hiring', target: '_blank'}
+    %h4 Job Board
 .job-list-contents
+  %ul.event-list
+    - @jobs.each do |job|
+      %li.item
+        %div.item-inner
+          .title
+            = link_to job.title, job.clickthrough, target: '_blank'
+          .details
+            .company
+              = job.company_name
+            .contact
+              = link_to 'Contact', "mailto:#{job.email}"
