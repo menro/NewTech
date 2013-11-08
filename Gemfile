@@ -94,6 +94,9 @@ gem 'dalli'
 # Performance monitoring
 gem 'newrelic_rpm'
 
+# twitter feed
+gem 'twitter'
+
 # unicorn: Rack based HTTP server
 group :staging, :production do
   gem 'unicorn'

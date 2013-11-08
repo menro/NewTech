@@ -63,5 +63,13 @@ module Newtech
 
     # fix https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting
     config.assets.initialize_on_precompile = false
+
+    config.before_configuration do
+      env_file = File.join(Rails.root, 'config', 'application.yml')
+      YAML.load(File.open(env_file)).each do |key, value|
+        ENV[key.to_s] = value
+      end if File.exists?(env_file)
+    end if Rails.env == 'development'
+    
   end
 end

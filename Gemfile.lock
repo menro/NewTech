@@ -98,6 +98,8 @@ GEM
     excon (0.16.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     fastercsv (1.5.5)
     font-awesome-sass-rails (2.0.0.0)
       railties (>= 3.1.1)
@@ -163,6 +165,7 @@ GEM
     modernizr-rails (2.0.6)
     multi_json (1.7.2)
     multi_xml (0.5.1)
+    multipart-post (1.2.0)
     mysql2 (0.3.11)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
@@ -240,6 +243,7 @@ GEM
     simple_form (2.0.4)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
+    simple_oauth (0.2.0)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -260,6 +264,10 @@ GEM
     turbo-sprockets-rails3 (0.3.2)
       railties (> 3.2.8, < 4.0.0)
       sprockets (>= 2.0.0)
+    twitter (4.8.1)
+      faraday (~> 0.8, < 0.10)
+      multi_json (~> 1.0)
+      simple_oauth (~> 0.2)
     tzinfo (0.3.37)
     uglifier (1.0.3)
       execjs (>= 0.3.0)
@@ -320,5 +328,6 @@ DEPENDENCIES
   therubyracer
   thin
   turbo-sprockets-rails3
+  twitter
   uglifier (= 1.0.3)
   unicorn
