@@ -1,3 +1,19 @@
 .trending-news-list-header.list-header
   %h4 Trending News
-.tending-news-lis-contents
+.trending-news-lis-contents
+  %ul.event-list
+    - @trending_news.each do |news|
+      %li.event-item
+        %div.event-item-inner
+          .avtar
+            = link_to image_tag(news.publisher_thumbnail_url), news.publisher_profile_url, target: '_blank'
+          .news-details
+            .title
+              = link_to news.truncated_title, news.url, target: '_blank'
+            .screen_name
+              = "@#{news.publisher_name}"
+            .details
+              .publisher
+                = link_to 'Publisher', news.publisher_profile_url, target: '_blank'
+              .votes
+                = "Votes: #{news.votes}"

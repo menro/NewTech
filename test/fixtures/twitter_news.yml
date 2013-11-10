@@ -1,0 +1,49 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tweet_id: 1
+  news_title: MyText
+  news_url: MyString
+  votes: 1
+  publisher_name: MyString
+  publisher_image_url: MyString
+  publisher_profile_url: MyString
+  retweet_count: 1
+  favorite_count: 1
+  favorited: false
+  retweeted: false
+  tweet_created_at: 2013-11-10 20:13:49
+  tweet_user_id: 1
+  tweet_user_name: MyString
+  tweet_user_screen_name: MyString
+  tweet_user_location: MyString
+  tweet_user_description: MyString
+  tweet_user_url: MyString
+  tweet_user_followers_count: 1
+  tweet_user_friends_count: 1
+  tweet_user_favourites_count: 1
+  tweet_user_profile_image_url: 1
+
+two:
+  tweet_id: 1
+  news_title: MyText
+  news_url: MyString
+  votes: 1
+  publisher_name: MyString
+  publisher_image_url: MyString
+  publisher_profile_url: MyString
+  retweet_count: 1
+  favorite_count: 1
+  favorited: false
+  retweeted: false
+  tweet_created_at: 2013-11-10 20:13:49
+  tweet_user_id: 1
+  tweet_user_name: MyString
+  tweet_user_screen_name: MyString
+  tweet_user_location: MyString
+  tweet_user_description: MyString
+  tweet_user_url: MyString
+  tweet_user_followers_count: 1
+  tweet_user_friends_count: 1
+  tweet_user_favourites_count: 1
+  tweet_user_profile_image_url: 1
