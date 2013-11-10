@@ -1,6 +1,8 @@
 desc 'Sync News Feed from Twitter'
 namespace :trending_news do
   task sync_news_feed_from_twitter: :environment do 
+    require 'config/environment'
+    
     client = Twitter.client
 
     client.user_timeline('bdnt').each do |tweet_wrapper|
