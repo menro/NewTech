@@ -1,8 +1,9 @@
 desc 'Sync News Feed from Twitter'
 namespace :trending_news do
   task sync_news_feed_from_twitter: :environment do 
-    require 'config/environment'
-    
+    # require 'config/environment'
+    puts :environment 
+
     client = Twitter.client
 
     client.user_timeline('bdnt').each do |tweet_wrapper|
@@ -50,7 +51,8 @@ namespace :trending_news do
       tweet_user_favourites_count = tweet.user.favourites_count
       tweet_user_profile_image_url = tweet.user.profile_image_url
 
-      twitter_news = TwitterNews.find_or_create_by_tweet_id(tweet.id.to_s)
+      puts User.first
+      twitter_news = TwitterNew.find_or_create_by_tweet_id(tweet.id.to_s)
       if twitter_news.new_record?
         puts 'Creating new News entry...'
         puts news_title
