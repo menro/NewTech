@@ -1,6 +1,6 @@
 class TwitterNewsDecorator < Draper::Base
 
-  decorates :twitter_new
+  decorates :twitter_news
 
   def title
     news_title

@@ -52,7 +52,7 @@ namespace :trending_news do
       tweet_user_profile_image_url = tweet.user.profile_image_url
 
       puts User.first
-      twitter_news = TwitterNew.find_or_create_by_tweet_id(tweet.id.to_s)
+      twitter_news = TwitterNews.new #find_or_create_by_tweet_id(tweet.id.to_s)
       if twitter_news.new_record?
         puts 'Creating new News entry...'
         puts news_title
@@ -81,7 +81,7 @@ namespace :trending_news do
       twitter_news.tweet_user_friends_count = tweet_user_friends_count
       twitter_news.tweet_user_favourites_count = tweet_user_favourites_count
       twitter_news.tweet_user_profile_image_url = tweet_user_profile_image_url
-      if twitter_news.save
+      if false #twitter_news.save
         puts "News successfully created. #{twitter_news.id}"
       else
         puts "There are some errors creating news."
