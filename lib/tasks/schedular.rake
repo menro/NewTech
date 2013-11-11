@@ -39,6 +39,7 @@ namespace :trending_news do
       favorited = tweet.favorited
       retweeted = tweet.retweeted
       tweet_created_at = tweet.created_at
+      tweet_date = tweet.created_at.to_date
       
       tweet_user_id = tweet.user.id.to_s
       tweet_user_name = tweet.user.name
@@ -51,7 +52,6 @@ namespace :trending_news do
       tweet_user_favourites_count = tweet.user.favourites_count
       tweet_user_profile_image_url = tweet.user.profile_image_url
 
-      puts User.first
       twitter_news = TwitterNews.find_or_create_by_tweet_id(tweet.id.to_s)
       if twitter_news.new_record?
         puts 'Creating new News entry...'
@@ -71,6 +71,7 @@ namespace :trending_news do
       twitter_news.favorited = favorited
       twitter_news.retweeted = retweeted
       twitter_news.tweet_created_at = tweet_created_at
+      twitter_news.tweet_date = tweet_date
       twitter_news.tweet_user_id = tweet_user_id
       twitter_news.tweet_user_name = tweet_user_name
       twitter_news.tweet_user_screen_name = tweet_user_screen_name
