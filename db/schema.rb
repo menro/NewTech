@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131111195556) do
+ActiveRecord::Schema.define(:version => 20131112184339) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -310,9 +310,10 @@ ActiveRecord::Schema.define(:version => 20131111195556) do
     t.integer  "tweet_user_friends_count"
     t.integer  "tweet_user_favourites_count"
     t.integer  "tweet_user_profile_image_url"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.date     "tweet_date"
+    t.integer  "bump",                         :default => 0
   end
 
   create_table "users", :force => true do |t|
@@ -363,6 +364,7 @@ ActiveRecord::Schema.define(:version => 20131111195556) do
     t.boolean  "receive_notification",   :default => true
     t.integer  "endorsers_count",        :default => 0
     t.integer  "bump",                   :default => 0
+    t.integer  "profile_views",          :default => 0
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

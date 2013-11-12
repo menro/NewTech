@@ -25,16 +25,17 @@
 #box-summary-county
 #box-summary-total
 = render :partial => 'jquerytpl'
-#box-events-list
-  #add-your-company
-    #updates-header
-      = link_to new_company_url do
-        %h3 ADD YOUR COMPANY
+/ #box-events-list
+/   #add-your-company
+/     #updates-header
+/       = link_to new_company_url do
+/         %h3 ADD YOUR COMPANY
 
-  #event-box
-    = render :partial => 'company_list'
-  #sponsor-box
-    = render :partial => 'sponsor_box'
+/   #event-box
+/     = render :partial => 'company_list'
+/   #sponsor-box
+/     = render :partial => 'sponsor_box'
+    
 .bottom-list-boxes
   .job-board-list
     = render 'job-board-list'

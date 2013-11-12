@@ -12,6 +12,7 @@ ActiveAdmin.register User do
     column :username
     column :email
     column :is_freelancer
+    column :profile_views
     default_actions
   end
 
@@ -21,6 +22,7 @@ ActiveAdmin.register User do
         row :username
         row :email
         row :is_freelancer
+        row :profile_views
       end
     end
   end

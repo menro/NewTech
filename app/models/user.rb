@@ -128,6 +128,11 @@ class User < ActiveRecord::Base
     rec.present?
   end
 
+  def count_profile_views!
+    self.profile_views += 1
+    save
+  end
+
   def self.browse_all
     users_status = []
     User::WORK_STATUS.each do |status|
@@ -175,6 +180,7 @@ class User < ActiveRecord::Base
     self.gravatar = "http://1.gravatar.com/avatar/#{Digest::MD5.hexdigest(self.email)}"
     self.username = self.username.downcase.gsub(/\s/,'')
     self.discipline = Discipline.where(name: 'Developer').first
+    self.profile_views = 0 
   end
 
   def self.languages_in(language)

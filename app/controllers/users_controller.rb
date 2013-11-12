@@ -100,6 +100,7 @@ class UsersController < ApplicationController
     if @freelancer.present? && !@freelancer.is_freelancer?
       redirect_to profile_path
     end
+    @freelancer.count_profile_views!
   end
 
   def edit_profile
