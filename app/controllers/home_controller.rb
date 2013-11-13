@@ -21,7 +21,7 @@ class HomeController < ApplicationController
     @employees_types    = EmployeesTypeService.all
     @investments_types  = InvestmentsTypeService.all
     @events             = EventService.all
-    @recent_companies   = Company.get_recent_companies
+    @recent_companies   = Company.get_recent_companies(5)
     @sponsor            = Sponsor.get_randomly
     @freelancers        = User.available_freelancers(7)
     @jobs               = JobService.most_recent(5)

@@ -665,34 +665,50 @@ table.summary-table td.summary-numbers {
 
 .bottom-list-boxes{width: 100%;height: 40%;background-color: #EEE;position: fixed;top: 62%;}
 
-.freelancers-list, .events-list, .trending-news-list, .job-board-list{width: 24.5%;height: 100%;float: left;border: 1px solid white;}
+.freelancers-list, .events-list, .trending-news-list, .job-board-list, .new-companies-list{width: 19.5%;height: 100%;float: left;border: 1px solid white;}
 
 .job-board-list{
-  .job-list-header{float: left;background-color: green;
-  }
+  .job-list-header{float: left;background-color: green;}
 }
 .freelancers-list{
   .freelancers-list-header{float: left;background-color: gray;}
   .freelancers-list-contents{
     .freelancer-box{
       float: left;
-      width: 25%;
-      // border: 1px solid white;
+      width: 33%;
       min-width: 65px;
-      img{width: 100%;}
+      text-align: center;
+      // img{width: 100%;}
       .freelancer-discipline{background-color: gray;text-align: center;border-right: 1px solid white;
-        h6{color: white;font-size: 11px;font-weight: normal;text-transform: none;}}
+        h6{color: white;font-size: 9px;font-weight: normal;text-transform: none;}}
+    }
+  }
+}
+.new-companies-list{
+  .new-companies-header{background-color: #280000;}
+  .new-companies-list-contents{
+    .company-box{
+      float: left;
+      width: 33%;
+      min-width: 65px;
+      text-align: center;
+      // img{width: 100%;}
+      .company-category{background-color: gray;text-align: center;border-right: 1px solid white;
+        h6{color: white;text-transform: none;font-size: 9px;font-weight: normal;}}
     }
   }
 }
 .events-list{
   overflow: scroll;
-  .events-list-header{float: left;background-color: red;position: fixed;width: 24.5%;z-index: 100;}
+  .events-list-header{float: left;background-color: red;position: fixed;width: 19.5%;z-index: 100;}
   .events-list-contents{margin-top: 30px;}
+}
+ul.event-list{
+  margin: 0 0 9px 15px;
 }
 .trending-news-list{
   overflow: scroll;
-  .trending-news-list-header{float: left;background-color: #507282;position: fixed;width: 24.5%;z-index: 100;}
+  .trending-news-list-header{float: left;background-color: #507282;position: fixed;width: 19.5%;z-index: 100;}
   .trending-news-lis-contents{margin-top: 25px;}
   
   li.event-item {list-style-image: none;display: inline-block;width: 98%;min-width: 200px;text-align: left;margin-top: 15px;border-bottom: 1px solid white;}
@@ -700,7 +716,7 @@ table.summary-table td.summary-numbers {
   li.event-item .event-item-inner a {color: #063640;text-decoration: none;}
   li.event-item .event-item-inner .avtar{float: left;width: 25%;min-width: 60px;padding-top: 5px;}
   li.event-item .event-item-inner .avtar img{width: 60px;}
-  li.event-item .event-item-inner .news-details{float: left;width: 70%;font-size: 8pt;}
+  li.event-item .event-item-inner .news-details{float: left;width: 70%;font-size: 8pt;padding-left: 5px;}
   li.event-item .event-item-inner .news-details .screen_name{color: #063640;font-size: 9pt;}
   li.event-item .event-item-inner .news-details .details .publisher{float: left;width: 25%;font-size: 8pt;}
   li.event-item .event-item-inner .news-details .details .votes{float: left;width: 50%;color: #063640;font-size: 8pt;}
@@ -730,13 +746,13 @@ table.summary-table td.summary-numbers {
 #events_list li.event-item .event-item-inner .status.rsvp:before {content: "RSVP";}
 
 .job-board-list{overflow: scroll;
-  .job-list-header{float: left;position: fixed;width: 24.5%;z-index: 100;}
+  .job-list-header{float: left;position: fixed;width: 19.5%;z-index: 100;}
   .job-list-contents{margin-top: 30px;}
 }
 
 .job-list-contents {}
 
-.job-list-contents ul.event-list {margin: 0 0 9px 25px;padding: 0;list-style-image: none;min-width: 200px;}
+.job-list-contents ul.event-list {margin: 0 0 9px 15px;padding: 0;list-style-image: none;min-width: 200px;}
 
 .job-list-contents li.item {list-style-image: none;display: inline-block;width: 90%;min-width: 200px;text-align: left;margin-top: 15px;border-bottom: 1px solid white;}
 
