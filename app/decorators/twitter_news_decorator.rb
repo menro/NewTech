@@ -7,7 +7,7 @@ class TwitterNewsDecorator < Draper::Base
   end
   
   def truncated_title
-    (title.length > 50) ? (title.slice(0, 48) + "...") : title
+    (title.length > 41) ? (title.slice(0, 35) + "...") : title
   end
 
   def url

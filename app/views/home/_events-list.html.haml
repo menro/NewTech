@@ -1,6 +1,12 @@
 .events-list-header.list-header
   %h4 Upcoming Events
-.events-list-contents#events_list
+.buttons-list
+  .btn1
+    = link_to 'See All', '#'
+  .btn2
+    = link_to 'Add an Event', '#'
+
+.events-list-contents#events_list.list-contents
   %ul.event-list
     - @events.each do |event|
       %li.event-item
@@ -9,4 +15,3 @@
             .main
               .title=event.title
               .text=event.start_at.to_time.strftime("%B %e %l.%M%p")
-            .status.rsvp

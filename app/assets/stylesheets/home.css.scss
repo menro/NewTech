@@ -685,7 +685,7 @@ table.summary-table td.summary-numbers {
   }
 }
 .new-companies-list{
-  .new-companies-header{background-color: #280000;}
+  .new-companies-header{background-color: #280000;position: fixed;width: 19.5%;}
   .new-companies-list-contents{
     .company-box{
       float: left;
@@ -701,7 +701,7 @@ table.summary-table td.summary-numbers {
 .events-list{
   overflow: scroll;
   .events-list-header{float: left;background-color: red;position: fixed;width: 19.5%;z-index: 100;}
-  .events-list-contents{margin-top: 30px;}
+  // .events-list-contents{margin-top: 30px;}
 }
 ul.event-list{
   margin: 0 0 9px 15px;
@@ -709,25 +709,26 @@ ul.event-list{
 .trending-news-list{
   overflow: scroll;
   .trending-news-list-header{float: left;background-color: #507282;position: fixed;width: 19.5%;z-index: 100;}
-  .trending-news-lis-contents{margin-top: 25px;}
+  // .trending-news-lis-contents{margin-top: 25px;}
   
-  li.event-item {list-style-image: none;display: inline-block;width: 98%;min-width: 200px;text-align: left;margin-top: 15px;border-bottom: 1px solid white;}
+  li.event-item {list-style-image: none;display: inline-block;width: 98%;min-width: 200px;text-align: left;margin-bottom: 15px;border-bottom: 1px solid white;}
   li.event-item .event-item-inner {text-align: left;display: inline-block;}
   li.event-item .event-item-inner a {color: #063640;text-decoration: none;}
-  li.event-item .event-item-inner .avtar{float: left;width: 25%;min-width: 60px;padding-top: 5px;}
+  li.event-item .event-item-inner .avtar{float: left;width: 25%;padding-top: 5px;}
   li.event-item .event-item-inner .avtar img{width: 60px;}
   li.event-item .event-item-inner .news-details{float: left;width: 70%;font-size: 8pt;padding-left: 5px;}
   li.event-item .event-item-inner .news-details .screen_name{color: #063640;font-size: 9pt;}
-  li.event-item .event-item-inner .news-details .details .publisher{float: left;width: 25%;font-size: 8pt;}
+  li.event-item .event-item-inner .news-details .details .publisher{float: left;width: 40%;font-size: 8pt;}
   li.event-item .event-item-inner .news-details .details .votes{float: left;width: 50%;color: #063640;font-size: 8pt;}
-  li.event-item .event-item-inner .title {font-size: 1em;font-weight: bold;font-size: 10pt;}
+  li.event-item .event-item-inner .title {font-size: 12px;font-weight: bold;font-size: 10pt;}
 }
 
-.list-header{height: 30px;width: 100%;text-align: center;
+.list-header{height: 30px;width: 19.5%;text-align: center;position: fixed;
   h4{color: white;line-height: 30px;}
 }
+.list-contents{margin-top: 60px;}
 
-#events_list li.event-item {list-style-image: none;display: inline-block;width: 90%;min-width: 200px;text-align: left;margin-top: 15px;border-bottom: 1px solid white;}
+#events_list li.event-item {list-style-image: none;display: inline-block;width: 90%;min-width: 200px;text-align: left;margin-bottom: 15px;border-bottom: 1px solid white;}
 
 #events_list li.event-item .event-item-inner {text-align: left;display: inline-block;}
 
@@ -735,7 +736,7 @@ ul.event-list{
 
 #events_list li.event-item .event-item-inner .main {display: inline-block;}
 
-#events_list li.event-item .event-item-inner .title {font-size: 10pt;font-weight: bold;}
+#events_list li.event-item .event-item-inner .title {font-size: 12px;font-weight: bold;}
 
 #events_list li.event-item .event-item-inner .text {white-space: nowrap;font-size: 8pt;}
 
@@ -747,14 +748,14 @@ ul.event-list{
 
 .job-board-list{overflow: scroll;
   .job-list-header{float: left;position: fixed;width: 19.5%;z-index: 100;}
-  .job-list-contents{margin-top: 30px;}
+  // .job-list-contents{margin-top: 30px;}
 }
 
 .job-list-contents {}
 
 .job-list-contents ul.event-list {margin: 0 0 9px 15px;padding: 0;list-style-image: none;min-width: 200px;}
 
-.job-list-contents li.item {list-style-image: none;display: inline-block;width: 90%;min-width: 200px;text-align: left;margin-top: 15px;border-bottom: 1px solid white;}
+.job-list-contents li.item {list-style-image: none;display: inline-block;width: 90%;min-width: 200px;text-align: left;margin-bottom: 15px;border-bottom: 1px solid white;}
 
 .job-list-contents li.item .item-inner {text-align: left;display: inline-block;}
 
@@ -762,10 +763,16 @@ ul.event-list{
 
 .job-list-contents li.item .item-inner {display: inline-block;}
 
-.job-list-contents li.item .item-inner .title {font-size: 1.2em;font-weight: bold;width: 100%;margin-bottom: 5px;float: left;}
+.job-list-contents li.item .item-inner .title {font-size: 12px;font-weight: bold;width: 100%;margin-bottom: 5px;float: left;}
 
-.job-list-contents li.item .item-inner .details {width: 100%;float: left;margin-bottom: 5px;}
+.job-list-contents li.item .item-inner .details {width: 100%;float: left;margin-bottom: 5px;font-size: 10px;}
 
 .job-list-contents li.item .item-inner .details .company {width: auto;margin-right: 5px;max-width: 65%;float: left;border-right: 1px solid black;padding-right: 5px;}
 
 .job-list-contents li.item .item-inner .details .contact {float: left;width: 30%;}
+
+.buttons-list{width: 100%;height: 30px;margin-top: 30px;position: fixed;width: 19.5%;}
+.buttons-list .btn1{width: 49%;float: left;background-color: white;border: 2px solid #EEE;text-align: center;height: 22px;}
+.buttons-list .btn1 a{color:#063640;line-height: 22px;text-decoration: none;font-size: 10px;}
+.buttons-list .btn2{width: 45%;float: left;background-color: white;text-align: center;border: 2px solid #EEE;height: 22px;}
+.buttons-list .btn2 a{color:#063640;line-height: 22px;text-decoration: none;font-size: 10px;}

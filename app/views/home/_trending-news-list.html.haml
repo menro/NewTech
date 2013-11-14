@@ -1,6 +1,11 @@
 .trending-news-list-header.list-header
   %h4 Trending News
-.trending-news-lis-contents
+.buttons-list
+  .btn1
+    = link_to 'See All', '#'
+  .btn2
+    = link_to 'Add New Stories', '#'
+.trending-news-lis-contents.list-contents
   %ul.event-list
     - @trending_news.each do |news|
       %li.event-item

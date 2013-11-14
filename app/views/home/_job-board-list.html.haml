@@ -1,13 +1,19 @@
 .job-list-header.list-header
   %a{href: '/hiring', target: '_blank'}
     %h4 Job Board
-.job-list-contents
+.buttons-list
+  .btn1
+    = link_to 'See All', '/hiring'
+  .btn2
+    = link_to 'Post a Job', '#'
+    
+.job-list-contents.list-contents
   %ul.event-list
     - @jobs.each do |job|
       %li.item
         %div.item-inner
           .title
-            = link_to job.title, job.clickthrough, target: '_blank'
+            = link_to ((job.title.length > 30) ? (job.title.slice(0, 30) + "...") : job.title) , job.clickthrough, target: '_blank'
           .details
             .company
               = job.company_name
