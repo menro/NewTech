@@ -4,7 +4,8 @@ class TwitterNews < ActiveRecord::Base
   before_save :set_votes
 
   def set_votes
-    self.votes = retweet_count + bump
+    self.retweet_count = 0 if self.retweet_count.nil?
+    self.votes = self.retweet_count + self.bump
   end
 
 end

@@ -6,7 +6,7 @@ namespace :trending_news do
 
     client = Twitter.client
 
-    client.user_timeline('bdnt').each do |tweet_wrapper|
+    client.home_timeline.each do |tweet_wrapper|
       # original tweet
       if tweet_wrapper.urls.count > 1 || tweet_wrapper.urls.count == 0
         puts "Skipping tweet..."
