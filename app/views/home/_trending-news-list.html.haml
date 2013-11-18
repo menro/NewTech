@@ -19,6 +19,6 @@
               = "@#{news.publisher_name}"
             .details
               .publisher
-                = link_to 'Publisher', news.publisher_profile_url, target: '_blank'
+                = "#{time_ago_in_words(news.tweet_created_at)} ago".gsub('minutes','m')
               .votes
                 = "Votes: #{news.votes}"

@@ -97,6 +97,10 @@ gem 'newrelic_rpm'
 # twitter feed
 gem 'twitter'
 
+# fetching news title for twitter news
+# gem 'open-uri'
+gem 'nokogiri'
+
 # unicorn: Rack based HTTP server
 group :staging, :production do
   gem 'unicorn'

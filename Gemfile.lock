@@ -312,6 +312,7 @@ DEPENDENCIES
   modernizr-rails
   mysql2
   newrelic_rpm
+  nokogiri
   paperclip (~> 3.0)
   pg (= 0.14.0)
   rabl

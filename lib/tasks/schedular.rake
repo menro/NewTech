@@ -23,8 +23,25 @@ namespace :trending_news do
         tweet = tweet_wrapper
       end
 
+      # scrap news title from the link given in tweet url
+      url = tweet.urls.last.url
+      puts "Scraping url...#{url}"
+      parsed = true
+      while parsed
+        begin
+          doc = Nokogiri::HTML(open(url))
+        rescue
+          next
+        end
+        parsed = false
+      end
+      news_title = doc.at_css("title").text
+      puts "Scrpeed news title...#{news_title}"
+      #skip if there is no news title.
+      next unless news_title.present?
+
       # Front end information (News Specific)
-      news_title = tweet.text
+      # news_title = tweet.text
       news_url = tweet.urls.last.url
       votes = tweet.retweet_count
       publisher_name =  tweet.user.screen_name
