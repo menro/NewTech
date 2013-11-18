@@ -69,6 +69,9 @@ namespace :trending_news do
       tweet_user_favourites_count = tweet.user.favourites_count
       tweet_user_profile_image_url = tweet.user.profile_image_url
 
+      twitter_name = TwitterName.find_or_create_by_name(tweet_user_screen_name) do
+      end
+
       twitter_news = TwitterNews.find_or_create_by_tweet_id(tweet.id.to_s)
       if twitter_news.new_record?
         puts 'Creating new News entry...'
@@ -79,7 +82,7 @@ namespace :trending_news do
       end
       twitter_news.news_title = news_title
       twitter_news.news_url = news_url
-      twitter_news.votes = votes
+      twitter_news.votes = votes + twitter_name.bump
       twitter_news.publisher_name = publisher_name
       twitter_news.publisher_image_url = publisher_image_url
       twitter_news.publisher_profile_url = publisher_profile_url
