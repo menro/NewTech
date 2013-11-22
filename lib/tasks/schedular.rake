@@ -6,7 +6,7 @@ namespace :trending_news do
 
     client = Twitter.client
 
-    client.home_timeline.each do |tweet_wrapper|
+    client.home_timeline({count: 101}).each do |tweet_wrapper|
       # original tweet
       if tweet_wrapper.urls.count > 1 || tweet_wrapper.urls.count == 0
         puts "Skipping tweet..."
@@ -69,8 +69,7 @@ namespace :trending_news do
       tweet_user_favourites_count = tweet.user.favourites_count
       tweet_user_profile_image_url = tweet.user.profile_image_url
 
-      twitter_name = TwitterName.find_or_create_by_name(tweet_user_screen_name) do
-      end
+      twitter_name = TwitterName.find_by_name(tweet_user_screen_name)
 
       twitter_news = TwitterNews.find_or_create_by_tweet_id(tweet.id.to_s)
       if twitter_news.new_record?
@@ -82,7 +81,7 @@ namespace :trending_news do
       end
       twitter_news.news_title = news_title
       twitter_news.news_url = news_url
-      twitter_news.votes = votes + twitter_name.bump
+      twitter_news.votes = votes + (twitter_name.try(:bump) || 0)
       twitter_news.publisher_name = publisher_name
       twitter_news.publisher_image_url = publisher_image_url
       twitter_news.publisher_profile_url = publisher_profile_url
