@@ -114,7 +114,10 @@ namespace :trending_news do
   end
 end
 
-
+desc 'Fetch county info from zipcodes'
+task fetch_counties: :environment do 
+  
+end
 
 
 

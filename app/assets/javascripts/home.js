@@ -15,16 +15,18 @@
   var nCountyCircles = 0;
   var countyLabels;
   var countyZoomLevel = 11; //PROVVISORIO - dovrei prendere il nro appropriato da county.map_zoom_level
+  var stateZoomLevel = 8;
+  var oldZoomLevel = stateZoomLevel;
 
   GMap = (function() {
 
     function GMap(container) {
-        $(window).bind('orientationchange',function(e) {
-          updateRecentBox();
-        });
-        $(window).bind('resize',function(e) {
-          updateRecentBox();
-        });
+        // $(window).bind('orientationchange',function(e) {
+        //   updateRecentBox();
+        // });
+        // $(window).bind('resize',function(e) {
+        //   updateRecentBox();
+        // });
 //        $(window).resize(function(){updateRecentBox();});
       // Initialize Google Map
       var defaultOptions;
@@ -39,7 +41,7 @@
         streetViewControl: false,
         overviewMapControl: false,
         minZoom: 7,
-        zoom: 8,
+        zoom: stateZoomLevel,
         scrollwheel: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         styles:
@@ -91,7 +93,7 @@
           setTimeout(function() { refreshForCurrentCounty(); }, 250);
       });
       drawCountyCircles(container);
-      loadRecentBox(8);
+      // loadRecentBox(8);
       refreshFilterMenus(container)
     }
 
@@ -107,6 +109,26 @@
   function refreshMap(container) {
     var zoomLevel = currentMap.getZoom();
     //console.log(zoomLevel);
+    console.log(zoomLevel,oldZoomLevel)
+    console.log('=====')
+
+    // Skipping zoom levels 9 & 10
+    if(zoomLevel > 8 && zoomLevel <11){
+      if (zoomLevel > oldZoomLevel ){
+        oldZoomLevel = countyZoomLevel;
+        currentMap.setZoom(countyZoomLevel);
+        refreshMap(container);
+      }
+      else{
+        oldZoomLevel = stateZoomLevel;
+        currentMap.setZoom(stateZoomLevel);
+        refreshMap(container); 
+      }
+    }
+    else{
+      oldZoomLevel = zoomLevel;
+    }
+    
 
     for(var i = 0; i < currentRequests.length; i++) {
       if(currentRequests[i])
@@ -114,13 +136,14 @@
     }
     currentRequests = [];
 
-    loadRecentBox(zoomLevel);
+    // loadRecentBox(zoomLevel);
 
     if (zoomLevel <= 8) {
       clearCompanyOffices();
       clearCountyCircles();
       drawCountyCircles(container);
-
+      console.log('drawing circles...')
+      
       var boxSummaryCounty = $('#box-summary-county');
       boxSummaryCounty.data("current_county_id", null);
       boxSummaryCounty.hide();
@@ -512,6 +535,7 @@
 
     var latlng = currentMap.getCenter();
     GGeocoder.geocode({'latLng': latlng}, function(results, status) {
+      console.log(results)
       if (status == google.maps.GeocoderStatus.OK) {
         for(var i = 0, iLimit = results.length; i < iLimit; i++) {
           var result = results[i], types = result.types, iscounty = false;
@@ -519,6 +543,8 @@
           for(var j = 0, jLimit = types.length; j < jLimit; j++) {
             if(types[j] == "administrative_area_level_2") {
               iscounty = true;
+              console.log('is county...')
+              console.log(types[j])
               break;
             }
           }
