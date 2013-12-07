@@ -16,8 +16,13 @@
   var countyLabels;
   var countyZoomLevel = 11; //PROVVISORIO - dovrei prendere il nro appropriato da county.map_zoom_level
   var stateZoomLevel = 8;
+  var currentZoomLevel = stateZoomLevel;
   var oldZoomLevel = stateZoomLevel;
 
+  var zoomLevelMap = {
+    8: 'State',
+    11: 'County'
+  }
   GMap = (function() {
 
     function GMap(container) {
@@ -94,7 +99,10 @@
       });
       drawCountyCircles(container);
       // loadRecentBox(8);
-      refreshFilterMenus(container)
+      refreshFilterMenus(container);
+
+      updateCommunityManagerStats()
+
     }
 
     GMap.init = function(container) {
@@ -108,31 +116,34 @@
 
   function refreshMap(container) {
     var zoomLevel = currentMap.getZoom();
-    //console.log(zoomLevel);
-    console.log(zoomLevel,oldZoomLevel)
-    console.log('=====')
+    currentZoomLevel = zoomLevel;
 
     // Skipping zoom levels 9 & 10
     if(zoomLevel > 8 && zoomLevel <11){
       if (zoomLevel > oldZoomLevel ){
         oldZoomLevel = countyZoomLevel;
         currentMap.setZoom(countyZoomLevel);
-        refreshMap(container);
+        return;
       }
       else{
         oldZoomLevel = stateZoomLevel;
         currentMap.setZoom(stateZoomLevel);
-        refreshMap(container); 
+        return;
       }
     }
     else{
+      console.log('Should bypass mannually updating zoom...', zoomLevel)
       oldZoomLevel = zoomLevel;
     }
-    
+    if(zoomLevel == countyZoomLevel || zoomLevel == stateZoomLevel){
+      updateBottomLists(container);
+    }
 
     for(var i = 0; i < currentRequests.length; i++) {
-      if(currentRequests[i])
-        currentRequests[i].abort();
+      console.log('Aborting request...');
+      console.log(currentRequests[i]);
+      // if(currentRequests[i])
+        // currentRequests[i].abort();
     }
     currentRequests = [];
 
@@ -142,7 +153,6 @@
       clearCompanyOffices();
       clearCountyCircles();
       drawCountyCircles(container);
-      console.log('drawing circles...')
       
       var boxSummaryCounty = $('#box-summary-county');
       boxSummaryCounty.data("current_county_id", null);
@@ -159,7 +169,7 @@
   }
 
   function loadRecentBox(zoomLevel){
-      if(isMobileDevice()){$('#box-events-list').hide("fast");return;}
+    if(isMobileDevice()){$('#box-events-list').hide("fast");return;}
     if(zoomLevel <= 8 && $(window).height() > 594){
       $('#company-list').hide();
       $('#companies-header').hide();
@@ -428,6 +438,8 @@
     $("#search_params").data("current_county_id", "");
     // County circles
     counties = {};
+    console.log($(container).data("counties_url"))
+    console.log(searchParams())
     currentRequests.push($.getJSON($(container).data("counties_url"), searchParams(), function(data) {
 
       //hide company list and flush companies results
@@ -447,6 +459,8 @@
       countyLabels = new Array();
       var totalCompanies = 0;
       $.each(data, function(i, county) {
+        // console.log(i)
+        // console.log(county)
         counties[county.id] = county.name;
         if (county.companies_numbers == 0) return;
         totalCompanies += county.companies_numbers;
@@ -503,6 +517,9 @@
         nCountyCircles++;
       });
 
+      console.log('counties..')
+      console.log(counties)
+      console.log('Circles should be drawn...')
       //draw total summary box
       var boxSummaryTotal = $('#box-summary-total');
       boxSummaryTotal.html($('#total-box_tpl').tmpl({totalCompanies: totalCompanies}));
@@ -516,6 +533,8 @@
    */
   function refreshForCurrentCounty() {
     var zoomLevel = currentMap.getZoom();
+    updateCommunityManagerStats()
+
     if(zoomLevel <= 8)
       return;
 
@@ -614,7 +633,7 @@
         to_year: srcParamsEl.data("to_year"),
         tag_code: srcParamsEl.data("tag_code"),
         current_county_id: srcParamsEl.data("current_county_id"),
-	kickstarter: srcParamsEl.data("kickstarter") ,
+	      kickstarter: srcParamsEl.data("kickstarter") ,
         hiring: srcParamsEl.data("hiring") ,
         employee_id: srcParamsEl.data("employee_id"),
         investment_id: srcParamsEl.data("investment_id"),
@@ -811,23 +830,72 @@
       });
     }
 
-    // Main
-    $(function () {
+  // This method will update the bottom lists of home page
+  // It will fetch the data for all of the lists for a particular county
+  function updateBottomLists(container){
+    $('.loader-div').show();
+    $('.freelancers-list-contents').html("");
+    $('.job-list-contents ul').html('');
+    $('.events-list-contents ul').html('');
+    $('.buttons-list').hide();
 
-      $('#tooltip').css("left", (document.body.offsetWidth / 2 - 344) + "px");
+    console.log($(container).data("bottom_list_url"))
+    console.log('Sending request for bottom lists.')
 
-      return $('.gmap').each(function() {
-        setSlider();
-	      setKickstarterListener();
-        setHiringListener();
-        setEmployeeMenuListener();
-        setInvestmentMenuListener();
-        setCategoryMenuListener();
-        setCategoryNameListener();
-        setTagMenuListener();
-        setEventsBarListener();
-        return GMap.init(this);
-      });
+    currentRequests.push($.getJSON($(container).data("bottom_list_url"), searchParams(), function(data) {
+      
+      console.log(data)
+      $.each(data, function(i, group) {
+        switch(i){
+          case 'freelancers':
+            $.each(group, function(key, freelancer){
+              $('#freelancer_tpl').tmpl(freelancer.freelancer).appendTo( $('.freelancers-list-contents') );
+            })
+            break;
+          
+          case 'jobs':
+            $.each(group, function(key, job){
+            $('#job_tpl').tmpl(job.job).appendTo( $('.job-list-contents ul') );  
+          })
+          break;
+
+          case 'events':
+            $.each(group, function(key, evnt){
+              $('#event_tpl').tmpl(evnt.event).appendTo( $('.events-list-contents ul') );
+            })
+            break;
+            
+        }
+        $('.loader-div').hide();
+        $('.buttons-list').show();
+      })
+    }))
+    updateCommunityManagerStats()
+  }
+
+  // Will update the zoom level, currenty county id etc on map
+  function updateCommunityManagerStats(){
+    $('#zoom-level').text(zoomLevelMap[currentZoomLevel])
+    $('#county-id').text($("#box-summary-county").data("current_county_id"))
+  }
+
+  // Main
+  $(function () {
+
+    $('#tooltip').css("left", (document.body.offsetWidth / 2 - 344) + "px");
+
+    return $('.gmap').each(function() {
+      setSlider();
+      setKickstarterListener();
+      setHiringListener();
+      setEmployeeMenuListener();
+      setInvestmentMenuListener();
+      setCategoryMenuListener();
+      setCategoryNameListener();
+      setTagMenuListener();
+      setEventsBarListener();
+      return GMap.init(this);
     });
+  });
 
 }).call(this);

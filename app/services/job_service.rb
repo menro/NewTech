@@ -50,7 +50,7 @@ class JobService
     %w(Developer Designer Product Sales Marketing Business)
   end
 
-  def self.search(params)
+  def self.search(params, limit = 1000)
     jobs = Job.scoped.joins(:company)
     jobs = jobs.currently_running
     jobs = jobs.title_like params[:title] unless params[:title].blank?

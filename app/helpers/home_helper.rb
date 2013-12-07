@@ -29,7 +29,8 @@ module HomeHelper
         :categories_url => "#{categories_api_v1_url(:json)}",
         :jobs_url => "#{jobs_api_v1_url(:json)}",
         :job_kinds_url => "#{job_kinds_api_v1_url(:json)}",
-        :job_roles_url => "#{job_roles_api_v1_url(:json)}"
+        :job_roles_url => "#{job_roles_api_v1_url(:json)}",
+        :bottom_list_url => "#{bottom_lists_api_v1_url(:json)}"
     }
   end
 end

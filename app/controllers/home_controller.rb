@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
 
-  before_filter :populate_collections
+  before_filter :populate_collections, except: [:bottom_lists]
 
   def welcome
     @counties           = County.all
@@ -31,4 +31,7 @@ class HomeController < ApplicationController
   def email_confirmation
   end
   
+  def bottom_lists
+    
+  end
 end

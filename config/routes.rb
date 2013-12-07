@@ -18,6 +18,7 @@ Newtech::Application.routes.draw do
       get :jobs
       get :job_kinds
       get :job_roles
+      get :bottom_lists
     end
   end
 

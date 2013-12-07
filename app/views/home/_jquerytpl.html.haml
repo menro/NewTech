@@ -89,3 +89,35 @@
 %script{:id => "jobs-list-empty_tpl", :type=>"text/x-jquery-tmpl" }
   %tr
     %td(colspan=5) Sorry, no matching listings found
+
+
+%script{:id => "freelancer_tpl", :type=>"text/x-jquery-tmpl" }
+  .freelancer-box
+    %a{href: "${show_freelancer_users_url}"}
+      %img.thumb_large{src: "${freelancer_avatar_thumb_url}" }
+    .freelancer-discipline
+      %h6 
+        ${freelancer_discipline_name}
+
+%script{:id => "job_tpl", :type=>"text/x-jquery-tmpl" }
+  %li.item
+    %div.item-inner
+      .title
+        %a{href: "${clickthrough}"}
+          ${title}
+      .details
+        .company
+          ${company_name}
+        .contact
+          %a{href: "mailto:${email}"}
+            Contact
+
+%script{:id => "event_tpl", :type=>"text/x-jquery-tmpl" }
+  %li.event-item
+    %div.event-item-inner
+      %a{:href => "${preview}", :target => "_blank"}
+        .main
+          .title
+            ${title}
+          .text
+            ${start_at}

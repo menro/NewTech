@@ -55,5 +55,13 @@ class ApiController < ApplicationController
     respond_with @skills
   end
 
+  def bottom_lists
+    @freelancers = UserService::search(params)
+    # @jobs = JobService::search(params, 5)
+    @jobs = JobService.most_recent(5)
+    @events = EventService.all # replace it with actual data call
+
+    # @trending_news = TwitterNewsService::search(params)
+  end
 
 end
