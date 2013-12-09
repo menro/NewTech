@@ -96,13 +96,13 @@
           refreshMap(container);
       });
       google.maps.event.addListener(currentMap, 'dragend', function() {
-          setTimeout(function() { refreshForCurrentCounty(); }, 250);
+          setTimeout(function() { refreshForCurrentCounty();updateCommunityManagerStats(container); }, 250);
       });
       drawCountyCircles(container);
       // loadRecentBox(8);
       refreshFilterMenus(container);
 
-      // updateCommunityManagerStats();
+      // updateCommunityManagerStats(container);
 
     }
 
@@ -519,7 +519,7 @@
         nCountyCircles++;
       });
 
-      updateCommunityManagerStats();
+      updateCommunityManagerStats(container);
 
       //draw total summary box
       var boxSummaryTotal = $('#box-summary-total');
@@ -534,7 +534,6 @@
   function refreshForCurrentCounty() {
 
     var zoomLevel = currentMap.getZoom();
-    updateCommunityManagerStats()
 
     if(zoomLevel <= 8)
       return;
@@ -874,11 +873,11 @@
         $('.buttons-list').show();
       })
     }))
-    updateCommunityManagerStats()
+    // updateCommunityManagerStats(container)
   }
 
   // Will update the zoom level, currenty county id etc on map
-  function updateCommunityManagerStats(){
+  function updateCommunityManagerStats(container){
 
     if(!GGeocoder)
       GGeocoder = new google.maps.Geocoder();
@@ -903,6 +902,7 @@
         }
       }
     });
+    updateBottomLists(container)
     $('#zoom-level').text(zoomLevelMap[currentZoomLevel])
   }
 
