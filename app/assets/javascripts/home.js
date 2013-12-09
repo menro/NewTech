@@ -339,7 +339,7 @@
         infoWindows[nOffices] = infowindow;
         nOffices++;
         company.marker_number = i+1;
-        $('#company_tpl').tmpl(company).appendTo( companyList );
+        // $('#company_tpl').tmpl(company).appendTo( companyList );
 
       });
       companyList.show();
