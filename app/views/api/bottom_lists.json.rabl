@@ -20,3 +20,11 @@ attributes :id, :preview, :title
 node(:start_at) { |event| event.start_at.to_time.strftime("%B %e %l.%M%p") }
 
 end
+
+child @companies => :companies do
+attributes :id
+
+node(:img_url) { |company| company.image.url(:thumb_small) }
+node(:category_name) { |company| company.category.name }
+
+end

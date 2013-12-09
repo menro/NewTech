@@ -121,3 +121,9 @@
             ${title}
           .text
             ${start_at}
+
+%script{:id => "company_bottom_tpl", :type=>"text/x-jquery-tmpl" }
+  .company-box
+    %img.thumb_small{src: '${img_url}'}
+    .company-category
+      %h6 ${category_name}

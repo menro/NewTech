@@ -638,7 +638,8 @@
         employee_id: srcParamsEl.data("employee_id"),
         investment_id: srcParamsEl.data("investment_id"),
         category_id: srcParamsEl.data("category_id"),
-        company_name: srcParamsEl.data("company_name")
+        company_name: srcParamsEl.data("company_name"),
+        zoom_level: zoomLevelMap[currentZoomLevel]
     }
     return search_params;
   }
@@ -837,9 +838,9 @@
     $('.freelancers-list-contents').html("");
     $('.job-list-contents ul').html('');
     $('.events-list-contents ul').html('');
+    $('.new-companies-list-contents').html('');
     $('.buttons-list').hide();
 
-    console.log($(container).data("bottom_list_url"))
     console.log('Sending request for bottom lists.')
 
     currentRequests.push($.getJSON($(container).data("bottom_list_url"), searchParams(), function(data) {
@@ -848,23 +849,29 @@
       $.each(data, function(i, group) {
         switch(i){
           case 'freelancers':
-            $.each(group, function(key, freelancer){
-              $('#freelancer_tpl').tmpl(freelancer.freelancer).appendTo( $('.freelancers-list-contents') );
+            $.each(group, function(key, obj){
+              $('#freelancer_tpl').tmpl(obj.freelancer).appendTo( $('.freelancers-list-contents') );
             })
             break;
           
           case 'jobs':
-            $.each(group, function(key, job){
-            $('#job_tpl').tmpl(job.job).appendTo( $('.job-list-contents ul') );  
-          })
-          break;
-
-          case 'events':
-            $.each(group, function(key, evnt){
-              $('#event_tpl').tmpl(evnt.event).appendTo( $('.events-list-contents ul') );
+            $.each(group, function(key, obj){
+              $('#job_tpl').tmpl(obj.job).appendTo( $('.job-list-contents ul') );  
             })
             break;
-            
+
+          case 'events':
+            $.each(group, function(key, obj){
+              $('#event_tpl').tmpl(obj.event).appendTo( $('.events-list-contents ul') );
+            })
+            break;
+
+          case 'companies':
+            $.each(group, function(key, obj){
+              $('#company_bottom_tpl').tmpl(obj.company).appendTo( $('.new-companies-list-contents') );  
+            })
+            break;
+
         }
         $('.loader-div').hide();
         $('.buttons-list').show();

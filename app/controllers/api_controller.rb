@@ -60,6 +60,8 @@ class ApiController < ApplicationController
     # @jobs = JobService::search(params, 5)
     @jobs = JobService.most_recent(5)
     @events = EventService.all # replace it with actual data call
+    # debugger
+    @companies = params[:zoom_level] == 'State' ? Company.get_recent_companies(5) : CompanyService::search(params)
 
     # @trending_news = TwitterNewsService::search(params)
   end

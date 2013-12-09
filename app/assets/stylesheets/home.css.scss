@@ -685,6 +685,7 @@ table.summary-table td.summary-numbers {
   }
 }
 .new-companies-list{
+  overflow-y: scroll;
   .new-companies-header{background-color: #280000;position: fixed;width: 19.5%;}
   .new-companies-list-contents{
     .company-box{
