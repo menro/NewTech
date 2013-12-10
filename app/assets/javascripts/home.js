@@ -136,7 +136,8 @@
       oldZoomLevel = zoomLevel;
     }
     if(zoomLevel == countyZoomLevel || zoomLevel == stateZoomLevel){
-      updateBottomLists(container);
+      // updateBottomLists(container);
+      updateCommunityManagerStats(container);
     }
 
     for(var i = 0; i < currentRequests.length; i++) {
@@ -896,13 +897,14 @@
               
               //Upate current county id.
               $('#county-id').text($("#search_params").data("current_county_id"))
+
+              updateBottomLists(container)
               break;
             }
           }
         }
       }
     });
-    updateBottomLists(container)
     $('#zoom-level').text(zoomLevelMap[currentZoomLevel])
   }
 
