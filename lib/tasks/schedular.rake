@@ -108,7 +108,10 @@ namespace :trending_news do
         puts twitter_news.errors.inspect
       end
       puts '*************************************************'
-    end    
+    end
+
+    last_id = TwitterNews.last.id
+    TwitterNews.where("id < ?", last_id - 500).delete_all
 
     puts "Task completed successfully..."
   end
