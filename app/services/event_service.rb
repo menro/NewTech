@@ -10,4 +10,9 @@ class EventService
     EventDecorator.decorate(event) unless event.nil?
   end
 
+  def self.search(params)
+    events = Event.where(county_id: params[:current_county_id]).all
+    EventDecorator.decorate(events) unless events.nil?
+  end
+
 end
