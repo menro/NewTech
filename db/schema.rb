@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131118185210) do
+ActiveRecord::Schema.define(:version => 20131210173155) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -372,10 +372,12 @@ ActiveRecord::Schema.define(:version => 20131118185210) do
     t.integer  "endorsers_count",        :default => 0
     t.integer  "bump",                   :default => 0
     t.integer  "profile_views",          :default => 0
+    t.integer  "county_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
+  add_index "users", ["county_id"], :name => "index_users_on_county_id"
   add_index "users", ["discipline_id"], :name => "index_users_on_discipline_id"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["job_type_id"], :name => "index_users_on_job_type_id"

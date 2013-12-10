@@ -20,6 +20,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def ensure_county_presence
+    if current_user
+      unless current_user.has_county_info?
+        redirect_to update_county_path
+      end
+    end
+  end
+
   private
 
   def miniprofiler
