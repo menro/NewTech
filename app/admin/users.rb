@@ -1,5 +1,7 @@
 ActiveAdmin.register User do
 
+  menu :priority => 1
+
   filter :created_at
   filter :last_name
   filter :nickname
