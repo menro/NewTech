@@ -28,3 +28,12 @@ node(:img_url) { |company| company.image.url(:thumb_small) }
 node(:category_name) { |company| company.category.name }
 
 end
+
+child @community_manager => :community_manager do
+attributes :id
+
+node(:manager_name) { |m| m.name}
+node(:manager_mission) { |m| m.mission}
+node(:manager_pic) { |m| m.pic_url}
+
+end

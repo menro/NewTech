@@ -846,6 +846,7 @@
     $('.events-list-contents ul').html('');
     $('.new-companies-list-contents').html('');
     $('.buttons-list').hide();
+    $('#county-info .manager-holder').html('');
 
     currentRequests.push($.getJSON($(container).data("bottom_list_url"), searchParams(), function(data) {
       
@@ -853,27 +854,36 @@
       $.each(data, function(i, group) {
         switch(i){
           case 'freelancers':
+            $('.freelancers-list-contents').html("");
             $.each(group, function(key, obj){
               $('#freelancer_tpl').tmpl(obj.freelancer).appendTo( $('.freelancers-list-contents') );
             })
             break;
           
           case 'jobs':
+            $('.job-list-contents ul').html('');
             $.each(group, function(key, obj){
               $('#job_tpl').tmpl(obj.job).appendTo( $('.job-list-contents ul') );  
             })
             break;
 
           case 'events':
+            $('.events-list-contents ul').html('');
             $.each(group, function(key, obj){
               $('#event_tpl').tmpl(obj.event).appendTo( $('.events-list-contents ul') );
             })
             break;
 
           case 'companies':
+            $('.new-companies-list-contents').html('');
             $.each(group, function(key, obj){
               $('#company_bottom_tpl').tmpl(obj.company).appendTo( $('.new-companies-list-contents') );  
             })
+            break;
+          case 'community_manager':
+            if(group == null){break;}
+            $('#county-info .manager-holder').html('');
+            $('#company_manager_tpl').tmpl(group).appendTo( $('#county-info .manager-holder') );  
             break;
 
         }

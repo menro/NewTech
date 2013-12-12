@@ -61,6 +61,8 @@ class ApiController < ApplicationController
       @jobs               = JobService.search(params)
       @events             = EventService.search(params)
       @companies          = CompanyService::search_recent(params)
+      @community_manager  = CommunityManager.where(county_id: params[:current_county_id]).first
+      # @community_manager  = CommunityManager.first
     else
       @events             = EventService.all
       @companies          = Company.get_recent_companies(5)

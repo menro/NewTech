@@ -127,3 +127,11 @@
     %img.thumb_small{src: '${img_url}'}
     .company-category
       %h6 ${category_name}
+
+%script{:id => "company_manager_tpl", :type=>"text/x-jquery-tmpl" }
+  .mngr-mission
+    %div ${manager_name}
+    %div= "Mission: ${manager_mission}"
+  .mngr-avatar
+    %img{src: '${manager_pic}'}
+    

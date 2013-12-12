@@ -17,10 +17,14 @@
     %button.close{:type => "button", :data => {:dismiss => "alert" }} x
 
 #county-info
-  %p ZOOM LEVEL :
-  %p#zoom-level
-  %p COUNTY :
-  %p#county-id
+  .manager-holder
+
+  .stats
+    %p ZOOM LEVEL :
+    %p#zoom-level
+  .stats
+    %p COUNTY :
+    %p#county-id
 
 .gmap_wrapper
   .gmap{ :data => gmap_data }

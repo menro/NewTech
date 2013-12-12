@@ -27,6 +27,7 @@ class HomeController < ApplicationController
     @freelancers        = User.available_freelancers(7)
     @jobs               = JobService.most_recent(5)
     @trending_news      = TwitterNewsService.most_recent(5)
+    @manager            = CommunityManager.first
   end
 
   def email_confirmation

@@ -787,8 +787,15 @@ ul.event-list{
   }
 }
 
-#county-info{width: 150px;height: 100px;position: absolute;left: 65px;top: 58px;border-radius: 5px;background-color: #7895A4;border-color: #507282;opacity: 0.8;color: #FFFFFF;font-weight: bold;font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;font-size: 14px;border: 1px solid #507282;padding: 8px;display: inline-block;box-sizing: border-box;}
-#county-info p{font-size: 11px;width: auto;float: left;margin-right: 5px;}
-
+#county-info{width: 230px;top: 55px;min-height: 109px;position: absolute;left: 65px;border-radius: 5px;background-color: #7895A4;border-color: #507282;opacity: 0.8;color: #FFFFFF;font-weight: bold;font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;font-size: 14px;border: 1px solid #507282;padding: 8px;display: inline-block;box-sizing: border-box;}
+#county-info p{font-size: 11px;width: auto;float: left;margin-right: 5px;margin-bottom: 0px;}
+#county-info {
+  .stats{width: 100%; float: left;}
+  .manager-holder{
+    width: 100%;float: left;margin-bottom: 10px;
+    .mngr-mission{width: 50%;float: left}
+    .mngr-avatar{width: 50%;float: left}
+  }
+}
 
 
