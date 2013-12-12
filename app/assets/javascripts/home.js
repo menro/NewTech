@@ -96,7 +96,14 @@
           refreshMap(container);
       });
       google.maps.event.addListener(currentMap, 'dragend', function() {
-          setTimeout(function() { refreshForCurrentCounty();updateCommunityManagerStats(container); }, 250);
+          setTimeout(function() { 
+            refreshForCurrentCounty();
+            updateCommunityManagerStats(container);
+            if(currentZoomLevel == countyZoomLevel){
+              refreshMap(container);
+            }
+
+          }, 250);
       });
       drawCountyCircles(container);
       // loadRecentBox(8);
