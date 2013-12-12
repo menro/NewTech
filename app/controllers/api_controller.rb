@@ -56,16 +56,17 @@ class ApiController < ApplicationController
   end
 
   def bottom_lists
-    @freelancers = UserService::search(params)
-    # @jobs = JobService::search(params, 5)
-    # @jobs = JobService.most_recent(5)
-    @jobs = JobService.search(params)
-    @events = EventService.all # replace it with actual data call
-    @events = EventService.search(params)
-    # debugger
-    # @companies = params[:zoom_level] == 'State' ? Company.get_recent_companies(5) : CompanyService::search_recent(params)
-    @companies = CompanyService::search_recent(params)
-    # @trending_news = TwitterNewsService::search(params)
+    if params[:zoom_level] == 'County'
+      @freelancers        = UserService::search(params)
+      @jobs               = JobService.search(params)
+      @events             = EventService.search(params)
+      @companies          = CompanyService::search_recent(params)
+    else
+      @events             = EventService.all
+      @companies          = Company.get_recent_companies(5)
+      @freelancers        = User.available_freelancers(7)
+      @jobs               = JobService.most_recent(5)
+    end
   end
 
 end
