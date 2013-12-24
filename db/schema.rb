@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131212184203) do
+ActiveRecord::Schema.define(:version => 20131224195707) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -157,10 +157,12 @@ ActiveRecord::Schema.define(:version => 20131212184203) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "county_id"
+    t.integer  "state_id"
   end
 
   add_index "events", ["county_id"], :name => "index_events_on_county_id"
   add_index "events", ["start_at"], :name => "index_events_on_start_at"
+  add_index "events", ["state_id"], :name => "index_events_on_state_id"
 
   create_table "freelancer_configs", :force => true do |t|
     t.integer  "bump"
@@ -284,6 +286,15 @@ ActiveRecord::Schema.define(:version => 20131212184203) do
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
+  end
+
+  create_table "states", :force => true do |t|
+    t.string   "name"
+    t.string   "country"
+    t.string   "longitude"
+    t.string   "latitude"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "tags", :force => true do |t|
