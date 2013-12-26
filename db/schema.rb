@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131224195707) do
+ActiveRecord::Schema.define(:version => 20131226173317) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(:version => 20131224195707) do
     t.integer  "jobs_count"
     t.string   "kickstarter_url"
     t.datetime "kickstarter_end_date"
+    t.integer  "state_id"
   end
 
   add_index "companies", ["city_id"], :name => "index_companies_on_city_id"
@@ -108,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20131224195707) do
   add_index "companies", ["enabled"], :name => "index_companies_on_enabled"
   add_index "companies", ["founded_year"], :name => "index_companies_on_founded_year"
   add_index "companies", ["investments_type_id"], :name => "index_companies_on_investments_type_id"
+  add_index "companies", ["state_id"], :name => "index_companies_on_state_id"
   add_index "companies", ["user_id"], :name => "index_companies_on_user_id"
 
   create_table "companies_tags", :id => false, :force => true do |t|
