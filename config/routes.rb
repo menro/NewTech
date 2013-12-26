@@ -57,6 +57,7 @@ Newtech::Application.routes.draw do
   get 'update_county' => 'profile#update_county'
 
   get 'hiring' => 'home#jobs', as: 'hiring'
+  get 'get_cities' => 'states#get_cities'
   root :to => 'home#welcome'
 
 end

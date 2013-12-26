@@ -18,6 +18,7 @@
 //= require rails.validations
 //= require chosen-jquery
 //= require_tree .
+//= require companies
 
 $(function() {
     $('select').chosen()

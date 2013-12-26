@@ -1,5 +1,10 @@
-<div class="controls"><select class="select required chzn-done" data-validate="true" id="company_city_id" name="company[city_id]" style="display: none;"><option value=""></option>
-  <option value="102">[Boulder] Boulder</option></select>
+<div class="controls">
+  <select class="select required chzn-done" data-validate="true" id="company_city_id" name="company[city_id]" style="display: none;">
+    <option value=""></option>
+    <% @cities.each do |city| %>
+      <option value="<%= city.last%>"><%= city.first%></option>
+    <%end%>
+  </select>
 
   <div id="company_city_id_chzn" class="chzn-container chzn-container-single chzn-container-active" style="width: 272px;">
     <a href="javascript:void(0)" class="chzn-single chzn-default" tabindex="-1">
@@ -12,12 +17,11 @@
       </div>
       
       <ul class="chzn-results">
-        <li id="company_city_id_chzn_o_1" class="active-result" style="">[Boulder] Erie</li>
-        <li id="company_city_id_chzn_o_2" class="active-result" style="">[Denver] Denver</li>
-        <li id="company_city_id_chzn_o_104" class="active-result" style="">[Pitkin] Basalt</li>
-        <li id="company_city_id_chzn_o_105" class="active-result" style="">[Boulder] Boulder</li>
+        <% @cities.each do |city|%>
+          <li id=<%"company_city_id_chzn_o_#{}"%> class="active-result" style=""><%= city.first%></li>
+        <%end%>
       </ul>
     </div>
   </div>
-  
+
 </div>
