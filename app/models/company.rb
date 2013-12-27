@@ -22,8 +22,7 @@ class Company < ActiveRecord::Base
                   :city_id,
                   :zip_code,
                   :latitude,
-                  :longitude,
-                  :state_id
+                  :longitude
 
   belongs_to  :user
 
@@ -36,8 +35,6 @@ class Company < ActiveRecord::Base
   belongs_to :county
 
   belongs_to :category
-
-  belongs_to :state
 
   has_and_belongs_to_many :tags
 
@@ -74,7 +71,7 @@ class Company < ActiveRecord::Base
   validates_attachment_size :image, :less_than => 1.megabyte
   validates_attachment_content_type :image, :content_type => /image/
 
-  validates_presence_of :name, :email_address, :founded_year, :state
+  validates_presence_of :name, :email_address, :founded_year
 
   validates_numericality_of :founded_year, :less_than_or_equal_to => Time.now.year
 
