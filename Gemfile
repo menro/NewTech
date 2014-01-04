@@ -106,5 +106,8 @@ group :staging, :production do
   gem 'unicorn'
 end
 
+# fetching data from https://angel.co/api
+gem 'angellist_api'
+
 # rack mini profiler for analyzing page load time
 # gem 'rack-mini-profiler'

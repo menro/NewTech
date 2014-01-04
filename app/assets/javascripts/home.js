@@ -21,9 +21,13 @@
   var oldZoomLevel = stateZoomLevel;
 
   var zoomLevelMap = {
+    2: 'World',
+    5: 'Country',
     8: 'State',
     11: 'County'
   }
+  var requiredZoomLevels = [2, 5, 8, 11]
+
   GMap = (function() {
 
     function GMap(container) {
@@ -46,7 +50,7 @@
         scaleControl: false,
         streetViewControl: false,
         overviewMapControl: false,
-        minZoom: 7,
+        minZoom: 2,
         zoom: stateZoomLevel,
         scrollwheel: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -126,23 +130,21 @@
     var zoomLevel = currentMap.getZoom();
     currentZoomLevel = zoomLevel;
 
-    // Skipping zoom levels 9 & 10
-    if(zoomLevel > 8 && zoomLevel <11){
-      if (zoomLevel > oldZoomLevel ){
-        oldZoomLevel = countyZoomLevel;
-        currentMap.setZoom(countyZoomLevel);
-        return;
-      }
-      else{
-        oldZoomLevel = stateZoomLevel;
-        currentMap.setZoom(stateZoomLevel);
-        return;
+    for(var i=0; i < requiredZoomLevels.length-1; i++){
+      if(zoomLevel > requiredZoomLevels[i] && zoomLevel < requiredZoomLevels[i+1]){
+        if (zoomLevel > oldZoomLevel ){
+          oldZoomLevel = requiredZoomLevels[i+1];
+          currentMap.setZoom(oldZoomLevel);
+          return;
+        }
+        else{
+          oldZoomLevel = requiredZoomLevels[i];
+          currentMap.setZoom(oldZoomLevel);
+          return;
+        }
       }
     }
-    else{
-      oldZoomLevel = zoomLevel;
-    }
-    if(zoomLevel == countyZoomLevel || zoomLevel == stateZoomLevel){
+    if(requiredZoomLevels.indexOf(zoomLevel) > -1 ){
       // updateBottomLists(container);
       updateCommunityManagerStats(container);
     }
