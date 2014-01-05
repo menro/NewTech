@@ -170,9 +170,10 @@
       clearCompanyOffices();
       drawCompanyOffices(container);      
       drawCountySummaryBox(container);
-      refreshForCurrentCounty();      
+      // refreshForCurrentCounty();      
     }
     //refreshTags(container);
+    refreshForCurrentCounty();
     refreshFilterMenus(container);
   }
 
@@ -542,11 +543,12 @@
    * Hides county info box if current county != selected one.
    */
   function refreshForCurrentCounty() {
+    console.log('refreshing for county......')
 
     var zoomLevel = currentMap.getZoom();
 
-    if(zoomLevel <= 8)
-      return;
+    // if(zoomLevel <= 8)
+      // return;
 
     if(!counties)
       return;
@@ -568,7 +570,8 @@
       if (status == google.maps.GeocoderStatus.OK) {
         for(var i = 0, iLimit = results.length; i < iLimit; i++) {
           var result = results[i], types = result.types, iscounty = false;
-
+          console.log(result);
+          console.log('---------------------');
           for(var j = 0, jLimit = types.length; j < jLimit; j++) {
             if(types[j] == "administrative_area_level_2") {
               iscounty = true;
@@ -647,6 +650,8 @@
         investment_id: srcParamsEl.data("investment_id"),
         category_id: srcParamsEl.data("category_id"),
         company_name: srcParamsEl.data("company_name"),
+        country_name: srcParamsEl.data("current_country_name"),
+        state_name: srcParamsEl.data("current_state_name"),
         zoom_level: zoomLevelMap[currentZoomLevel]
     }
     return search_params;
@@ -898,7 +903,7 @@
 
   // Will update the zoom level, currenty county id etc on map
   function updateCommunityManagerStats(container){
-
+    console.log('updating community_manager stats.....')
     if(!GGeocoder)
       GGeocoder = new google.maps.Geocoder();
 
@@ -908,20 +913,31 @@
       if (status == google.maps.GeocoderStatus.OK) {
         for(var i = 0, iLimit = results.length; i < iLimit; i++) {
           var result = results[i], types = result.types, iscounty = false;
+          console.log(result);
+          console.log('----------')
           for(var j = 0, jLimit = types.length; j < jLimit; j++) {
+
+            // if county
             if(types[j] == "administrative_area_level_2") {
               iscounty = true;
-
+              //Upate current county id.
               $("#search_params").data("current_county_id", countiesMap[result.address_components[0].long_name])
               
-              //Upate current county id.
               $('#county-id').text($("#search_params").data("current_county_id"))
-
-              updateBottomLists(container)
-              break;
+              // break;
             }
+            // if state
+            if(types[j] == "administrative_area_level_1") {
+              $("#search_params").data("current_state_name", result.address_components[0].long_name)
+            }
+            // if country
+            if(types[j] == "country") {
+              $("#search_params").data("current_country_name", result.address_components[0].long_name)
+            }
+             
           }
         }
+        updateBottomLists(container);
       }
     });
     $('#zoom-level').text(zoomLevelMap[currentZoomLevel])
