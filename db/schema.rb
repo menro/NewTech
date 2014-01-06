@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131227170821) do
+ActiveRecord::Schema.define(:version => 20140106195427) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -132,6 +132,12 @@ ActiveRecord::Schema.define(:version => 20131227170821) do
 
   add_index "counties", ["name"], :name => "index_counties_on_name"
   add_index "counties", ["state_id"], :name => "index_counties_on_state_id"
+
+  create_table "countries", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "disciplines", :force => true do |t|
     t.string   "name"
@@ -299,7 +305,10 @@ ActiveRecord::Schema.define(:version => 20131227170821) do
     t.string   "latitude"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "country_id"
   end
+
+  add_index "states", ["country_id"], :name => "index_states_on_country_id"
 
   create_table "tags", :force => true do |t|
     t.string   "name"

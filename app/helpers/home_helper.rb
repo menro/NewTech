@@ -21,6 +21,8 @@ module HomeHelper
     {
         :offices_url => "#{companies_api_v1_url(:json)}",
         :counties_url => "#{counties_api_v1_url(:json)}",
+        states_url: "#{states_api_v1_url(:json)}",
+        countries_url: "#{countries_api_v1_url(:json)}",
         :county_url => "#{county_api_v1_url(:json)}",
         :tags_url => "#{tags_api_v1_url(:json)}",
         :skills_url => "#{skills_api_v1_url(:json)}",

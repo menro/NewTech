@@ -9,6 +9,8 @@ Newtech::Application.routes.draw do
     collection do
       get :companies
       get :counties
+      get :states
+      get :countries
       get :county
       get :tags
       get :skills

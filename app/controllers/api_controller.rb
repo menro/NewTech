@@ -17,6 +17,16 @@ class ApiController < ApplicationController
     respond_with @counties
   end
 
+  def states
+    @states = StateService::search(params)
+    respond_with @states
+  end
+
+  def countries
+    @countries = CountryService::search(params)
+    respond_with @countries
+  end
+
   def county
     @county = CountyService::find(params)
     respond_with @county
