@@ -670,9 +670,9 @@
     // County circles
     counties = {};
     countiesMap = {};
-    console.log($(container).data("counties_url"))
+    console.log($(container).data("countries_url"))
     console.log(searchParams())
-    currentRequests.push($.getJSON($(container).data("counties_url"), searchParams(), function(data) {
+    currentRequests.push($.getJSON($(container).data("countries_url"), searchParams(), function(data) {
 
       //hide company list and flush companies results
       $('#company-list').hide();
@@ -692,7 +692,7 @@
       var totalCompanies = 0;
       $.each(data, function(i, county) {
         // console.log(i)
-        // console.log(county)
+        console.log(county.name + county.id)
         counties[county.id] = county.name;
         countiesMap[county.name] = county.id
 
@@ -707,7 +707,7 @@
         if (multiplier>30) {
           multiplier = 30;
         }
-        var radius = 1500*multiplier;
+        var radius = 22000*multiplier;
         var circleOptions = {
           strokeColor: '#ffffff',
           strokeOpacity: 0.6,
