@@ -571,14 +571,19 @@
       stateLabels = new Array();
       var totalCompanies = 0;
       $.each(data, function(i, state) {
-        // console.log(i)
-        // console.log(state)
+        console.log(i)
+        console.log(state)
         // state = state.model
+        if(state.name == 'New York'){
+          console.log('+++++++++++++++++++')
+        }
         console.log(state.name)
         console.log(state.id)
         states[state.id] = state.name;
         statesMap[state.name] = state.id
-
+        
+        console.log('1s....')
+        
         if (state.companies_numbers == 0) return;
         totalCompanies += state.companies_numbers;
         var circlePosition = new google.maps.LatLng(state.companies_avg_latitude, state.companies_avg_longitude);
@@ -590,7 +595,8 @@
         if (multiplier>30) {
           multiplier = 30;
         }
-        var radius = 1500*multiplier;
+        console.log('2s....')
+        var radius = 12000*multiplier;
         var circleOptions = {
           strokeColor: '#ffffff',
           strokeOpacity: 0.6,
@@ -601,37 +607,50 @@
           center: circlePosition,
           radius: radius
         };
-
-        stateCircles[nCountyCircles] = new google.maps.Circle(circleOptions);
+        console.log('3s....')
+        stateCircles[nStateCircles] = new google.maps.Circle(circleOptions);
+        console.log('4s....')
 
         if('ontouchend' in document) {
+          console.log('5s....')
           google.maps.event.addListener(stateCircles[nCountyCircles], 'click', function(e) {
-
+            console.log('7s....')
             if(bounceToCounty(county.id)) return false;
-
+            console.log('8s....')
             if($("#box-summary-county").data("current_county_id") != state.id) {
+              console.log('9s....')
               setCountySummaryBoxStyle("bottom-left-2");
               drawRetrievedCountySummaryBox(state);
+              console.log('10s....')
             }
             else {
+              console.log('11s....')
               onCountySelected(state, circlePosition);
+              console.log('12s....')
             }
           });
         }
         else {
-          google.maps.event.addListener(stateCircles[nStateCircles], 'click', function() {
-            if(bounceToCounty(state.id)) return false;
-            onCountySelected(state, circlePosition);
-          });
-          google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseover', function() {
-            // setCountySummaryBoxStyle("bottom-left-2");
-            // drawRetrievedCountySummaryBox(county);
-          });
-          //remove county box when moouse goes out of the circle
-          google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseout', function() {
-            $('#box-summary-county').hide();
-          });
+          console.log('13s....'+nStateCircles);
+          console.log(stateCircles[nStateCircles]);
+          // google.maps.event.addListener(stateCircles[nStateCircles], 'click', function() {
+          //   console.log('14s....')
+          //   if(bounceToCounty(state.id)) return false;
+          //   console.log('15s....')
+          //   onCountySelected(state, circlePosition);
+          //   console.log('16s....')
+          // });
+          // google.maps.event.addListener(countyCircles[nStateCircles], 'mouseover', function() {
+          //   // setCountySummaryBoxStyle("bottom-left-2");
+          //   // drawRetrievedCountySummaryBox(county);
+          // });
+          // //remove county box when moouse goes out of the circle
+          // google.maps.event.addListener(countyCircles[nStateCircles], 'mouseout', function() {
+          //   $('#box-summary-county').hide();
+          // });
+          console.log('17s..')
         }
+        console.log('5s....')
         nStateCircles++;
       });
 

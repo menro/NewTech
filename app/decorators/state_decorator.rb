@@ -44,7 +44,6 @@ class StateDecorator < Draper::Base
       results = results.investment_type(search_params[:investment_id]) unless search_params[:investment_id].blank?
       results = results.with_category(search_params[:category_id]) unless search_params[:category_id].blank?
     end
-    puts results.count
     results.uniq
   end
 
