@@ -79,6 +79,7 @@ class ApiController < ApplicationController
       @freelancers        = User.available_freelancers(7)
       @jobs               = JobService.most_recent(5)
     end
+
   end
 
 end

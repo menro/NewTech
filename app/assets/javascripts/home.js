@@ -156,7 +156,7 @@
     currentRequests = [];
 
     // loadRecentBox(zoomLevel);
-    drawCircles();
+    drawCircles(container);
     if (zoomLevel <= 8) {
       clearCompanyOffices();
       clearCountyCircles();
@@ -440,15 +440,15 @@
           }));
       }
   }
-  function drawCircles(){
+  function drawCircles(container){
     if(zoomLevelMap[currentZoomLevel] == 'State'){
-      drawCountyCircles();
+      drawCountyCircles(container);
     }
     else if(zoomLevelMap[currentZoomLevel] == 'Country') {
-      drawStateCircles();
+      drawStateCircles(container);
     }
     else if (zoomLevelMap[currentZoomLevel] == 'World'){
-      drawCountryCircles();
+      drawCountryCircles(container);
     }
   }
   function drawCountyCircles(container) {
@@ -556,8 +556,10 @@
     // County circles
     states = {};
     statesMap = {};
+    console.log('======')
     console.log($(container).data("states_url"))
     console.log(searchParams())
+    console.log($(container).data())
     currentRequests.push($.getJSON($(container).data("states_url"), searchParams(), function(data) {
 
       //hide county and total boxes
@@ -570,7 +572,10 @@
       var totalCompanies = 0;
       $.each(data, function(i, state) {
         // console.log(i)
-        // console.log(county)
+        // console.log(state)
+        // state = state.model
+        console.log(state.name)
+        console.log(state.id)
         states[state.id] = state.name;
         statesMap[state.name] = state.id
 

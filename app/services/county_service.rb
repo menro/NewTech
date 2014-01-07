@@ -1,6 +1,5 @@
 class CountyService
 
-
   def self.search(params)
     counties = County.scoped
     counties = counties.with_companies_name_like params[:company_name] unless params[:company_name].blank?
