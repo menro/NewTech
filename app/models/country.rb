@@ -4,9 +4,6 @@ class Country < ActiveRecord::Base
   has_many :states
   has_many :companies, through: :states
 
-
-
-
   scope :with_companies_name_like,
         lambda {|name|
           joins(:companies).merge(Company.name_like(name))

@@ -1,6 +1,6 @@
 class State < ActiveRecord::Base
 
-  default_scope order('ID ASC')
+  # default_scope order('ID ASC')
 
   attr_accessible :country, :latitude, :longitude, :name
 

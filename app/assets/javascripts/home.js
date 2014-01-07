@@ -13,7 +13,11 @@
   var counties;
   var countiesMap;
   var countyCircles;
+  var countryCircles;
+  var stateCircles;
   var nCountyCircles = 0;
+  var nCountryCircles = 0;
+  var nStateCircles = 0;
   var countyLabels;
   var countyZoomLevel = 11; //PROVVISORIO - dovrei prendere il nro appropriato da county.map_zoom_level
   var stateZoomLevel = 8;
@@ -298,6 +302,22 @@
     countyCircles = new Array();
     nCountyCircles = 0;
   }
+  function clearCountryCircles() {
+    for (var i=0; i<nCountryCircles; i++) {
+      countryCircles[i].setMap(null);
+    }
+
+    countryCircles = new Array();
+    nCountryCircles = 0;
+  }
+  function clearStatesCircles() {
+    for (var i=0; i<nStateCircles; i++) {
+      stateCircles[i].setMap(null);
+    }
+
+    stateCircles = new Array();
+    nStateCircles = 0;
+  }
 
   function closeCurrentInfoWindow() {
     if (currentInfoWindow) {
@@ -442,12 +462,18 @@
   }
   function drawCircles(container){
     if(zoomLevelMap[currentZoomLevel] == 'State'){
+      // clearCountryCircles();
+      // clearStatesCircles();
       drawCountyCircles(container);
     }
     else if(zoomLevelMap[currentZoomLevel] == 'Country') {
+      clearCountryCircles();
+      clearCountyCircles();
       drawStateCircles(container);
     }
     else if (zoomLevelMap[currentZoomLevel] == 'World'){
+      clearCountyCircles();
+      clearStatesCircles();
       drawCountryCircles(container);
     }
   }
@@ -665,11 +691,11 @@
   }
   function drawCountryCircles(container) {
     //$('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
-    
+    console.log('country circl....')
     $("#search_params").data("current_county_id", "");
     // County circles
-    counties = {};
-    countiesMap = {};
+    countries = {};
+    countriesMap = {};
     console.log($(container).data("countries_url"))
     console.log(searchParams())
     currentRequests.push($.getJSON($(container).data("countries_url"), searchParams(), function(data) {
@@ -686,15 +712,16 @@
       $('#box-summary-county').hide();
       $('#box-summary-total').hide();
 
-      countyCircles = new Array();
-      nCountyCircles = 0;
-      countyLabels = new Array();
+      countryCircles = new Array();
+      nCountryCircles = 0;
+      countryLabels = new Array();
       var totalCompanies = 0;
       $.each(data, function(i, county) {
         // console.log(i)
         console.log(county.name + county.id)
-        counties[county.id] = county.name;
-        countiesMap[county.name] = county.id
+        console.log('+++++++++++++++++++++++++++')
+        countries[county.id] = county.name;
+        countriesMap[county.name] = county.id
 
         if (county.companies_numbers == 0) return;
         totalCompanies += county.companies_numbers;
@@ -707,7 +734,7 @@
         if (multiplier>30) {
           multiplier = 30;
         }
-        var radius = 22000*multiplier;
+        var radius = 30000*multiplier;
         var circleOptions = {
           strokeColor: '#ffffff',
           strokeOpacity: 0.6,
@@ -719,37 +746,37 @@
           radius: radius
         };
 
-        countyCircles[nCountyCircles] = new google.maps.Circle(circleOptions);
+        countryCircles[nCountryCircles] = new google.maps.Circle(circleOptions);
 
-        if('ontouchend' in document) {
-          google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function(e) {
+        // if('ontouchend' in document) {
+        //   google.maps.event.addListener(countryCircles[nCountryCircles], 'click', function(e) {
 
-            if(bounceToCounty(county.id)) return false;
+        //     if(bounceToCounty(county.id)) return false;
 
-            if($("#box-summary-county").data("current_county_id") != county.id) {
-              setCountySummaryBoxStyle("bottom-left-2");
-              drawRetrievedCountySummaryBox(county);
-            }
-            else {
-              onCountySelected(county, circlePosition);
-            }
-          });
-        }
-        else {
-          google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function() {
-            if(bounceToCounty(county.id)) return false;
-            onCountySelected(county, circlePosition);
-          });
-          google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseover', function() {
-            setCountySummaryBoxStyle("bottom-left-2");
-            drawRetrievedCountySummaryBox(county);
-          });
-          //remove county box when moouse goes out of the circle
-          google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseout', function() {
-            $('#box-summary-county').hide();
-          });
-        }
-        nCountyCircles++;
+        //     if($("#box-summary-county").data("current_county_id") != county.id) {
+        //       setCountySummaryBoxStyle("bottom-left-2");
+        //       drawRetrievedCountySummaryBox(county);
+        //     }
+        //     else {
+        //       onCountySelected(county, circlePosition);
+        //     }
+        //   });
+        // }
+        // else {
+        //   google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function() {
+        //     if(bounceToCounty(county.id)) return false;
+        //     onCountySelected(county, circlePosition);
+        //   });
+        //   google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseover', function() {
+        //     setCountySummaryBoxStyle("bottom-left-2");
+        //     drawRetrievedCountySummaryBox(county);
+        //   });
+        //   //remove county box when moouse goes out of the circle
+        //   google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseout', function() {
+        //     $('#box-summary-county').hide();
+        //   });
+        // }
+        nCountryCircles++;
       });
 
       updateCommunityManagerStats(container);
