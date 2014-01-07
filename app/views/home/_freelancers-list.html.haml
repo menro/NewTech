@@ -17,6 +17,7 @@
 
 .freelancers-list-contents.list-contents
   - @freelancers.each do |user|
+    - next if user.discipline.nil?
     .freelancer-box
       = link_to image_tag(user.avatar.url(:thumb_large), class: 'thumb_large'), show_freelancer_users_url(user.username)
       .freelancer-discipline
