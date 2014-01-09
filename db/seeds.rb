@@ -451,6 +451,25 @@ countries.each do |country|
   Country.find_or_create_by_name(country)
 end
 
+states =  [["United States ", "Colorado"], ["United States", "Alabama"], ["United States", "Alaska"], ["United States", "Arizona"], ["United States", "Arkansas"], ["United States", "California"], ["United States", "Connecticut"], ["United States", "Delaware"], ["United States", "Florida"], ["United States", "Georgia"], ["United States", "Hawaii"], ["United States", "Idaho"], ["United States", "Illinois"], ["United States", "Indiana"], ["United States", "Iowa"], ["United States", "Kansas"], ["United States", "Kentucky"], ["United States", "Louisiana"], ["United States", "Maine"], ["United States", "Maryland"], ["United States", "Massachusetts"], ["United States", "Michigan"], ["United States", "Minnesota"], ["United States", "Mississippi"], ["United States", "Missouri"], ["United States", "Montana"], ["United States", "Nebraska"], ["United States", "Nevada"], ["United States", "New Hampshire"], ["United States", "New Jersey"], ["United States", "New Mexico"], ["United States", "New York"], ["United States", "North Carolina"], ["United States", "North Dakota"], ["United States", "Ohio"], ["United States", "Oklahoma"], ["United States", "Oregon"], ["United States", "Pennsylvania"], ["United States", "Rhode Island"], ["United States", "South Carolina"], ["United States", "South Dakota"], ["United States", "Tennessee"], ["United States", "Texas"], ["United States", "Utah"], ["United States", "Vermont"], ["United States", "Virginia"], ["United States", "Washington"], ["United States", "West Virginia"], ["United States", "Wisconsin"], ["United States", "Wyoming"], ["Canada", "Alberta"]]
+
+states.each do |state|
+  c = Country.find_by_name(state.first)
+  s = State.find_or_create_by_name(state.last)
+  s.country = c
+  s.save!
+end
+
+counties = [["Colorado", "Adams"], ["Colorado", "Arapahoe"], ["Colorado", "Archuleta"], ["Colorado", "Boulder"], ["Colorado", "Broomfield"], ["Colorado", "Chaffee"], ["Colorado", "Clear Creek"], ["Colorado", "Delta"], ["Colorado", "Denver"], ["Colorado", "Douglas"], ["Colorado", "Eagle"], ["Colorado", "El Paso"], ["Colorado", "Elbert"], ["Colorado", "Fremont"], ["Colorado", "Garfield"], ["Colorado", "Gilpin"], ["Colorado", "Grand"], ["Colorado", "Gunnison"], ["Colorado", "Hinsdale"], ["Colorado", "Jefferson"], ["Colorado", "Kit Carson"], ["Colorado", "La Plata"], ["Colorado", "Larimer"], ["Colorado", "Logan"], ["Colorado", "Mesa"], ["Colorado", "Moffat"], ["Colorado", "Montezuma"], ["Colorado", "Montrose"], ["Colorado", "Ouray"], ["Colorado", "Park"], ["Colorado", "Pitkin"], ["Colorado", "Prowers"], ["Colorado", "Pueblo"], ["Colorado", "Rio Blanco"], ["Colorado", "Rio Grande"], ["Colorado", "Routt"], ["Colorado", "San Miguel"], ["Colorado", "Summit"], ["Colorado", "Teller"], ["Colorado", "Weld"], ["New York", "New York"], ["Alberta", "Capital Region"]]
+
+counties.each do |county|
+  s = State.find_by_name(county.first)
+  c = County.find_or_create_by_name(county.last)
+  c.state = s
+  c.save!
+end
+
+
 # languages
 # platforms
 #skills

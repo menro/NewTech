@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140106195427) do
+ActiveRecord::Schema.define(:version => 20140108170716) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -95,12 +95,13 @@ ActiveRecord::Schema.define(:version => 20140106195427) do
     t.string   "zip_code"
     t.decimal  "latitude"
     t.decimal  "longitude"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.integer  "jobs_count"
     t.string   "kickstarter_url"
     t.datetime "kickstarter_end_date"
     t.integer  "state_id"
+    t.boolean  "raising_money",        :default => false
   end
 
   add_index "companies", ["city_id"], :name => "index_companies_on_city_id"
@@ -331,35 +332,6 @@ ActiveRecord::Schema.define(:version => 20140106195427) do
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
     t.integer  "bump",       :default => 0
-  end
-
-  create_table "twitter_news", :force => true do |t|
-    t.string   "tweet_id"
-    t.text     "news_title"
-    t.string   "news_url"
-    t.integer  "votes"
-    t.string   "publisher_name"
-    t.string   "publisher_image_url"
-    t.string   "publisher_profile_url"
-    t.integer  "retweet_count"
-    t.integer  "favorite_count"
-    t.boolean  "favorited"
-    t.boolean  "retweeted"
-    t.datetime "tweet_created_at"
-    t.string   "tweet_user_id"
-    t.string   "tweet_user_name"
-    t.string   "tweet_user_screen_name"
-    t.string   "tweet_user_location"
-    t.string   "tweet_user_description"
-    t.string   "tweet_user_url"
-    t.integer  "tweet_user_followers_count"
-    t.integer  "tweet_user_friends_count"
-    t.integer  "tweet_user_favourites_count"
-    t.integer  "tweet_user_profile_image_url"
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
-    t.date     "tweet_date"
-    t.integer  "bump",                         :default => 0
   end
 
   create_table "users", :force => true do |t|

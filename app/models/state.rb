@@ -14,6 +14,7 @@ class State < ActiveRecord::Base
   
   has_many :companies, through: :counties
 
+  belongs_to :country
 
 
   scope :with_companies_name_like,

@@ -109,5 +109,8 @@ end
 # fetching data from https://angel.co/api
 gem 'angellist_api'
 
+# fetching data from crunchbase api
+gem 'crunchbase'
+
 # rack mini profiler for analyzing page load time
 # gem 'rack-mini-profiler'

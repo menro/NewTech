@@ -82,6 +82,7 @@ GEM
     columnize (0.3.6)
     configatron (2.8.4)
       yamler (>= 0.1.0)
+    crunchbase (0.4.0)
     daemons (1.1.9)
     dalli (2.0.2)
     debugger (1.6.1)
@@ -304,6 +305,7 @@ DEPENDENCIES
   cocaine (= 0.3.2)
   coffee-rails (= 3.2.2)
   configatron (= 2.8.4)
+  crunchbase
   dalli
   debugger
   devise (>= 2.1.0)

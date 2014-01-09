@@ -122,5 +122,30 @@ task fetch_counties: :environment do
   
 end
 
+desc 'Fetch data from angellist.'
+task fetch_from_angellist: :environment do
+
+  # AngellistApi.configure do |config|
+  #   config.access_token = configatron.angellist.access_token
+  # end
+
+  # startups = AngellistApi.all_startups(:filter => :raising)
+  # 1.9.3p392 :021 >   startups.per_page
+  #  => 50 
+  # 1.9.3p392 :022 > startups.page
+  #  => 1 
+  # 1.9.3p392 :023 > startups.last_page
+  #  => 76 
+  # 1.9.3p392 :024 > startups.first
+  # startups.first.last.first.company_url
+  # startups.first.last.first.name
+  # startups.first.last.first.id
+end
+
+desc 'fetch data from crunchbase.'
+task fetch_data_from_crunchbase: :environment do
+  # companies = Crunchbase::Company.all
+  # pp c.entity.to_yaml
+end
 
 

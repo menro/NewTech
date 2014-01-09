@@ -41,3 +41,5 @@ configatron.twitter.consumer_key = ENV['CONSUMER_KEY']
 configatron.angellist.access_token = ENV['ANGEL_LIST_ACCESS_TOKEN']
 configatron.angellist.client_id = ENV['ANGEL_LIST_CLIENT_ID']
 
+configatron.crunchbase_access_key = ENV['CRUNCHBASE_ACCESS_KEY']
+
