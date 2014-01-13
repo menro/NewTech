@@ -146,6 +146,17 @@ desc 'fetch data from crunchbase.'
 task fetch_data_from_crunchbase: :environment do
   # companies = Crunchbase::Company.all
   # pp c.entity.to_yaml
+  company.email_address = c.email_address
+  company.founded_year = c.founded_year
+  company.homepage_url = c.homepage_url
+  company.name = c.name
+  company.address = c.offices.first["address1"] + ", " + c.offices.first["address2"]
+  company.zip_code = c.offices.first["zip_code"]
+  company.latitude = c.offices.first["latitude"]
+  company.longitude = c.offices.first["longitude"]
+  company.overview = ActionView::Base.full_sanitizer.sanitize(c.overview)
+  cc.phone_number = c.phone_number
+
 end
 
 
