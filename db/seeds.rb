@@ -560,6 +560,8 @@ configatron.cities.each do |c|
   state = State.find_by_name c[2]
   county =  County.find_by_name_and_state_id(c[1], state.id)
   city = City.find_or_create_by_name_and_county_id(c[0], county.id)
+  city.state = state.name
+  city.save
 end; nil
 
 

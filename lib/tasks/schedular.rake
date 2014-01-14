@@ -144,18 +144,47 @@ end
 
 desc 'fetch data from crunchbase.'
 task fetch_data_from_crunchbase: :environment do
-  # companies = Crunchbase::Company.all
+  companies = Crunchbase::Company.all
   # pp c.entity.to_yaml
-  company.email_address = c.email_address
-  company.founded_year = c.founded_year
-  company.homepage_url = c.homepage_url
-  company.name = c.name
-  company.address = c.offices.first["address1"] + ", " + c.offices.first["address2"]
-  company.zip_code = c.offices.first["zip_code"]
-  company.latitude = c.offices.first["latitude"]
-  company.longitude = c.offices.first["longitude"]
-  company.overview = ActionView::Base.full_sanitizer.sanitize(c.overview)
-  cc.phone_number = c.phone_number
+  companies.each do |cc|
+    c = cc.entity
+    country_code = c.offices.first["country_code"]
+    
+    unless country_code == 'USA'
+      puts '*********************NOT IN USA**************Skipping...'
+      next
+    end
+
+    state_code = c.offices.first["state_code"]
+    state = State.find_by_short_name state_code
+    unless state
+      puts "......State does not exists in our DB......#{state_code}"
+      next
+    end
+    city = City.find_or_create_by_name_and_state(c.offices.first['city'], state.name)
+
+    unless city
+      puts "......City does not exists in our DB......#{c.offices.first['city']}"
+      next
+    end
+
+    ptus "============Creating Company=========:::#{c.name}"
+    company = Company.find_or_create_by_name_and_city_id_and_county_id_and_state_id(c.name, city.id, city.county.id, state.id)
+    # company.city_id = city.id
+    # company.state_id = state.id
+    company.email_address = c.email_address
+    company.founded_year = c.founded_year
+    company.homepage_url = c.homepage_url
+    # company.name = c.name
+    company.address = c.offices.first["address1"] + ", " + c.offices.first["address2"]
+    company.zip_code = c.offices.first["zip_code"]
+    company.latitude = c.offices.first["latitude"]
+    company.longitude = c.offices.first["longitude"]
+    company.overview = ActionView::Base.full_sanitizer.sanitize(c.overview)
+    company.phone_number = c.phone_number
+    company.twitter = c.twitter_username
+    company.save
+  end
 
 end
 
