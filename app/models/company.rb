@@ -40,7 +40,7 @@ class Company < ActiveRecord::Base
 
   has_many :jobs, dependent: :destroy
 
-  validates_presence_of :address, :city_id, :zip_code, :category_id
+  validates_presence_of :address, :city_id, :zip_code #, :category_id
 
   validates_numericality_of :zip_code
 

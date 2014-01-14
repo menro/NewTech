@@ -161,17 +161,33 @@ task fetch_data_from_crunchbase: :environment do
       puts "......State does not exists in our DB......#{state_code}"
       next
     end
-    city = City.find_or_create_by_name_and_state(c.offices.first['city'], state.name)
+    city = City.find_by_name_and_state(c.offices.first['city'], state.name)
 
     unless city
       puts "......City does not exists in our DB......#{c.offices.first['city']}"
       next
     end
+    county = city.county
+    unless county
+      puts ".....City does not have County....#{city.name} #{city.id}"
+      next
+    end
+
+    category = Category.find_by_name c.category_code
+
+    user  = User.where(email: 'reich.robert@gmail.com').first
 
     puts "============Creating Company=========:::#{c.name}"
-    company = Company.find_or_create_by_name_and_city_id_and_county_id_and_state_id(c.name, city.id, city.county.id, state.id)
+
+    company = Company.find_or_create_by_name_and_city_id_and_county_id_and_state_id(c.name, city.id, county.id, state.id)
     # company.city_id = city.id
     # company.state_id = state.id
+    if category
+      company.category_id = category.id
+    else 
+      puts '=====Category do not found.===='
+    end
+    company.user_id = user.id
     company.email_address = c.email_address
     company.founded_year = c.founded_year
     company.homepage_url = c.homepage_url
@@ -183,7 +199,7 @@ task fetch_data_from_crunchbase: :environment do
     company.overview = ActionView::Base.full_sanitizer.sanitize(c.overview)
     company.phone_number = c.phone_number
     company.twitter = c.twitter_username
-    company.save
+    company.save!
   end
 
 end
