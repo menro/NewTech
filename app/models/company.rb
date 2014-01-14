@@ -42,7 +42,7 @@ class Company < ActiveRecord::Base
 
   validates_presence_of :address, :city_id, :zip_code #, :category_id
 
-  validates_numericality_of :zip_code
+  # validates_numericality_of :zip_code
 
   before_save :attach_county
 

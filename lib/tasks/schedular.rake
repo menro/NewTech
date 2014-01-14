@@ -144,14 +144,34 @@ end
 
 desc 'fetch data from crunchbase.'
 task fetch_data_from_crunchbase: :environment do
+  
+  require 'open-uri'
+
+  def file_from_url(url)
+    extname = File.extname(url)
+    basename = File.basename(url, extname)
+    file = Tempfile.new([basename, extname])
+    file.binmode
+    open(URI.parse(url)) do |data|  
+      file.write data.read
+    end
+    file.rewind
+    file
+  end
   companies = Crunchbase::Company.all
   # pp c.entity.to_yaml
   companies.each do |cc|
     c = cc.entity
+
+    unless c.offices.present?
+      puts 'No offices found....skipping...'
+      next
+    end
+    
     country_code = c.offices.first["country_code"]
     
     unless country_code == 'USA'
-      puts '*********************NOT IN USA**************Skipping...'
+      puts "*********************NOT IN USA**************Skipping... #{country_code}"
       next
     end
 
@@ -164,7 +184,7 @@ task fetch_data_from_crunchbase: :environment do
     city = City.find_by_name_and_state(c.offices.first['city'], state.name)
 
     unless city
-      puts "......City does not exists in our DB......#{c.offices.first['city']}"
+      puts "......City does not exists in our DB......#{c.offices.first['city']} - #{state_code}"
       next
     end
     county = city.county
@@ -173,33 +193,65 @@ task fetch_data_from_crunchbase: :environment do
       next
     end
 
-    category = Category.find_by_name c.category_code
+    tag_code = c.category_code
+
+    category = Category.find_by_name 'Companies'
 
     user  = User.where(email: 'reich.robert@gmail.com').first
+
+    
+    unless c.offices.first["zip_code"]
+      puts "Zipcode do not found.....#{c.offices.first["zip_code"]}"
+      next
+    end
+    zip = c.offices.first["zip_code"].split('-').first.to_i
+
+    unless c.email_address.present?
+      puts 'Email does not present. Skipping....'
+      next
+    end
+
+    unless c.image.present? || c.image.sizes.size == 0
+      puts "Image does not present.... Skipping"
+      next
+    end
+
+    unless c.founded_year.present?
+      puts 'Missing founded year. Skipping...'
+      next
+    end
 
     puts "============Creating Company=========:::#{c.name}"
 
     company = Company.find_or_create_by_name_and_city_id_and_county_id_and_state_id(c.name, city.id, county.id, state.id)
     # company.city_id = city.id
     # company.state_id = state.id
-    if category
-      company.category_id = category.id
-    else 
-      puts '=====Category do not found.===='
+    company.category_id = category.id
+    company.tags << Tag.find_or_create_by_code(tag_code)
+    puts '***********************************************'
+    puts c.image.sizes.first.inspect
+    puts '**************************************************'
+    if company.image.present?
+      next
     end
+    company.image = file_from_url( "http://crunchbase.com/" + c.image.sizes.last.url )
     company.user_id = user.id
     company.email_address = c.email_address
     company.founded_year = c.founded_year
     company.homepage_url = c.homepage_url
     # company.name = c.name
-    company.address = c.offices.first["address1"] + ", " + c.offices.first["address2"]
-    company.zip_code = c.offices.first["zip_code"]
+    company.address = c.offices.first["address1"] + ", " + (c.offices.first["address2"] || '')
+    company.zip_code = zip
     company.latitude = c.offices.first["latitude"]
     company.longitude = c.offices.first["longitude"]
     company.overview = ActionView::Base.full_sanitizer.sanitize(c.overview)
     company.phone_number = c.phone_number
     company.twitter = c.twitter_username
     company.save!
+
+    # if Company.count > 600
+    #   break
+    # end
   end
 
 end
