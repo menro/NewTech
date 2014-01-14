@@ -168,7 +168,7 @@ task fetch_data_from_crunchbase: :environment do
       next
     end
 
-    ptus "============Creating Company=========:::#{c.name}"
+    puts "============Creating Company=========:::#{c.name}"
     company = Company.find_or_create_by_name_and_city_id_and_county_id_and_state_id(c.name, city.id, city.county.id, state.id)
     # company.city_id = city.id
     # company.state_id = state.id
