@@ -477,6 +477,8 @@ states.each do |state|
   s.save
 end
 
+
+
 # count = 0
 # File.open("/Users/nadeemyasin/Downloads/2012_Gaz_counties_national.txt", "r").each_line do |line|
 #   count += 1
@@ -517,6 +519,7 @@ counties.each do |county|
   c.state = State.find_by_name(county[1])
   c.save
 end; nil
+
 
 # count = 0
 # CSV.foreach("/Users/nadeemyasin/Downloads/List-of-Cities-States-and-Counties.csv") do |row|
@@ -564,6 +567,17 @@ configatron.cities.each do |c|
   city.save
 end; nil
 
+state = State.find_by_name 'California'
+county = County.find_or_create_by_name "San Francisco"
+county.state = state
+county.latitude = "37.7749300"
+county.longitude = '-122.4194200'
+county.save
+
+city = City.find_or_create_by_name "San Francisco"
+city.county = county
+city.state = county.state.name
+city.save
 
 # languages
 # platforms

@@ -158,7 +158,7 @@ task fetch_data_from_crunchbase: :environment do
     file.rewind
     file
   end
-  companies = Crunchbase::Company.all
+  companies = Crunchbase::Company.all; nil
   # pp c.entity.to_yaml
   companies.each do |cc|
     c = cc.entity
@@ -223,7 +223,10 @@ task fetch_data_from_crunchbase: :environment do
 
     puts "============Creating Company=========:::#{c.name}"
 
-    company = Company.find_or_create_by_name_and_city_id_and_county_id_and_state_id(c.name, city.id, county.id, state.id)
+    company = Company.where("name=? and city_id =? and county_id =?", c.name, city.id, county.id).first
+    company = Company.create(name: c.name, city_id: city.id) unless company.present?
+    company.county = county
+    # Company.find_or_create_by_name_and_city_id_and_county_id_and_state_id(c.name, city.id, county.id, state.id)
     # company.city_id = city.id
     # company.state_id = state.id
     company.category_id = category.id
@@ -240,7 +243,7 @@ task fetch_data_from_crunchbase: :environment do
     company.founded_year = c.founded_year
     company.homepage_url = c.homepage_url
     # company.name = c.name
-    company.address = c.offices.first["address1"] + ", " + (c.offices.first["address2"] || '')
+    company.address = (c.offices.first["address1"] || '') + ", " + (c.offices.first["address2"] || '')
     company.zip_code = zip
     company.latitude = c.offices.first["latitude"]
     company.longitude = c.offices.first["longitude"]

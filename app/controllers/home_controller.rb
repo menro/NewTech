@@ -25,6 +25,7 @@ class HomeController < ApplicationController
     @recent_companies   = Company.get_recent_companies(5)
     @sponsor            = Sponsor.get_randomly
     @freelancers        = User.available_freelancers(7)
+    @freelancers.reject! {|f| f.discipline.nil?}
     @jobs               = JobService.most_recent(5)
     @trending_news      = TwitterNewsService.most_recent(5)
     @manager            = CommunityManager.first

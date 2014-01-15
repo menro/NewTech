@@ -170,7 +170,7 @@ class User < ActiveRecord::Base
   end
 
   def self.available_freelancers(limit = 5)
-    User.where("is_freelancer=true and status = 'available'").order('RANDOM()').limit(limit)
+    User.where("is_freelancer=true and status = 'available' and discipline_id is not NULL").order('RANDOM()').limit(limit)
   end
 
   def has_county_info?
