@@ -463,12 +463,13 @@
   function drawCircles(container){
     if(zoomLevelMap[currentZoomLevel] == 'State'){
       // clearCountryCircles();
-      // clearStatesCircles();
+      clearStatesCircles();
       drawCountyCircles(container);
     }
     else if(zoomLevelMap[currentZoomLevel] == 'Country') {
       clearCountryCircles();
       clearCountyCircles();
+      clearStatesCircles();
       drawStateCircles(container);
     }
     else if (zoomLevelMap[currentZoomLevel] == 'World'){

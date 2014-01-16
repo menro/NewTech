@@ -5,7 +5,8 @@ class StateService
   end
 
   def self.search(params)
-    states = State.scoped
+    params[:country_name] ||= "United States"
+    states = State.where(country_id: Country.where(name: params[:country_name]).first.id).scoped
     states = states.with_companies_name_like params[:company_name] unless params[:company_name].blank?
     states = states.with_companies_founded_from params[:from_year] unless params[:from_year].blank?
     states = states.with_companies_founded_to params[:to_year] unless params[:to_year].blank?

@@ -77,6 +77,9 @@ class ApiController < ApplicationController
       @events             = EventService.all
       @companies          = Company.get_recent_companies(5)
       @freelancers        = User.available_freelancers(7)
+      puts '******************************************************'
+      puts @freelancers.map{|f| [f.id, f.discipline.name]}
+      puts '*******************************************************'
       @jobs               = JobService.most_recent(5)
     end
 

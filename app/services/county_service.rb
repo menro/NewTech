@@ -1,7 +1,8 @@
 class CountyService
 
   def self.search(params)
-    counties = County.scoped
+    params[:state_name] ||= 'Colorado'
+    counties = County.where(state_id: State.where(name: params[:state_name]).first.id).scoped
     counties = counties.with_companies_name_like params[:company_name] unless params[:company_name].blank?
     counties = counties.with_companies_founded_from params[:from_year] unless params[:from_year].blank?
     counties = counties.with_companies_founded_to params[:to_year] unless params[:to_year].blank?
