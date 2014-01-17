@@ -161,7 +161,8 @@ task fetch_data_from_crunchbase: :environment do
   companies = Crunchbase::Company.all; nil
   # pp c.entity.to_yaml
   companies.each do |cc|
-    c = cc.entity
+    begin
+      c = cc.entity
 
     unless c.offices.present?
       puts 'No offices found....skipping...'
@@ -211,9 +212,9 @@ task fetch_data_from_crunchbase: :environment do
       next
     end
 
-    unless c.image.present? || c.image.sizes.size == 0
+    unless c.image.present?
       puts "Image does not present.... Skipping"
-      next
+      # next
     end
 
     unless c.founded_year.present?
@@ -230,14 +231,15 @@ task fetch_data_from_crunchbase: :environment do
     # company.city_id = city.id
     # company.state_id = state.id
     company.category_id = category.id
+    next if company.email_address.present?
     company.tags << Tag.find_or_create_by_code(tag_code)
-    puts '***********************************************'
-    puts c.image.sizes.first.inspect
-    puts '**************************************************'
-    if company.image.present?
-      next
+    unless c.image.present?
+      company.image = file_from_url( "http://crunchbase.com/" + c.image.sizes.last.url )
     end
-    company.image = file_from_url( "http://crunchbase.com/" + c.image.sizes.last.url )
+    # if company.image.present?
+    #   next
+    # end
+    # company.image = file_from_url( "http://crunchbase.com/" + c.image.sizes.last.url )
     company.user_id = user.id
     company.email_address = c.email_address
     company.founded_year = c.founded_year
@@ -250,8 +252,10 @@ task fetch_data_from_crunchbase: :environment do
     company.overview = ActionView::Base.full_sanitizer.sanitize(c.overview)
     company.phone_number = c.phone_number
     company.twitter = c.twitter_username
-    company.save!
-
+    company.save
+    rescue
+      next
+    end
     # if Company.count > 600
     #   break
     # end

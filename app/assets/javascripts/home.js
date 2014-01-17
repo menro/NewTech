@@ -594,11 +594,12 @@
       stateLabels = new Array();
       var totalCompanies = 0;
       $.each(data, function(i, state) {
-        console.log(state.name)
-        console.log(state.id)
+        console.log(state.name+"  "+state.companies_numbers)
+        // console.log(state.id)
+        console.log()
         states[state.id] = state.name;
         statesMap[state.name] = state.id
-        
+        console.log('********************************')
         if (state.companies_numbers == 0) return;
         totalCompanies += state.companies_numbers;
         var circlePosition = new google.maps.LatLng(state.companies_avg_latitude, state.companies_avg_longitude);
