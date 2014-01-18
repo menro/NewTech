@@ -461,7 +461,12 @@
       }
   }
   function drawCircles(container){
-    if(zoomLevelMap[currentZoomLevel] == 'State'){
+    if(zoomLevelMap[currentZoomLevel] == 'County'){
+      clearCountryCircles();
+      clearStatesCircles();
+      clearCountyCircles();
+    }
+    else if(zoomLevelMap[currentZoomLevel] == 'State'){
       // clearCountryCircles();
       clearStatesCircles();
       drawCountyCircles(container);
@@ -485,8 +490,6 @@
     // County circles
     counties = {};
     countiesMap = {};
-    console.log($(container).data("counties_url"))
-    console.log(searchParams())
     currentRequests.push($.getJSON($(container).data("counties_url"), searchParams(), function(data) {
 
       //hide company list and flush companies results
@@ -594,12 +597,9 @@
       stateLabels = new Array();
       var totalCompanies = 0;
       $.each(data, function(i, state) {
-        console.log(state.name+"  "+state.companies_numbers)
         // console.log(state.id)
-        console.log()
         states[state.id] = state.name;
         statesMap[state.name] = state.id
-        console.log('********************************')
         if (state.companies_numbers == 0) return;
         totalCompanies += state.companies_numbers;
         var circlePosition = new google.maps.LatLng(state.companies_avg_latitude, state.companies_avg_longitude);
@@ -625,8 +625,7 @@
         stateCircles[nStateCircles] = new google.maps.Circle(circleOptions);
 
         if('ontouchend' in document) {
-          google.maps.event.addListener(stateCircles[nCountyCircles], 'click', function(e) {
-            if(bounceToCounty(county.id)) return false;
+          google.maps.event.addListener(stateCircles[nStateCircles], 'click', function(e) {
             if($("#box-summary-county").data("current_county_id") != state.id) {
               setCountySummaryBoxStyle("bottom-left-2");
               drawRetrievedCountySummaryBox(state);
@@ -637,21 +636,17 @@
           });
         }
         else {
-          // google.maps.event.addListener(stateCircles[nStateCircles], 'click', function() {
-          //   console.log('14s....')
-          //   if(bounceToCounty(state.id)) return false;
-          //   console.log('15s....')
-          //   onCountySelected(state, circlePosition);
-          //   console.log('16s....')
-          // });
-          // google.maps.event.addListener(countyCircles[nStateCircles], 'mouseover', function() {
-          //   // setCountySummaryBoxStyle("bottom-left-2");
-          //   // drawRetrievedCountySummaryBox(county);
-          // });
-          // //remove county box when moouse goes out of the circle
-          // google.maps.event.addListener(countyCircles[nStateCircles], 'mouseout', function() {
-          //   $('#box-summary-county').hide();
-          // });
+          google.maps.event.addListener(stateCircles[nStateCircles], 'click', function() {
+            onStateSelected(state, circlePosition);
+          });
+          google.maps.event.addListener(stateCircles[nStateCircles], 'mouseover', function() {
+            setCountySummaryBoxStyle("bottom-left-2");
+            drawRetrievedCountySummaryBox(state);
+          });
+          //remove county box when moouse goes out of the circle
+          google.maps.event.addListener(stateCircles[nStateCircles], 'mouseout', function() {
+            $('#box-summary-county').hide();
+          });
         }
         nStateCircles++;
       });
@@ -667,13 +662,10 @@
   }
   function drawCountryCircles(container) {
     //$('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
-    console.log('country circl....')
     $("#search_params").data("current_county_id", "");
     // County circles
     countries = {};
     countriesMap = {};
-    console.log($(container).data("countries_url"))
-    console.log(searchParams())
     currentRequests.push($.getJSON($(container).data("countries_url"), searchParams(), function(data) {
 
       //hide company list and flush companies results
@@ -822,6 +814,19 @@
    */
   function getRandomInt (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  
+  function onStateSelected(state, circlePosition) {
+    //$('h1').html('Tech Companies in '+county.name);
+    $("#search_params").data("state_name", state.name);
+
+    $('#box-summary-total').hide();
+
+    $('#tooltip').remove();
+
+    //currentMap.setZoom(currentMap.getZoom()+1);
+    currentMap.setCenter(circlePosition);
+    currentMap.setZoom(stateZoomLevel);
   }
 
   function onCountySelected(county, circlePosition) {
@@ -1077,7 +1082,6 @@
 
     currentRequests.push($.getJSON($(container).data("bottom_list_url"), searchParams(), function(data) {
       
-      console.log(data)
       $.each(data, function(i, group) {
         switch(i){
           case 'freelancers':
@@ -1123,7 +1127,6 @@
 
   // Will update the zoom level, currenty county id etc on map
   function updateCommunityManagerStats(container){
-    console.log('updating community_manager stats.....')
     if(!GGeocoder)
       GGeocoder = new google.maps.Geocoder();
 
