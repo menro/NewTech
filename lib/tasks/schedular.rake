@@ -160,6 +160,7 @@ task fetch_data_from_crunchbase: :environment do
   end
   companies = Crunchbase::Company.all; nil
   # pp c.entity.to_yaml
+  found = false
   companies.each do |cc|
     begin
       c = cc.entity
@@ -173,6 +174,10 @@ task fetch_data_from_crunchbase: :environment do
     
     unless country_code == 'USA'
       puts "*********************NOT IN USA**************Skipping... #{country_code}"
+      next
+    end
+    unless found 
+      found = true if c.name == 'lifeIO'
       next
     end
 
