@@ -626,17 +626,19 @@
 
         if('ontouchend' in document) {
           google.maps.event.addListener(stateCircles[nStateCircles], 'click', function(e) {
-            if($("#box-summary-county").data("current_county_id") != state.id) {
-              setCountySummaryBoxStyle("bottom-left-2");
-              drawRetrievedCountySummaryBox(state);
-            }
-            else {
-              onCountySelected(state, circlePosition);
-            }
+            // if($("#box-summary-county").data("state_name") != state.name) {
+            //   setCountySummaryBoxStyle("bottom-left-2");
+            //   drawRetrievedCountySummaryBox(state);
+            // }
+            // else {
+            $("#search_params").data("current_state_name", state.name);
+            onStateSelected(state, circlePosition);
+            // }
           });
         }
         else {
           google.maps.event.addListener(stateCircles[nStateCircles], 'click', function() {
+            $("#search_params").data("current_state_name", state.name);
             onStateSelected(state, circlePosition);
           });
           google.maps.event.addListener(stateCircles[nStateCircles], 'mouseover', function() {
@@ -1158,7 +1160,7 @@
              
           }
         }
-        updateBottomLists(container);
+        // updateBottomLists(container);
       }
     });
     $('#zoom-level').text(zoomLevelMap[currentZoomLevel])

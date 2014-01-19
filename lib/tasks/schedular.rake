@@ -176,10 +176,11 @@ task fetch_data_from_crunchbase: :environment do
       puts "*********************NOT IN USA**************Skipping... #{country_code}"
       next
     end
-    unless found 
-      found = true if c.name == 'lifeIO'
-      next
-    end
+    
+    # unless found 
+    #   found = true if c.name == 'lifeIO'
+    #   next
+    # end
 
     state_code = c.offices.first["state_code"]
     state = State.find_by_short_name state_code
