@@ -8,7 +8,7 @@ class CountyDecorator < Draper::Base
 
   def companies_percentage
     # The base is always the total count of offices
-    ((companies_numbers * 100).to_f / Company.count).to_f
+    ((companies_numbers * 100).to_f / state.companies.count).to_f
   end
 
   def companies_by_category
