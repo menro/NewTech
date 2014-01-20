@@ -114,7 +114,7 @@
           }, 250);
       });
       drawCountyCircles(container);
-      // loadRecentBox(8);
+      loadRecentBox(8);
       refreshFilterMenus(container);
 
       // updateCommunityManagerStats(container);
@@ -159,7 +159,7 @@
     }
     currentRequests = [];
 
-    // loadRecentBox(zoomLevel);
+    loadRecentBox(zoomLevel);
     drawCircles(container);
     if (zoomLevel <= 8) {
       clearCompanyOffices();
@@ -194,19 +194,17 @@
   }
 
   function updateRecentBox(){
-      if(currentMap.getZoom() <= 8){
-      //     if($(window).height() < 594){
-      //         $('#box-events-list').hide("fast");
-      //     }
-      //     else{
-      //         $('#company-list').hide();
-      //         $('#companies-header').hide();
-      //         $('#box-events-list').fadeIn(500);
-      //     }
-       }
-      else{
-          $('#box-events-list').hide("fast");
+    if(currentMap.getZoom() <= 8){
+
+      if($(window).height() < 594){
+        $('#box-events-list').hide("fast");
       }
+      else{
+        $('#company-list').hide();
+        $('#companies-header').hide();
+        $('#box-events-list').fadeIn(500);
+      }
+    }
   }
 
   function isMobileDevice(){
@@ -368,7 +366,7 @@
         infoWindows[nOffices] = infowindow;
         nOffices++;
         company.marker_number = i+1;
-        // $('#company_tpl').tmpl(company).appendTo( companyList );
+        $('#company_tpl').tmpl(company).appendTo( companyList );
 
       });
       companyList.show();
@@ -1051,20 +1049,20 @@
       accordion.css({height: height + "px"});
       eventList.css({height: height + "px"});
 
-      // $('.gmap_wrapper, #company-list').css({top: (45 + height) + "px"});
+      $('.gmap_wrapper, #company-list').css({top: (138 + height) + "px"});
 
       $('#events_bar .bar_title .title, #events_bar #events_switch').click(function(e){
         e.preventDefault();
         $('#box-events-list').hide("fast");
         if(!accordion.height()) {
-          // accordion.animate({height: height + "px"}, 250);
-          // $('.gmap_wrapper, #company-list').animate({top: (45 + height) + "px"}, 250);
+          accordion.animate({height: height + "px"}, 250);
+          $('.gmap_wrapper, #company-list').animate({top: (138 + height) + "px"}, 250);
 
           $("#events_bar #events_switch img").attr("src", "assets/close.png");
         }
         else {
           accordion.animate({height: "0px"}, 250);
-          // $('.gmap_wrapper, #company-list').animate({top: 45 + "px"}, 250);
+          $('.gmap_wrapper, #company-list').animate({top: 45 + "px"}, 250);
 
           $("#events_bar #events_switch img").attr("src", "assets/open.png");
         }
@@ -1146,7 +1144,7 @@
               //Upate current county id.
               $("#search_params").data("current_county_id", countiesMap[result.address_components[0].long_name])
               
-              $('#county-id').text($("#search_params").data("current_county_id"))
+              // $('#county-id').text($("#search_params").data("current_county_id"))
               // break;
             }
             // if state
@@ -1163,7 +1161,7 @@
         // updateBottomLists(container);
       }
     });
-    $('#zoom-level').text(zoomLevelMap[currentZoomLevel])
+    // $('#zoom-level').text(zoomLevelMap[currentZoomLevel])
   }
 
   // Main

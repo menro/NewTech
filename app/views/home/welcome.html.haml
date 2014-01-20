@@ -1,12 +1,12 @@
 
 = content_for :navbar_extras do
   %form#search_form.navbar-search
-    %input#search_query.search-query.span3{:placeholder => "Search For Companies, Jobs, Freelancers, Events..."}
+    %input#search_query.search-query.span3{:placeholder => "search for a company..."}
 
-=# content_for :eventsbar do
-=# render partial: 'partial_templates/events_bar'
+= content_for :eventsbar do
+  = render partial: 'partial_templates/events_bar'
 
-=# render :partial => 'filters'
+= render :partial => 'filters'
 
 #tooltip-centerer
   #tooltip.alert.alert-info
@@ -16,48 +16,49 @@
     Hover a hotspot to see the breakout of our companies by county, or adjust the filters to customize
     %button.close{:type => "button", :data => {:dismiss => "alert" }} x
 
-#county-info
-  .manager-holder
+/ #county-info
+/   .manager-holder
 
-  .stats
-    %p ZOOM LEVEL :
-    %p#zoom-level
-  .stats
-    %p COUNTY :
-    %p#county-id
+/   .stats
+/     %p ZOOM LEVEL :
+/     %p#zoom-level
+/   .stats
+/     %p COUNTY :
+/     %p#county-id
 
 .gmap_wrapper
   .gmap{ :data => gmap_data }
 
 #search_params{ :data => search_params_data }
-/ #company-list
-/   %div{:id => "companies" }
+#company-list
+  %div{:id => "companies" }
 
 #box-summary-county
 #box-summary-total
 = render :partial => 'jquerytpl'
-/ #box-events-list
-/   #add-your-company
-/     #updates-header
-/       = link_to new_company_url do
-/         %h3 ADD YOUR COMPANY
 
-/   #event-box
-/     = render :partial => 'company_list'
-/   #sponsor-box
-/     = render :partial => 'sponsor_box'
+#box-events-list
+  #add-your-company
+    #updates-header
+      = link_to new_company_url do
+        %h3 ADD YOUR COMPANY
+
+  #event-box
+    = render :partial => 'company_list'
+  #sponsor-box
+    = render :partial => 'sponsor_box'
     
-.bottom-list-boxes
-  .job-board-list
-    = render 'job-board-list'
-  .freelancers-list
-    = render 'freelancers-list'
-  .events-list
-    = render 'events-list'
-  .trending-news-list
-    = render 'trending-news-list'
-  .new-companies-list
-    = render 'new-companies-list'
+/ .bottom-list-boxes
+/  .job-board-list
+/    = render 'job-board-list'
+/  .freelancers-list
+/    = render 'freelancers-list'
+/  .events-list
+/    = render 'events-list'
+/  .trending-news-list
+/    = render 'trending-news-list'
+/  .new-companies-list
+/    = render 'new-companies-list'
 
 = content_for :javascripts do
   = javascript_include_tag("https://maps.googleapis.com/maps/api/js?sensor=false")

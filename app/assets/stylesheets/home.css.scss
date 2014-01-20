@@ -2,19 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#main{
-  // top: 30px;
-}
-.navbar{
-  margin-bottom: 0px;
-}
 
 .gmap_wrapper {
   position: fixed;
-  // top: 45px;
+  top: 138px;
   left: 0px;
   width:100%;
-  height:55%;
+  height:100%;
   z-index: -999;
 }
 
@@ -342,8 +336,8 @@
     }
 
     .has-scroll ul.dropdown-menu {
-    	max-height: 300px;
-    	overflow: auto;
+      max-height: 300px;
+      overflow: auto;
     }
 
   }
@@ -420,7 +414,7 @@
   overflow: auto;
   overflow-x: hidden;
   display: none;
-  top: 45px;
+  top: 138px;
   bottom: 2px;
 }
 
@@ -486,13 +480,11 @@
 }
 
 .bottom-left-1 {
-  // bottom: 10px;
-  bottom: 40%;
-  left: 80%;
+  bottom: 10px;
 }
 
 .bottom-left-2 {
-  bottom: 230px;
+  bottom: 100px;
 }
 
 table.summary-table {
@@ -548,12 +540,11 @@ table.summary-table td.summary-numbers {
     height: auto;
     float: right;
     margin-right: 10px;
-    // bottom: 10px;
-    bottom: 40%;
+    bottom: 10px;
     text-align: center;
     position: fixed;
     display: block;
-    // vertical-align: bottom;
+    vertical-align: bottom;
     right: -5px;
     //border-width: 4px;
     //border-color: maroon    ;
@@ -661,142 +652,6 @@ table.summary-table td.summary-numbers {
         color: #7895A4;
     }
 }
-
-#pay-now{width:20em;padding-left:10px;padding-top:10px;padding-right:10px;padding-bottom:10px;}
-
-.bottom-list-boxes{width: 100%;height: 40%;background-color: #EEE;position: fixed;top: 62%;}
-
-.freelancers-list, .events-list, .trending-news-list, .job-board-list, .new-companies-list{width: 19.5%;height: 100%;float: left;border: 1px solid white;}
-
-.job-board-list{
-  .job-list-header{float: left;background-color: green;}
+#pay-now{
+    width:20em;padding-left:10px;padding-top:10px;padding-right:10px;padding-bottom:10px;
 }
-.freelancers-list{
-  .freelancers-list-header{float: left;background-color: gray;}
-  .freelancers-list-contents{
-    .freelancer-box{
-      float: left;
-      width: 33%;
-      min-width: 65px;
-      text-align: center;
-      // img{width: 100%;}
-      .freelancer-discipline{background-color: gray;text-align: center;border-right: 1px solid white;
-        h6{color: white;font-size: 9px;font-weight: normal;text-transform: none;}}
-    }
-  }
-}
-.new-companies-list{
-  overflow-y: scroll;
-  .new-companies-header{background-color: #280000;position: fixed;width: 19.5%;}
-  .new-companies-list-contents{
-    .company-box{
-      float: left;
-      width: 33%;
-      min-width: 65px;
-      text-align: center;
-      // img{width: 100%;}
-      .company-category{background-color: gray;text-align: center;border-right: 1px solid white;
-        h6{color: white;text-transform: none;font-size: 9px;font-weight: normal;}}
-    }
-  }
-}
-.events-list{
-  overflow: scroll;
-  .events-list-header{float: left;background-color: red;position: fixed;width: 19.5%;z-index: 100;}
-  // .events-list-contents{margin-top: 30px;}
-}
-ul.event-list{
-  margin: 0 0 9px 15px;
-}
-.trending-news-list{
-  overflow: scroll;
-  .trending-news-list-header{float: left;background-color: #507282;position: fixed;width: 19.5%;z-index: 100;}
-  // .trending-news-lis-contents{margin-top: 25px;}
-  
-  li.event-item {list-style-image: none;display: inline-block;width: 98%;min-width: 200px;text-align: left;margin-bottom: 15px;border-bottom: 1px solid white;}
-  li.event-item .event-item-inner {text-align: left;display: inline-block;}
-  li.event-item .event-item-inner a {color: #063640;text-decoration: none;}
-  li.event-item .event-item-inner .avtar{float: left;width: 25%;padding-top: 5px;}
-  li.event-item .event-item-inner .avtar img{width: 60px;}
-  li.event-item .event-item-inner .news-details{float: left;width: 70%;font-size: 8pt;padding-left: 5px;}
-  li.event-item .event-item-inner .news-details .screen_name{color: #063640;font-size: 9pt;}
-  li.event-item .event-item-inner .news-details .details .publisher{float: left;width: 45%;font-size: 8pt;color: #063640;}
-  li.event-item .event-item-inner .news-details .details .votes{float: left;width: 49%;color: #063640;font-size: 8pt;}
-  li.event-item .event-item-inner .title {font-size: 12px;font-weight: bold;font-size: 10pt;}
-}
-
-.list-header{height: 30px;width: 19.5%;text-align: center;position: fixed;
-  h4{color: white;line-height: 30px;}
-}
-.list-contents{margin-top: 60px;}
-
-#events_list li.event-item {list-style-image: none;display: inline-block;width: 90%;min-width: 200px;text-align: left;margin-bottom: 15px;border-bottom: 1px solid white;}
-
-#events_list li.event-item .event-item-inner {text-align: left;display: inline-block;}
-
-#events_list li.event-item .event-item-inner a {color: #063640;text-decoration: none;}
-
-#events_list li.event-item .event-item-inner .main {display: inline-block;}
-
-#events_list li.event-item .event-item-inner .title {font-size: 12px;font-weight: bold;}
-
-#events_list li.event-item .event-item-inner .text {white-space: nowrap;font-size: 8pt;}
-
-#events_list li.event-item .event-item-inner .status {display: inline-block;border-radius: 5px;padding: 6px 10px;font-weight: bold;position: relative;top: -10px;left: 2px;}
-
-#events_list li.event-item .event-item-inner .status.rsvp {background-color: #0A3545;color: white;}
-
-#events_list li.event-item .event-item-inner .status.rsvp:before {content: "RSVP";}
-
-.job-board-list{overflow: scroll;
-  .job-list-header{float: left;position: fixed;width: 19.5%;z-index: 100;}
-  // .job-list-contents{margin-top: 30px;}
-}
-
-.job-list-contents {}
-
-.job-list-contents ul.event-list {margin: 0 0 9px 15px;padding: 0;list-style-image: none;min-width: 200px;}
-
-.job-list-contents li.item {list-style-image: none;display: inline-block;width: 90%;min-width: 200px;text-align: left;margin-bottom: 15px;border-bottom: 1px solid white;}
-
-.job-list-contents li.item .item-inner {text-align: left;display: inline-block;}
-
-.job-list-contents li.item .item-inner a {color: #063640;text-decoration: none;}
-
-.job-list-contents li.item .item-inner {display: inline-block;}
-
-.job-list-contents li.item .item-inner .title {font-size: 12px;font-weight: bold;width: 100%;margin-bottom: 5px;float: left;}
-
-.job-list-contents li.item .item-inner .details {width: 100%;float: left;margin-bottom: 5px;font-size: 10px;}
-
-.job-list-contents li.item .item-inner .details .company {width: auto;margin-right: 5px;max-width: 65%;float: left;border-right: 1px solid black;padding-right: 5px;}
-
-.job-list-contents li.item .item-inner .details .contact {float: left;width: 30%;}
-
-.buttons-list{width: 100%;height: 30px;margin-top: 30px;position: fixed;width: 19.5%;}
-.buttons-list .btn1{width: 49%;float: left;background-color: white;border: 2px solid #EEE;text-align: center;height: 22px;}
-.buttons-list .btn1 a{color:#063640;line-height: 22px;text-decoration: none;font-size: 10px;}
-.buttons-list .btn2{width: 45%;float: left;background-color: white;text-align: center;border: 2px solid #EEE;height: 22px;}
-.buttons-list .btn2 a{color:#063640;line-height: 22px;text-decoration: none;font-size: 10px;}
-
-//
-
-.loader-div{
-  width: 100%;height: 100%;display: block;text-align: center;padding-top: 30%;background-color: white;opacity: 0.5;
-  img{
-    width: 50px;
-  }
-}
-
-#county-info{width: 230px;top: 55px;min-height: 109px;position: absolute;left: 65px;border-radius: 5px;background-color: #7895A4;border-color: #507282;opacity: 0.8;color: #FFFFFF;font-weight: bold;font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;font-size: 14px;border: 1px solid #507282;padding: 8px;display: inline-block;box-sizing: border-box;}
-#county-info p{font-size: 11px;width: auto;float: left;margin-right: 5px;margin-bottom: 0px;}
-#county-info {
-  .stats{width: 100%; float: left;}
-  .manager-holder{
-    width: 100%;float: left;margin-bottom: 10px;
-    .mngr-mission{width: 50%;float: left}
-    .mngr-avatar{width: 50%;float: left}
-  }
-}
-
-
