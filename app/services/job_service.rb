@@ -50,7 +50,7 @@ class JobService
     %w(Developer Designer Product Sales Marketing Business)
   end
 
-  def self.search(params)
+  def self.search(params, limit = 1000)
     jobs = Job.scoped.joins(:company)
     jobs = jobs.currently_running
     jobs = jobs.title_like params[:title] unless params[:title].blank?
@@ -75,6 +75,10 @@ class JobService
       skills << Skill.find_or_create_by_name(skill.strip)
     end
     skills
+  end
+
+  def self.most_recent(limit=5)
+    JobDecorator.decorate(Job.order("expires_on DESC").limit(limit))
   end
 
 end

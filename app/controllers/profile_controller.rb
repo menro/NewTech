@@ -1,6 +1,7 @@
 class ProfileController < ApplicationController
   before_filter :authenticate_user!
   before_filter :user
+  before_filter :ensure_county_presence, except: [:update_county, :update]
 
   def show
   end
@@ -21,6 +22,9 @@ class ProfileController < ApplicationController
       flash.now[:error] = "We're sorry, but something went wrong. Try again"
       render action: "show"
     end
+  end
+
+  def update_county  
   end
 
   private

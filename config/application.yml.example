@@ -1,0 +1,15 @@
+OAUTH_TOKEN_SECRET:  'sCPqePxsnm4A4MypRFfnjh2ah5g8-change-me'
+OAUTH_TOKEN: '18977397-TVuFu6dH3SRGdtcdlKVSP1JMJKi-change-me'
+CONSUMER_SECRET: 'n5kJmNIi1eutICgeFlGwyPcppGDtTa-change-me'
+CONSUMER_KEY: '7da3kgf1orBHPXF-change-me'
+
+
+AWS_SECRET_ACCESS_KEY: 'U1U/BXH1mhHVAQFo5exk6S2lBfEEd-change-me'
+AWS_BUCKET: 'algona--change-me'
+AWS_ACCESS_KEY_ID: 'AKIAICRCEXRJ5D-change-me'
+
+EMAIL_FROM_ADDRESS: 'smtp.-change-me'
+EMAIL_NO_REPLY: 'noreply@bdnt.org'
+EMAIL_DOMAIN: 'heroku.com'
+SENDGRID_USERNAME: '-change-me'
+SENDGRID_PASSWORD: '-change-me'

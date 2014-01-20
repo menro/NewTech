@@ -13,4 +13,10 @@ class UserService
   def self.update_user(user, attributes = {})
     user.update_attributes attributes
   end
+
+  def self.search(attributes = {})
+    # User.where(county_id: attributes[:current_county_id]).limit(7)
+    User.available_freelancers(7)
+  end
+
 end

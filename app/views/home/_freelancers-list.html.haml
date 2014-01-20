@@ -1,0 +1,24 @@
+.freelancers-list-header.list-header
+  %h4 Available Freelancers
+.loader-div{style: 'display: none;'}
+  %span
+    %img{src: '/assets/spinner.gif'}
+
+.buttons-list
+  .btn1
+    = link_to 'See All', '/freelancers'
+  .btn2
+    - if !user_signed_in? 
+      = link_to 'Add Yourself', new_user_session_path
+    - elsif user_signed_in? && current_user.is_freelancer?
+      = link_to 'Add Yourself', edit_profile_users_url(current_user.username)
+    - elsif user_signed_in? && !current_user.is_freelancer?
+      = link_to 'Add Yourself', profile_path
+
+.freelancers-list-contents.list-contents
+  - @freelancers.each do |user|
+    - next if user.discipline.nil?
+    .freelancer-box
+      = link_to image_tag(user.avatar.url(:thumb_large), class: 'thumb_large'), show_freelancer_users_url(user.username)
+      .freelancer-discipline
+        %h6= user.discipline.name.slice(0,9)

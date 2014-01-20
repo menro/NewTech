@@ -17,6 +17,16 @@ class ApiController < ApplicationController
     respond_with @counties
   end
 
+  def states
+    @states = StateService::search(params)
+    respond_with @states
+  end
+
+  def countries
+    @countries = CountryService::search(params)
+    respond_with @countries
+  end
+
   def county
     @county = CountyService::find(params)
     respond_with @county
@@ -55,5 +65,24 @@ class ApiController < ApplicationController
     respond_with @skills
   end
 
+  def bottom_lists
+    if params[:zoom_level] == 'County'
+      @freelancers        = UserService::search(params)
+      @jobs               = JobService.search(params)
+      @events             = EventService.search(params)
+      @companies          = CompanyService::search_recent(params)
+      @community_manager  = CommunityManager.where(county_id: params[:current_county_id]).first
+      # @community_manager  = CommunityManager.first
+    else
+      @events             = EventService.all
+      @companies          = Company.get_recent_companies(5)
+      @freelancers        = User.available_freelancers(7)
+      puts '******************************************************'
+      puts @freelancers.map{|f| [f.id, f.discipline.name]}
+      puts '*******************************************************'
+      @jobs               = JobService.most_recent(5)
+    end
+
+  end
 
 end

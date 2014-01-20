@@ -1,0 +1,22 @@
+.events-list-header.list-header
+  %h4 Upcoming Events
+
+.loader-div{style: 'display: none;'}
+  %span
+    %img{src: '/assets/spinner.gif'}
+    
+.buttons-list
+  .btn1
+    = link_to 'See All', '#'
+  .btn2
+    = link_to 'Add an Event', '#'
+
+.events-list-contents#events_list.list-contents
+  %ul.event-list
+    - @events.each do |event|
+      %li.event-item
+        %div.event-item-inner
+          %a{:href => event.preview || 'javascript:void(0)', :target => "_blank"}
+            .main
+              .title=event.title
+              .text=event.start_at.to_time.strftime("%B %e %l.%M%p")

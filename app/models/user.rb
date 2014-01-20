@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => /image/
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :username, :email, :password, :password_confirmation, :remember_me , :role_ids, :job_title, :receive_notification
+  attr_accessible :username, :email, :password, :password_confirmation, :remember_me , :role_ids, :job_title, :receive_notification, :county_id
   attr_accessible :rate, :github, :personal_url, :full_name, :status, :experience, :platform_ids, :language_ids, :address, :town, :zip, :remote_onsite, :outside_colorado, :recommendation_ids, :work_location_ids, :discipline_id, :is_freelancer
 
   has_many :language_sets, class_name: "UsersLanguages"
@@ -61,6 +61,7 @@ class User < ActiveRecord::Base
   has_many :users_links
   # belongs_to :job_type
   belongs_to :discipline
+  belongs_to :county
 
   validates :username, presence: true, :allow_nil => false, :uniqueness => {:case_sensitive => false}
   validates :email, presence: true, :uniqueness => {:case_sensitive => false}, :allow_nil => false
@@ -128,6 +129,11 @@ class User < ActiveRecord::Base
     rec.present?
   end
 
+  def count_profile_views!
+    self.profile_views += 1
+    save
+  end
+
   def self.browse_all
     users_status = []
     User::WORK_STATUS.each do |status|
@@ -163,6 +169,13 @@ class User < ActiveRecord::Base
     [[discipline.name.titleize, discipline.id]] + Discipline.where("id !=?", discipline.id).all.map { |d| [d.name.titleize, d.id]}
   end
 
+  def self.available_freelancers(limit = 5)
+    User.where("is_freelancer=true and status = 'available' and discipline_id is not NULL").order('RANDOM()').limit(limit)
+  end
+
+  def has_county_info?
+    county.present?
+  end
 
   private
 
@@ -172,6 +185,7 @@ class User < ActiveRecord::Base
     self.gravatar = "http://1.gravatar.com/avatar/#{Digest::MD5.hexdigest(self.email)}"
     self.username = self.username.downcase.gsub(/\s/,'')
     self.discipline = Discipline.where(name: 'Developer').first
+    self.profile_views = 0 
   end
 
   def self.languages_in(language)

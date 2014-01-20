@@ -9,6 +9,8 @@ Newtech::Application.routes.draw do
     collection do
       get :companies
       get :counties
+      get :states
+      get :countries
       get :county
       get :tags
       get :skills
@@ -18,6 +20,7 @@ Newtech::Application.routes.draw do
       get :jobs
       get :job_kinds
       get :job_roles
+      get :bottom_lists
     end
   end
 
@@ -47,14 +50,17 @@ Newtech::Application.routes.draw do
       delete '/remove/recommendation' => 'users#remove_recommendation', as: 'remove_recommendation'
     end
   end
-
+  
   # Profile Area
   get "profile/account" => "profile#account"
   put "profile/password" => "profile#password_update"
   get "profile" => "profile#show"
   put "profile/update" => "profile#update"
+  get 'update_county' => 'profile#update_county'
 
   get 'hiring' => 'home#jobs', as: 'hiring'
+  get '/get_cities' => 'states#get_cities'
+
   root :to => 'home#welcome'
 
 end

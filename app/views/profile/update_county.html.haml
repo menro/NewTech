@@ -1,0 +1,14 @@
+%h3.page_title
+  = @user.username
+  %br
+  %small
+    = @user.email
+
+= simple_form_for @user, url: profile_update_path, method: :put, html: { class: "edit_user form-horizontal" } do |f|
+  .well
+    .row
+      .span7
+        = f.association :county 
+
+    .form-actions
+      = f.submit 'Update Profile', class: "btn save-btn"

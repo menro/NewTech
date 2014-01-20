@@ -45,5 +45,5 @@ class CountyDecorator < Draper::Base
   def search_params
     @options[:search_params] ||= nil
   end
-
+# cc = County.includes(:companies).select("counties.id , distinct AVG(companies.latitude) as companies_avg_latitude, distinct AVG(companies.longitude as companies_avg_longitude), distinct companies.count as companies_numbers, distinct ((companies.count * 100)/Company.count) as companies_percentage")
 end

@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
 
-  before_filter :populate_collections
+  before_filter :populate_collections, except: [:bottom_lists]
+  before_filter :ensure_county_presence, only: [:welcome]
 
   def welcome
     @counties           = County.all
@@ -21,11 +22,16 @@ class HomeController < ApplicationController
     @employees_types    = EmployeesTypeService.all
     @investments_types  = InvestmentsTypeService.all
     @events             = EventService.all
-    @recent_companies   = Company.get_recent_companies
+    @recent_companies   = Company.get_recent_companies(5)
     @sponsor            = Sponsor.get_randomly
+    @freelancers        = User.available_freelancers(7)
+    @freelancers.reject! {|f| f.discipline.nil?}
+    @jobs               = JobService.most_recent(5)
+    @trending_news      = TwitterNewsService.most_recent(5)
+    @manager            = CommunityManager.first
   end
 
   def email_confirmation
   end
-  
+
 end

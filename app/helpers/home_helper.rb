@@ -21,6 +21,8 @@ module HomeHelper
     {
         :offices_url => "#{companies_api_v1_url(:json)}",
         :counties_url => "#{counties_api_v1_url(:json)}",
+        states_url: "#{states_api_v1_url(:json)}",
+        countries_url: "#{countries_api_v1_url(:json)}",
         :county_url => "#{county_api_v1_url(:json)}",
         :tags_url => "#{tags_api_v1_url(:json)}",
         :skills_url => "#{skills_api_v1_url(:json)}",
@@ -29,7 +31,8 @@ module HomeHelper
         :categories_url => "#{categories_api_v1_url(:json)}",
         :jobs_url => "#{jobs_api_v1_url(:json)}",
         :job_kinds_url => "#{job_kinds_api_v1_url(:json)}",
-        :job_roles_url => "#{job_roles_api_v1_url(:json)}"
+        :job_roles_url => "#{job_roles_api_v1_url(:json)}",
+        :bottom_list_url => "#{bottom_lists_api_v1_url(:json)}"
     }
   end
 end

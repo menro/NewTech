@@ -1,0 +1,27 @@
+<div class="controls">
+  <select class="select required chzn-done" data-validate="true" id="company_city_id" name="company[city_id]" style="display: none;">
+    <option value=""></option>
+    <% @cities.each do |city| %>
+      <option value="<%= city.last%>"><%= city.first%></option>
+    <%end%>
+  </select>
+
+  <div id="company_city_id_chzn" class="chzn-container chzn-container-single chzn-container-active" style="width: 272px;">
+    <a href="javascript:void(0)" class="chzn-single chzn-default" tabindex="-1">
+      <span>Select an Option</span>
+      <div><b></b></div>
+    </a>
+    <div class="chzn-drop" style="left: -9000px; width: 270px; top: 24px;">
+      <div class="chzn-search">
+        <input type="text" autocomplete="off" style="width: 235px;" tabindex="0">
+      </div>
+      
+      <ul class="chzn-results">
+        <% @cities.each do |city|%>
+          <li id=<%"company_city_id_chzn_o_#{}"%> class="active-result" style=""><%= city.first%></li>
+        <%end%>
+      </ul>
+    </div>
+  </div>
+
+</div>

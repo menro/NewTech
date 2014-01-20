@@ -6,9 +6,9 @@ class City < ActiveRecord::Base
 
   attr_accessible :county_id, :name, :state, :latitude, :longitude
 
-  validates_presence_of :county_id, :name, :state, :latitude, :longitude
+  validates_presence_of :county_id, :name #, :state, :latitude, :longitude
 
-  validates_numericality_of :latitude, :longitude
+  # validates_numericality_of :latitude, :longitude
 
 
 end

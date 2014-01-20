@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131027181043) do
+ActiveRecord::Schema.define(:version => 20140111103826) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -53,6 +53,19 @@ ActiveRecord::Schema.define(:version => 20131027181043) do
   add_index "cities", ["county_id"], :name => "index_cities_on_county_id"
   add_index "cities", ["name"], :name => "index_cities_on_name"
 
+  create_table "community_managers", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "county_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "discipline_id"
+    t.text     "mission"
+  end
+
+  add_index "community_managers", ["county_id"], :name => "index_community_managers_on_county_id"
+  add_index "community_managers", ["discipline_id"], :name => "index_community_managers_on_discipline_id"
+  add_index "community_managers", ["user_id"], :name => "index_community_managers_on_user_id"
+
   create_table "companies", :force => true do |t|
     t.integer  "user_id"
     t.integer  "employees_type_id"
@@ -82,11 +95,13 @@ ActiveRecord::Schema.define(:version => 20131027181043) do
     t.string   "zip_code"
     t.decimal  "latitude"
     t.decimal  "longitude"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.integer  "jobs_count"
     t.string   "kickstarter_url"
     t.datetime "kickstarter_end_date"
+    t.integer  "state_id"
+    t.boolean  "raising_money",        :default => false
   end
 
   add_index "companies", ["city_id"], :name => "index_companies_on_city_id"
@@ -95,6 +110,7 @@ ActiveRecord::Schema.define(:version => 20131027181043) do
   add_index "companies", ["enabled"], :name => "index_companies_on_enabled"
   add_index "companies", ["founded_year"], :name => "index_companies_on_founded_year"
   add_index "companies", ["investments_type_id"], :name => "index_companies_on_investments_type_id"
+  add_index "companies", ["state_id"], :name => "index_companies_on_state_id"
   add_index "companies", ["user_id"], :name => "index_companies_on_user_id"
 
   create_table "companies_tags", :id => false, :force => true do |t|
@@ -112,9 +128,17 @@ ActiveRecord::Schema.define(:version => 20131027181043) do
     t.string   "longitude"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "state_id"
   end
 
   add_index "counties", ["name"], :name => "index_counties_on_name"
+  add_index "counties", ["state_id"], :name => "index_counties_on_state_id"
+
+  create_table "countries", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "disciplines", :force => true do |t|
     t.string   "name"
@@ -143,9 +167,13 @@ ActiveRecord::Schema.define(:version => 20131027181043) do
     t.datetime "start_at"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "county_id"
+    t.integer  "state_id"
   end
 
+  add_index "events", ["county_id"], :name => "index_events_on_county_id"
   add_index "events", ["start_at"], :name => "index_events_on_start_at"
+  add_index "events", ["state_id"], :name => "index_events_on_state_id"
 
   create_table "freelancer_configs", :force => true do |t|
     t.integer  "bump"
@@ -271,6 +299,19 @@ ActiveRecord::Schema.define(:version => 20131027181043) do
     t.integer  "image_file_size"
   end
 
+  create_table "states", :force => true do |t|
+    t.string   "name"
+    t.string   "country"
+    t.string   "longitude"
+    t.string   "latitude"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "country_id"
+    t.string   "short_name"
+  end
+
+  add_index "states", ["country_id"], :name => "index_states_on_country_id"
+
   create_table "tags", :force => true do |t|
     t.string   "name"
     t.string   "code"
@@ -285,6 +326,13 @@ ActiveRecord::Schema.define(:version => 20131027181043) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "twitter_names", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.integer  "bump",       :default => 0
   end
 
   create_table "users", :force => true do |t|
@@ -335,10 +383,13 @@ ActiveRecord::Schema.define(:version => 20131027181043) do
     t.boolean  "receive_notification",   :default => true
     t.integer  "endorsers_count",        :default => 0
     t.integer  "bump",                   :default => 0
+    t.integer  "profile_views",          :default => 0
+    t.integer  "county_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
+  add_index "users", ["county_id"], :name => "index_users_on_county_id"
   add_index "users", ["discipline_id"], :name => "index_users_on_discipline_id"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["job_type_id"], :name => "index_users_on_job_type_id"

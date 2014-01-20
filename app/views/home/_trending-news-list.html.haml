@@ -1,0 +1,29 @@
+.trending-news-list-header.list-header
+  %h4 Trending News
+
+.loader-div{style: 'display: none;'}
+  %span
+    %img{src: '/assets/spinner.gif'}
+    
+.buttons-list
+  .btn1
+    = link_to 'See All', '#'
+  .btn2
+    = link_to 'Add New Stories', '#'
+.trending-news-lis-contents.list-contents
+  %ul.event-list
+    - @trending_news.each do |news|
+      %li.event-item
+        %div.event-item-inner
+          .avtar
+            = link_to image_tag(news.publisher_thumbnail_url), news.publisher_profile_url, target: '_blank'
+          .news-details
+            .title
+              = link_to news.truncated_title, news.url, target: '_blank'
+            .screen_name
+              = "@#{news.publisher_name}"
+            .details
+              .publisher
+                = "#{time_ago_in_words(news.tweet_created_at)} ago".gsub('minutes','m')
+              .votes
+                = "Votes: #{news.votes}"
