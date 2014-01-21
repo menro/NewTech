@@ -254,7 +254,7 @@ task fetch_data_from_crunchbase: :environment do
     company.address = (c.offices.first["address1"] || '') + ", " + (c.offices.first["address2"] || '')
     company.zip_code = zip
     
-    r = Geocoder.search c.offices.first["address1"]
+    r = Geocoder.search c.offices.first["address1"]+ ", " + (c.offices.first["address2"] || '') + ", #{county.name}" + ",#{zip}" 
     puts "Requested geocoder for address #{c.offices.first["address1"]} ===== Got lng/lat:: #{r.first.geometry["location"]}"
     company.latitude = r.first.geometry["location"]["lat"]
     company.longitude = r.first.geometry["location"]["lng"]
