@@ -97,6 +97,7 @@ gem 'newrelic_rpm'
 # twitter feed
 gem 'twitter'
 
+gem 'geocoder'
 # fetching news title for twitter news
 # gem 'open-uri'
 gem 'nokogiri'
