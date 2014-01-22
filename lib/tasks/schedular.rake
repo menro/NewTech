@@ -159,10 +159,13 @@ task fetch_data_from_crunchbase: :environment do
     file
   end
   companies = Crunchbase::Company.all; nil
+
+  user  = User.where(email: 'reich.robert@gmail.com').first
+
   # pp c.entity.to_yaml
   found = false
   companies.each do |cc|
-    begin
+    # begin
       c = cc.entity
 
     unless c.offices.present?
@@ -204,11 +207,9 @@ task fetch_data_from_crunchbase: :environment do
 
     category = Category.find_by_name 'Companies'
 
-    user  = User.where(email: 'reich.robert@gmail.com').first
-
     
     unless c.offices.first["zip_code"]
-      puts "Zipcode do not found.....#{c.offices.first["zip_code"]}"
+      puts "Zipcode do not found.....#{c.offices.first['zip_code']}"
       next
     end
     zip = c.offices.first["zip_code"].split('-').first.to_i
@@ -231,42 +232,69 @@ task fetch_data_from_crunchbase: :environment do
     puts "============Creating Company=========:::#{c.name}"
 
     company = Company.where("name=? and city_id =? and county_id =?", c.name, city.id, county.id).first
-    company = Company.create(name: c.name, city_id: city.id) unless company.present?
-    company.county = county
+    
+    address = []
+    address << c.offices.first["address1"]
+    address << c.offices.first["address2"]
+    
+    if company.present?
+      puts 'Company already exists...' + company.name
+      next
+    end
+
+    puts 'Creating by user================================================================================='
+    company = Company.create_by_user(user, {name: c.name, 
+                                            city_id: city.id, 
+                                            county_id: county.id,
+                                            email_address: c.email_address, 
+                                            founded_year: c.founded_year,
+                                            homepage_url: c.homepage_url,
+                                            address: address.join(','),
+                                            zip_code: zip,
+                                            overview: ActionView::Base.full_sanitizer.sanitize(c.overview),
+                                            twitter: c.twitter_username,
+                                            phone_number: c.phone_number,
+                                            category_id: category.id
+                                            })
+    puts '****************************************************************************************************'
+    # company = Company.create(user, {name: c.name, city_id: city.id}) unless company.present?
+    # company.county = county
     # Company.find_or_create_by_name_and_city_id_and_county_id_and_state_id(c.name, city.id, county.id, state.id)
     # company.city_id = city.id
     # company.state_id = state.id
-    company.category_id = category.id
-    next if company.email_address.present?
+    # company.category_id = category.id
+    # next if company.email_address.present?
     company.tags << Tag.find_or_create_by_code(tag_code)
-    unless c.image.present?
-      company.image = file_from_url( "http://crunchbase.com/" + c.image.sizes.last.url )
-    end
+    
+    # unless c.image.present?
+    #   company.image = file_from_url( "http://crunchbase.com/" + c.image.sizes.last.url )
+    # end
+
     # if company.image.present?
     #   next
     # end
     # company.image = file_from_url( "http://crunchbase.com/" + c.image.sizes.last.url )
-    company.user_id = user.id
-    company.email_address = c.email_address
-    company.founded_year = c.founded_year
-    company.homepage_url = c.homepage_url
-    # company.name = c.name
-    company.address = (c.offices.first["address1"] || '') + ", " + (c.offices.first["address2"] || '')
-    company.zip_code = zip
+    # company.user_id = user.id
+    # company.email_address = c.email_address
+    # company.founded_year = c.founded_year
+    # company.homepage_url = c.homepage_url
+    # # company.name = c.name
+    # company.address = address.join(',')
+    # company.zip_code = zip
     
-    r = Geocoder.search c.offices.first["address1"]+ ", " + (c.offices.first["address2"] || '') + ", #{county.name}" + ",#{zip}" 
-    puts "Requested geocoder for address #{c.offices.first["address1"]} ===== Got lng/lat:: #{r.first.geometry["location"]}"
-    company.latitude = r.first.geometry["location"]["lat"]
-    company.longitude = r.first.geometry["location"]["lng"]
-    # company.latitude = c.offices.first["latitude"]
+    # r = Geocoder.search c.offices.first["address1"]+ ", " + (c.offices.first["address2"] || '') + ", #{county.name}" + ",#{zip}" 
+    # puts "Requested geocoder for address #{c.offices.first["address1"]} ===== Got lng/lat:: #{r.first.geometry["location"]}"
+    # company.latitude = r.first.geometry["location"]["lat"]
+    # company.longitude = r.first.geometry["location"]["lng"]
+    # # company.latitude = c.offices.first["latitude"]
     # company.longitude = c.offices.first["longitude"]
-    company.overview = ActionView::Base.full_sanitizer.sanitize(c.overview)
-    company.phone_number = c.phone_number
-    company.twitter = c.twitter_username
-    company.save
-    rescue
-      next
-    end
+    # company.overview = ActionView::Base.full_sanitizer.sanitize(c.overview)
+    # company.phone_number = c.phone_number
+    # company.twitter = c.twitter_username
+    # company.save
+    # rescue
+      # next
+    # end
     # if Company.count > 600
     #   break
     # end

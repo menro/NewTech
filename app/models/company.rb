@@ -5,8 +5,11 @@ class Company < ActiveRecord::Base
                   :founded_year,
                   :description,
                   :homepage_url,
-		  :kickstarter_url,
-		  :kickstarter_end_date,
+                  :email_address,
+                  :overview,
+                  :phone_number,
+            		  :kickstarter_url,
+            		  :kickstarter_end_date,
                   :twitter,
                   :facebook,
                   :jobs_url,
@@ -22,7 +25,8 @@ class Company < ActiveRecord::Base
                   :city_id,
                   :zip_code,
                   :latitude,
-                  :longitude
+                  :longitude,
+                  :county_id
 
   belongs_to  :user
 
@@ -139,10 +143,44 @@ class Company < ActiveRecord::Base
   def self.get_recent_companies(limit=5)
     Company.select("companies.*, cnt.name as county_name").joins("INNER JOIN counties cnt on cnt.id = companies.county_id").order("companies.created_at DESC").first(limit)
   end
+  
+  def self.create_by_user(user, attributes = {})
+    puts '****************'
+    puts attributes
+    puts '**********************'
+    geocode = find_geocode(attributes[:addresss], attributes[:city_name], attributes[:zip_code])
+    puts geocode
+    puts '=============================================' + geocode.accuracy.to_i.to_s
+    if !geocode.success || geocode.accuracy.to_i < 4
+      puts '++++++++++++++++++++      1        ++++++++++++++++++++'
+      company = new(attributes)
+      company.errors.add :address, "Address not founds"
+    elsif attributes[:zip_code].to_s != geocode.zip.to_s
+      puts '++++++++++++++++++++      2        ++++++++++++++++++++'
+      # puts attributes[:zip_code].to_s + '--------' + geocode.zip.to_s
+      # puts attributes[:zip_code].to_s.eql?(geocode.zip.to_s)
+      company = new(attributes)
+      company.errors.add :zip_code, "Postal code not valid"
+    else
+      puts '++++++++++++++++++++      3        ++++++++++++++++++++'
+      attributes[:address] = geocode.street_address if geocode.street_address.present?
+      attributes[:latitude] = geocode.lat
+      attributes[:longitude] = geocode.lng
+      company = new(attributes)
+      company.user_id = user.id
+      company.save!
+    end
+    CompanyDecorator.decorate(company)
+  end
 
   private
   def attach_county
     self.county = city.county unless city.county.nil?
+  end
+
+  def self.find_geocode(address, city_name, zip_code)
+    geocode = Geokit::Geocoders::GoogleGeocoder3.geocode("#{address}, #{zip_code}, #{city_name}")
+    geocode
   end
 
 end
