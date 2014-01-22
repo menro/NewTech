@@ -165,7 +165,7 @@ task fetch_data_from_crunchbase: :environment do
   # pp c.entity.to_yaml
   found = false
   companies.each do |cc|
-    # begin
+    begin
       c = cc.entity
 
     unless c.offices.present?
@@ -208,10 +208,11 @@ task fetch_data_from_crunchbase: :environment do
     category = Category.find_by_name 'Companies'
 
     
-    unless c.offices.first["zip_code"]
+    unless c.offices.first["zip_code"].present?
       puts "Zipcode do not found.....#{c.offices.first['zip_code']}"
       next
     end
+    puts "==============================zip::::#{c.offices.first["zip_code"]}"
     zip = c.offices.first["zip_code"].split('-').first.to_i
 
     unless c.email_address.present?
@@ -256,6 +257,7 @@ task fetch_data_from_crunchbase: :environment do
                                             phone_number: c.phone_number,
                                             category_id: category.id
                                             })
+
     puts '****************************************************************************************************'
     # company = Company.create(user, {name: c.name, city_id: city.id}) unless company.present?
     # company.county = county
@@ -292,9 +294,9 @@ task fetch_data_from_crunchbase: :environment do
     # company.phone_number = c.phone_number
     # company.twitter = c.twitter_username
     # company.save
-    # rescue
-      # next
-    # end
+    rescue
+      next
+    end
     # if Company.count > 600
     #   break
     # end

@@ -155,9 +155,9 @@ class Company < ActiveRecord::Base
       puts '++++++++++++++++++++      1        ++++++++++++++++++++'
       company = new(attributes)
       company.errors.add :address, "Address not founds"
-    elsif attributes[:zip_code].to_s != geocode.zip.to_s
-      puts '++++++++++++++++++++      2        ++++++++++++++++++++'
-      # puts attributes[:zip_code].to_s + '--------' + geocode.zip.to_s
+    elsif attributes[:zip_code].to_i != geocode.zip.to_i
+      puts '++++++++++++++++++++      222        ++++++++++++++++++++'
+      puts attributes[:zip_code].to_i + '--------' + geocode.zip.to_i
       # puts attributes[:zip_code].to_s.eql?(geocode.zip.to_s)
       company = new(attributes)
       company.errors.add :zip_code, "Postal code not valid"
@@ -166,6 +166,7 @@ class Company < ActiveRecord::Base
       attributes[:address] = geocode.street_address if geocode.street_address.present?
       attributes[:latitude] = geocode.lat
       attributes[:longitude] = geocode.lng
+      attributes[:zip_code] = geocode.zip
       company = new(attributes)
       company.user_id = user.id
       company.save!
