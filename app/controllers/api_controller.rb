@@ -65,6 +65,10 @@ class ApiController < ApplicationController
     respond_with @skills
   end
 
+  def recent_updates
+    @recent_updates = CompanyService::get_recent_companies(params)
+  end
+
   def bottom_lists
     if params[:zoom_level] == 'County'
       @freelancers        = UserService::search(params)

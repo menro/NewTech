@@ -165,7 +165,7 @@ task fetch_data_from_crunchbase: :environment do
   # pp c.entity.to_yaml
   found = false
   companies.each do |cc|
-    # begin
+    begin
       c = cc.entity
 
     unless c.offices.present?
@@ -294,9 +294,9 @@ task fetch_data_from_crunchbase: :environment do
     company.phone_number = c.phone_number
     company.twitter = c.twitter_username
     company.save
-    # rescue
-    #   next
-    # end
+    rescue
+      next
+    end
   end
 
 end

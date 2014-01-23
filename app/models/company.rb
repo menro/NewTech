@@ -141,28 +141,21 @@ class Company < ActiveRecord::Base
   end
 
   def self.get_recent_companies(limit=5)
-    Company.select("companies.*, cnt.name as county_name").joins("INNER JOIN counties cnt on cnt.id = companies.county_id").order("companies.created_at DESC").first(limit)
+    state = State.where(name: 'Colorado').first
+    Company.select("companies.*, cnt.name as county_name").joins("INNER JOIN counties cnt on cnt.id = companies.county_id").joins("INNER JOIN states s on s.id = cnt.state_id").where("s.id = ?", state.id).order("companies.created_at DESC").first(limit)
   end
   
   def self.create_by_user(user, attributes = {})
-    puts '****************'
-    puts attributes
-    puts '**********************'
     geocode = find_geocode(attributes[:addresss], attributes[:city_name], attributes[:zip_code])
     puts geocode
     puts '=============================================' + geocode.accuracy.to_i.to_s
     if !geocode.success || geocode.accuracy.to_i < 4
-      puts '++++++++++++++++++++      1        ++++++++++++++++++++'
       company = new(attributes)
       company.errors.add :address, "Address not founds"
     elsif attributes[:zip_code].to_i != geocode.zip.to_i
-      puts '++++++++++++++++++++      222        ++++++++++++++++++++'
-      puts attributes[:zip_code].to_i + '--------' + geocode.zip.to_i
-      # puts attributes[:zip_code].to_s.eql?(geocode.zip.to_s)
       company = new(attributes)
       company.errors.add :zip_code, "Postal code not valid"
     else
-      puts '++++++++++++++++++++      3        ++++++++++++++++++++'
       attributes[:address] = geocode.street_address if geocode.street_address.present?
       attributes[:latitude] = geocode.lat
       attributes[:longitude] = geocode.lng

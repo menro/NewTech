@@ -115,4 +115,19 @@ class CompanyService
     geocode
   end
 
+  def self.get_recent_companies params, limit=5
+    case params[:zoom_level]
+      when 'World'
+        Company.select("companies.*, cnt.name as county_name").joins("INNER JOIN counties cnt on cnt.id = companies.county_id").order("companies.created_at DESC").first(limit)
+      when 'Country'
+        country = Country.where(name: 'United States').first
+        Company.select("companies.*, cnt.name as county_name").joins("INNER JOIN counties cnt on cnt.id = companies.county_id").joins("INNER JOIN states s on s.id = cnt.state_id").where("s.country_id = ?", country.id).order("companies.created_at DESC").first(limit)
+      when 'State'
+        state = State.where(name: params[:state_name] || 'Colorado').first
+        Company.select("companies.*, cnt.name as county_name").joins("INNER JOIN counties cnt on cnt.id = companies.county_id").joins("INNER JOIN states s on s.id = cnt.state_id").where("s.id = ?", state.id).order("companies.created_at DESC").first(limit)
+      when 'County'
+        Company.select("companies.*, cnt.name as county_name").joins("INNER JOIN counties cnt on cnt.id = companies.county_id").where("companies.county_id = ?", params[:current_county_id]).order("companies.created_at DESC").first(limit)
+    end
+  end
+
 end

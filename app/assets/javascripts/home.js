@@ -35,13 +35,13 @@
   GMap = (function() {
 
     function GMap(container) {
-        // $(window).bind('orientationchange',function(e) {
-        //   updateRecentBox();
-        // });
-        // $(window).bind('resize',function(e) {
-        //   updateRecentBox();
-        // });
-//        $(window).resize(function(){updateRecentBox();});
+      // $(window).bind('orientationchange',function(e) {
+      //   updateRecentBox();
+      // });
+      // $(window).bind('resize',function(e) {
+      //   updateRecentBox();
+      // });
+      //        $(window).resize(function(){updateRecentBox();});
       // Initialize Google Map
       var defaultOptions;
       defaultOptions = {
@@ -114,7 +114,7 @@
           }, 250);
       });
       drawCountyCircles(container);
-      loadRecentBox(8);
+      loadRecentBox(8, container);
       refreshFilterMenus(container);
 
       // updateCommunityManagerStats(container);
@@ -159,7 +159,7 @@
     }
     currentRequests = [];
 
-    loadRecentBox(zoomLevel);
+    loadRecentBox(zoomLevel,container);
     drawCircles(container);
     if (zoomLevel <= 8) {
       clearCompanyOffices();
@@ -181,12 +181,21 @@
     refreshFilterMenus(container);
   }
 
-  function loadRecentBox(zoomLevel){
+  function loadRecentBox(zoomLevel, container){
     if(isMobileDevice()){$('#box-events-list').hide("fast");return;}
     if(zoomLevel <= 8 && $(window).height() > 594){
       $('#company-list').hide();
       $('#companies-header').hide();
-       $('#box-events-list').fadeIn(500);
+      $('#box-events-list').fadeIn(500);
+      $('#updates-company-list').html('');
+
+      currentRequests.push($.getJSON($(container).data("recent_updates_url"), searchParams(), function(data) {
+        $.each(data, function(i, group) {
+          $.each(group, function(key, obj){
+            $('#recent_update_tpl').tmpl(obj.recent_update).appendTo( $('#updates-company-list') );
+          })
+        });
+      }));
      }
      else{
        $('#box-events-list').hide("fast");
@@ -885,7 +894,7 @@
 
 
   function setSlider(){
-      var srcParamsEl = $('#search_params');
+    var srcParamsEl = $('#search_params');
 	  var currentYear = new Date().getFullYear();
 	  $( "#years_slider" ).slider({
 		  range: true,
@@ -909,7 +918,7 @@
   }
 
   function setKickstarterListener(){
-      var searchParams = $('#search_params');
+    var searchParams = $('#search_params');
       $('a.btn-kickstarter').click(function(e){
           e.preventDefault();
           if($(this).is('.active')) {

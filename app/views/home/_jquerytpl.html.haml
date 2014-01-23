@@ -134,4 +134,12 @@
     %div= "Mission: ${manager_mission}"
   .mngr-avatar
     %img{src: '${manager_pic}'}
+
+%script{:id => "recent_update_tpl", :type=>"text/x-jquery-tmpl" }
+  .company-item
+    .company-thumb
+      %img{style: "width: 30px; height: 30px;", src: '${image}'}
+    .company-desc
+      %h4= truncate('${name}', length: 21)
+      %h6 ${county_name}
     

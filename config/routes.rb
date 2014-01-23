@@ -21,6 +21,7 @@ Newtech::Application.routes.draw do
       get :job_kinds
       get :job_roles
       get :bottom_lists
+      get :recent_updates
     end
   end
 
