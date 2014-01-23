@@ -459,6 +459,7 @@
       }
   }
   function drawCircles(container){
+    clearCompanyOffices();
     if(zoomLevelMap[currentZoomLevel] == 'County'){
       clearCountryCircles();
       clearStatesCircles();
