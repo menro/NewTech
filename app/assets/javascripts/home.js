@@ -5,7 +5,7 @@
   var currentMap;
   var currentRequests = [];
 
-  var companyOfficesMarkers;
+  var companyOfficesMarkers = new Array();
   var nOffices = 0;
   var infoWindows;
   var currentInfoWindow;
@@ -108,7 +108,7 @@
             refreshForCurrentCounty();
             updateCommunityManagerStats(container);
             if(currentZoomLevel == countyZoomLevel){
-              refreshMap(container);
+              // refreshMap(container);
             }
 
           }, 250);
@@ -162,7 +162,7 @@
     loadRecentBox(zoomLevel,container);
     drawCircles(container);
     if (zoomLevel <= 8) {
-      clearCompanyOffices();
+      // clearCompanyOffices();
       clearCountyCircles();
       // drawCountyCircles(container);
       
@@ -171,7 +171,7 @@
       boxSummaryCounty.hide();
     } else {
       clearCountyCircles();
-      clearCompanyOffices();
+      // clearCompanyOffices();
       drawCompanyOffices(container);      
       drawCountySummaryBox(container);
       // refreshForCurrentCounty();      
@@ -293,10 +293,13 @@
   }
 
   function clearCompanyOffices() {
+    console.log('clearing markers..........')
+    console.log(companyOfficesMarkers.length)
     for (var i=0; i<nOffices; i++) {
+      console.log(i)
       companyOfficesMarkers[i].setMap(null);
     }
-
+    console.log('-----------------------------------------')
     companyOfficesMarkers = new Array();
     nOffices = 0;
   }
@@ -333,6 +336,7 @@
   }
   function drawCompanyOffices(container) {   
     //console.log($(container).data("offices_url"));
+    console.log('drawing company offices........')
     currentRequests.push($.getJSON($(container).data("offices_url"), searchParams(), function(data) {
       
       companyOfficesMarkers = new Array();
@@ -937,7 +941,7 @@
 	      $('#box-events-list').hide("fast");
           
       	      clearCountyCircles();
-              clearCompanyOffices();
+              // clearCompanyOffices();
               drawKickstarterCompanyOffices(this);
               refreshFilterMenus(this);
             });

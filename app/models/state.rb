@@ -14,6 +14,8 @@ class State < ActiveRecord::Base
   
   has_many :companies, through: :counties
 
+  has_many :tags, through: :companies
+  
   belongs_to :country
 
 
