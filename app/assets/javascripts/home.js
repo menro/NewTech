@@ -29,6 +29,7 @@
     5: 'Country',
     8: 'State',
     11: 'County'
+    // 12: 'Zip'
   }
   var requiredZoomLevels = [2, 5, 8, 11]
 

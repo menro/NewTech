@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140111103826) do
+ActiveRecord::Schema.define(:version => 20140128193811) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -100,7 +100,6 @@ ActiveRecord::Schema.define(:version => 20140111103826) do
     t.integer  "jobs_count"
     t.string   "kickstarter_url"
     t.datetime "kickstarter_end_date"
-    t.integer  "state_id"
     t.boolean  "raising_money",        :default => false
   end
 
@@ -110,7 +109,6 @@ ActiveRecord::Schema.define(:version => 20140111103826) do
   add_index "companies", ["enabled"], :name => "index_companies_on_enabled"
   add_index "companies", ["founded_year"], :name => "index_companies_on_founded_year"
   add_index "companies", ["investments_type_id"], :name => "index_companies_on_investments_type_id"
-  add_index "companies", ["state_id"], :name => "index_companies_on_state_id"
   add_index "companies", ["user_id"], :name => "index_companies_on_user_id"
 
   create_table "companies_tags", :id => false, :force => true do |t|
@@ -133,6 +131,13 @@ ActiveRecord::Schema.define(:version => 20140111103826) do
 
   add_index "counties", ["name"], :name => "index_counties_on_name"
   add_index "counties", ["state_id"], :name => "index_counties_on_state_id"
+
+  create_table "counties_zipcodes", :id => false, :force => true do |t|
+    t.integer "county_id"
+    t.integer "zipcode_id"
+  end
+
+  add_index "counties_zipcodes", ["county_id", "zipcode_id"], :name => "index_counties_zipcodes_on_county_id_and_zipcode_id"
 
   create_table "countries", :force => true do |t|
     t.string   "name"
@@ -335,6 +340,35 @@ ActiveRecord::Schema.define(:version => 20140111103826) do
     t.integer  "bump",       :default => 0
   end
 
+  create_table "twitter_news", :force => true do |t|
+    t.string   "tweet_id"
+    t.text     "news_title"
+    t.string   "news_url"
+    t.integer  "votes"
+    t.string   "publisher_name"
+    t.string   "publisher_image_url"
+    t.string   "publisher_profile_url"
+    t.integer  "retweet_count"
+    t.integer  "favorite_count"
+    t.boolean  "favorited"
+    t.boolean  "retweeted"
+    t.datetime "tweet_created_at"
+    t.string   "tweet_user_id"
+    t.string   "tweet_user_name"
+    t.string   "tweet_user_screen_name"
+    t.string   "tweet_user_location"
+    t.string   "tweet_user_description"
+    t.string   "tweet_user_url"
+    t.integer  "tweet_user_followers_count"
+    t.integer  "tweet_user_friends_count"
+    t.integer  "tweet_user_favourites_count"
+    t.integer  "tweet_user_profile_image_url"
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+    t.date     "tweet_date"
+    t.integer  "bump",                         :default => 0
+  end
+
   create_table "users", :force => true do |t|
     t.string   "username",               :default => "",    :null => false
     t.string   "email",                  :default => "",    :null => false
@@ -467,6 +501,14 @@ ActiveRecord::Schema.define(:version => 20140111103826) do
 
   create_table "work_location_types", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "zipcodes", :force => true do |t|
+    t.string   "code"
+    t.string   "longitude"
+    t.string   "latitude"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
