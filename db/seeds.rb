@@ -614,12 +614,12 @@ CSV.foreach("/Users/nadeemyasin/Downloads/List-of-Cities-States-and-Counties.csv
 
   r = Geocoder.search "#{zip}, #{state_code}, US"
 
-  lat = r.first.geometry['location']['lat']
-  lng = r.first.geometry['location']['lng']
+  # lat = r.first.geometry['location']['lat']
+  # lng = r.first.geometry['location']['lng']
 
   zip_code = Zipcode.find_or_create_by_code(zip)
-  zip_code.latitude = lat
-  zip_code.longitude = lng
+  # zip_code.latitude = lat
+  # zip_code.longitude = lng
   zip_code.save
 
 end

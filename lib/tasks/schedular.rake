@@ -298,7 +298,51 @@ task fetch_data_from_crunchbase: :environment do
       next
     end
   end
+end
 
+desc 'load zip codes into DB'
+task populate_zipcodes: :environment do 
+  CSV.foreach("public/List-of-Cities-States-and-Counties.csv") do |row|
+    # return if count > 2
+    # count += 1
+    city_name = row[1].try(:titleize)
+    county_name = row[3].try(:titleize)
+    state_code = row[2]
+    zip = row[0]
+
+    unless county_name
+      puts "*****************County name does not present: #{county_name}"
+      next
+    end
+
+    unless city_name
+      puts "*****************Cty name does not present: #{city_name}  ==== #{state_code}"
+      next
+    end
+
+    state = State.find_by_short_name state_code
+    unless state
+      puts "************State do not exists in our DB::: #{state_code}"
+      next
+    end
+
+    county = County.find_by_name_and_state_id county_name, state.id
+    unless county
+      puts "==========County does not exists in our DB::: #{county_name} ====== #{state_code} ==== "
+      # break
+      next
+    end
+
+    r = Geocoder.search "#{zip}, #{state_code}, US"
+
+    # lat = r.first.geometry['location']['lat']
+    # lng = r.first.geometry['location']['lng']
+
+    zip_code = Zipcode.find_or_create_by_code(zip)
+    # zip_code.latitude = lat
+    # zip_code.longitude = lng
+    zip_code.save
+  end
 end
 
 
