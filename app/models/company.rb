@@ -26,7 +26,8 @@ class Company < ActiveRecord::Base
                   :zip_code,
                   :latitude,
                   :longitude,
-                  :county_id
+                  :county_id,
+                  :zipcode_id
 
   belongs_to  :user
 

@@ -333,18 +333,28 @@ task populate_zipcodes: :environment do
       next
     end
 
-    r = Geocoder.search "#{zip}, #{state_code}, US"
-
-    # lat = r.first.geometry['location']['lat']
-    # lng = r.first.geometry['location']['lng']
-
     zip_code = Zipcode.find_or_create_by_code(zip)
-    # zip_code.latitude = lat
-    # zip_code.longitude = lng
-    zip_code.save
+    
+    county.zipcodes << zip_code unless county.zipcodes.collect(&:id).include?(zip_code.id)
 
-    county.zipcodes = zip_code
+    next unless zip_code.latitude.nil?
+    r = Geocoder.search "#{zip}, #{state_code}, US"
+    lat = r.first.geometry['location']['lat']
+    lng = r.first.geometry['location']['lng']
+    zip_code.latitude = lat
+    zip_code.longitude = lng
+    zip_code.save
   end
 end
+
+desc 'load zip codes into DB'
+task map_companies_with_zipcodes: :environment do 
+  Company.find_each do |company|
+    zip_code = Zipcode.find_by_code company.zip_code
+    company.zipcode_id = zip_code.try(:id)
+    company.save
+  end; nil
+end
+
 
 
