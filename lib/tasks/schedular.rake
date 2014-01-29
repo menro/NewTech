@@ -342,6 +342,8 @@ task populate_zipcodes: :environment do
     # zip_code.latitude = lat
     # zip_code.longitude = lng
     zip_code.save
+
+    county.zipcodes = zip_code
   end
 end
 

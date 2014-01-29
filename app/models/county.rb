@@ -6,6 +6,8 @@ class County < ActiveRecord::Base
   has_many :tags, :through => :companies
 
   has_many :community_managers
+
+  has_and_belongs_to_many :zipcodes
   
   attr_accessible :name, :state, :latitude, :longitude, :state_id
 

@@ -622,6 +622,7 @@ CSV.foreach("/Users/nadeemyasin/Downloads/List-of-Cities-States-and-Counties.csv
   # zip_code.longitude = lng
   zip_code.save
 
+  county.zipcodes = zip_code
 end
 
 
