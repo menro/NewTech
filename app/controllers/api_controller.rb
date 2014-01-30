@@ -27,6 +27,11 @@ class ApiController < ApplicationController
     respond_with @countries
   end
 
+  def zipcodes
+    @zipcodes = ZipcodeService::search(params)
+    respond_with @zipcodes
+  end
+
   def county
     @county = CountyService::find(params)
     respond_with @county

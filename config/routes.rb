@@ -11,6 +11,7 @@ Newtech::Application.routes.draw do
       get :counties
       get :states
       get :countries
+      get :zipcodes
       get :county
       get :tags
       get :skills

@@ -12,15 +12,18 @@
 
   var counties;
   var countiesMap;
+  var zipcodeCircles;
   var countyCircles;
   var countryCircles;
   var stateCircles;
   var nCountyCircles = 0;
   var nCountryCircles = 0;
+  var nZipcodeCircles = 0;
   var nStateCircles = 0;
   var countyLabels;
   var countyZoomLevel = 11; //PROVVISORIO - dovrei prendere il nro appropriato da county.map_zoom_level
   var stateZoomLevel = 8;
+  var zipcodeZoomLevel = 12;
   var currentZoomLevel = stateZoomLevel;
   var oldZoomLevel = stateZoomLevel;
 
@@ -28,10 +31,10 @@
     2: 'World',
     5: 'Country',
     8: 'State',
-    11: 'County'
-    // 12: 'Zip'
+    11: 'County',
+    12: 'Zipcode'
   }
-  var requiredZoomLevels = [2, 5, 8, 11]
+  var requiredZoomLevels = [2, 5, 8, 11, 12]
 
   GMap = (function() {
 
@@ -133,6 +136,7 @@
 
   function refreshMap(container) {
     var zoomLevel = currentMap.getZoom();
+    console.log("*******************"+zoomLevel);
     currentZoomLevel = zoomLevel;
 
     for(var i=0; i < requiredZoomLevels.length-1; i++){
@@ -143,6 +147,7 @@
           return;
         }
         else{
+          console.log('Eathay e kuch!!')
           oldZoomLevel = requiredZoomLevels[i];
           currentMap.setZoom(oldZoomLevel);
           return;
@@ -173,7 +178,7 @@
     } else {
       clearCountyCircles();
       // clearCompanyOffices();
-      drawCompanyOffices(container);      
+      // drawCompanyOffices(container);      
       drawCountySummaryBox(container);
       // refreshForCurrentCounty();      
     }
@@ -294,17 +299,21 @@
   }
 
   function clearCompanyOffices() {
-    console.log('clearing markers..........')
-    console.log(companyOfficesMarkers.length)
     for (var i=0; i<nOffices; i++) {
       console.log(i)
       companyOfficesMarkers[i].setMap(null);
     }
-    console.log('-----------------------------------------')
     companyOfficesMarkers = new Array();
     nOffices = 0;
   }
+  function clearZipcodeCircles() {
+    for (var i=0; i<nZipcodeCircles; i++) {
+      zipcodeCircles[i].setMap(null);
+    }
 
+    zipcodeCircles = new Array();
+    nZipcodeCircles = 0;
+  }
   function clearCountyCircles() {
     for (var i=0; i<nCountyCircles; i++) {
       countyCircles[i].setMap(null);
@@ -337,7 +346,6 @@
   }
   function drawCompanyOffices(container) {   
     //console.log($(container).data("offices_url"));
-    console.log('drawing company offices........')
     currentRequests.push($.getJSON($(container).data("offices_url"), searchParams(), function(data) {
       
       companyOfficesMarkers = new Array();
@@ -474,27 +482,123 @@
   }
   function drawCircles(container){
     clearCompanyOffices();
-    if(zoomLevelMap[currentZoomLevel] == 'County'){
-      clearCountryCircles();
-      clearStatesCircles();
-      clearCountyCircles();
+    clearCountryCircles();
+    clearCountyCircles();
+    clearStatesCircles();
+    console.log(zoomLevelMap[currentZoomLevel])
+    console.log('=========================')
+    if(zoomLevelMap[currentZoomLevel] == 'Zipcode'){
+      drawCompanyOffices();
+    }
+    else if(zoomLevelMap[currentZoomLevel] == 'County'){
+      drawZipcodeCircles(container);
     }
     else if(zoomLevelMap[currentZoomLevel] == 'State'){
-      // clearCountryCircles();
-      clearStatesCircles();
       drawCountyCircles(container);
     }
     else if(zoomLevelMap[currentZoomLevel] == 'Country') {
-      clearCountryCircles();
-      clearCountyCircles();
-      clearStatesCircles();
       drawStateCircles(container);
     }
     else if (zoomLevelMap[currentZoomLevel] == 'World'){
-      clearCountyCircles();
-      clearStatesCircles();
       drawCountryCircles(container);
     }
+  }
+  function drawZipcodeCircles(container) {
+    //$('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
+    
+    $("#search_params").data("current_zipcode", "");
+    // County circles
+    zipcodes = {};
+    zipcodesMap = {};
+    currentRequests.push($.getJSON($(container).data("zipcodes_url"), searchParams(), function(data) {
+
+      //hide company list and flush companies results
+      $('#company-list').hide();
+      $('#companies-header').hide();
+
+      //$('.gmap').each(function() {
+      //  $(this).css('width', '100%');
+      //});
+
+      //hide county and total boxes
+      $('#box-summary-county').hide();
+      $('#box-summary-total').hide();
+
+      zipcodeCircles = new Array();
+      nZipcodeCircles = 0;
+      zipcodeLabels = new Array();
+      var totalCompanies = 0;
+      $.each(data, function(i, zipcode) {
+        console.log(i)
+        console.log(zipcode)
+        console.log('-----------------------------')
+        zipcodes[zipcode.id] = zipcode.name;
+        zipcodesMap[zipcode.name] = zipcode.id
+
+        if (zipcode.companies_numbers == 0) return;
+        totalCompanies += zipcode.companies_numbers;
+        var circlePosition = new google.maps.LatLng(zipcode.companies_avg_latitude, zipcode.companies_avg_longitude);
+        //var circlePosition = new google.maps.LatLng(county.latitude, county.longitude);
+        var multiplier = zipcode.companies_percentage;
+        if (multiplier<3.5) {
+          multiplier = 3;
+        }
+        if (multiplier>30) {
+          multiplier = 30;
+        }
+        var radius = 200*multiplier;
+        var circleOptions = {
+          strokeColor: '#ffffff',
+          strokeOpacity: 0.6,
+          strokeWeight: 2,
+          fillColor: "#ee8485",
+          fillOpacity: 0.6,
+          map: currentMap,
+          center: circlePosition,
+          radius: radius
+        };
+
+        zipcodeCircles[nZipcodeCircles] = new google.maps.Circle(circleOptions);
+
+        if('ontouchend' in document) {
+          google.maps.event.addListener(zipcodeCircles[nZipcodeCircles], 'click', function(e) {
+
+            if(bounceToCounty(zipcode.id)) return false;
+
+            if($("#box-summary-county").data("current_county_id") != zipcode.id) {
+              setCountySummaryBoxStyle("bottom-left-2");
+              drawRetrievedCountySummaryBox(zipcode);
+            }
+            else {
+              onCountySelected(zipcode, circlePosition);
+            }
+          });
+        }
+        else {
+          google.maps.event.addListener(zipcodeCircles[nZipcodeCircles], 'click', function() {
+            if(bounceToCounty(zipcode.id)) return false;
+            onCountySelected(zipcode, circlePosition);
+          });
+          google.maps.event.addListener(zipcodeCircles[nZipcodeCircles], 'mouseover', function() {
+            setCountySummaryBoxStyle("bottom-left-2");
+            drawRetrievedCountySummaryBox(zipcode);
+          });
+          //remove county box when moouse goes out of the circle
+          google.maps.event.addListener(zipcodeCircles[nZipcodeCircles], 'mouseout', function() {
+            $('#box-summary-county').hide();
+          });
+        }
+        nZipcodeCircles++;
+      });
+
+      updateCommunityManagerStats(container);
+
+      //draw total summary box
+      var boxSummaryTotal = $('#box-summary-total');
+      boxSummaryTotal.html($('#total-box_tpl').tmpl({totalCompanies: totalCompanies}));
+      boxSummaryTotal.addClass('well summary-box shadowed bottom-left-1');
+      boxSummaryTotal.show();
+    }));
   }
   function drawCountyCircles(container) {
     //$('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
@@ -554,21 +658,22 @@
 
         if('ontouchend' in document) {
           google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function(e) {
+            
+            $("#box-summary-county").data("current_county_id", county.id);
+            onCountySelected(county, circlePosition);
 
-            if(bounceToCounty(county.id)) return false;
-
-            if($("#box-summary-county").data("current_county_id") != county.id) {
-              setCountySummaryBoxStyle("bottom-left-2");
-              drawRetrievedCountySummaryBox(county);
-            }
-            else {
-              onCountySelected(county, circlePosition);
-            }
+            // if($("#box-summary-county").data("current_county_id") != county.id) {
+            //   setCountySummaryBoxStyle("bottom-left-2");
+            //   drawRetrievedCountySummaryBox(county);
+            // }
+            // else {
+              // onCountySelected(county, circlePosition);
+            // }
           });
         }
         else {
           google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function() {
-            if(bounceToCounty(county.id)) return false;
+            $("#box-summary-county").data("current_county_id", county.id);
             onCountySelected(county, circlePosition);
           });
           google.maps.event.addListener(countyCircles[nCountyCircles], 'mouseover', function() {
@@ -856,6 +961,19 @@
     currentMap.setCenter(circlePosition);
     currentMap.setZoom(countyZoomLevel);
   }
+  
+  function onZipcodeSelected(county, circlePosition) {
+    //$('h1').html('Tech Companies in '+county.name);
+    $("#search_params").data("current_zipcode", zipcode.code);
+
+    $('#box-summary-total').hide();
+
+    $('#tooltip').remove();
+
+    //currentMap.setZoom(currentMap.getZoom()+1);
+    currentMap.setCenter(circlePosition);
+    currentMap.setZoom(zipcodeZoomLevel);
+  }
 
   function bounceToCounty(countyId) {
     if($('#search_params').data("hiring")) {
@@ -892,7 +1010,9 @@
         company_name: srcParamsEl.data("company_name"),
         country_name: srcParamsEl.data("current_country_name"),
         state_name: srcParamsEl.data("current_state_name"),
-        zoom_level: zoomLevelMap[currentZoomLevel]
+        zoom_level: zoomLevelMap[currentZoomLevel],
+        current_zipcode: srcParamsEl.data('current_zipcode')
+
     }
     return search_params;
   }
@@ -1152,7 +1272,6 @@
         for(var i = 0, iLimit = results.length; i < iLimit; i++) {
           var result = results[i], types = result.types, iscounty = false;
           for(var j = 0, jLimit = types.length; j < jLimit; j++) {
-
             // if county
             if(types[j] == "administrative_area_level_2") {
               iscounty = true;
@@ -1170,6 +1289,10 @@
             if(types[j] == "country") {
               $("#search_params").data("current_country_name", result.address_components[0].long_name)
             }
+            if(types[j] == 'postal_code'){
+              $("#search_params").data("current_zipcode", result.address_components[0].long_name) 
+            }
+
              
           }
         }
