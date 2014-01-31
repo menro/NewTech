@@ -94,6 +94,11 @@ class CompanyService
   end
 
   def self.search_companies(params)
+    if params[:zoom_level] == 'Zipcode' && params[:current_zipcode]
+      zipcode = Zipcode.find_by_code params[:current_zipcode]
+      # companies = zipcode.
+    end
+
     companies = Company.includes(:jobs, :tags, :category, :employees_type, :investments_type, :city, :county)
     companies = companies.with_active_kickstarter unless params[:kickstarter].blank?
     companies = companies.name_like params[:company_name] unless params[:company_name].blank?
@@ -105,6 +110,7 @@ class CompanyService
     companies = companies.employee_type(params[:employee_id]) unless params[:employee_id].blank?
     companies = companies.investment_type(params[:investment_id]) unless params[:investment_id].blank?
     companies = companies.with_category(params[:category_id]) unless params[:category_id].blank?
+    companies = companies.where(zipcode_id: zipcode.id) if params[:zoom_level] == 'Zipcode' && params[:current_zipcode].present?
     companies = companies.order('companies.name ASC')
     companies.uniq
   end

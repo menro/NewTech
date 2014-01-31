@@ -345,7 +345,6 @@
     }
   }
   function drawCompanyOffices(container) {   
-    //console.log($(container).data("offices_url"));
     currentRequests.push($.getJSON($(container).data("offices_url"), searchParams(), function(data) {
       
       companyOfficesMarkers = new Array();
@@ -355,11 +354,9 @@
       var companyList = $('#company-list');
       companyList.html("");
       $.each(data, function(i, company) {
-
         if(typeof(company["description"]) != "undefined" && company["description"] != null){
             company["description"] = company["description"].length < 160 ? company["description"]: company["description"].substring(0,157)+"..."
         }
-        
         var content = $( "#gmap_info_window_tpl" ).tmpl( company ).html();
         var infowindow = new google.maps.InfoWindow({
           content: content
@@ -400,7 +397,6 @@
         thumb.click(function() {
           $('#company-list div').removeClass('company-row-selected');
           $(this).addClass('company-row-selected');
-          //console.log(i);
           closeCurrentInfoWindow();
           infoWindows[i].open(currentMap,marker);
           currentInfoWindow = infoWindows[i];
@@ -461,7 +457,6 @@
         thumb.click(function() {
           $('#company-list div').removeClass('company-row-selected');
           $(this).addClass('company-row-selected');
-          //console.log(i);
           closeCurrentInfoWindow();
           infoWindows[i].open(currentMap,marker);
           currentInfoWindow = infoWindows[i];
@@ -471,24 +466,22 @@
   }
 
   function drawCountySummaryBox(container) {
-      var current_county_id = $('#search_params').data("current_county_id");
-      //console.log("current_county_id="+current_county_id);
-      if(current_county_id != "") {
-          setCountySummaryBoxStyle("bottom-left-1");
-          currentRequests.push($.getJSON($(container).data("county_url"), searchParams(), function(data) {
-            drawRetrievedCountySummaryBox(data.county);
-          }));
-      }
+    var current_county_id = $('#search_params').data("current_county_id");
+    if(current_county_id != "") {
+        setCountySummaryBoxStyle("bottom-left-1");
+        currentRequests.push($.getJSON($(container).data("county_url"), searchParams(), function(data) {
+          drawRetrievedCountySummaryBox(data.county);
+        }));
+    }
   }
   function drawCircles(container){
     clearCompanyOffices();
     clearCountryCircles();
     clearCountyCircles();
     clearStatesCircles();
-    console.log(zoomLevelMap[currentZoomLevel])
-    console.log('=========================')
+    clearZipcodeCircles();
     if(zoomLevelMap[currentZoomLevel] == 'Zipcode'){
-      drawCompanyOffices();
+      drawCompanyOffices(container);
     }
     else if(zoomLevelMap[currentZoomLevel] == 'County'){
       drawZipcodeCircles(container);
@@ -516,10 +509,6 @@
       $('#company-list').hide();
       $('#companies-header').hide();
 
-      //$('.gmap').each(function() {
-      //  $(this).css('width', '100%');
-      //});
-
       //hide county and total boxes
       $('#box-summary-county').hide();
       $('#box-summary-total').hide();
@@ -529,16 +518,12 @@
       zipcodeLabels = new Array();
       var totalCompanies = 0;
       $.each(data, function(i, zipcode) {
-        console.log(i)
-        console.log(zipcode)
-        console.log('-----------------------------')
         zipcodes[zipcode.id] = zipcode.name;
         zipcodesMap[zipcode.name] = zipcode.id
 
         if (zipcode.companies_numbers == 0) return;
         totalCompanies += zipcode.companies_numbers;
         var circlePosition = new google.maps.LatLng(zipcode.companies_avg_latitude, zipcode.companies_avg_longitude);
-        //var circlePosition = new google.maps.LatLng(county.latitude, county.longitude);
         var multiplier = zipcode.companies_percentage;
         if (multiplier<3.5) {
           multiplier = 3;
@@ -576,12 +561,11 @@
         }
         else {
           google.maps.event.addListener(zipcodeCircles[nZipcodeCircles], 'click', function() {
-            if(bounceToCounty(zipcode.id)) return false;
-            onCountySelected(zipcode, circlePosition);
+            onZipcodeSelected(zipcode, circlePosition);
           });
           google.maps.event.addListener(zipcodeCircles[nZipcodeCircles], 'mouseover', function() {
             setCountySummaryBoxStyle("bottom-left-2");
-            drawRetrievedCountySummaryBox(zipcode);
+            drawRetrievedZipcodeSummaryBox(zipcode);
           });
           //remove county box when moouse goes out of the circle
           google.maps.event.addListener(zipcodeCircles[nZipcodeCircles], 'mouseout', function() {
@@ -613,10 +597,6 @@
       $('#company-list').hide();
       $('#companies-header').hide();
 
-      //$('.gmap').each(function() {
-      //  $(this).css('width', '100%');
-      //});
-
       //hide county and total boxes
       $('#box-summary-county').hide();
       $('#box-summary-total').hide();
@@ -626,8 +606,6 @@
       countyLabels = new Array();
       var totalCompanies = 0;
       $.each(data, function(i, county) {
-        // console.log(i)
-        // console.log(county)
         counties[county.id] = county.name;
         countiesMap[county.name] = county.id
 
@@ -661,14 +639,6 @@
             
             $("#box-summary-county").data("current_county_id", county.id);
             onCountySelected(county, circlePosition);
-
-            // if($("#box-summary-county").data("current_county_id") != county.id) {
-            //   setCountySummaryBoxStyle("bottom-left-2");
-            //   drawRetrievedCountySummaryBox(county);
-            // }
-            // else {
-              // onCountySelected(county, circlePosition);
-            // }
           });
         }
         else {
@@ -715,13 +685,11 @@
       stateLabels = new Array();
       var totalCompanies = 0;
       $.each(data, function(i, state) {
-        // console.log(state.id)
         states[state.id] = state.name;
         statesMap[state.name] = state.id
         if (state.companies_numbers == 0) return;
         totalCompanies += state.companies_numbers;
         var circlePosition = new google.maps.LatLng(state.companies_avg_latitude, state.companies_avg_longitude);
-        //var circlePosition = new google.maps.LatLng(county.latitude, county.longitude);
         var multiplier = state.companies_percentage;
         if (multiplier<3.5) {
           multiplier = 3;
@@ -791,11 +759,7 @@
       //hide company list and flush companies results
       $('#company-list').hide();
       $('#companies-header').hide();
-
-      //$('.gmap').each(function() {
-      //  $(this).css('width', '100%');
-      //});
-
+      
       //hide county and total boxes
       $('#box-summary-county').hide();
       $('#box-summary-total').hide();
@@ -949,20 +913,7 @@
     currentMap.setZoom(stateZoomLevel);
   }
 
-  function onCountySelected(county, circlePosition) {
-    //$('h1').html('Tech Companies in '+county.name);
-    $("#search_params").data("current_county_id", county.id);
-
-    $('#box-summary-total').hide();
-
-    $('#tooltip').remove();
-
-    //currentMap.setZoom(currentMap.getZoom()+1);
-    currentMap.setCenter(circlePosition);
-    currentMap.setZoom(countyZoomLevel);
-  }
-  
-  function onZipcodeSelected(county, circlePosition) {
+  function onZipcodeSelected(zipcode, circlePosition) {
     //$('h1').html('Tech Companies in '+county.name);
     $("#search_params").data("current_zipcode", zipcode.code);
 
@@ -975,6 +926,19 @@
     currentMap.setZoom(zipcodeZoomLevel);
   }
 
+  function onCountySelected(county, circlePosition) {
+    //$('h1').html('Tech Companies in '+county.name);
+    $("#search_params").data("current_county_id", county.id);
+
+    $('#box-summary-total').hide();
+
+    // $('#tooltip').remove();
+
+    //currentMap.setZoom(currentMap.getZoom()+1);
+    currentMap.setCenter(circlePosition);
+    currentMap.setZoom(countyZoomLevel);
+  }
+
   function bounceToCounty(countyId) {
     if($('#search_params').data("hiring")) {
       window.open("/hiring?current_county_id=" + countyId, '_self');
@@ -982,6 +946,12 @@
     } else {
       return false;
     }
+  }
+
+  function drawRetrievedZipcodeSummaryBox(zipcode, positionStyle) {
+    var boxSummaryCounty = $('#box-summary-county');
+    boxSummaryCounty.html($('#zipcode-box_tpl').tmpl(zipcode));
+    boxSummaryCounty.show();
   }
 
   function drawRetrievedCountySummaryBox(county, positionStyle) {
