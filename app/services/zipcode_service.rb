@@ -14,7 +14,7 @@ class ZipcodeService
   end
 
   def self.find(params)
-    zipcode = Zipcode.find(params[:current_county_id])
+    zipcode = Zipcode.find_by_code(params[:current_zipcode])
     ZipcodeDecorator.decorate(zipcode, :search_params => params)
   end
 end

@@ -311,7 +311,7 @@ task populate_zipcodes: :environment do
     zip = row[0]
     
     zip_code = Zipcode.find_or_create_by_code(zip)
-    next unless zip_code.latitude.nil?
+    # next unless zip_code.latitude.nil?
 
     unless county_name
       puts "*****************County name does not present: #{county_name}"
@@ -336,18 +336,18 @@ task populate_zipcodes: :environment do
       next
     end
 
-    # zip_code = Zipcode.find_or_create_by_code(zip)
+    zip_code = Zipcode.find_or_create_by_code(zip)
     
     county.zipcodes << zip_code unless county.zipcodes.collect(&:id).include?(zip_code.id)
 
     # next unless zip_code.latitude.nil?
-    sleep(1)
-    r = Geocoder.search "#{zip}, #{state_code}, US"
-    lat = r.first.geometry['location']['lat']
-    lng = r.first.geometry['location']['lng']
-    zip_code.latitude = lat
-    zip_code.longitude = lng
-    zip_code.save
+    # sleep(1)
+    # r = Geocoder.search "#{zip}, #{state_code}, US"
+    # lat = r.first.geometry['location']['lat']
+    # lng = r.first.geometry['location']['lng']
+    # zip_code.latitude = lat
+    # zip_code.longitude = lng
+    # zip_code.save
   end
 end
 

@@ -25,6 +25,7 @@ module HomeHelper
         countries_url: "#{countries_api_v1_url(:json)}",
         zipcodes_url: "#{zipcodes_api_v1_url(:json)}",
         :county_url => "#{county_api_v1_url(:json)}",
+        zipcode_url: "#{zipcode_api_v1_url(:json)}",
         :tags_url => "#{tags_api_v1_url(:json)}",
         :skills_url => "#{skills_api_v1_url(:json)}",
         :employees_types_url => "#{employees_types_api_v1_url(:json)}",

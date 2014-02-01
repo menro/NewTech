@@ -13,6 +13,7 @@ Newtech::Application.routes.draw do
       get :countries
       get :zipcodes
       get :county
+      get :zipcode
       get :tags
       get :skills
       get :employees_types
