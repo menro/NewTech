@@ -17,4 +17,10 @@ class ZipcodeService
     zipcode = Zipcode.find_by_code(params[:current_zipcode])
     ZipcodeDecorator.decorate(zipcode, :search_params => params)
   end
+
+  def self.colorado_zipcodes
+    state = State.where(name: 'Colorado').first
+    state.zipcodes.map{|c| ["[#{c.counties.collect(&:name).join(',') rescue ''}] #{c.code}", c.id]}
+  end
+
 end

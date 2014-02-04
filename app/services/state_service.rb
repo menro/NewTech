@@ -19,4 +19,8 @@ class StateService
     states = states.sort_by(&:companies_numbers).reverse
   end
 
+  def self.colorado_state
+    State.where(name: 'Colorado').map{|s| [s.name, s.id]}
+  end
+
 end

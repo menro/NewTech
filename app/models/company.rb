@@ -27,7 +27,8 @@ class Company < ActiveRecord::Base
                   :latitude,
                   :longitude,
                   :county_id,
-                  :zipcode_id
+                  :zipcode_id,
+                  :raising_money
 
   belongs_to  :user
 
@@ -47,7 +48,7 @@ class Company < ActiveRecord::Base
 
   has_many :jobs, dependent: :destroy
 
-  validates_presence_of :address, :city_id, :zip_code #, :category_id
+  validates_presence_of :address, :city_id , :category_id, :zipcode_id, :county_id
 
   # validates_numericality_of :zip_code
 

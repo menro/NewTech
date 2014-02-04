@@ -12,7 +12,8 @@
           = f.input :name, :label => "Company Name", :as => :string
           = f.input :address, :as => :string
           = f.association :city
-          = f.input :zip_code,  :as => :string
+          = f.association :zipcode
+          = f.association :state
           = f.input :email_address, :as => :string
           = f.input :founded_year, :as => :string
           = f.input :tags_list, :as => :string, :hint => "E.g.,marketing-automation, lead-generation,analytics, email-marketing"

@@ -20,4 +20,9 @@ class CountyService
     CountyDecorator.decorate(county, :search_params => params)
   end
 
+  def self.colorado_counties
+    state = State.where(name: 'Colorado').first
+    state.counties.map{|c| [c.name, c.id]}
+  end
+
 end

@@ -10,6 +10,8 @@ class State < ActiveRecord::Base
 
   has_many :counties
 
+  has_many :zipcodes, through: :counties
+
   has_many :cities, through: :counties
   
   has_many :companies, through: :counties

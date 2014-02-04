@@ -1,11 +1,15 @@
 .span12.new_company
   .span6
     .well
+      %h3 Currently, only supports Colorado.
+    .well
       .form-inputs.row
         = f.input :name, :label => "Company Name", :as => :string
         = f.input :address, :label => "Address", :as => :string
-        = f.association :city, :label_method => :name_for_select, :collection => CityService::all
-        = f.input :zip_code,  :as => :string
+        = f.association :county, :collection => CountyService::colorado_counties
+        = f.association :city,  :collection => CityService::colorado_cities
+        = f.association :zipcode, :collection => ZipcodeService::colorado_zipcodes
+        = f.input :raising_money, as: :boolean
         = f.input :email_address, :as => :string
         = f.input :founded_year, :as => :string
         = f.input :tags_list, :as => :string, :hint => "E.g.,marketing-automation, lead-generation,analytics, email-marketing"

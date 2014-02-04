@@ -19,19 +19,20 @@ class CompanyService
 
   def self.create_by_user(user, attributes)
     geocode = find_geocode attributes
+    zipcode = Zipcode.find attributes[:zipcode_id]
     if !geocode.success || geocode.accuracy.to_i < 6
       company = build(attributes)
       company.errors.add :address, "Address not founds"
-    elsif !( attributes[:zip_code].eql?(geocode.zip) )
+    elsif !( zipcode.code.eql?(geocode.zip) )
       company = build(attributes)
-      company.errors.add :zip_code, "Postal code not valid"
+      company.errors.add :zipcode, "Postal code not valid"
     else
       attributes[:address] = geocode.street_address
       attributes[:latitude] = geocode.lat
       attributes[:longitude] = geocode.lng
       company = build(attributes)
       company.user = user
-      company.save
+      company.save!
     end
     CompanyDecorator.decorate(company)
   end
