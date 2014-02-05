@@ -256,8 +256,6 @@
 
     currentRequests.push($.getJSON($(container).data("categories_url"), srcParams, function(data) {
         var categoryLinks = "";
-        console.log('======================================')
-        console.log(data);
         $.each(data, function(i, category) {
           categoryLinks += "<li";
           if (category.id == srcParams.category_id)

@@ -132,6 +132,12 @@ class Company < ActiveRecord::Base
           where("companies.county_id = ?", id)
         }
 
+  scope :located_in_county_zipcode,
+        lambda {|id|
+          where("companies.zipcode_id = ?", id)
+        }
+
+
   def is_hiring?
     (self.jobs_count || 0) > 0
   end

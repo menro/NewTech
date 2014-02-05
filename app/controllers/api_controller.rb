@@ -53,10 +53,7 @@ class ApiController < ApplicationController
   end
 
   def categories
-    puts '**************************************'
     @categories = CategoryService::search(params)
-    puts @categories.inspect
-    puts '=' * 100
     respond_with @categories
   end
 
