@@ -32,7 +32,7 @@ class Category < ActiveRecord::Base
           joins(:companies).merge(Company.located_in_county(county_id))
         }
   scope :with_companies_in_zipcode,
-        lambda {|zipcode|
+        lambda {|zipcode_id|
           joins(:companies).merge(Company.located_in_county_zipcode(zipcode_id))
         }
 
