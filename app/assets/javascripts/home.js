@@ -489,6 +489,7 @@
     clearZipcodeCircles();
   }
   function drawCircles(container){
+    clearAllCircles();
     if(zoomLevelMap[currentZoomLevel] == 'Zipcode'){
       drawCompanyOffices(container);
     }
