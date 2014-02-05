@@ -157,8 +157,8 @@
     }
 
     for(var i = 0; i < currentRequests.length; i++) {
-      // if(currentRequests[i])
-        // currentRequests[i].abort();
+      if(currentRequests[i])
+        currentRequests[i].abort();
     }
     currentRequests = [];
 
@@ -481,12 +481,14 @@
         }));
     }
   }
-  function drawCircles(container){
+  function clearAllCircles(){
     clearCompanyOffices();
     clearCountryCircles();
     clearCountyCircles();
     clearStatesCircles();
     clearZipcodeCircles();
+  }
+  function drawCircles(container){
     if(zoomLevelMap[currentZoomLevel] == 'Zipcode'){
       drawCompanyOffices(container);
     }
@@ -510,6 +512,7 @@
     // County circles
     zipcodes = {};
     zipcodesMap = {};
+    clearAllCircles();
     currentRequests.push($.getJSON($(container).data("zipcodes_url"), searchParams(), function(data) {
 
       //hide company list and flush companies results
@@ -520,7 +523,7 @@
       $('#box-summary-county').hide();
       $('#box-summary-total').hide();
 
-      clearZipcodeCircles();
+      clearAllCircles();
       zipcodeCircles = new Array();
       nZipcodeCircles = 0;
       zipcodeLabels = new Array();
@@ -603,6 +606,7 @@
     // County circles
     counties = {};
     countiesMap = {};
+    clearAllCircles();
     currentRequests.push($.getJSON($(container).data("counties_url"), searchParams(), function(data) {
 
       //hide company list and flush companies results
@@ -613,7 +617,7 @@
       $('#box-summary-county').hide();
       $('#box-summary-total').hide();
 
-      clearCountyCircles();
+      clearAllCircles();
       countyCircles = new Array();
       nCountyCircles = 0;
       countyLabels = new Array();
@@ -687,13 +691,14 @@
     // County circles
     states = {};
     statesMap = {};
+    clearAllCircles();
     currentRequests.push($.getJSON($(container).data("states_url"), searchParams(), function(data) {
 
       //hide county and total boxes
       $('#box-summary-county').hide();
       $('#box-summary-total').hide();
 
-      clearStatesCircles();
+      clearAllCircles();
       stateCircles = new Array();
       nStateCircles = 0;
       stateLabels = new Array();
@@ -768,6 +773,7 @@
     // County circles
     countries = {};
     countriesMap = {};
+    clearAllCircles();
     currentRequests.push($.getJSON($(container).data("countries_url"), searchParams(), function(data) {
 
       //hide company list and flush companies results
@@ -778,7 +784,7 @@
       $('#box-summary-county').hide();
       $('#box-summary-total').hide();
 
-      clearCountryCircles();
+      clearAllCircles();
       countryCircles = new Array();
       nCountryCircles = 0;
       countryLabels = new Array();
