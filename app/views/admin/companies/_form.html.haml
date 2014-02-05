@@ -11,8 +11,8 @@
           = f.association :category, :label_method => :name, :collection => CategoryService::all
           = f.input :name, :label => "Company Name", :as => :string
           = f.input :address, :as => :string
-          = f.association :city
-          = f.association :zipcode
+          = f.association :city,  :collection => CityService::colorado_cities
+          = f.association :zipcode, :collection => ZipcodeService::colorado_zipcodes
           = f.association :state
           = f.input :email_address, :as => :string
           = f.input :founded_year, :as => :string

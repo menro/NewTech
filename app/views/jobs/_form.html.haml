@@ -35,7 +35,7 @@
           .input-append
             = f.input_field :equity_high, as: :numeric
             %i.add-on %
-        = f.association :city, :label_method => :name_for_select, :collection => CityService::all
+        = f.association :city, :collection => CityService::colorado_cities
         = f.input :zip_code,  :as => :string, hint: 'Optional'
         = f.input :email, label: 'Contact E-mail'
         = f.input :link, label: 'Details Link'
