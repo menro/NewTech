@@ -79,6 +79,24 @@ class ApiController < ApplicationController
     @recent_updates = CompanyService::get_recent_companies(params)
   end
 
+  def location_data_as_options
+    if params[:id] == ''
+      @data = []
+    else
+      case params[:require]
+      when 'counties'
+        state = State.find(params[:id])
+        @data = state.counties
+      when 'cities'
+        county = County.find(params[:id])
+        @data = county.cities
+      when 'zipcodes'
+        county = County.find(params[:id])
+        @data = county.zipcodes.select('id, code as name')
+      end
+    end
+  end
+
   def bottom_lists
     if params[:zoom_level] == 'County'
       @freelancers        = UserService::search(params)
@@ -91,9 +109,6 @@ class ApiController < ApplicationController
       @events             = EventService.all
       @companies          = Company.get_recent_companies(5)
       @freelancers        = User.available_freelancers(7)
-      puts '******************************************************'
-      puts @freelancers.map{|f| [f.id, f.discipline.name]}
-      puts '*******************************************************'
       @jobs               = JobService.most_recent(5)
     end
 

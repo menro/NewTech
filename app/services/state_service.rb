@@ -23,4 +23,8 @@ class StateService
     State.where(name: 'Colorado').map{|s| [s.name, s.id]}
   end
 
+  def self.states_as_options
+    State.select("name, id")
+  end
+
 end

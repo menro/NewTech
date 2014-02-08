@@ -1,14 +1,20 @@
 .span12.new_company
   .span6
     .well
-      %h3 Currently, only supports Colorado.
-    .well
       .form-inputs.row
         = f.input :name, :label => "Company Name", :as => :string
-        = f.input :address, :label => "Address", :as => :string
-        = f.association :county, :collection => CountyService::colorado_counties
-        = f.association :city,  :collection => CityService::colorado_cities
-        = f.association :zipcode, :collection => ZipcodeService::colorado_zipcodes
+        = f.input :address, :label => "Address1", :as => :string
+        = f.input :address2, :label => "Address2", :as => :string
+        
+        .control-group.select.required
+          %label.select.required.control-label{:for => 'states'}
+            %abbr{title: 'required'} *
+            State
+          .controls
+            = select_tag "states", options_from_collection_for_select(StateService::states_as_options, :id, :name), include_blank: true
+        = f.association :county, :collection => [], include_blank: true
+        = f.association :city,  :collection => [], include_blank: true
+        = f.association :zipcode, :collection => [], include_blank: true
         = f.input :raising_money, as: :boolean
         = f.input :email_address, :as => :string
         = f.input :founded_year, :as => :string

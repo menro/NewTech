@@ -28,7 +28,8 @@ class Company < ActiveRecord::Base
                   :longitude,
                   :county_id,
                   :zipcode_id,
-                  :raising_money
+                  :raising_money,
+                  :address2
 
   belongs_to  :user
 

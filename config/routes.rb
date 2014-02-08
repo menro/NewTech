@@ -24,6 +24,7 @@ Newtech::Application.routes.draw do
       get :job_roles
       get :bottom_lists
       get :recent_updates
+      get :location_data_as_options
     end
   end
 

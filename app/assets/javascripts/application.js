@@ -20,9 +20,6 @@
 //= require_tree .
 //= require companies
 
-$(function() {
-    $('select').chosen()
-});
 
 
 
