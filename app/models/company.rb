@@ -84,6 +84,8 @@ class Company < ActiveRecord::Base
 
   validates_numericality_of :founded_year, :less_than_or_equal_to => Time.now.year
 
+  validates_uniqueness_of :name
+  
   scope :name_like,
         lambda {|name|
           where("companies.name ILIKE ?", "%#{name}%")
