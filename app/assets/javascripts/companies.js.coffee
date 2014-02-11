@@ -31,16 +31,22 @@ $(window).load ->
       success: (data) ->
         $("#company_" + element_id + "_id_chzn").remove()
         $("#company_" + element_id + "_id").append "<option value> Select an Option</option>"
+
         $.map data, (item, index) ->
           
           # $('#company_county_id_chzn ul.chzn-results').append('<li class="active-result">' + item.name + '</li>');
           # $('#company_county_id_chzn ul.chzn-results').append('<li class="active-result" id="company_county_id_chzn_o_'+(index + 1)+'">' + item.name + '</li>');
           $("#company_" + element_id + "_id").append "<option value=\"" + item.id + "\">" + item.name + "</option>"
-          return
 
         $("#company_" + element_id + "_id").outerWidth 274
         $("#company_" + element_id + "_id").chosen width: "270px;"
-        return
+      
+        if data_type == 'state'
+          loadLocationData "county", val, "city", "cities"
+
+        if data_type == 'county'
+          loadLocationData "city", $("#states").val(), "zipcode", "zipcodes"
+
 
     return
 
@@ -49,13 +55,13 @@ $(window).load ->
     loadLocationData "state", $(this).val(), "county", "counties"
     return
 
-  $("#company_county_id").change ->
-    loadLocationData "county", $(this).val(), "city", "cities"
-    return
+  # $("#company_county_id").change ->
+  #   loadLocationData "county", $(this).val(), "city", "cities"
+  #   return
 
-  $("#company_city_id").change ->
-    loadLocationData "city", $("#company_county_id").val(), "zipcode", "zipcodes"
-    return
+  # $("#company_city_id").change ->
+  #   loadLocationData "city", $("#states").val(), "zipcode", "zipcodes"
+  #   return
 
   return
 
