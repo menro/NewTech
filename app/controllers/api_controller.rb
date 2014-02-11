@@ -91,8 +91,9 @@ class ApiController < ApplicationController
         county = State.find(params[:id])
         @data = county.cities
       when 'zipcodes'
-        county = County.find(params[:id])
-        @data = county.zipcodes.select('id, code as name')
+        # county = County.find(params[:id])
+        state = State.find(params[:id])
+        @data = state.zipcodes.select('zipcodes.id, code as name')
       end
     end
   end
