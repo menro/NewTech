@@ -2,6 +2,7 @@ ActiveAdmin.register County  do
 
 
   filter :name
+  filter :state_id, :collection => proc { State.all }, :as => :select
 
   form do |f|
     f.inputs do
