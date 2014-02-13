@@ -1,5 +1,7 @@
 ActiveAdmin.register State do
 
+  filter :name
+
   form do |f|
     f.inputs 'Details' do
       f.input :name
