@@ -49,9 +49,9 @@ class Company < ActiveRecord::Base
 
   has_many :jobs, dependent: :destroy
 
-  validates_presence_of :address, :city_id , :category_id, :zipcode_id, :county_id
+  validates_presence_of :city_id , :category_id, :zipcode_id, :county_id
 
-  # validates_numericality_of :zip_code
+  # validates_numericality_of :address, :zip_code
 
   before_save :attach_county
 
@@ -80,9 +80,9 @@ class Company < ActiveRecord::Base
   validates_attachment_size :image, :less_than => 1.megabyte
   validates_attachment_content_type :image, :content_type => /image/
 
-  validates_presence_of :name, :email_address, :founded_year
+  validates_presence_of :name #, :email_address, :founded_year
 
-  validates_numericality_of :founded_year, :less_than_or_equal_to => Time.now.year
+  # validates_numericality_of :founded_year, :less_than_or_equal_to => Time.now.year
 
   validates_uniqueness_of :name
   

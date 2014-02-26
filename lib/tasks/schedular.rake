@@ -158,48 +158,93 @@ task fetch_data_from_crunchbase: :environment do
     file.rewind
     file
   end
+
+  def log_msg msg
+    puts '.'
+    puts '.'
+    puts '**********************'
+    puts msg
+    puts '**********************'
+    puts '.'
+    puts '.'
+  end
+
+  puts 'Requesting crunchbase...'
   companies = Crunchbase::Company.all; nil
+  puts "Got the data #{companies.count}"
 
   user  = User.where(email: 'reich.robert@gmail.com').first
 
   # pp c.entity.to_yaml
   found = false
+  missing_cities = []
   companies.each do |cc|
+    puts '===================================================================='
     begin
       c = cc.entity
 
     unless c.offices.present?
-      puts 'No offices found....skipping...'
+      log_msg 'No offices found....skipping...'
       next
     end
     
     country_code = c.offices.first["country_code"]
-    
+
     unless country_code == 'USA'
-      puts "*********************NOT IN USA**************Skipping... #{country_code}"
+      log_msg "not in USA, Skipping... #{country_code} , c.name "
       next
     end
-    
-    # unless found 
-    #   found = true if c.name == 'lifeIO'
-    #   next
-    # end
+
+    log_msg "#{c.name}, #{c.offices.first['city']}, #{c.offices.first['state_code']}, #{c.offices.first['zip_code']}, #{c.offices.first['country_code']}"
+
+    unless c.offices.first["zip_code"].present?
+      log_msg "Zipcode from crunchbase do not found.....#{c.offices.first['zip_code']} company: #{c.name}"
+      next
+    end
 
     state_code = c.offices.first["state_code"]
     state = State.find_by_short_name state_code
     unless state
-      puts "......State does not exists in our DB......#{state_code}"
+      log_msg "State does not exists in our DB......#{state_code}"
       next
     end
-    city = City.find_by_name_and_state(c.offices.first['city'], state.name)
+
+    unless c.offices.first["address1"].present?
+      log_msg 'Address does not present. Not Skipping...'
+      # next
+    end
+
+
+    cty = c.offices.first['city']
+    cty = cty.split(',').first
+    cty = cty.try(:titleize)
+
+    zip = c.offices.first["zip_code"].split('-').first.to_s.strip
+    puts "Querying for zipcode: #{zip} . Actual zipcode was #{c.offices.first['zip_code']}"
+
+    z = ''
+    city = false
+    Zipcode.where(code: zip).all.each do |zz|
+      z = zz
+      city = z.cities.where(name: cty).first
+      break if city.present?
+    end
 
     unless city
-      puts "......City does not exists in our DB......#{c.offices.first['city']} - #{state_code}"
+      missing_cities << cty
+      log_msg "City does not exists in our DB......#{cty} .....#{state_code}"
       next
     end
+
     county = city.county
     unless county
-      puts ".....City does not have County....#{city.name} #{city.id}"
+      log_msg "City does not have County....#{city.name} #{city.id}"
+      next
+    end
+
+    s = county.state
+    unless s.short_name == state.short_name
+      log_msg "Computed state and Crunchbase State do not match. Computed: #{s.short_name} - Crunchbase: #{state.short_name} - skipping..."
       next
     end
 
@@ -207,63 +252,32 @@ task fetch_data_from_crunchbase: :environment do
 
     category = Category.find_by_name 'Companies'
 
-    
-    unless c.offices.first["zip_code"].present?
-      puts "Zipcode do not found.....#{c.offices.first['zip_code']}"
-      next
-    end
-    puts "==============================zip::::#{c.offices.first["zip_code"]}"
-    zip = c.offices.first["zip_code"].split('-').first.to_i
-
     unless c.email_address.present?
-      puts 'Email does not present. Skipping....'
-      next
+      puts 'Email does not present.  Not Skipping....'
+      # next
     end
 
     unless c.image.present?
-      puts "Image does not present.... Skipping"
+      puts "Image does not present.... Not Skipping"
       # next
     end
 
     unless c.founded_year.present?
-      puts 'Missing founded year. Skipping...'
-      next
+      puts 'Missing founded year. Not Skipping...'
+      # next
     end
-
-    puts "============Creating Company=========:::#{c.name}"
 
     company = Company.where("name=? and city_id =? and county_id =?", c.name, city.id, county.id).first
     
-    address = []
-    address << c.offices.first["address1"]
-    address << c.offices.first["address2"]
-    
     if company.present?
-      puts 'Company already exists...' + company.name
+      log_msg 'Company already exists: ' + company.name
       next
     end
 
-    puts 'Creating by user================================================================================='
-    # company = Company.create_by_user(user, {name: c.name, 
-                                            # city_id: city.id, 
-                                            # county_id: county.id,
-                                            # email_address: c.email_address, 
-                                            # founded_year: c.founded_year,
-                                            # homepage_url: c.homepage_url,
-                                            # address: address.join(','),
-                                            # zip_code: zip,
-                                            # overview: ActionView::Base.full_sanitizer.sanitize(c.overview),
-                                            # twitter: c.twitter_username,
-                                            # phone_number: c.phone_number,
-                                            # category_id: category.id
-                                            # })
-
-    puts '****************************************************************************************************'
-    company = Company.create(name: c.name, city_id: city.id) unless company.present?
+    log_msg "Creating Company: #{c.name}"
+    company = Company.new(name: c.name, city_id: city.id) unless company.present?
     company.county = county
-    # Company.find_or_create_by_name_and_city_id_and_county_id_and_state_id(c.name, city.id, county.id, state.id)
-    # company.city_id = city.id
-    # company.state_id = state.id
+
     company.category_id = category.id
     # next if company.email_address.present?
     company.tags << Tag.find_or_create_by_code(tag_code)
@@ -272,17 +286,17 @@ task fetch_data_from_crunchbase: :environment do
     #   company.image = file_from_url( "http://crunchbase.com/" + c.image.sizes.last.url )
     # end
 
-    # if company.image.present?
-    #   next
-    # end
     # company.image = file_from_url( "http://crunchbase.com/" + c.image.sizes.last.url )
     company.user_id = user.id
     company.email_address = c.email_address
     company.founded_year = c.founded_year
     company.homepage_url = c.homepage_url
     company.name = c.name
-    company.address = address.join(',')
+    company.address = c.offices.first["address1"]
+    company.address2 = c.offices.first["address2"]
+
     company.zip_code = zip
+    company.zipcode = z #city.zipcodes.where(code: zip.to_s).first
     
     # r = Geocoder.search c.offices.first["address1"]+ ", " + (c.offices.first["address2"] || '') + ", #{county.name}" + ",#{zip}" 
     # puts "Requested geocoder for address #{c.offices.first["address1"]} ===== Got lng/lat:: #{r.first.geometry["location"]}"
@@ -293,7 +307,7 @@ task fetch_data_from_crunchbase: :environment do
     company.overview = ActionView::Base.full_sanitizer.sanitize(c.overview)
     company.phone_number = c.phone_number
     company.twitter = c.twitter_username
-    company.save
+    company.save!
     rescue
       next
     end
@@ -331,7 +345,7 @@ task populate_zipcodes: :environment do
 
     county = County.find_by_name_and_state_id county_name, state.id
     unless county
-      puts "==========County does not exists in our DB::: #{county_name} ====== #{state_code} ==== "
+      puts "************County does not exists in our DB::: #{county_name} ====== #{state_code} ==== "
       # break
       next
     end
@@ -359,6 +373,61 @@ task map_companies_with_zipcodes: :environment do
     company.save
   end; nil
 end
+
+
+
+
+# ====================== New Purchased Data ==================
+desc 'load data from sheet'
+task load_whole_zipcodes_data: :environment do 
+  count = 0
+  CSV.foreach("public/USA-5-digits-codes.txt") do |row|
+    count += 1
+    next if count == 1
+
+    info = row[0].split("\t")
+    country = info[0]
+    zipcode = info[1]
+    city = info[3]
+    county = info[5]
+    state = info[7]
+    latitude = info[15]
+    longitude = info[16]
+
+    puts "country:: #{country} -- zipcode:: #{zipcode} -- city:: #{city} "
+    puts "county:: #{county} -- state:: #{state} -- latitude:: #{latitude} -- longitude:: #{longitude}"
+
+    puts '+++++++++++++++++++++++'
+
+    if country == 'USA'
+      cntry = Country.find_or_create_by_name 'United States'
+      st = cntry.states.where(name: state).first
+      st = cntry.states.create!(name: state) unless st.present?
+
+      cnty = st.counties.where(name: county).first
+      cnty = st.counties.create!(name: county) unless cnty.present?
+
+      cty = cnty.cities.where(name: city).first
+      cty = cnty.cities.create!(name: city) unless cty.present?
+
+      zpcd = cty.zipcodes.where(code: zipcode).first
+      zpcd = cty.zipcodes.create!(code: zipcode, latitude: latitude, longitude: longitude) unless zpcd.present?
+
+      cnty.zipcodes << zpcd if cnty.zipcodes.where(code: zpcd.code).blank?
+    end
+
+    # break if count == 2
+  end; nil
+end
+
+# state = State.where(name: 'Colorado').first
+
+
+# Startup Genome Data
+# response = HTTParty.get("http://startupgenome.com/api/organizations/city/new-york", headers: {"AUTH-CODE" => '80d0c58f07e8ba8a3e33884c768ea600'})
+# data = JSON.parse(response.body)
+# pp data.first.last
+
 
 
 

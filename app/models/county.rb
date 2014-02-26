@@ -13,9 +13,9 @@ class County < ActiveRecord::Base
 
   belongs_to :state
 
-  validates_presence_of :name, :state, :latitude, :longitude
+  validates_presence_of :name #, :state, :latitude, :longitude
 
-  validates_numericality_of :latitude, :longitude
+  # validates_numericality_of :latitude, :longitude
 
 
   scope :with_companies_name_like,

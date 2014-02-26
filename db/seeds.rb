@@ -660,3 +660,19 @@ end
 # WorkLocationType.create({name: 'onsite'})
 
 
+
+state = State.where(name: 'Colorado').first
+State.where("id != ?", state.id).destroy_all
+
+County.where('state_id != ?', state.id).find_each do |county|
+  county.cities.destroy_all
+  county.zipcodes.destroy_all
+  county.companies.destroy_all
+  county.destroy
+end; nil
+
+
+
+
+
+
