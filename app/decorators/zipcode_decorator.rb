@@ -35,6 +35,7 @@ class ZipcodeDecorator < Draper::Base
       results = results.founded_to search_params[:to_year] unless search_params[:to_year].blank?
       results = results.tagged_as search_params[:tag_code] unless search_params[:tag_code].blank?
       results = results.are_hiring unless search_params[:hiring].blank?
+      results = results.are_raising_money unless search_params[:raising_money].blank?
       results = results.employee_type(search_params[:employee_id]) unless search_params[:employee_id].blank?
       results = results.investment_type(search_params[:investment_id]) unless search_params[:investment_id].blank?
       results = results.with_category(search_params[:category_id]) unless search_params[:category_id].blank?

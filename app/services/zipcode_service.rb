@@ -6,6 +6,7 @@ class ZipcodeService
     zipcodes = zipcodes.with_companies_founded_to params[:to_year] unless params[:to_year].blank?
     zipcodes = zipcodes.with_company_tagged_as params[:tag_code] unless params[:tag_code].blank?
     zipcodes = zipcodes.with_company_are_hiring unless params[:hiring].blank?
+    zipcodes = zipcodes.with_company_raising_money unless params[:raising_money].blank?
     zipcodes = zipcodes.with_company_employee_type(params[:employee_id]) unless params[:employee_id].blank?
     zipcodes = zipcodes.with_company_investment_type(params[:investment_id]) unless params[:investment_id].blank?
     zipcodes = zipcodes.with_company_category(params[:category_id]) unless params[:category_id].blank?

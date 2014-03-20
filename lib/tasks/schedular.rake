@@ -282,9 +282,9 @@ task fetch_data_from_crunchbase: :environment do
     # next if company.email_address.present?
     company.tags << Tag.find_or_create_by_code(tag_code) if tag_code.present?
     
-    # unless c.image.present?
-    #   company.image = file_from_url( "http://crunchbase.com/" + c.image.sizes.last.url )
-    # end
+    unless c.image.present?
+      company.image = file_from_url( "http://crunchbase.com/" + c.image.sizes.last.url )
+    end
 
     # company.image = file_from_url( "http://crunchbase.com/" + c.image.sizes.last.url )
     company.user_id = user.id

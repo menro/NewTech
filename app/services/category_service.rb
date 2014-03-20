@@ -17,6 +17,7 @@ class CategoryService
       categories =categories.with_companies_in_zipcode(zipcode.id) if zipcode.present?
     end
     categories = categories.with_company_are_hiring unless params[:hiring].blank?
+    categories = categories.with_company_raising_money unless params[:raising_money].blank?
     categories = categories.with_company_investment_type(params[:investment_id]) unless params[:investment_id].blank?
     categories = categories.with_company_employee_type(params[:employee_id]) unless params[:employee_id].blank?
     CategoryDecorator.decorate(categories.uniq)

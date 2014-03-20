@@ -34,6 +34,9 @@ class EmployeesType < ActiveRecord::Base
   scope :with_company_are_hiring,
         joins(:companies).merge(Company.are_hiring)
 
+  scope :with_company_raising_money,
+        joins(:companies).merge(Company.are_raising_money)
+
   scope :with_company_investment_type,
         lambda {|investment_id|
           joins(:companies).merge(Company.investment_type(investment_id))

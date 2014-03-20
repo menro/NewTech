@@ -995,6 +995,7 @@
         current_county_id: srcParamsEl.data("current_county_id"),
 	      kickstarter: srcParamsEl.data("kickstarter") ,
         hiring: srcParamsEl.data("hiring") ,
+        raising_money: srcParamsEl.data("raising_money"),
         employee_id: srcParamsEl.data("employee_id"),
         investment_id: srcParamsEl.data("investment_id"),
         category_id: srcParamsEl.data("category_id"),
@@ -1062,22 +1063,39 @@
   }
 
   function setHiringListener(){
-      var searchParams = $('#search_params');
-      $('a.btn-hiring').click(function(e){
-          e.preventDefault();
-          if($(this).is('.active')) {
-            $(this).removeClass("active");
-            searchParams.data("hiring", "");
-          } else {
-            $(this).addClass("active");
-            searchParams.data("hiring", true);
-          }
-          $('.gmap').each(function() {
-            refreshMap(this);
-          });
-      });
+    var searchParams = $('#search_params');
+    $('a.btn-hiring').click(function(e){
+        e.preventDefault();
+        if($(this).is('.active')) {
+          $(this).removeClass("active");
+          searchParams.data("hiring", "");
+        } else {
+          $(this).addClass("active");
+          searchParams.data("hiring", true);
+        }
+        $('.gmap').each(function() {
+          refreshMap(this);
+        });
+    });
   }
 
+  function setMoneyRaisingFilter(){
+    var searchParams = $('#search_params');
+    $('a.btn-raising-money').click(function(e){
+        e.preventDefault();
+        if($(this).is('.active')) {
+          $(this).removeClass("active");
+          searchParams.data("raising_money", "");
+        } else {
+          $(this).addClass("active");
+          searchParams.data("raising_money", true);
+        }
+        $('.gmap').each(function() {
+          refreshMap(this);
+        });
+    });
+  }
+  
   function setCategoryNameListener() {
       $('#search_form').on('submit', function(e){
           e.preventDefault();
@@ -1302,6 +1320,7 @@
       setSlider();
       setKickstarterListener();
       setHiringListener();
+      setMoneyRaisingFilter();
       setEmployeeMenuListener();
       setInvestmentMenuListener();
       setCategoryMenuListener();

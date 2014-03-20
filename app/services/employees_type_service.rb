@@ -13,6 +13,7 @@ class EmployeesTypeService
     types = types.with_company_tagged_as params[:tag_code] unless params[:tag_code].blank?
     types = types.with_companies_in_county params[:current_county_id] unless params[:current_county_id].blank?
     types = types.with_company_are_hiring unless params[:hiring].blank?
+    types = types.with_company_raising_money unless params[:raising_money].blank?
     types = types.with_company_investment_type(params[:investment_id]) unless params[:investment_id].blank?
     EmployeesTypeDecorator.decorate(types.uniq)
   end

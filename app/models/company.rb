@@ -114,6 +114,9 @@ class Company < ActiveRecord::Base
 
   scope :are_hiring,
         where('companies.jobs_count > 0')
+  
+  scope :are_raising_money,
+        where('companies.raising_money = true')
 
   scope :employee_type,
         lambda {|employee_id|

@@ -108,6 +108,7 @@ class CompanyService
     companies = companies.tagged_as params[:tag_code] unless params[:tag_code].blank?
     companies = companies.located_in_county params[:current_county_id] unless params[:current_county_id].blank?
     companies = companies.are_hiring unless params[:hiring].blank?
+    companies = companies.are_raising_money unless params[:raising_money].blank?
     companies = companies.employee_type(params[:employee_id]) unless params[:employee_id].blank?
     companies = companies.investment_type(params[:investment_id]) unless params[:investment_id].blank?
     companies = companies.with_category(params[:category_id]) unless params[:category_id].blank?
