@@ -13,4 +13,10 @@ class CityService
     state = State.where(name: 'Colorado').first
     state.cities.map{|c| ["[#{c.county.name rescue ""}] #{c.name}", c.id]}
   end
+
+  def self.cities_as_option(state_id)
+    state = State.find(state_id)
+    state.cities.map{|c| ["[#{c.county.name rescue ""}] #{c.name}", c.id]}
+  end
+
 end

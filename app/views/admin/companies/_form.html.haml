@@ -11,12 +11,13 @@
           = f.association :category, :label_method => :name, :collection => CategoryService::all
           = f.input :name, :label => "Company Name", :as => :string
           = f.input :address, :as => :string
-          = f.association :city,  :collection => CityService::colorado_cities
-          = f.association :zipcode, :collection => ZipcodeService::colorado_zipcodes
+          = f.association :city,  :collection => CityService::cities_as_option(@company.city.county.state_id)
+          = f.association :zipcode, :collection => ZipcodeService::zipcodes_as_option(@company.city.county_id)
           = f.input :email_address, :as => :string
           = f.input :founded_year, :as => :string
           = f.input :tags_list, :as => :string, :hint => "E.g.,marketing-automation, lead-generation,analytics, email-marketing"
           = f.input :description
+          = f.input :raising_money, as: :boolean
           = f.association :investments_type, as: :radio_buttons, item_wrapper_class: 'inline'
           = f.association :employees_type, as: :radio_buttons, item_wrapper_class: 'inline'
         .form-inputs.row

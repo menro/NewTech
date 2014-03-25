@@ -24,4 +24,9 @@ class ZipcodeService
     state.zipcodes.map{|c| ["[#{c.counties.collect(&:name).join(',') rescue ''}] #{c.code}", c.id]}
   end
 
+  def self.zipcodes_as_option(county_id)
+    county = County.find(county_id)
+    county.zipcodes.order('code ASC').map{|c| ["[#{c.counties.collect(&:name).join(',') rescue ''}] #{c.code}", c.id]}
+  end
+
 end
