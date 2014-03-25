@@ -50,6 +50,7 @@ class CompanyService
   def self.update(id, attributes = {})
     user = User.find(attributes[:user_id])
     company = Company.find(id)
+    zipcode = Zipcode.find(attributes[:zipcode_id])
     tags_list = attributes.delete("tags_list").split(",") rescue []
     tags = []
     tags_list.each do |tag|
@@ -59,8 +60,8 @@ class CompanyService
     geocode = find_geocode attributes
     if !geocode.success || geocode.accuracy.to_i < 6
       company.errors.add :address, "Address not founds"
-    elsif !( attributes[:zip_code].eql?(geocode.zip) )
-      company.errors.add :zip_code, "Postal code not valid, google return address zipcode #{geocode.zip}"
+    elsif !( zipcode.code.eql?(geocode.zip) )
+      company.errors.add :zipcode, "Postal code not valid, google return address zipcode #{geocode.zip}"
     else
       attributes[:address] = geocode.street_address
       attributes[:latitude] = geocode.lat
@@ -118,8 +119,9 @@ class CompanyService
   end
 
   def self.find_geocode(params)
-    city = City.find_by_id(params[:city_id])
-    geocode = Geokit::Geocoders::GoogleGeocoder3.geocode("#{params[:address]}, #{params[:zip_code]}, #{city.try(:name)}")
+    city = City.find(params[:city_id])
+    zipcode = Zipcode.find(params[:zipcode_id])
+    geocode = Geokit::Geocoders::GoogleGeocoder3.geocode("#{params[:address]}, #{zipcode.code}, #{city.try(:name)}")
     geocode
   end
 
