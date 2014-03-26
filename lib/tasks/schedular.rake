@@ -428,6 +428,14 @@ end
 # data = JSON.parse(response.body)
 # pp data.first.last
 
-
+desc 'Expire Money Raising Filter...'
+task expire_money_raising_filter: :environment do
+  Companies.where(money_raising: true).find_each do |company|
+    if company.money_raising_expired_at < Time.now
+      company.raising_money = false
+      company.save
+    end
+  end
+end
 
 

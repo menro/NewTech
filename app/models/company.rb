@@ -54,6 +54,7 @@ class Company < ActiveRecord::Base
   # validates_numericality_of :address, :zip_code
 
   before_save :attach_county
+  before_save :mark_money_raising_expiration
 
   has_attached_file :image,
                     :styles => {
@@ -191,6 +192,10 @@ class Company < ActiveRecord::Base
   def self.find_geocode(address, city_name, zip_code)
     geocode = Geokit::Geocoders::GoogleGeocoder3.geocode("#{address}, #{zip_code}, #{city_name}")
     geocode
+  end
+
+  def mark_money_raising_expiration
+    self.money_raisig_expired_at = 30.days.from_now if money_raising
   end
 
 end

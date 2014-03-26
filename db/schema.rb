@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140220175409) do
+ActiveRecord::Schema.define(:version => 20140326185411) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -102,14 +102,15 @@ ActiveRecord::Schema.define(:version => 20140220175409) do
     t.string   "zip_code"
     t.decimal  "latitude"
     t.decimal  "longitude"
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.integer  "jobs_count"
     t.string   "kickstarter_url"
     t.datetime "kickstarter_end_date"
-    t.boolean  "raising_money",        :default => false
+    t.boolean  "raising_money",           :default => false
     t.integer  "zipcode_id"
     t.string   "address2"
+    t.datetime "money_raisig_expired_at"
   end
 
   add_index "companies", ["city_id"], :name => "index_companies_on_city_id"
