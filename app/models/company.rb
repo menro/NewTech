@@ -195,7 +195,7 @@ class Company < ActiveRecord::Base
   end
 
   def mark_money_raising_expiration
-    self.money_raisig_expired_at = 30.days.from_now if money_raising
+    self.money_raisig_expired_at = 30.days.from_now if raising_money
   end
 
 end
