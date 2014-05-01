@@ -152,7 +152,7 @@
       }
     }
     if(requiredZoomLevels.indexOf(zoomLevel) > -1 ){
-      // updateBottomLists(container);
+      updateBottomLists(container);
       updateCommunityManagerStats(container);
     }
 
@@ -661,6 +661,7 @@
         }
         else {
           google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function() {
+            console.log('========'+ county.id);
             $("#box-summary-county").data("current_county_id", county.id);
             onCountySelected(county, circlePosition);
           });
@@ -1287,7 +1288,7 @@
               //Upate current county id.
               $("#search_params").data("current_county_id", countiesMap[result.address_components[0].long_name])
               
-              // $('#county-id').text($("#search_params").data("current_county_id"))
+              $('#county-id').text($("#search_params").data("current_county_id"))
               // break;
             }
             // if state
@@ -1305,10 +1306,10 @@
              
           }
         }
-        // updateBottomLists(container);
+        updateBottomLists(container);
       }
     });
-    // $('#zoom-level').text(zoomLevelMap[currentZoomLevel])
+    $('#zoom-level').text(zoomLevelMap[currentZoomLevel])
   }
 
   // Main

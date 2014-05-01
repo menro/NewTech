@@ -43,7 +43,7 @@ class JobDecorator < Draper::Base
   end
 
   def company_name
-    company.name
+    company.try(:name)
   end
 
   def salary_comp?

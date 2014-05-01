@@ -5,7 +5,7 @@ attributes  :id
 
 node(:show_freelancer_users_url) { |user| show_freelancer_users_url(user.username) }
 node(:freelancer_avatar_thumb_url) { |user| user.avatar.url(:thumb_large) }
-node(:freelancer_discipline_name) { |user| user.discipline.name.slice(0,9) }
+node(:freelancer_discipline_name) { |user| user.discipline.try(:name).slice(0,9) }
 end
 
 child @jobs => :jobs do
@@ -25,14 +25,14 @@ child @companies => :companies do
 attributes :id
 
 node(:img_url) { |company| company.image.url(:thumb_small) }
-node(:category_name) { |company| company.category.name }
+node(:category_name) { |company| company.category.try(:name) }
 
 end
 
 child @community_manager => :community_manager do
 attributes :id
 
-node(:manager_name) { |m| m.name}
+node(:manager_name) { |m| m.try(:name)}
 node(:manager_mission) { |m| m.mission}
 node(:manager_pic) { |m| m.pic_url}
 

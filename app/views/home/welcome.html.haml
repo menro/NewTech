@@ -16,15 +16,24 @@
     Hover a hotspot to see the breakout of our companies by county, or adjust the filters to customize
     %button.close{:type => "button", :data => {:dismiss => "alert" }} x
 
-/ #county-info
-/   .manager-holder
+#county-info
+  .manager-holder
 
-/   .stats
-/     %p ZOOM LEVEL :
-/     %p#zoom-level
-/   .stats
-/     %p COUNTY :
-/     %p#county-id
+  .stats
+    %p ZOOM LEVEL :
+    %p#zoom-level
+  .stats
+    %p Country Id :
+    %p#county-id
+  .stats
+    %p State Id :
+    %p#county-id
+  .stats
+    %p County Id :
+    %p#county-id
+  .stats
+    %p Zipcode Id :
+    %p#county-id
 
 .gmap_wrapper
   .gmap{ :data => gmap_data }

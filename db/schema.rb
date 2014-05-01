@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140326185411) do
+ActiveRecord::Schema.define(:version => 20140501182145) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -197,6 +197,16 @@ ActiveRecord::Schema.define(:version => 20140326185411) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
+
+  create_table "interest_feeds", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "followable_id"
+    t.string   "followable_type"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "interest_feeds", ["user_id"], :name => "index_interest_feeds_on_user_id"
 
   create_table "investments_types", :force => true do |t|
     t.string   "name"
