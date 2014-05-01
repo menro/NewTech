@@ -1193,14 +1193,14 @@
       accordion.css({height: height + "px"});
       eventList.css({height: height + "px"});
 
-      $('.gmap_wrapper, #company-list').css({top: (138 + height) + "px"});
+      $('.gmap_wrapper, #company-list').css({top: (45 + height) + "px"});
 
       $('#events_bar .bar_title .title, #events_bar #events_switch').click(function(e){
         e.preventDefault();
         $('#box-events-list').hide("fast");
         if(!accordion.height()) {
           accordion.animate({height: height + "px"}, 250);
-          $('.gmap_wrapper, #company-list').animate({top: (138 + height) + "px"}, 250);
+          $('.gmap_wrapper, #company-list').animate({top: (45 + height) + "px"}, 250);
 
           $("#events_bar #events_switch img").attr("src", "assets/close.png");
         }

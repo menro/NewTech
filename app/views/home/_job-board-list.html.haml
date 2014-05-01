@@ -21,6 +21,6 @@
             = link_to ((job.title.length > 30) ? (job.title.slice(0, 30) + "...") : job.title) , job.clickthrough, target: '_blank'
           .details
             .company
-              = job.company_name
+              / # = job.company_name
             .contact
               = link_to 'Contact', "mailto:#{job.email}"

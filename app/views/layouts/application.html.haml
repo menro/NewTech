@@ -10,19 +10,17 @@
     = yield(:stylesheets)
     = csrf_meta_tags
     = yield(:head)
-    = stylesheet_link_tag "application"
+    = stylesheet_link_tag    "application"
     = csrf_meta_tags
     :javascript
       #{google_analytics_js}
   %body
     %header.navbar
-      %div#events_bar
-        = yield(:eventsbar)
       %nav.navbar-inner
         .container-fluid
           .pull-left
             = link_to "", root_path, :class => "brand newtech"
-            = render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap
+            =# render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap
             = render_navigation :level => 1..2, :expand_all => true, :renderer => :bootstrap, :context => :user
             = yield(:navbar_extras)
     #main{:role => "main"}

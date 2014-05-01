@@ -3,10 +3,10 @@
   %form#search_form.navbar-search
     %input#search_query.search-query.span3{:placeholder => "search for a company..."}
 
-= content_for :eventsbar do
-  = render partial: 'partial_templates/events_bar'
+/ # = content_for :eventsbar do
+/ #   = render partial: 'partial_templates/events_bar'
 
-= render :partial => 'filters'
+/ # = render :partial => 'filters'
 
 #tooltip-centerer
   #tooltip.alert.alert-info
@@ -37,28 +37,28 @@
 #box-summary-total
 = render :partial => 'jquerytpl'
 
-#box-events-list
-  #add-your-company
-    #updates-header
-      = link_to new_company_url do
-        %h3 ADD YOUR COMPANY
+/ #box-events-list
+/   #add-your-company
+/     #updates-header
+/       = link_to new_company_url do
+/         %h3 ADD YOUR COMPANY
 
-  #event-box
-    = render :partial => 'company_list'
-  #sponsor-box
-    = render :partial => 'sponsor_box'
+/   #event-box
+/     = render :partial => 'company_list'
+/   #sponsor-box
+/     = render :partial => 'sponsor_box'
     
-/ .bottom-list-boxes
-/  .job-board-list
-/    = render 'job-board-list'
-/  .freelancers-list
-/    = render 'freelancers-list'
-/  .events-list
-/    = render 'events-list'
-/  .trending-news-list
-/    = render 'trending-news-list'
-/  .new-companies-list
-/    = render 'new-companies-list'
+.bottom-list-boxes
+  .job-board-list
+    = render 'job-board-list'
+  .freelancers-list
+    = render 'freelancers-list'
+  .events-list
+    = render 'events-list'
+  .trending-news-list
+    = render 'trending-news-list'
+  .new-companies-list
+    = render 'new-companies-list'
 
 = content_for :javascripts do
   = javascript_include_tag("https://maps.googleapis.com/maps/api/js?sensor=false")
