@@ -19,21 +19,19 @@
 #county-info
   .manager-holder
 
-  .stats
+  .stats{style: 'display:none;'}
     %p ZOOM LEVEL :
     %p#zoom-level
-  .stats
-    %p Country Id :
-    %p#county-id
-  .stats
-    %p State Id :
-    %p#county-id
-  .stats
-    %p County Id :
-    %p#county-id
-  .stats
-    %p Zipcode Id :
-    %p#county-id
+    %p Current Country :
+    %p#country-name
+    %p Current State :
+    %p#state-name
+    %p Current County :
+    %p#county-name
+    %p Current Zipcode :
+    %p#zipcode-name
+  .loader-div
+    =image_tag 'spinner.gif'
 
 .gmap_wrapper
   .gmap{ :data => gmap_data }

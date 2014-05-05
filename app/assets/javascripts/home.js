@@ -110,7 +110,9 @@
       google.maps.event.addListener(currentMap, 'dragend', function() {
           setTimeout(function() { 
             refreshForCurrentCounty();
-            updateCommunityManagerStats(container);
+            console.log('Called from initializer when dragged......');
+            // updateCommunityManagerStats(container);
+            updateBottomLists(container);
             if(currentZoomLevel == countyZoomLevel){
               // refreshMap(container);
             }
@@ -120,7 +122,8 @@
       drawCountyCircles(container);
       loadRecentBox(8, container);
       refreshFilterMenus(container);
-
+      refreshMap(container);
+      // console.log('Called from initializer......');
       // updateCommunityManagerStats(container);
 
     }
@@ -134,6 +137,7 @@
   })();
 
   function refreshMap(container) {
+    console.log('Refreshing mapp....')
     var zoomLevel = currentMap.getZoom();
     currentZoomLevel = zoomLevel;
 
@@ -142,18 +146,22 @@
         if (zoomLevel > oldZoomLevel ){
           oldZoomLevel = requiredZoomLevels[i+1];
           currentMap.setZoom(oldZoomLevel);
+          console.log('returning from if......');
           return;
         }
         else{
           oldZoomLevel = requiredZoomLevels[i];
           currentMap.setZoom(oldZoomLevel);
+          console.log('returning from else......');
           return;
         }
       }
     }
+    console.log(zoomLevel);
     if(requiredZoomLevels.indexOf(zoomLevel) > -1 ){
       updateBottomLists(container);
-      updateCommunityManagerStats(container);
+      console.log('Called from refreshMap.....')
+      // updateCommunityManagerStats(container);
     }
 
     for(var i = 0; i < currentRequests.length; i++) {
@@ -591,7 +599,8 @@
         nZipcodeCircles++;
       });
 
-      updateCommunityManagerStats(container);
+      // console.log('Called from drawZipcodeCircles.....')
+      // updateCommunityManagerStats(container);
 
       //draw total summary box
       var boxSummaryTotal = $('#box-summary-total');
@@ -676,8 +685,8 @@
         }
         nCountyCircles++;
       });
-
-      updateCommunityManagerStats(container);
+      // console.log('called from drawCountyCircles.......')
+      // updateCommunityManagerStats(container);
 
       //draw total summary box
       var boxSummaryTotal = $('#box-summary-total');
@@ -759,8 +768,8 @@
         }
         nStateCircles++;
       });
-
-      updateCommunityManagerStats(container);
+      // console.log('Called from drawStateCircles.....');
+      // updateCommunityManagerStats(container);
 
       //draw total summary box
       var boxSummaryTotal = $('#box-summary-total');
@@ -850,8 +859,8 @@
         // }
         nCountryCircles++;
       });
-
-      updateCommunityManagerStats(container);
+      // console.log('Called from drawCountryCircles.......');
+      // updateCommunityManagerStats(container);
 
       //draw total summary box
       var boxSummaryTotal = $('#box-summary-total');
@@ -1003,8 +1012,10 @@
         company_name: srcParamsEl.data("company_name"),
         country_name: srcParamsEl.data("current_country_name"),
         state_name: srcParamsEl.data("current_state_name"),
+        county_name: srcParamsEl.data('current_county_name'),
         zoom_level: zoomLevelMap[currentZoomLevel],
         current_zipcode: srcParamsEl.data('current_zipcode')
+
 
     }
     return search_params;
@@ -1267,7 +1278,8 @@
         $('.buttons-list').show();
       })
     }))
-    // updateCommunityManagerStats(container)
+    console.log('called from updateBottomLists......')
+    updateCommunityManagerStats(container);
   }
 
   // Will update the zoom level, currenty county id etc on map
@@ -1277,9 +1289,13 @@
 
     // Find current county id which is on the center of current map.
     var latlng = currentMap.getCenter();
+    $('#county-info .stats').hide();
+    $('#county-info .loader-div').show();
     GGeocoder.geocode({'latLng': latlng}, function(results, status) {
+      console.log('Updating community_manager stats...')
       if (status == google.maps.GeocoderStatus.OK) {
         for(var i = 0, iLimit = results.length; i < iLimit; i++) {
+          console.log(results);
           var result = results[i], types = result.types, iscounty = false;
           for(var j = 0, jLimit = types.length; j < jLimit; j++) {
             // if county
@@ -1287,26 +1303,32 @@
               iscounty = true;
               //Upate current county id.
               $("#search_params").data("current_county_id", countiesMap[result.address_components[0].long_name])
-              
-              $('#county-id').text($("#search_params").data("current_county_id"))
+              $("#search_params").data("current_county_name", result.address_components[0].long_name)
+              $('#county-name').text($("#search_params").data("current_county_name"))
               // break;
             }
             // if state
             if(types[j] == "administrative_area_level_1") {
               $("#search_params").data("current_state_name", result.address_components[0].long_name)
+              $('#state-name').text($("#search_params").data("current_state_name"))
             }
             // if country
             if(types[j] == "country") {
               $("#search_params").data("current_country_name", result.address_components[0].long_name)
+              $('#country-name').text($("#search_params").data("current_country_name"))
             }
             if(types[j] == 'postal_code'){
               $("#search_params").data("current_zipcode", result.address_components[0].long_name) 
+              $('#zipcode-name').text($("#search_params").data("current_zipcode"))
             }
 
              
           }
         }
-        updateBottomLists(container);
+        // console.log('Called from update community_manager stats.....')
+        // updateBottomLists(container);
+        $('#county-info .stats').show();
+        $('#county-info .loader-div').hide();
       }
     });
     $('#zoom-level').text(zoomLevelMap[currentZoomLevel])
