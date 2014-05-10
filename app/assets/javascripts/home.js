@@ -1235,9 +1235,10 @@
     $('.new-companies-list-contents').html('');
     $('.buttons-list').hide();
     $('#county-info .manager-holder').html('');
-
+    console.log('---');
+    console.log($(container).data("bottom_list_url"));
     currentRequests.push($.getJSON($(container).data("bottom_list_url"), searchParams(), function(data) {
-      
+      console.log('afafadfdfadsfdffdf.........');
       $.each(data, function(i, group) {
         switch(i){
           case 'freelancers':
@@ -1274,6 +1275,7 @@
             break;
 
         }
+        console.log('Hiding loader div.........' + i);
         $('.loader-div').hide();
         $('.buttons-list').show();
       })
@@ -1290,7 +1292,7 @@
     // Find current county id which is on the center of current map.
     var latlng = currentMap.getCenter();
     $('#county-info .stats').hide();
-    $('#county-info .loader-div').show();
+    // $('#county-info .loader-div').show();
     GGeocoder.geocode({'latLng': latlng}, function(results, status) {
       console.log('Updating community_manager stats...')
       if (status == google.maps.GeocoderStatus.OK) {
@@ -1321,19 +1323,41 @@
               $("#search_params").data("current_zipcode", result.address_components[0].long_name) 
               $('#zipcode-name').text($("#search_params").data("current_zipcode"))
             }
-
-             
           }
         }
         // console.log('Called from update community_manager stats.....')
         // updateBottomLists(container);
         $('#county-info .stats').show();
         $('#county-info .loader-div').hide();
+        thingToFollow();
       }
     });
     $('#zoom-level').text(zoomLevelMap[currentZoomLevel])
   }
-
+  function thingToFollow(){
+    level = zoomLevelMap[currentZoomLevel];
+    switch(level){
+      case 'Country' :
+        $('#thing-to-follow').find('p').text($("#search_params").data("current_country_name"));
+        break;
+      case 'State' :
+        $('#thing-to-follow').find('p').text($("#search_params").data("current_state_name"));
+        break;
+      case 'County' :
+        $('#thing-to-follow').find('p').text($("#search_params").data("current_county_name"));
+        break;
+      case 'Zipcode' :
+        $('#thing-to-follow').find('p').text($("#search_params").data("current_zipcode"));
+        break;
+    }
+  }
+  function followSomething(){
+    $('#follow').click(function(){
+      $(this).addClass('followed');
+      $(this).removeClass('shadowed');
+      $(this).find('p').text('following');
+    });
+  }
   // Main
   $(function () {
 
@@ -1350,6 +1374,7 @@
       setCategoryNameListener();
       setTagMenuListener();
       setEventsBarListener();
+      followSomething();
       return GMap.init(this);
     });
   });
