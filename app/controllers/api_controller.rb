@@ -115,4 +115,34 @@ class ApiController < ApplicationController
 
   end
 
+  def follow
+    puts '============'
+    puts params
+    puts '******************'
+    country = Country.where(name: params[:country_name]).first
+    state = country.states.where(name: params[:state_name]).first
+    zoom_level = params[:zoom_level]
+    case zoom_level
+    when 'Country'
+      followable = state
+      create_new_interest_feed! followable
+    when 'State'
+      followable = state.counties.where(name: params[:county_name]).first
+      create_new_interest_feed! followable
+    when 'County'
+      county = state.counties.where(name: params[:county_name]).first
+      zipcode = county.zipcodes.where(name: params[:current_zipcode]).first
+      create_new_interest_feed! followable
+    end
+    render json: {status: 200}
+  end
+
+  def create_new_interest_feed! followable
+    is_following = current_user.interest_feeds.where(followable_id: followable.id).present?
+    unless is_following
+      interest_feed = current_user.interest_feeds.new
+      interest_feed.followable = followable
+      interest_feed.save
+    end
+  end
 end

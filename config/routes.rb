@@ -25,6 +25,7 @@ Newtech::Application.routes.draw do
       get :bottom_lists
       get :recent_updates
       get :location_data_as_options
+      post :follow
     end
   end
 

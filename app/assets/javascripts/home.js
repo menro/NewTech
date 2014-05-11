@@ -129,6 +129,7 @@
     }
 
     GMap.init = function(container) {
+      followSomething(container);
       return new GMap(container);
     };
 
@@ -1238,7 +1239,6 @@
     console.log('---');
     console.log($(container).data("bottom_list_url"));
     currentRequests.push($.getJSON($(container).data("bottom_list_url"), searchParams(), function(data) {
-      console.log('afafadfdfadsfdffdf.........');
       $.each(data, function(i, group) {
         switch(i){
           case 'freelancers':
@@ -1305,7 +1305,7 @@
               iscounty = true;
               //Upate current county id.
               $("#search_params").data("current_county_id", countiesMap[result.address_components[0].long_name])
-              $("#search_params").data("current_county_name", result.address_components[0].long_name)
+              $("#search_params").data("current_county_name", result.address_components[0].long_name.replace(" County", ""))
               $('#county-name').text($("#search_params").data("current_county_name"))
               // break;
             }
@@ -1337,25 +1337,28 @@
   function thingToFollow(){
     level = zoomLevelMap[currentZoomLevel];
     switch(level){
-      case 'Country' :
+      case 'Workd' : 
         $('#thing-to-follow').find('p').text($("#search_params").data("current_country_name"));
         break;
-      case 'State' :
+      case 'Country' :
         $('#thing-to-follow').find('p').text($("#search_params").data("current_state_name"));
         break;
-      case 'County' :
+      case 'State' :
         $('#thing-to-follow').find('p').text($("#search_params").data("current_county_name"));
         break;
-      case 'Zipcode' :
+      case 'County' :
         $('#thing-to-follow').find('p').text($("#search_params").data("current_zipcode"));
         break;
     }
   }
-  function followSomething(){
+  function followSomething(container){
     $('#follow').click(function(){
       $(this).addClass('followed');
       $(this).removeClass('shadowed');
       $(this).find('p').text('following');
+      currentRequests.push($.post($(container).data("follow_url"), searchParams(), function(data){
+        console.log('--------------asdfasfasd');
+      }))
     });
   }
   // Main
@@ -1374,7 +1377,6 @@
       setCategoryNameListener();
       setTagMenuListener();
       setEventsBarListener();
-      followSomething();
       return GMap.init(this);
     });
   });
