@@ -39,8 +39,13 @@
 #thing-to-follow.shadowed
   %p
 
-#follow.shadowed
-  %p follow
+- if current_user
+  #follow.shadowed
+    %p follow
+- else
+  .sigin-follow.shadowed
+    = link_to user_session_path do
+      %p Signin to follow
 
 #search_params{ :data => search_params_data }
 #company-list

@@ -140,9 +140,9 @@ class ApiController < ApplicationController
   def create_new_interest_feed! followable
     is_following = current_user.interest_feeds.where(followable_id: followable.id).present?
     unless is_following
-      interest_feed = current_user.interest_feeds.new
-      interest_feed.followable = followable
-      interest_feed.save
+      interest_feed = current_user.interest_feeds.create(followable: followable)
+      # interest_feed.followable = followable
+      # interest_feed.save
     end
   end
 end

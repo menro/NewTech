@@ -804,9 +804,12 @@ ul.event-list{
 #follow p{ margin: 0; }
 #follow a{ color: white; text-decoration: none; }
 .followed{ background-color: #7895A4; opacity: 1!important; }
-#thing-to-follow{width: 100px;min-height:40px; top: 55px;position: absolute;right: 65px;background-color: #7895A4;border-color: #507282;opacity: 0.8;color: #FFF;font-weight: bold;font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;font-size: 14px;border: 1px solid #507282;padding: 4px;display: inline-block;box-sizing: border-box;text-align: center;}
-
-
+#thing-to-follow{width: 100px;min-height:30px; top: 65px;position: absolute;right: 65px;background-color: #7895A4;border-color: #507282;opacity: 0.8;color: #FFF;font-weight: bold;font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;font-size: 14px;border: 1px solid #507282;padding: 4px;display: inline-block;box-sizing: border-box;text-align: center;}
+.sigin-follow{
+  width: 100px;top: 100px;position: absolute;right: 65px;background-color: #7895A4;border-color: #507282;opacity: 0.8;color: #FFF;font-weight: bold;font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;font-size: 14px;border: 1px solid #507282;padding: 4px;display: inline-block;box-sizing: border-box;cursor: pointer;text-align: center;
+}
+.sigin-follow p{margin-bottom: 0;color: #FFF;font-size: 12px;font-weight: normal;}
+#thing-to-follow p {margin-bottom: 0;}
 
 
 

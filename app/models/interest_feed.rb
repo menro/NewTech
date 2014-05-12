@@ -1,4 +1,5 @@
 class InterestFeed < ActiveRecord::Base
   belongs_to :user
-  attr_accessible :followable, polymorphic: true
+  belongs_to :followable, polymorphic: true
+  attr_accessible :followable
 end
