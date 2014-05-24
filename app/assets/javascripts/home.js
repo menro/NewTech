@@ -160,7 +160,7 @@
     }
     console.log(zoomLevel);
     if(requiredZoomLevels.indexOf(zoomLevel) > -1 ){
-      updateBottomLists(container);
+      // updateBottomLists(container);
       console.log('Called from refreshMap.....')
       // updateCommunityManagerStats(container);
     }
