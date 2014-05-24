@@ -162,7 +162,7 @@
     if(requiredZoomLevels.indexOf(zoomLevel) > -1 ){
       // updateBottomLists(container);
       console.log('Called from refreshMap.....')
-      // updateCommunityManagerStats(container);
+      updateCommunityManagerStats(container);
     }
 
     for(var i = 0; i < currentRequests.length; i++) {
