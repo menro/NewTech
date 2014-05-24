@@ -1338,8 +1338,6 @@
   }
   function updateFollowObject(container){
     currentRequests.push($.getJSON($(container).data("is_following_url"), searchParams(), function(data) {
-      console.log(data);
-      console.log('-0-0-0-0-00')
       if(data.is_following){
         $('#follow').addClass('followed');
         $('#follow').removeClass('shadowed');
