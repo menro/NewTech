@@ -36,7 +36,8 @@ module HomeHelper
         :job_roles_url => "#{job_roles_api_v1_url(:json)}",
         :bottom_list_url => "#{bottom_lists_api_v1_url(:json)}",
         recent_updates_url: "#{recent_updates_api_v1_url(:json)}",
-        follow_url: "#{follow_api_v1_url(:json)}"
+        follow_url: "#{follow_api_v1_url(:json)}",
+        is_following_url: "#{is_following_api_v1_url(:json)}"
     }
   end
 end

@@ -99,50 +99,72 @@ class ApiController < ApplicationController
   end
 
   def bottom_lists
-    if params[:zoom_level] == 'County'
-      @freelancers        = UserService::search(params)
-      @jobs               = JobService.search(params)
-      @events             = EventService.search(params)
-      @companies          = CompanyService::search_recent(params)
-      @community_manager  = CommunityManager.where(county_id: params[:current_county_id]).first
-      # @community_manager  = CommunityManager.first
+    if current_user
+      
     else
       @events             = EventService.all
       @companies          = Company.get_recent_companies(5)
       @freelancers        = User.available_freelancers(7)
       @jobs               = JobService.most_recent(5)
     end
+    # if params[:zoom_level] == 'County'
+    #   @freelancers        = UserService::search(params)
+    #   @jobs               = JobService.search(params)
+    #   @events             = EventService.search(params)
+    #   @companies          = CompanyService::search_recent(params)
+    #   @community_manager  = CommunityManager.where(county_id: params[:current_county_id]).first
+    #   # @community_manager  = CommunityManager.first
+    # else
+    #   @events             = EventService.all
+    #   @companies          = Company.get_recent_companies(5)
+    #   @freelancers        = User.available_freelancers(7)
+    #   @jobs               = JobService.most_recent(5)
+    # end
 
   end
 
   def follow
-    puts '============'
-    puts params
-    puts '******************'
     country = Country.where(name: params[:country_name]).first
     state = country.states.where(name: params[:state_name]).first
     zoom_level = params[:zoom_level]
     case zoom_level
-    when 'Country'
-      followable = state
-      create_new_interest_feed! followable
-    when 'State'
-      followable = state.counties.where(name: params[:county_name]).first
-      create_new_interest_feed! followable
-    when 'County'
-      county = state.counties.where(name: params[:county_name]).first
-      zipcode = county.zipcodes.where(name: params[:current_zipcode]).first
-      create_new_interest_feed! followable
+      when 'Country'
+        followable = state
+        create_new_interest_feed! followable
+      when 'State'
+        followable = state.counties.where(name: params[:county_name]).first
+        create_new_interest_feed! followable
+      when 'County'
+        county = state.counties.where(name: params[:county_name]).first
+        zipcode = county.zipcodes.where(name: params[:current_zipcode]).first
+        create_new_interest_feed! zipcode
     end
     render json: {status: 200}
   end
 
   def create_new_interest_feed! followable
-    is_following = current_user.interest_feeds.where(followable_id: followable.id).present?
-    unless is_following
-      interest_feed = current_user.interest_feeds.create(followable: followable)
-      # interest_feed.followable = followable
-      # interest_feed.save
-    end
+    is_flwing = current_user.interest_feeds.where(followable_id: followable.id).present?
+    interest_feed = current_user.interest_feeds.create(followable: followable) unless is_flwing
   end
+
+  def is_following
+    is_flwng = false
+    if current_user
+      country = Country.where(name: params[:country_name]).first
+      state = country.states.where(name: params[:state_name]).first
+      zoom_level = params[:zoom_level]
+      case zoom_level
+        when 'Country'
+          followable = state
+        when 'State'
+          followable = state.counties.where(name: params[:county_name]).first
+        when 'County'
+          county = state.counties.where(name: params[:county_name]).first
+          followable = county.zipcodes.where(name: params[:current_zipcode]).first
+      end
+      is_flwng = current_user.interest_feeds.where(followable_id: followable.id).present?
+    end
+    render json: {is_following: is_flwng}
+  end
+
 end

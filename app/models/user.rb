@@ -68,7 +68,6 @@ class User < ActiveRecord::Base
   validates :email, presence: true, :uniqueness => {:case_sensitive => false}, :allow_nil => false
   validates :experience, numericality: true, :allow_nil => true, inclusion: ALLOWED_EXP_YEARS
 
-
   before_create :set_defualts
 
   accepts_nested_attributes_for :recommendations

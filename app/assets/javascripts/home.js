@@ -1019,6 +1019,7 @@
 
 
     }
+    console.log("county name::" + search_params.county_name);
     return search_params;
   }
 
@@ -1330,14 +1331,33 @@
         $('#county-info .stats').show();
         $('#county-info .loader-div').hide();
         thingToFollow();
+        updateFollowObject(container);
       }
     });
     $('#zoom-level').text(zoomLevelMap[currentZoomLevel])
   }
+  function updateFollowObject(container){
+    currentRequests.push($.getJSON($(container).data("is_following_url"), searchParams(), function(data) {
+      console.log(data);
+      console.log('-0-0-0-0-00')
+      if(data.is_following){
+        $('#follow').addClass('followed');
+        $('#follow').removeClass('shadowed');
+        $('#follow').find('p').text('following');
+        $('#follow').unbind('click');
+      }
+      else{
+        $('#follow').addClass('shadowed');
+        $('#follow').removeClass('followed');
+        $('#follow').find('p').text('follow');
+        followSomething(container);
+      }
+    }));
+  }
   function thingToFollow(){
     level = zoomLevelMap[currentZoomLevel];
     switch(level){
-      case 'Workd' : 
+      case 'World' : 
         $('#thing-to-follow').find('p').text($("#search_params").data("current_country_name"));
         break;
       case 'Country' :
@@ -1357,8 +1377,8 @@
       $(this).removeClass('shadowed');
       $(this).find('p').text('following');
       currentRequests.push($.post($(container).data("follow_url"), searchParams(), function(data){
-        console.log('--------------asdfasfasd');
-      }))
+        console.log('Added to interest Feed.')
+      }));
     });
   }
   // Main
