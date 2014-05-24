@@ -107,7 +107,6 @@ class ApiController < ApplicationController
       @events = Event.where("state_id IN (?) or county_id IN (?) ", states, counties).order('start_at ASC')
       @companies = Company.where("county_id IN (?) or zipcode_id IN (?) ", counties, zipcodes).order('name ASC')
       @feelancers = Company.where("county_id IN (?) and is_freelancer =? ", counties, true).order('name ASC')
-      # @jobs = Job.where("zipcode_id IN (?) ", zipcodes).order('title ASC')
     else
       @events             = EventService.all
       @companies          = Company.get_recent_companies(5)
