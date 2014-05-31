@@ -14,7 +14,7 @@
   top: 45px;
   left: 0px;
   width:100%;
-  height:55%;
+  height:75%;
   z-index: -999;
 }
 
@@ -666,7 +666,7 @@ table.summary-table td.summary-numbers {
 
 .bottom-list-boxes{width: 100%;height: 40%;background-color: #EEE;position: fixed;top: 62%;}
 
-.freelancers-list, .events-list, .trending-news-list, .job-board-list, .new-companies-list{width: 19.5%;height: 100%;float: left;border: 1px solid white;}
+.freelancers-list, .events-list, .trending-news-list, .job-board-list, .new-companies-list{height: 100%;float: left; background-color: white;width: 100%;}
 
 .job-board-list{
   .job-list-header{float: left;background-color: green;}
@@ -811,6 +811,23 @@ ul.event-list{
 .sigin-follow p{margin-bottom: 0;color: #FFF;font-size: 12px;font-weight: normal;}
 #thing-to-follow p {margin-bottom: 0;}
 
+
+// ====== New Desing ====
+.new-bottom-section{
+  height: 19%;width: 100%;position: fixed;bottom: 0;
+}
+.text-window{text-align: center;padding: 10px 30px;}
+.text-window h1 { color: black;}
+.bottom-lists{width: 100%;height: 30px;bottom: 0;position: fixed;}
+.bottom-boards{float: left;width: 16%;height:auto;margin-right: 2%;height: auto;height: auto;position: fixed;bottom: 0;}
+.bottom-boards h3{color: white;}
+.bottom-boards.jobs-board{left:0;}
+.bottom-boards.freelancers-board{left:18%;}
+.bottom-boards.events-board{left:36%}
+.bottom-boards.companies-board{left:54%}
+.bottom-boards .header{background-color: black;text-align: center;padding:4px;cursor: pointer;height: 30px;}
+.bottom-boards .list-cntnts{display: none;}
+.bottom-lists .list-contents{margin-top: 10px;}
 
 
 

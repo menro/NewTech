@@ -1,15 +1,6 @@
-.new-companies-header.list-header
-  %h4 New Companies
-
 .loader-div{style: 'display: none;'}
   %span
     %img{src: '/assets/spinner.gif'}
-    
-.buttons-list
-  .btn1
-    = link_to 'See All', '#'
-  .btn2
-    = link_to 'Add Company', new_company_url
 
 .new-companies-list-contents.list-contents
   - @recent_companies.each do |company|

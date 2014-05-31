@@ -8,13 +8,13 @@
 
 / # = render :partial => 'filters'
 
-#tooltip-centerer
-  #tooltip.alert.alert-info
-    %h2
-      NEW TECH IS A COMMUNITY OF OVER 10,000 GEEKS WHO LIVE AND WORK IN COLORADO.
-    %hr
-    Hover a hotspot to see the breakout of our companies by county, or adjust the filters to customize
-    %button.close{:type => "button", :data => {:dismiss => "alert" }} x
+/ #tooltip-centerer
+/   #tooltip.alert.alert-info
+/     %h2
+/       NEW TECH IS A COMMUNITY OF OVER 10,000 GEEKS WHO LIVE AND WORK IN COLORADO.
+/     %hr
+/     Hover a hotspot to see the breakout of our companies by county, or adjust the filters to customize
+/     %button.close{:type => "button", :data => {:dismiss => "alert" }} x
 
 #county-info
   .manager-holder
@@ -66,7 +66,36 @@
 /   #sponsor-box
 /     = render :partial => 'sponsor_box'
     
-.bottom-list-boxes
+.new-bottom-section
+  .text-window
+    %h1 FOLLOW STARTUP COMMUNITIES AND STAY CONNECTED TO THE JOBS, EVENTS AND NEWS THAT SURROUND YOUR LIFE
+
+.bottom-lists
+  .jobs-board.bottom-boards
+    .header
+      %h3 Jobs
+    .list-cntnts.job-board-list
+      = render 'job-board-list'
+
+  .freelancers-board.bottom-boards
+    .header
+      %h3 Feelancers
+    .list-cntnts.freelancers-list
+      = render 'freelancers-list'
+
+  .events-board.bottom-boards
+    .header
+      %h3 Events
+    .list-cntnts.events-list
+      = render 'events-list'
+
+  .companies-board.bottom-boards
+    .header
+      %h3 Companies
+    .list-cntnts.new-companies-list
+      = render 'new-companies-list'
+      
+.bottom-list-boxes{style: 'display: none;'}
   .job-board-list
     = render 'job-board-list'
   .freelancers-list

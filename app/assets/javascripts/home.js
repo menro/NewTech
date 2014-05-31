@@ -1423,3 +1423,11 @@
   });
 
 }).call(this);
+
+(function(){
+  $('.bottom-boards .header').click(function(){
+    console.log('clicked....');
+    console.log($(this).parent().find('.list-cntnts'));
+    $(this).parent().find('.list-cntnts').slideToggle();
+  })
+}).call(this);
