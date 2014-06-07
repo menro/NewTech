@@ -487,7 +487,7 @@
 
 .bottom-left-1 {
   // bottom: 10px;
-  bottom: 40%;
+  bottom: 25%;
   left: 80%;
 }
 
@@ -788,7 +788,7 @@ ul.event-list{
   }
 }
 
-#county-info{width: 230px;top: 55px;min-height: 109px;position: absolute;left: 65px;border-radius: 5px;background-color: #7895A4;border-color: #507282;opacity: 0.8;color: #FFFFFF;font-weight: bold;font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;font-size: 14px;border: 1px solid #507282;padding: 8px;display: inline-block;box-sizing: border-box;}
+#county-info{width: 230px;left: 80%;top: 30%;min-height: 109px;position: absolute;border-radius: 5px;background-color: #7895A4;border-color: #507282;opacity: 0.8;color: #FFFFFF;font-weight: bold;font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;font-size: 14px;border: 1px solid #507282;padding: 8px;display: inline-block;box-sizing: border-box;}
 #county-info p{font-size: 11px;width: auto;float: left;margin-right: 5px;margin-bottom: 0px;}
 #county-info {
   .stats{width: 100%; float: left;}
@@ -828,6 +828,7 @@ ul.event-list{
 .bottom-boards .header{background-color: black;text-align: center;padding:4px;cursor: pointer;height: 30px;}
 .bottom-boards .list-cntnts{display: none;}
 .bottom-lists .list-contents{margin-top: 10px;}
+#all-stats-window{left: 5px;padding: 20px;background-color: #000;opacity: 0.8;color: #FFF;width: 380px;bottom: 25%;position: absolute;}
 
 
 

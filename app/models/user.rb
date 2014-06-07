@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   WORK_STATUS = ['available', 'shortly', 'working']
   USER_RATES = ['$', '$$', '$$$', '$$$$']
   
+  scope :freelancers,
+        lambda { where("is_freelancer = true") }
+        
   attr_accessible :avatar
   has_attached_file :avatar,
                     :styles => {

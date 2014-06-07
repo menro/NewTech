@@ -106,7 +106,7 @@ class ApiController < ApplicationController
       zipcodes = current_user.interest_feeds.where(followable_type: 'Zipcode').all.collect(&:followable_id)
       @events = Event.where("state_id IN (?) or county_id IN (?) ", states, counties).order('start_at ASC')
       @companies = Company.where("county_id IN (?) or zipcode_id IN (?) ", counties, zipcodes).order('name ASC')
-      @feelancers = Company.where("county_id IN (?) and is_freelancer =? ", counties, true).order('name ASC')
+      @feelancers = User.where("county_id IN (?) and is_freelancer =? ", counties, true).order('name ASC')
     else
       @events             = EventService.all
       @companies          = Company.get_recent_companies(5)

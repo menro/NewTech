@@ -47,24 +47,33 @@
     = link_to user_session_path do
       %p Signin to follow
 
+#all-stats-window
+  %h2 YOUR STARTUP COMMUNITIES
+  %br
+  %h3 CURRENTLY FOLLOWING
+  - if current_user && current_user.interest_feeds.size > 0
+    - s = current_user.interest_feeds.map{|i|  i.followable.try(:name) if i.followable_type != 'Zipcode'}
+    - s << current_user.interest_feeds.map{|i|  i.followable.try(:code) if i.followable_type == 'Zipcode'}
+    %p
+      = s.flatten.reject{|s| s.nil?}.join(', ')
+  - else 
+    Sign In to follow different Locations
+  %br
+  %br
+  %h3 TOTALS
+  %p= "- Jobs = #{@job_count || 0}"
+  %p= "- Freelancers = #{@job_count || 0}"
+  %p= "- People = #{@job_count || 0}"
+  %p= "- Events = #{@job_count || 0}"
+  %p= "- Companies = #{@job_count || 0}"
+
 #search_params{ :data => search_params_data }
 #company-list
   %div{:id => "companies" }
 
-#box-summary-county
+/ #box-summary-county
 #box-summary-total
 = render :partial => 'jquerytpl'
-
-/ #box-events-list
-/   #add-your-company
-/     #updates-header
-/       = link_to new_company_url do
-/         %h3 ADD YOUR COMPANY
-
-/   #event-box
-/     = render :partial => 'company_list'
-/   #sponsor-box
-/     = render :partial => 'sponsor_box'
     
 .new-bottom-section
   .text-window
