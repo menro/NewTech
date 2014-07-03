@@ -144,6 +144,9 @@ class Company < ActiveRecord::Base
           where("companies.zipcode_id = ?", id)
         }
 
+  def homepage_url
+    absolute_url read_attribute :homepage_url
+  end
 
   def is_hiring?
     (self.jobs_count || 0) > 0
@@ -187,6 +190,10 @@ class Company < ActiveRecord::Base
   private
   def attach_county
     self.county = city.county unless city.county.nil?
+  end
+
+  def absolute_url(url)
+    url.match(/http?[\S]:\/\//) ? url : "http://"+url
   end
 
   def self.find_geocode(address, city_name, zip_code)
