@@ -14,6 +14,14 @@
     = csrf_meta_tags
     :javascript
       #{google_analytics_js}
+
+    :javascript
+      window.onAmazonLoginReady = function() {
+        amazon.Login.setClientId('amzn1.application-oa2-client.6f6082376e714902ad6df45725a5c5b6');
+      };
+
+    %script{:src => "https://static-na.payments-amazon.com/OffAmazonPayments/us/js/Widgets.js?sellerId=A1USPZIRFJAOD7", :type => "text/javascript"}
+
   %body
     %header.navbar
       %div#events_bar
