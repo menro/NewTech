@@ -16,6 +16,10 @@ configatron.app_name = ENV['APP_NAME']
 configatron.secret_token = ENV['SECRET_TOKEN']
 configatron.session_store = ENV['SESSION_STORE']
 
+# Ramen
+configatron.ramen.organization_id = ENV['RAMEN_ORGANIZATION_ID']
+configatron.ramen.organization_secret = ENV['RAMEN_ORGANIZATION_SECRET']
+
 # Email
 configatron.email.delivery_method = ( ENV['EMAIL_DELIVERY_METHOD'] || "smtp" ).to_sym
 configatron.email.enable_starttls_auto = ENV['EMAIL_START_SSL']

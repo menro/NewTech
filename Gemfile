@@ -28,6 +28,9 @@ gem 'simple-navigation-bootstrap'
 # make beautifull with awesome icons
 gem 'font-awesome-sass-rails'
 
+# Ramen
+gem 'ramen-rails', '~>0.4.0'
+
 # HAML
 gem 'haml-rails'
 
