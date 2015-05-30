@@ -58,7 +58,7 @@ group :development do
    # Deploy with Capistrano
    gem 'capistrano'
    gem 'rvm-capistrano'
-   gem 'therubyracer'
+   gem 'therubyracer', '0.12.2'
    gem 'thin'
    gem 'debugger'
 end
