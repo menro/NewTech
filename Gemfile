@@ -28,6 +28,9 @@ gem 'simple-navigation-bootstrap'
 # make beautifull with awesome icons
 gem 'font-awesome-sass-rails'
 
+# Ramen
+gem 'ramen-rails', '~>0.4.0'
+
 # HAML
 gem 'haml-rails'
 
@@ -57,8 +60,8 @@ end
 group :development do
    # Deploy with Capistrano
    gem 'capistrano'
-   gem 'rvm-capistrano'
-   gem 'therubyracer'
+   gem 'rvm-capistrano', require: false
+   gem 'therubyracer', '0.12.2'
    gem 'thin'
    gem 'debugger'
 end
