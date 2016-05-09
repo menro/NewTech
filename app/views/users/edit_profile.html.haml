@@ -12,7 +12,7 @@
         %br
         %br
         .links
-          - if current_user.discipline.is_price_required?
+          - if current_user.discipline.try(:is_price_required)
             .rate
               .icon-e
                 = image_tag 'money.png', title: 'Rate'

@@ -160,7 +160,6 @@ GEM
     kgio (2.8.0)
     launchy (2.2.0)
       addressable (~> 2.3)
-    libv8 (3.11.8.13)
     mail (2.5.3)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -227,7 +226,6 @@ GEM
     rake (10.0.4)
     rdoc (3.12.2)
       json (~> 1.4)
-    ref (1.0.2)
     responders (0.9.3)
       railties (~> 3.1)
     rest-client (1.6.7)
@@ -259,9 +257,6 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    therubyracer (0.11.4)
-      libv8 (~> 3.11.8.12)
-      ref
     thin (1.5.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -311,6 +306,7 @@ DEPENDENCIES
   debugger
   devise (>= 2.1.0)
   draper
+  execjs
   font-awesome-sass-rails
   geocoder
   geokit-rails3
@@ -339,9 +335,11 @@ DEPENDENCIES
   seed-fu (~> 2.2.0)
   simple-navigation-bootstrap
   simple_form
-  therubyracer
   thin
   turbo-sprockets-rails3
   twitter
   uglifier (= 1.0.3)
   unicorn
+
+BUNDLED WITH
+   1.11.2

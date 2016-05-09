@@ -56,9 +56,10 @@ end
 
 group :development do
    # Deploy with Capistrano
-   gem 'capistrano'
    gem 'rvm-capistrano'
-   gem 'therubyracer'
+   gem 'capistrano'
+  #  gem 'therubyracer'
+  gem 'execjs'
    gem 'thin'
    gem 'debugger'
 end

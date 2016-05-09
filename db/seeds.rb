@@ -428,17 +428,17 @@ discipline.languages_name = 'Skills'
 discipline.platforms_name = 'Platforms'
 discipline.save
 
-discipline = Discipline.find_by_name('Business Development')
+discipline = Discipline.where(name: 'Business Development').first_or_create
 discipline.languages_name = 'Skills'
 discipline.platforms_name = 'Expertise'
 discipline.save
 
-discipline = Discipline.find_by_name('Marketing')
+discipline = Discipline.where(name: 'Marketing').first_or_create
 discipline.languages_name = 'Experience'
 discipline.platforms_name = 'Skills'
 discipline.save
 
-discipline = Discipline.find_by_name('Mentor')
+discipline = Discipline.where(name: 'Mentor').first_or_create
 discipline.languages_name = 'Skills'
 discipline.platforms_name = 'Expertise'
 discipline.save
