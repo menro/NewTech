@@ -11,7 +11,7 @@ gem 'configatron', '2.8.4'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+gem 'mysql2','0.4.4'
 
 # Authentication
 gem 'devise', '>= 2.1.0'
@@ -76,7 +76,7 @@ gem 'rabl'
 # Attachment
 gem 'paperclip', '~> 3.0'
 gem 'aws-sdk', '1.5.6'
-gem 'rmagick'
+gem 'rmagick', '2.15.4'
 
 # Seed data
 gem 'seed-fu', '~> 2.2.0'

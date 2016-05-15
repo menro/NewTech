@@ -175,7 +175,7 @@ GEM
     multi_json (1.7.2)
     multi_xml (0.5.1)
     multipart-post (1.2.0)
-    mysql2 (0.3.11)
+    mysql2 (0.4.4)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -230,7 +230,7 @@ GEM
       railties (~> 3.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    rmagick (2.13.2)
+    rmagick (2.15.4)
     rolify (3.1.0)
     ruby-json (1.1.2)
     rubyzip (0.9.9)
@@ -319,7 +319,7 @@ DEPENDENCIES
   memcachier
   meta_search (>= 1.1.0.pre)
   modernizr-rails
-  mysql2
+  mysql2 (= 0.4.4)
   newrelic_rpm
   nokogiri
   paperclip (~> 3.0)
@@ -327,7 +327,7 @@ DEPENDENCIES
   rabl
   rails (= 3.2.13)
   responders
-  rmagick
+  rmagick (= 2.15.4)
   rolify (= 3.1.0)
   ruby-json
   rvm-capistrano
