@@ -4,11 +4,11 @@
   .row{style: "margin-left: 0px;", class: row[0]}
     .status-wrapper
       .user-status
-        %h3 
+        %h3
           = row[0].titleize
       .create-profile-btn
         - if row[0] == 'available'
-          - if !user_signed_in? 
+          - if !user_signed_in?
             = link_to image_tag('freelance/claim-your-page.png'), new_user_session_path
           - elsif user_signed_in? && current_user.is_freelancer?
             = link_to image_tag('freelance/claim-your-page.png'), edit_profile_users_url(current_user.username)
@@ -16,7 +16,7 @@
             = link_to image_tag('freelance/claim-your-page.png'), profile_path
 
       .more-link.more-freelancers{id: row[0]}
-        %p{style: "margin: 0px;color: #7895A4;line-height: 30px;font-family: Helvetica;font-size: 12px;"}
+        %p{style: "margin: 0px;color: #B0B0B0;line-height: 30px;font-family: Helvetica;font-size: 12px;"}
           = "(#{row[2]}/#{row[3]})"
           = link_to "  More...", 'javascript:void(0)'
     %br
