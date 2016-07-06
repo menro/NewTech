@@ -52,6 +52,7 @@
         panControl: false,
         zoomControl: true,
         zoomControlOptions: {
+          position: google.maps.ControlPosition.LEFT_CENTER,
           style: google.maps.ZoomControlStyle.SMALL
         },
         mapTypeControl: false,
