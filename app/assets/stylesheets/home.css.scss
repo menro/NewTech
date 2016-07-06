@@ -368,6 +368,7 @@
   width: 614px;
   position: absolute;
   left: 0px;
+  z-index: -1;
 }
 
 #tooltip {
@@ -384,7 +385,6 @@
   font-size: 14px;
   text-align: center;
   text-shadow: 0 0 0;
-  //z-index: -999;
 }
 
 #tooltip h2 {
