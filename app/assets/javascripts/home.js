@@ -64,44 +64,7 @@
         scrollwheel: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         styles:
-          [
-                {
-                    "stylers": [
-                    {
-                        "visibility": "on"
-                    },
-                    {
-                        "hue": "#ffc300"
-                    },
-                    {
-                        "saturation": -100
-                    }
-                    ]
-                },{
-                    "featureType": "water",
-                    "stylers": [
-                    {
-                        "visibility": "off"
-                    }
-                    ]
-                },{
-                    "featureType": "poi",
-                    "stylers": [
-                    {
-                        "visibility": "off"
-                    }
-                    ]
-                },{
-                    "featureType": "landscape",
-                    "stylers": [
-                    {
-                        "visibility": "simplified"
-                    }
-                    ]
-                },{
-                    "featureType": "administrative.country"
-                }
-                ],
+          [{"featureType":"all","elementType":"geometry.fill","stylers":[{"color":"#4a5066"}]},{"featureType":"all","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative.country","elementType":"geometry.stroke","stylers":[{"color":"#404356"},{"visibility":"on"},{"weight":"3"}]},{"featureType":"administrative.province","elementType":"geometry.stroke","stylers":[{"color":"#404356"},{"visibility":"on"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#404356"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#404356"}]}],
         center: new google.maps.LatLng(39.7392, -104.9847)
       };
       currentMap = new google.maps.Map(container, defaultOptions);
@@ -109,7 +72,7 @@
           refreshMap(container);
       });
       google.maps.event.addListener(currentMap, 'dragend', function() {
-          setTimeout(function() { 
+          setTimeout(function() {
             refreshForCurrentCounty();
             updateCommunityManagerStats(container);
             if(currentZoomLevel == countyZoomLevel){
@@ -169,17 +132,17 @@
       // clearCompanyOffices();
       // clearCountyCircles();
       // drawCountyCircles(container);
-      
+
       var boxSummaryCounty = $('#box-summary-county');
       boxSummaryCounty.data("current_county_id", null);
       boxSummaryCounty.hide();
     } else {
       // clearCountyCircles();
       // clearCompanyOffices();
-      // drawCompanyOffices(container);      
+      // drawCompanyOffices(container);
       // drawCountySummaryBox(container);
       drawZipcodeSummaryBox(container);
-      // refreshForCurrentCounty();      
+      // refreshForCurrentCounty();
     }
     //refreshTags(container);
     refreshForCurrentCounty();
@@ -342,9 +305,9 @@
       currentInfoWindow.close();
     }
   }
-  function drawCompanyOffices(container) {   
+  function drawCompanyOffices(container) {
     currentRequests.push($.getJSON($(container).data("offices_url"), searchParams(), function(data) {
-      
+
       companyOfficesMarkers = new Array();
       infoWindows = new Array();
       nOffices = 0;
@@ -509,7 +472,7 @@
   }
   function drawZipcodeCircles(container) {
     //$('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
-    
+
     $("#search_params").data("current_zipcode", "");
     // County circles
     zipcodes = {};
@@ -570,7 +533,7 @@
             // else {
             //   onZipcodeSelected(zipcode, circlePosition);
             // }
-            
+
             $("#box-summary-county").data("current_zipcode", zipcode.code);
             onZipcodeSelected(zipcode, circlePosition);
           });
@@ -603,7 +566,7 @@
   }
   function drawCountyCircles(container) {
     //$('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
-    
+
     $("#search_params").data("current_county_id", "");
     // County circles
     counties = {};
@@ -655,7 +618,7 @@
 
         if('ontouchend' in document) {
           google.maps.event.addListener(countyCircles[nCountyCircles], 'click', function(e) {
-            
+
             $("#box-summary-county").data("current_county_id", county.id);
             onCountySelected(county, circlePosition);
           });
@@ -688,7 +651,7 @@
   }
   function drawStateCircles(container) {
     //$('h1').html('Tech Companies by County <small>(click, filter or pick to learn more)</small>');
-    
+
     $("#search_params").data("current_county_id", "");
     // County circles
     states = {};
@@ -921,7 +884,7 @@
   function getRandomInt (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  
+
   function onStateSelected(state, circlePosition) {
     //$('h1').html('Tech Companies in '+county.name);
     $("#search_params").data("state_name", state.name);
@@ -1048,12 +1011,12 @@
           } else {
             $(this).addClass("active");
             searchParams.data("kickstarter", true);
-          
+
 	    $('.gmap').each(function() {
     	      $('#box-summary-total').hide();
 	      $('#tooltip').remove();
 	      $('#box-events-list').hide("fast");
-          
+
       	      clearCountyCircles();
               // clearCompanyOffices();
               drawKickstarterCompanyOffices(this);
@@ -1096,7 +1059,7 @@
         });
     });
   }
-  
+
   function setCategoryNameListener() {
       $('#search_form').on('submit', function(e){
           e.preventDefault();
@@ -1226,7 +1189,7 @@
     $('#county-info .manager-holder').html('');
 
     currentRequests.push($.getJSON($(container).data("bottom_list_url"), searchParams(), function(data) {
-      
+
       $.each(data, function(i, group) {
         switch(i){
           case 'freelancers':
@@ -1235,11 +1198,11 @@
               $('#freelancer_tpl').tmpl(obj.freelancer).appendTo( $('.freelancers-list-contents') );
             })
             break;
-          
+
           case 'jobs':
             $('.job-list-contents ul').html('');
             $.each(group, function(key, obj){
-              $('#job_tpl').tmpl(obj.job).appendTo( $('.job-list-contents ul') );  
+              $('#job_tpl').tmpl(obj.job).appendTo( $('.job-list-contents ul') );
             })
             break;
 
@@ -1253,13 +1216,13 @@
           case 'companies':
             $('.new-companies-list-contents').html('');
             $.each(group, function(key, obj){
-              $('#company_bottom_tpl').tmpl(obj.company).appendTo( $('.new-companies-list-contents') );  
+              $('#company_bottom_tpl').tmpl(obj.company).appendTo( $('.new-companies-list-contents') );
             })
             break;
           case 'community_manager':
             if(group == null){break;}
             $('#county-info .manager-holder').html('');
-            $('#company_manager_tpl').tmpl(group).appendTo( $('#county-info .manager-holder') );  
+            $('#company_manager_tpl').tmpl(group).appendTo( $('#county-info .manager-holder') );
             break;
 
         }
@@ -1287,7 +1250,7 @@
               iscounty = true;
               //Upate current county id.
               $("#search_params").data("current_county_id", countiesMap[result.address_components[0].long_name])
-              
+
               // $('#county-id').text($("#search_params").data("current_county_id"))
               // break;
             }
@@ -1300,10 +1263,10 @@
               $("#search_params").data("current_country_name", result.address_components[0].long_name)
             }
             if(types[j] == 'postal_code'){
-              $("#search_params").data("current_zipcode", result.address_components[0].long_name) 
+              $("#search_params").data("current_zipcode", result.address_components[0].long_name)
             }
 
-             
+
           }
         }
         // updateBottomLists(container);
