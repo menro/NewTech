@@ -69,18 +69,18 @@
   border-top: 4px solid #B0B0B0;
   border-bottom: 4px solid #B0B0B0;
 
-  background-image: linear-gradient(bottom, rgb(255,255,255) 1%, rgb(208,216,222) 100%);
-  background-image: -o-linear-gradient(bottom, rgb(255,255,255) 1%, rgb(208,216,222) 100%);
-  background-image: -moz-linear-gradient(bottom, rgb(255,255,255) 1%, rgb(208,216,222) 100%);
-  background-image: -webkit-linear-gradient(bottom, rgb(255,255,255) 1%, rgb(208,216,222) 100%);
-  background-image: -ms-linear-gradient(bottom, rgb(255,255,255) 1%, rgb(208,216,222) 100%);
+  background-image: linear-gradient(bottom, rgb(255,255,255) 1%, rgb(176,176,176) 100%);
+  background-image: -o-linear-gradient(bottom, rgb(255,255,255) 1%, rgb(176,176,176) 100%);
+  background-image: -moz-linear-gradient(bottom, rgb(255,255,255) 1%, rgb(176,176,176) 100%);
+  background-image: -webkit-linear-gradient(bottom, rgb(255,255,255) 1%, rgb(176,176,176) 100%);
+  background-image: -ms-linear-gradient(bottom, rgb(255,255,255) 1%, rgb(176,176,176) 100%);
 
   background-image: -webkit-gradient(
     linear,
     left bottom,
     left top,
     color-stop(0.01, rgb(255,255,255)),
-    color-stop(1, rgb(208,216,222))
+    color-stop(1, rgb(176,176,176))
   );
 }
 
