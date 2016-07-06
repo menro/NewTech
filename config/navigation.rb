@@ -5,7 +5,7 @@ SimpleNavigation::Configuration.run do |navigation|
   navigation.selected_class = 'active'
 
   navigation.items do |primary|
-    primary.item :present, t(:'simple_navigation.present'), "http://present.bdnt.org/" , :link => {:target => '_blank'}
+    primary.item :present_at_BDNT, t(:'simple_navigation.present'), "http://present.bdnt.org/" , :link => {:target => '_blank'}
     primary.item :message_board, t(:'simple_navigation.message_board'), "http://www.meetup.com/bdnewtech/messages/boards/", :link => {:target => '_blank'}
     primary.item :jobs_board, t(:'simple_navigation.jobs'), hiring_path
     primary.item :sponsors, t(:'simple_navigation.sponsors'), sponsor_view_path, :link => {:target => '_blank'}
