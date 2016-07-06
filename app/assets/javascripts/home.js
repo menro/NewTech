@@ -512,7 +512,7 @@
           strokeColor: '#ffffff',
           strokeOpacity: 0.6,
           strokeWeight: 2,
-          fillColor: "#ee8485",
+          fillColor: "#000000",
           fillOpacity: 0.6,
           map: currentMap,
           center: circlePosition,
