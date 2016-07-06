@@ -65,7 +65,7 @@
 
 #events_bar {
   padding: 5px 0;
-  color: #2E474E;
+  color: #77797F
   border-top: 4px solid #0F373F;
   border-bottom: 4px solid #0F373F;
 
@@ -135,7 +135,7 @@
 }
 
 #events_bar li.event-item .event-item-inner a {
-    color: #063640;
+    color: #B0B0B0
     text-decoration: none;
 }
 
@@ -163,7 +163,7 @@
 }
 
 #events_bar li.event-item .event-item-inner .status.rsvp {
-  background-color: #0A3545;
+  background-color: #B9B9B9;
   color: white;
 }
 #events_bar li.event-item .event-item-inner .status.rsvp:before {
@@ -325,7 +325,7 @@
       height: 25px;
     }
     a {
-      color: #7895A4;
+      color: #000000;
       margin: 2px 2px 2px 2px;
     }
     a.btn:hover {
@@ -375,8 +375,8 @@
   width: 688px;
   top: 10px;
   left: 0px;
-  background-color: #7895A4;
-  border-color: #FFFFFF;
+  background-color: #B0B0B0;
+  border-color: #B9B9B9;
   opacity: .8;
   color: #FFFFFF;
   font-weight: normal;
@@ -466,20 +466,20 @@
 }
 // STYLES FOR SUMMARY BOXES
 
-.shadowed {
-  border: 1px solid #777777;
-  box-shadow: 4px 4px 2px #999;
-}
+//.shadowed {
+  //border: 1px solid #777777;
+  //box-shadow: 4px 4px 2px #999;
+//}
 
 .summary-box {
   width: 200px;
-  background-color: #7895A4;
+  background-color: #B0B0B0;
   opacity: 0.8;
   padding: 10px;
   display:block;
   position: absolute;
   left: 20px;
-  border-color: #507282;
+  border-color: #b9B9B9;
 }
 
 .bottom-left-1 {
@@ -562,7 +562,7 @@ table.summary-table td.summary-numbers {
     opacity: 0.8;
     box-shadow: 4px 4px 2px #999;
     width: 95%;
-    border: 2px solid #7895A4;
+    border: 2px solid #b9B9B9;
     margin-bottom: 10px;
     h3{
       font-size: 15px!important;
@@ -574,7 +574,7 @@ table.summary-table td.summary-numbers {
     box-shadow: 4px 4px 2px #999;
     width: 95%;
     height: 70%;
-    border: 2px solid #7895A4;
+    border: 2px solid #b9B9B9;
     padding-bottom: 5px;
 }
 #sponsor-box {
@@ -584,7 +584,7 @@ table.summary-table td.summary-numbers {
     width: 95%;
     height: 115px;
     margin-top: 5%;
-    border: 2px solid #7895A4;
+    border: 2px solid #B9B9B9;
     margin-bottom: 10px;
 }
 .company-item{
@@ -610,7 +610,7 @@ table.summary-table td.summary-numbers {
     font-size: 17px;
     line-height: 20px;
     font-weight: bolder;
-    color: #7895A4;
+    color: #000000;
     font-style: inherit;
     text-shadow: white 0.1em 0.1em 0.1em;
 }
@@ -641,18 +641,18 @@ table.summary-table td.summary-numbers {
     h1{
        font-size: 34px;
         line-height: 36px;
-        color: #7895A4;
+        color: #000000
         font-weight: normal;
     }
     h2{
-        color: #7895A4;
+        color: #000000
         line-height: 50px;
         font-weight: bolder;
     }
     h4{
         font-size: 13px;
         font-weight: normal;
-        color: #7895A4;
+        color: #000000
     }
 }
 #pay-now{
