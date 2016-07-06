@@ -11,7 +11,7 @@
 #tooltip-centerer
   #tooltip.alert.alert-info
     %h2
-      NEW TECH IS A COMMUNITY OF OVER 10,000 GEEKS WHO LIVE AND WORK IN COLORADO.
+      NEW TECH IS A COMMUNITY OF OVER 12,000 GEEKS WHO LIVE AND WORK IN COLORADO.
     %hr
     Hover a hotspot to see the breakout of our companies by county, or adjust the filters to customize
     %button.close{:type => "button", :data => {:dismiss => "alert" }} x
@@ -47,7 +47,7 @@
     = render :partial => 'company_list'
   #sponsor-box
     = render :partial => 'sponsor_box'
-    
+
 / .bottom-list-boxes
 /  .job-board-list
 /    = render 'job-board-list'
@@ -68,4 +68,3 @@
 = content_for :javascripts do
   = javascript_include_tag("https://maps.googleapis.com/maps/api/js?sensor=false")
   = javascript_include_tag("http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.5/src/markerwithlabel.js")
-
