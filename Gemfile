@@ -112,7 +112,7 @@ end
 gem 'angellist_api'
 
 # fetching data from crunchbase api
-gem 'crunchbase'
+#gem 'crunchbase'
 
 # rack mini profiler for analyzing page load time
 # gem 'rack-mini-profiler'
