@@ -14,13 +14,22 @@ Ability to register for new tech events (integration with Meetup.com). Syncing c
 
 Comments, contributors and forkers all welcome
 
+## Environment setup for ruby newbies
+
+Install [rvm](https://rvm.io/). Then:
+
+    $ . ~/.rvm/scripts/rvm
+    $ rvm install 1.9.3
+    $ rvm use 1.9.3
+    $ ruby -v # should show version 1.9.3
+    $ gem install bundle
 
 ## Getting Started
 
 At the command prompt (from Rails.root project), create .env and database.yml configuration files and setup preferences:
 
     $ cp .env-example .env
-    $ cp config/database.yml-example config/database.yml
+    $ cp config/database.yml-example config/database.yml # configure for a postgresql user with create database privileges
 
 Setup gem dependencies:
 
