@@ -1,4 +1,6 @@
 class Country < ActiveRecord::Base
+  DEFAULT = 'United States'
+
   attr_accessible :name
 
   has_many :states
