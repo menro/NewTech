@@ -8,7 +8,7 @@ json.each do |row|
   name = row[:name].gsub!("County", "").strip
   County.create do |c|
     c.name = name
-    c.state = row[:state_name]
+    c.state = State.find_by_name( row[:state_name] )
     c.latitude = row[:primary_latitude]
     c.longitude = row[:primary_longitude]
   end unless County.find_by_name name

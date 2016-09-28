@@ -1,4 +1,5 @@
 class State < ActiveRecord::Base
+  DEFAULTS = ['Colorado']
 
   # default_scope order('ID ASC')
 

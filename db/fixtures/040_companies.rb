@@ -27,7 +27,7 @@ json.each do |row|
     c.permalink = details.delete("permalink")
     c.homepage_url = details.delete("homepage_url")
 
-    c.hiring = false
+    #c.hiring = false
     c.enabled = true
 
     c.employees_type = employees_type_from_integer(details.delete("number_of_employees"))
@@ -59,7 +59,7 @@ json.each do |row|
       c.longitude     = company_offices.delete("longitude")
     end
     uri = details.delete("screenshot")
-    c.image = URI.parse(uri) unless uri.nil? or uri.empty?
+    #c.image = URI.parse(uri) unless uri.nil? or uri.empty?
   end
   company.save if company.valid?
 end
